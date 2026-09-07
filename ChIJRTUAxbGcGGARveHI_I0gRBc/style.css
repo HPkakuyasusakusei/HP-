@@ -1,0 +1,641 @@
+/* ==========================================================================
+   キッチン・ワチ 試作サイト 共通CSS
+   コンセプト: 台所の灯りが、向小金の夕方に届く。
+   ========================================================================== */
+
+:root {
+  --color-bg: #F7F2E6;         /* 米白 */
+  --color-card: #FFFBF2;       /* カード背景 */
+  --color-dark: #2B3A45;       /* 宵紺 */
+  --color-accent: #D98A34;     /* 唐揚げ狐色 */
+  --color-accent-deep: #B96F22;
+  --color-leaf: #6E8B6A;       /* 仕切り葉みどり */
+  --color-red: #B15C3C;        /* 落ち着いた朱(極小使用) */
+  --color-text: #332A20;       /* 墨色 */
+  --color-text-onDark: #F3EAD9;/* 温白 */
+  --max-width: 1120px;
+  --radius-s: 4px;
+  --radius-m: 10px;
+}
+
+/* ---------- reset ---------- */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  line-height: 1.85;
+  letter-spacing: 0.02em;
+  position: relative;
+  min-height: 100vh;
+}
+h1, h2, h3, h4 {
+  font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+  font-weight: 700;
+  color: var(--color-dark);
+  line-height: 1.5;
+  margin: 0 0 0.75em;
+}
+p { margin: 0 0 1em; }
+a { color: var(--color-accent-deep); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; display: block; }
+ul, ol { margin: 0; padding: 0; }
+li { list-style: none; }
+button { font: inherit; }
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 56px 0;
+}
+.section--card { background: var(--color-card); }
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.section-heading h2 {
+  display: inline-block;
+  font-size: 1.6rem;
+  position: relative;
+  padding-bottom: 0.6em;
+}
+.section-heading h2::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 4px;
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+.section-heading p { color: var(--color-text); }
+
+/* ==========================================================================
+   SAMPLE 透かし(常時表示・操作を妨げない)
+   ========================================================================== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Ctext x='-20' y='140' font-family='Arial, sans-serif' font-size='38' font-weight='bold' fill='%232B3A45' transform='rotate(-35 120 120)'%3ESAMPLE%3C/text%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+body::after {
+  content: "SAMPLE";
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  z-index: 9999;
+  pointer-events: none;
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-dark);
+  background: rgba(247, 242, 230, 0.88);
+  border: 1px solid rgba(43, 58, 69, 0.35);
+  border-radius: var(--radius-s);
+  padding: 4px 9px;
+}
+@media (max-width: 767px) {
+  body::after { bottom: 78px; }
+}
+
+/* ==========================================================================
+   ヘッダー
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--color-bg);
+  border-bottom: 2px solid var(--color-leaf);
+}
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.brand {
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  letter-spacing: 0.04em;
+}
+.brand:hover { text-decoration: none; opacity: 0.85; }
+.brand span { color: var(--color-accent-deep); }
+
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+}
+.site-nav a {
+  color: var(--color-text);
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 4px 2px;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  color: var(--color-accent-deep);
+  border-bottom-color: var(--color-accent);
+  text-decoration: none;
+}
+
+.header-tel {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--color-dark);
+  border: 1px solid var(--color-accent);
+  border-radius: 999px;
+  padding: 6px 16px;
+}
+.header-tel:hover { background: var(--color-accent); color: var(--color-dark); text-decoration: none; }
+.header-tel .tel-label {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--color-leaf);
+}
+.header-tel .tel-number { font-size: 1.05rem; }
+
+@media (max-width: 767px) {
+  .header-inner { padding: 10px 16px; }
+  .brand { font-size: 1.1rem; }
+  .site-nav ul { gap: 4px 12px; font-size: 0.8rem; }
+  .site-nav a { font-size: 0.8rem; }
+  .header-tel { padding: 5px 12px; }
+  .header-tel .tel-number { font-size: 0.92rem; }
+}
+
+/* ==========================================================================
+   モバイル固定「電話で注文する」バー
+   ========================================================================== */
+.mobile-cta-bar { display: none; }
+@media (max-width: 767px) {
+  .mobile-cta-bar {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 900;
+    background: var(--color-accent);
+    border-top: 2px solid var(--color-accent-deep);
+    padding: env(safe-area-inset-bottom, 0px) 0 0;
+  }
+  .mobile-cta-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 13px 10px;
+    color: var(--color-dark);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .mobile-cta-button:hover { text-decoration: none; }
+  .mobile-cta-icon { font-size: 1.05rem; }
+  body { padding-bottom: 62px; }
+}
+
+/* ==========================================================================
+   ボタン
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 13px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.98rem;
+  border: 2px solid transparent;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+}
+.btn:hover { text-decoration: none; opacity: 0.88; }
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-dark);
+  border-color: var(--color-accent);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--color-accent-deep);
+  border-color: var(--color-accent);
+}
+.btn-dark {
+  background: var(--color-dark);
+  color: var(--color-text-onDark);
+  border-color: var(--color-dark);
+}
+.btn-large { padding: 17px 36px; font-size: 1.1rem; }
+.btn-block { width: 100%; }
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+@media (max-width: 480px) {
+  .cta-row { flex-direction: column; }
+  .btn { width: 100%; }
+}
+
+/* ==========================================================================
+   弁当仕切りグリッド(非対称カラム)
+   ========================================================================== */
+.bento-grid {
+  display: grid;
+  gap: 3px;
+  background: var(--color-leaf);
+  border: 3px solid var(--color-leaf);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+}
+.bento-grid > * { background: var(--color-card); padding: 28px 24px; }
+
+.hero-bento {
+  grid-template-columns: 5fr 4fr 3fr;
+  grid-template-areas: "copy photo accent";
+}
+.hero-copy { grid-area: copy; display: flex; flex-direction: column; justify-content: center; }
+.hero-photo { grid-area: photo; display: flex; align-items: stretch; }
+.hero-photo .photo-placeholder { width: 100%; }
+.hero-accent {
+  grid-area: accent;
+  background-image: radial-gradient(var(--color-accent) 3px, transparent 3.5px);
+  background-size: 18px 18px;
+  background-color: var(--color-card);
+}
+.hero-copy h1 { font-size: 1.75rem; margin-bottom: 0.6em; }
+.hero-sub { font-size: 0.98rem; }
+
+.reasons-grid { grid-template-columns: 5fr 3fr 4fr; }
+.reason-card h3 { font-size: 1.08rem; margin-bottom: 0.5em; }
+.reason-card p { font-size: 0.92rem; margin-bottom: 0; }
+
+.genre-grid { grid-template-columns: 5fr 3fr 4fr; }
+.genre-card h3 { font-size: 1.1rem; }
+.genre-card p { font-size: 0.9rem; }
+.genre-card .photo-placeholder { margin-bottom: 1em; }
+
+@media (max-width: 900px) {
+  .hero-bento { grid-template-columns: 1fr; grid-template-areas: "copy" "photo" "accent"; }
+  .hero-accent { min-height: 56px; }
+  .reasons-grid,
+  .genre-grid { grid-template-columns: 1fr; }
+}
+
+/* 唐揚げドット */
+.karaage-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  margin-bottom: 0.7em;
+}
+
+/* 落ち着いた朱: 唐揚げサービスの心づかい強調のみに極小使用 */
+.karaage-highlight {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-red);
+  border: 1px solid var(--color-red);
+  border-radius: 999px;
+  padding: 2px 10px;
+  margin-bottom: 0.8em;
+}
+
+/* ==========================================================================
+   バラン(仕切り葉)モチーフの区切り
+   ========================================================================== */
+.baran-divider {
+  height: 26px;
+  background: var(--color-leaf);
+  clip-path: polygon(
+    0% 0%, 4% 100%, 8% 0%, 12% 100%, 16% 0%, 20% 100%, 24% 0%, 28% 100%,
+    32% 0%, 36% 100%, 40% 0%, 44% 100%, 48% 0%, 52% 100%, 56% 0%, 60% 100%,
+    64% 0%, 68% 100%, 72% 0%, 76% 100%, 80% 0%, 84% 100%, 88% 0%, 92% 100%,
+    96% 0%, 100% 100%, 100% 0%
+  );
+}
+
+/* ==========================================================================
+   写真プレースホルダー
+   ========================================================================== */
+.photo-placeholder {
+  aspect-ratio: 4 / 3;
+  min-height: 140px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    #EFE6D2,
+    #EFE6D2 12px,
+    #E4D7BC 12px,
+    #E4D7BC 24px
+  );
+  border: 1px dashed rgba(51, 42, 32, 0.45);
+  border-radius: var(--radius-s);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1em;
+}
+.photo-placeholder span {
+  font-size: 0.78rem;
+  color: var(--color-text);
+  background: rgba(255, 251, 242, 0.75);
+  padding: 4px 10px;
+  border-radius: var(--radius-s);
+}
+
+/* ==========================================================================
+   宵紺の帯セクション + 窓明かり
+   ========================================================================== */
+.scene-band {
+  position: relative;
+  background: var(--color-dark);
+  color: var(--color-text-onDark);
+  padding: 64px 0;
+  overflow: hidden;
+}
+.scene-band h2 { color: var(--color-text-onDark); }
+.scene-band .section-heading h2::after { background: var(--color-accent); }
+.scene-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.window-light {
+  position: absolute;
+  width: 64px;
+  height: 84px;
+  border-radius: 8px;
+  background: var(--color-accent);
+  opacity: 0.85;
+  box-shadow: 0 0 34px 12px rgba(217, 138, 52, 0.45), 0 0 70px 24px rgba(217, 138, 52, 0.2);
+  z-index: 1;
+}
+.window-light--a { top: 14%; left: 8%; }
+.window-light--b { bottom: 12%; right: 10%; width: 52px; height: 68px; }
+@media (max-width: 600px) {
+  .window-light { opacity: 0.55; }
+}
+
+/* ==========================================================================
+   お客様の声 バッジ・カード
+   ========================================================================== */
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-card);
+  border: 1px solid var(--color-leaf);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+.rating-badge .rating-score { font-size: 1.3rem; color: var(--color-accent-deep); }
+.rating-badge .stars { color: var(--color-accent); letter-spacing: 0.05em; }
+.rating-badge .rating-count { font-weight: 500; font-size: 0.85rem; color: var(--color-text); }
+
+.stars { color: var(--color-accent); font-size: 1.05rem; letter-spacing: 0.05em; }
+
+.voice-excerpt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.voice-card {
+  background: var(--color-card);
+  border: 1px solid rgba(110, 139, 106, 0.4);
+  border-radius: var(--radius-m);
+  padding: 22px;
+}
+.voice-card .stars { display: block; margin-bottom: 0.5em; }
+.voice-card blockquote {
+  margin: 0 0 0.7em;
+  font-size: 0.96rem;
+}
+.voice-card .voice-meta {
+  font-size: 0.82rem;
+  color: var(--color-leaf);
+}
+.voice-card .voice-caption {
+  margin-top: 0.6em;
+  font-size: 0.82rem;
+  color: var(--color-text);
+}
+@media (max-width: 700px) {
+  .voice-excerpt-grid { grid-template-columns: 1fr; }
+}
+
+.review-card {
+  background: var(--color-card);
+  border: 1px solid rgba(110, 139, 106, 0.4);
+  border-left: 5px solid var(--color-accent);
+  border-radius: var(--radius-s);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.review-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 0.8em;
+}
+.review-card .voice-meta {
+  font-size: 0.85rem;
+  color: var(--color-text);
+}
+.review-body {
+  white-space: pre-line;
+  font-size: 0.96rem;
+}
+
+/* ==========================================================================
+   コールアウトボックス(価格・注記等)
+   ========================================================================== */
+.callout-box {
+  background: var(--color-card);
+  border: 1px solid var(--color-leaf);
+  border-left: 5px solid var(--color-leaf);
+  border-radius: var(--radius-s);
+  padding: 22px 24px;
+}
+.callout-box h3 { font-size: 1.05rem; margin-bottom: 0.5em; }
+.callout-box p { margin-bottom: 0; font-size: 0.94rem; }
+
+/* ==========================================================================
+   ご注文の流れ(配達ルートの点線モチーフ)
+   ========================================================================== */
+.order-flow {
+  display: flex;
+  gap: 0;
+  counter-reset: flow;
+}
+.flow-step {
+  position: relative;
+  flex: 1;
+  text-align: center;
+  padding: 0 14px;
+}
+.flow-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--color-dark);
+  color: var(--color-text-onDark);
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: 0.7em;
+}
+.flow-step h3 { font-size: 1rem; margin-bottom: 0.4em; }
+.flow-step p { font-size: 0.88rem; }
+.flow-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 27px;
+  left: calc(50% + 27px + 10px);
+  width: calc(100% - 54px - 20px);
+  border-top: 3px dashed var(--color-accent);
+}
+@media (max-width: 700px) {
+  .order-flow { flex-direction: column; gap: 28px; }
+  .flow-step:not(:last-child)::after {
+    top: auto;
+    bottom: -20px;
+    left: 50%;
+    width: 0;
+    height: 20px;
+    border-top: none;
+    border-left: 3px dashed var(--color-accent);
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================================================
+   フッター
+   ========================================================================== */
+.site-footer {
+  background: var(--color-dark);
+  color: var(--color-text-onDark);
+  padding: 44px 0 24px;
+  margin-top: 40px;
+}
+.footer-inner { text-align: center; }
+.footer-shop-name { font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 700; font-size: 1.15rem; margin-bottom: 0.3em; }
+.footer-address, .footer-tel { font-size: 0.92rem; margin-bottom: 0.3em; }
+.footer-tel a { color: var(--color-accent); font-weight: 700; }
+.footer-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0;
+  padding: 6px 16px;
+  border: 1px solid rgba(243, 234, 217, 0.4);
+  border-radius: 999px;
+  color: var(--color-text-onDark);
+}
+.footer-rating:hover { text-decoration: none; opacity: 0.85; }
+.footer-rating .rating-score { font-weight: 700; color: var(--color-accent); }
+.footer-sample-note {
+  max-width: 560px;
+  margin: 18px auto 10px;
+  font-size: 0.78rem;
+  color: rgba(243, 234, 217, 0.75);
+  border-top: 1px solid rgba(243, 234, 217, 0.25);
+  padding-top: 14px;
+}
+.footer-copyright { font-size: 0.75rem; color: rgba(243, 234, 217, 0.6); }
+
+/* ==========================================================================
+   ページヒーロー(下層ページ用・シンプル)
+   ========================================================================== */
+.page-hero {
+  padding: 48px 0 36px;
+  text-align: center;
+}
+.page-hero h1 { font-size: 1.7rem; }
+.page-hero .page-hero-lead { max-width: 560px; margin: 0 auto; }
+
+/* ==========================================================================
+   アクセスページ
+   ========================================================================== */
+.info-table { width: 100%; border-collapse: collapse; background: var(--color-card); border-radius: var(--radius-m); overflow: hidden; }
+.info-table th, .info-table td {
+  text-align: left;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(110, 139, 106, 0.3);
+  font-size: 0.95rem;
+}
+.info-table th { width: 30%; color: var(--color-leaf); font-weight: 700; white-space: nowrap; }
+.info-table tr:last-child th, .info-table tr:last-child td { border-bottom: none; }
+
+.map-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 3px solid var(--color-leaf);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+}
+.map-frame iframe { width: 100%; height: 100%; border: 0; }
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+@media (max-width: 800px) {
+  .two-col { grid-template-columns: 1fr; }
+}
+
+.final-cta {
+  background: var(--color-card);
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius-m);
+  padding: 36px 24px;
+  text-align: center;
+}
+.final-cta h2 { margin-bottom: 0.4em; }
+
+/* utility */
+.text-center { text-align: center; }
+.mt-lg { margin-top: 2.5rem; }
+.small-note { font-size: 0.82rem; color: var(--color-leaf); }
