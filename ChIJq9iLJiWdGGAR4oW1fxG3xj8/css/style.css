@@ -1,0 +1,662 @@
+:root{
+  --color-bg:#F7F3EC;
+  --color-bg-section:#EFE7D8;
+  --color-text:#3E362E;
+  --color-accent:#6B8068;
+  --color-accent-dark:#586b56;
+  --color-badge:#C9A227;
+  --color-rose:#C98C7A;
+  --color-stitch:#B9AE9A;
+  --color-gingham:#8CA0AA;
+  --color-link:#4A6670;
+  --font-heading:"Zen Maru Gothic","M PLUS Rounded 1c",sans-serif;
+  --font-body:"Noto Sans JP","Hiragino Sans",sans-serif;
+  --radius-s:6px;
+  --radius-m:10px;
+  --container-w:1080px;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--color-text);
+  background-color:var(--color-bg);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(140,160,170,.08) 0px, rgba(140,160,170,.08) 1px, transparent 1px, transparent 26px),
+    repeating-linear-gradient(90deg, rgba(140,160,170,.08) 0px, rgba(140,160,170,.08) 1px, transparent 1px, transparent 26px);
+  line-height:1.8;
+  font-size:16px;
+  padding-bottom:64px; /* モバイル固定バーに本文が隠れないよう常時確保 */
+}
+img{ max-width:100%; display:block; }
+a{ color:var(--color-link); }
+h1,h2,h3,h4{
+  font-family:var(--font-heading);
+  color:var(--color-text);
+  line-height:1.5;
+  margin:0 0 .6em;
+}
+p{ margin:0 0 1em; }
+ul{ margin:0; padding:0; list-style:none; }
+
+.container{
+  max-width:var(--container-w);
+  margin-inline:auto;
+  padding-inline:clamp(16px,5vw,32px);
+}
+
+.section{ padding-block:clamp(40px,7vw,72px); }
+.section--tint{ background-color:var(--color-bg-section); }
+
+.section-heading{
+  text-align:center;
+  margin-bottom:2.2em;
+}
+.section-heading__eyebrow{
+  display:block;
+  color:var(--color-link);
+  font-size:.85rem;
+  font-weight:700;
+  letter-spacing:.12em;
+  margin-bottom:.6em;
+}
+.section-heading h2{
+  font-size:clamp(1.4rem,3vw,1.9rem);
+}
+.section-heading p{
+  max-width:36em;
+  margin-inline:auto;
+  color:var(--color-text);
+}
+
+/* ============ SAMPLE watermark ============ */
+.sample-watermark{
+  position:fixed; inset:0; z-index:9999;
+  pointer-events:none; overflow:hidden;
+}
+.sample-watermark__grid{
+  position:absolute; inset:-50%;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,160px);
+  grid-auto-rows:100px;
+  transform:rotate(-30deg);
+  opacity:.07;
+}
+.sample-watermark__grid span{
+  font-size:20px; font-weight:700; letter-spacing:.15em;
+  color:#3E362E; white-space:nowrap;
+}
+.sample-watermark__corner{
+  position:fixed; top:18px; right:-54px; width:200px;
+  padding:6px 0; text-align:center;
+  background:#C98C7A; color:#fff; font-weight:700; letter-spacing:.1em;
+  transform:rotate(45deg);
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+
+/* ============ Header ============ */
+.site-header{
+  position:sticky; top:0; z-index:400;
+  background-color:var(--color-bg);
+  border-bottom:1px dashed var(--color-stitch);
+}
+.site-header__inner{
+  max-width:var(--container-w);
+  margin-inline:auto;
+  padding:14px clamp(16px,5vw,32px) 10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+.site-logo{
+  display:flex;
+  flex-direction:column;
+  text-decoration:none;
+  color:var(--color-text);
+  line-height:1.2;
+}
+.site-logo__sub{
+  font-family:var(--font-body);
+  font-size:.62rem;
+  letter-spacing:.2em;
+  color:var(--color-link);
+}
+.site-logo__main{
+  font-family:var(--font-heading);
+  font-size:1.35rem;
+  font-weight:700;
+  padding-bottom:3px;
+  border-bottom:2px dashed var(--color-accent);
+}
+.site-header__tel{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background-color:var(--color-accent);
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  font-size:.82rem;
+  padding:9px 16px;
+  border-radius:999px;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.site-header__tel-number{ letter-spacing:.02em; }
+
+.site-nav{
+  border-top:1px dashed rgba(185,174,154,.6);
+}
+.site-nav__list{
+  display:flex;
+  gap:2px;
+  max-width:var(--container-w);
+  margin-inline:auto;
+  padding:6px clamp(8px,4vw,24px);
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.site-nav__list li{ flex-shrink:0; }
+.site-nav__list a{
+  display:inline-block;
+  padding:8px 14px;
+  color:var(--color-text);
+  text-decoration:none;
+  font-size:.88rem;
+  font-weight:500;
+  border-radius:999px;
+  white-space:nowrap;
+}
+.site-nav__list a:hover{
+  background-color:var(--color-bg-section);
+  color:var(--color-link);
+}
+.site-nav__list a.is-active{
+  background-color:var(--color-accent);
+  color:#fff;
+  font-weight:700;
+}
+
+/* ============ Footer ============ */
+.site-footer{
+  background-color:var(--color-bg-section);
+  border-top:1px dashed var(--color-stitch);
+  padding-block:clamp(32px,6vw,48px);
+  margin-top:clamp(48px,8vw,80px);
+}
+.site-footer__inner{
+  max-width:var(--container-w);
+  margin-inline:auto;
+  padding-inline:clamp(16px,5vw,32px);
+  text-align:center;
+}
+.site-footer__name{
+  font-family:var(--font-heading);
+  font-weight:700;
+  font-size:1.1rem;
+  margin-bottom:.4em;
+}
+.site-footer__inner p{ margin:0 0 .5em; font-size:.9rem; }
+.site-footer__tel a{ color:var(--color-link); font-weight:700; text-decoration:none; }
+.site-footer__sns a{
+  color:var(--color-link);
+  text-decoration:none;
+  font-weight:700;
+}
+.site-footer__notice{
+  margin-top:1.2em;
+  padding-top:1em;
+  border-top:1px dashed var(--color-stitch);
+  font-size:.78rem;
+  color:var(--color-text);
+}
+.site-footer__copyright{
+  font-size:.75rem;
+  color:var(--color-text);
+  margin-top:.6em;
+  margin-bottom:0;
+}
+
+/* ============ Mobile fixed CTA bar ============ */
+.mobile-cta-bar{
+  display:none;
+  position:fixed;
+  left:0; right:0; bottom:0;
+  z-index:10000; /* SAMPLE透かし(z-index:9999)より手前でタップ可能にする */
+  pointer-events:auto;
+}
+.mobile-cta-bar__btn{
+  flex:1 1 50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:14px 8px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  font-size:.82rem;
+  text-align:center;
+}
+.mobile-cta-bar__btn--tel{ background-color:var(--color-accent); }
+.mobile-cta-bar__btn--map{ background-color:var(--color-badge); }
+
+/* ============ Buttons / CTA ============ */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:14px 30px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:.95rem;
+  text-decoration:none;
+  border:2px solid transparent;
+  cursor:pointer;
+}
+.btn--primary{ background-color:var(--color-accent); color:#fff; }
+.btn--primary:hover{ background-color:var(--color-accent-dark); }
+.btn--outline{
+  background-color:transparent;
+  color:var(--color-accent);
+  border-color:var(--color-accent);
+}
+.btn--outline:hover{ background-color:var(--color-accent); color:#fff; }
+.btn--block{ width:100%; }
+.btn-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.btn-group--center{ justify-content:center; }
+
+/* ============ Fabric tag badge ============ */
+.fabric-tag{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background-color:var(--color-badge);
+  color:#fff;
+  padding:8px 18px 8px 26px;
+  border-radius:var(--radius-s);
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.04em;
+  text-decoration:none;
+}
+.fabric-tag::before{
+  content:"";
+  position:absolute;
+  left:9px; top:50%;
+  width:6px; height:6px;
+  transform:translateY(-50%);
+  border-radius:50%;
+  background-color:var(--color-bg);
+  box-shadow:0 0 0 1px rgba(255,255,255,.7) inset;
+}
+.fabric-tag--rose{ background-color:var(--color-rose); }
+.fabric-tag--outline{
+  background-color:var(--color-bg);
+  color:var(--color-text);
+  border:1px dashed var(--color-stitch);
+}
+.fabric-tag--outline::before{ background-color:var(--color-bg-section); }
+
+.rating-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background-color:#fff;
+  border:1px dashed var(--color-stitch);
+  border-radius:999px;
+  padding:8px 18px;
+  text-decoration:none;
+  color:var(--color-text);
+  font-size:.85rem;
+  font-weight:700;
+}
+.rating-chip__star{ color:var(--color-badge); }
+
+.stars{
+  color:var(--color-badge);
+  letter-spacing:2px;
+  font-size:1.05rem;
+  white-space:nowrap;
+}
+.stars .is-empty{ color:var(--color-stitch); }
+
+/* ============ Stitch divider ============ */
+.stitch-divider{
+  margin:clamp(36px,6vw,56px) 0;
+  text-align:center;
+  overflow:hidden;
+  color:var(--color-stitch);
+  font-size:13px;
+  letter-spacing:7px;
+  white-space:nowrap;
+}
+
+/* ============ Photo placeholder ============ */
+.photo-placeholder{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:16px;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 8px, rgba(185,174,154,.35) 8px 9px),
+    var(--color-bg-section);
+  border:2px dashed var(--color-stitch);
+  border-radius:var(--radius-s);
+  color:var(--color-text);
+  font-size:.85rem;
+  line-height:1.6;
+}
+.photo-placeholder--octagon{
+  clip-path:polygon(30% 0%,70% 0%,100% 30%,100% 70%,70% 100%,30% 100%,0% 70%,0% 30%);
+  border-radius:0;
+  border-style:solid;
+}
+
+/* ============ Hero ============ */
+.hero{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:clamp(24px,5vw,56px);
+  align-items:center;
+  padding-block:clamp(32px,6vw,64px);
+}
+.hero__eyebrow{
+  display:block;
+  color:var(--color-link);
+  font-weight:700;
+  letter-spacing:.1em;
+  font-size:.85rem;
+  margin-bottom:.8em;
+}
+.hero__title{
+  font-size:clamp(1.9rem,4.2vw,2.5rem);
+  margin-bottom:.35em;
+}
+.hero__catch{
+  font-family:var(--font-heading);
+  font-size:clamp(1.25rem,2.8vw,1.7rem);
+  color:var(--color-accent-dark);
+  margin-bottom:.5em;
+}
+.hero__lead{
+  font-size:1.02rem;
+  margin-bottom:1.4em;
+}
+.hero__badge-row{
+  margin-bottom:1.6em;
+}
+.hero__ctas{ margin-top:.4em; }
+
+/* ============ Clothesline (物干しモチーフ) ============ */
+.clothesline{
+  position:relative;
+  padding-top:44px;
+  margin-top:8px;
+}
+.clothesline::before{
+  content:"";
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+  background-image:repeating-linear-gradient(to right, var(--color-stitch) 0 8px, transparent 8px 15px);
+}
+.clothesline__list{
+  /* flex-wrapは行の必要幅(カード数×basis+gap)がコンテナ幅を超えると常に2行に折り返り、
+     吊り下げの糸がclothesline::beforeの上部一本線から浮いて見えるため、
+     コンテナ幅を必ずcols等分するCSS Gridに変更し、折り返し自体が起こらないようにする */
+  display:grid;
+  grid-template-columns:repeat(var(--clothesline-cols,3),minmax(0,1fr));
+  gap:clamp(28px,4vw,40px) clamp(16px,3vw,28px);
+}
+.clothesline__list--4{ --clothesline-cols:4; }
+.hanging-card{
+  position:relative;
+  width:100%;
+  min-width:0;
+  max-width:300px;
+  justify-self:center;
+  background-color:#fff;
+  border:1px solid rgba(185,174,154,.5);
+  border-radius:var(--radius-s);
+  padding:30px 20px 22px;
+  text-align:center;
+}
+.hanging-card::before{
+  content:"";
+  position:absolute;
+  top:-38px; left:50%;
+  transform:translateX(-50%);
+  width:2px; height:38px;
+  background-color:var(--color-stitch);
+}
+.hanging-card::after{
+  content:"";
+  position:absolute;
+  top:-42px; left:50%;
+  transform:translateX(-50%);
+  width:13px; height:13px;
+  border-radius:50%;
+  background-color:var(--color-accent);
+  border:3px solid var(--color-bg);
+}
+.hanging-card h3{
+  font-size:1.05rem;
+  margin-bottom:.5em;
+}
+.hanging-card p{
+  font-size:.88rem;
+  margin-bottom:0;
+}
+.hanging-card .photo-placeholder{
+  margin-bottom:.9em;
+  aspect-ratio:4/3;
+}
+
+/* ============ Food card (menu digest / lineup) ============ */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(20px,3vw,28px);
+}
+.card-grid--2{ grid-template-columns:repeat(2,1fr); }
+.food-card{
+  position:relative;
+  background-color:#fff;
+  border:1px solid rgba(185,174,154,.5);
+  border-radius:var(--radius-m);
+  padding-top:40px;
+  display:flex;
+  flex-direction:column;
+}
+.food-card::before{
+  content:"";
+  position:absolute;
+  top:-38px; left:50%;
+  transform:translateX(-50%);
+  width:2px; height:38px;
+  background-color:var(--color-stitch);
+}
+.food-card::after{
+  content:"";
+  position:absolute;
+  top:-42px; left:50%;
+  transform:translateX(-50%);
+  width:13px; height:13px;
+  border-radius:50%;
+  background-color:var(--color-accent);
+  border:3px solid var(--color-bg);
+}
+.food-card__photo{
+  margin:0 16px;
+  aspect-ratio:4/3;
+}
+.food-card__body{
+  padding:18px 20px 22px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  flex:1;
+}
+.food-card__badge{
+  position:absolute;
+  top:14px; left:14px;
+  z-index:2;
+}
+.food-card__title{
+  font-size:1.05rem;
+  margin-bottom:0;
+}
+.food-card__comment{
+  font-size:.88rem;
+  color:var(--color-text);
+  margin-bottom:0;
+  flex:1;
+}
+
+/* ============ Feature dish (看板メニュー特集) ============ */
+.feature-dish{
+  position:relative;
+  background-color:var(--color-bg-section);
+  border-radius:var(--radius-m);
+  padding:clamp(28px,4vw,44px);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(24px,4vw,40px);
+  align-items:center;
+}
+.feature-dish__badge{
+  position:absolute;
+  top:-14px; left:24px;
+}
+.feature-dish__text p{ margin-bottom:1em; }
+.feature-dish__note{
+  font-size:.85rem;
+  color:var(--color-link);
+  margin-bottom:1.2em;
+}
+
+/* ============ Review card ============ */
+.review-list{ display:flex; flex-direction:column; gap:clamp(32px,5vw,44px); }
+.review-card{
+  position:relative;
+  background-color:#fff;
+  border:1px solid rgba(185,174,154,.5);
+  border-radius:var(--radius-s);
+  padding:28px clamp(18px,4vw,32px) 24px;
+}
+.review-card::before{
+  content:"";
+  position:absolute;
+  top:-30px; left:50%;
+  transform:translateX(-50%);
+  width:2px; height:30px;
+  background-color:var(--color-stitch);
+}
+.review-card::after{
+  content:"";
+  position:absolute;
+  top:-34px; left:50%;
+  transform:translateX(-50%);
+  width:13px; height:13px;
+  border-radius:50%;
+  background-color:var(--color-rose);
+  border:3px solid var(--color-bg);
+}
+.review-card__head{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:12px;
+  margin-bottom:.9em;
+}
+.review-card__time{
+  font-size:.8rem;
+  color:var(--color-link);
+}
+.review-card__body{
+  white-space:pre-line;
+  margin-bottom:1em;
+}
+.review-card__author{
+  font-size:.82rem;
+  color:var(--color-text);
+  text-align:right;
+  margin-bottom:0;
+}
+
+/* ============ Info table (access.html) ============ */
+.info-table{
+  width:100%;
+  border-collapse:collapse;
+  background-color:#fff;
+  border:1px solid rgba(185,174,154,.5);
+  border-radius:var(--radius-s);
+  overflow:hidden;
+}
+.info-table th,.info-table td{
+  text-align:left;
+  padding:16px 18px;
+  border-bottom:1px dashed var(--color-stitch);
+  font-size:.92rem;
+  vertical-align:top;
+}
+.info-table tr:last-child th,.info-table tr:last-child td{ border-bottom:none; }
+.info-table th{
+  width:34%;
+  color:var(--color-link);
+  font-weight:700;
+  background-color:var(--color-bg-section);
+}
+.info-table a{ color:var(--color-link); font-weight:700; }
+
+.map-frame{
+  width:100%;
+  aspect-ratio:16/9;
+  border:2px dashed var(--color-stitch);
+  border-radius:var(--radius-s);
+  overflow:hidden;
+}
+.map-frame iframe{ width:100%; height:100%; border:0; display:block; }
+
+/* ============ Utility ============ */
+.text-center{ text-align:center; }
+.mt-lg{ margin-top:clamp(24px,4vw,40px); }
+.note-text{
+  font-size:.85rem;
+  color:var(--color-link);
+}
+
+/* ============ Responsive ============ */
+@media (max-width:768px){
+  .hero{ grid-template-columns:1fr; }
+  .hero__photo{ max-width:320px; margin-inline:auto; width:100%; }
+  .card-grid{ grid-template-columns:repeat(2,1fr); }
+  .feature-dish{ grid-template-columns:1fr; }
+  .feature-dish__photo{ order:-1; }
+  .site-header__tel{ padding:8px 12px; font-size:.72rem; }
+  .site-logo__main{ font-size:1.15rem; }
+  .mobile-cta-bar{ display:flex; }
+  body{ padding-bottom:112px; }
+}
+
+@media (max-width:480px){
+  body{ font-size:15px; }
+  .card-grid,.card-grid--2{ grid-template-columns:1fr; }
+  .clothesline__list{ grid-template-columns:1fr; }
+  .hanging-card{ max-width:100%; width:100%; }
+  .btn-group{ flex-direction:column; }
+  .btn{ width:100%; }
+  .info-table th{ width:40%; font-size:.82rem; padding:12px 12px; }
+  .info-table td{ font-size:.82rem; padding:12px 12px; }
+}
