@@ -1,0 +1,916 @@
+/* ==========================================================================
+   戸田生花店 試作HP 共通スタイルシート
+   コンセプト: 植物図鑑・ボタニカル研究室(既存花屋案件とのデザイン重複禁止)
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap");
+
+:root {
+  --bg: #F4EEE2;
+  --bg-panel: #ECE3CE;
+  --main: #2F4538;
+  --sub: #5B7A63;
+  --accent: #C1652F;
+  --text: #2A2620;
+  --border: #8C7B5E;
+  --gold: #D9B65C;
+  --font-serif: "Noto Serif JP", "Yu Mincho", "Hiragino Mincho ProN", serif;
+  --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  --max-width: 1080px;
+}
+
+/* ---------- reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.85;
+  position: relative;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  color: var(--main);
+  line-height: 1.5;
+  margin: 0 0 0.75em;
+  font-weight: 600;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--main);
+  color: #fff;
+  padding: 0.6em 1em;
+  z-index: 10000;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+/* ---------- SAMPLE 透かし(全ページ共通・営業提案用デモ表示) ---------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='320'%20height='320'%3E%3Ctext%20x='-30'%20y='180'%20font-family='sans-serif'%20font-size='40'%20font-weight='700'%20letter-spacing='4'%20fill='%232F4538'%20transform='rotate(-30%20160%20160)'%3ESAMPLE%20SAMPLE%3C/text%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+body::after {
+  content: "SAMPLE";
+  position: fixed;
+  right: -2.6rem;
+  bottom: 1.6rem;
+  z-index: 2147483000;
+  pointer-events: none;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: #fff;
+  background: var(--accent);
+  padding: 0.45em 3em;
+  transform: rotate(-8deg);
+  opacity: 0.9;
+  box-shadow: 0 2px 8px rgba(42, 38, 32, 0.35);
+  white-space: nowrap;
+}
+
+/* ---------- 図鑑インデックスラベル・区切り ---------- */
+.index-label {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 0.2em;
+  margin-bottom: 0.6em;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--sub);
+  border: 1px solid var(--border);
+  padding: 0.25em 0.8em;
+  margin-bottom: 0.9em;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 2.5rem 0;
+  color: var(--sub);
+}
+
+.divider__line {
+  height: 1px;
+  width: 64px;
+  background: var(--border);
+}
+
+.leaf-icon {
+  color: var(--sub);
+  flex: none;
+}
+
+/* ---------- ヘッダー ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.logo-block {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.logo-main {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--main);
+}
+
+.logo-sub {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--sub);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 0.1em;
+  margin-top: 0.2em;
+  align-self: flex-start;
+}
+
+.global-nav {
+  order: 3;
+  width: 100%;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.1rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--border);
+  margin-top: 0.6rem;
+}
+
+.nav-list a {
+  display: inline-block;
+  font-size: 0.9rem;
+  padding: 0.3em 0.2em;
+  color: var(--text);
+  border-bottom: 2px solid transparent;
+}
+
+.nav-list a:hover,
+.nav-list a:focus-visible,
+.nav-list a[aria-current="page"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.header-tel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.55em 0.9em;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1px solid var(--accent);
+  white-space: nowrap;
+}
+
+.header-tel:hover,
+.header-tel:focus-visible {
+  background: #a8531f;
+}
+
+.header-tel .tel-icon {
+  font-size: 1rem;
+}
+
+@media (min-width: 860px) {
+  .header-inner {
+    flex-wrap: nowrap;
+  }
+
+  .global-nav {
+    order: 2;
+    width: auto;
+  }
+
+  .nav-list {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+    gap: 1.6rem;
+  }
+
+  .header-tel {
+    order: 3;
+  }
+}
+
+/* ---------- ボタン ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.9em 1.8em;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: #a8531f;
+  border-color: #a8531f;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--main);
+  border-color: var(--main);
+}
+
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  background: var(--main);
+  color: #fff;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .btn-block {
+    width: auto;
+  }
+}
+
+/* ---------- セクション共通 ---------- */
+.section {
+  padding: 3.2rem 0;
+}
+
+.section-alt {
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-dark {
+  background: var(--main);
+  color: #EFE9D8;
+}
+
+.section-dark h2,
+.section-dark h3 {
+  color: #EFE9D8;
+}
+
+.section-head {
+  max-width: 640px;
+  margin: 0 0 2.2rem;
+}
+
+.section-head--center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 1.6rem;
+}
+
+.lead {
+  color: var(--sub);
+}
+
+/* ---------- カード(図鑑インデックスカード) ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 620px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 980px) {
+  .card-grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.index-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 1.6rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.index-card__icon {
+  margin-bottom: 0.4rem;
+}
+
+.index-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.4em;
+}
+
+.index-card p {
+  font-size: 0.92rem;
+  margin-bottom: 0;
+  color: var(--text);
+}
+
+/* ---------- 写真プレースホルダー(CSSのみ・実写真不使用) ---------- */
+.photo-placeholder {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background-color: #EAE0C8;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(47, 69, 56, 0.16) 0,
+    rgba(47, 69, 56, 0.16) 1px,
+    transparent 1px,
+    transparent 13px
+  );
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  text-align: center;
+  padding: 1.2rem;
+  color: var(--sub);
+}
+
+.photo-placeholder span {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  max-width: 14em;
+}
+
+.photo-placeholder--round {
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto;
+}
+
+.photo-placeholder--wide {
+  aspect-ratio: 16 / 9;
+}
+
+.photo-placeholder--square {
+  aspect-ratio: 1 / 1;
+}
+
+.placeholder-icon {
+  width: 34px;
+  height: 34px;
+  color: var(--main);
+  opacity: 0.7;
+}
+
+/* 小サイズのアイコン枠(強みカード等・実写真不使用) */
+.icon-frame {
+  width: 54px;
+  height: 54px;
+  flex: none;
+  border: 1px solid var(--border);
+  background-color: #EAE0C8;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(47, 69, 56, 0.14) 0,
+    rgba(47, 69, 56, 0.14) 1px,
+    transparent 1px,
+    transparent 9px
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-frame svg {
+  width: 26px;
+  height: 26px;
+  color: var(--main);
+}
+
+/* ---------- ヒーロー(index.html) ---------- */
+.hero {
+  padding: 3rem 0 3.5rem;
+}
+
+.hero__panel {
+  border: 1px solid var(--border);
+  background-color: #ECE1C6;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(47, 69, 56, 0.08) 0,
+    rgba(47, 69, 56, 0.08) 1px,
+    transparent 1px,
+    transparent 16px
+  );
+  padding: 2.6rem 1.4rem;
+  text-align: center;
+  position: relative;
+}
+
+.hero__panel::before,
+.hero__panel::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--accent);
+}
+
+.hero__panel::before {
+  top: 10px;
+  left: 10px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.hero__panel::after {
+  bottom: 10px;
+  right: 10px;
+  border-left: none;
+  border-top: none;
+}
+
+.hero__eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: var(--sub);
+}
+
+.hero__title {
+  font-size: 1.9rem;
+  margin: 0.6em 0 0.7em;
+}
+
+.hero__lead {
+  max-width: 34em;
+  margin: 0 auto 1.6em;
+  color: var(--text);
+}
+
+.hero__cta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.hero__cta small {
+  color: var(--sub);
+  font-size: 0.8rem;
+}
+
+@media (min-width: 640px) {
+  .hero__title {
+    font-size: 2.4rem;
+  }
+}
+
+/* ---------- クチコミ ---------- */
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  border: 1px solid var(--gold);
+  padding: 0.5em 1em;
+  font-weight: 700;
+  color: var(--main);
+  background: var(--bg);
+}
+
+.stars {
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+}
+
+@media (min-width: 720px) {
+  .review-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.review-card {
+  border: 1px solid var(--border);
+  padding: 1.4rem;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.review-card__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--sub);
+}
+
+.review-card blockquote {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--text);
+  white-space: pre-line;
+}
+
+.review-card blockquote::before {
+  content: "\201C";
+  color: var(--accent);
+  font-size: 1.3em;
+  margin-right: 0.1em;
+}
+
+/* ---------- CTAバンド ---------- */
+.cta-band {
+  background: var(--main);
+  color: #EFE9D8;
+  padding: 2.6rem 0;
+  text-align: center;
+}
+
+.cta-band h2 {
+  color: #EFE9D8;
+}
+
+.cta-band p {
+  color: #D9D2BC;
+}
+
+/* ---------- テーブル(店舗情報) ---------- */
+.info-table {
+  border: 1px solid var(--border);
+}
+
+.info-table th,
+.info-table td {
+  text-align: left;
+  padding: 0.9em 1em;
+  border-bottom: 1px dashed var(--border);
+  font-size: 0.95rem;
+  vertical-align: top;
+}
+
+.info-table tr:last-child th,
+.info-table tr:last-child td {
+  border-bottom: none;
+}
+
+.info-table th {
+  width: 8.5em;
+  color: var(--sub);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .info-table th,
+  .info-table td {
+    display: block;
+    width: auto;
+  }
+
+  .info-table th {
+    padding-bottom: 0.2em;
+    border-bottom: none;
+  }
+
+  .info-table td {
+    padding-top: 0;
+  }
+}
+
+/* ---------- 地図 ---------- */
+.map-frame-wrap {
+  border: 1px solid var(--border);
+  padding: 0.5rem;
+  background: var(--bg-panel);
+}
+
+.map-frame-wrap iframe {
+  width: 100%;
+  height: 320px;
+  border: 0;
+  display: block;
+}
+
+@media (min-width: 720px) {
+  .map-frame-wrap iframe {
+    height: 420px;
+  }
+}
+
+/* ---------- ギャラリーグリッド ---------- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+}
+
+@media (min-width: 560px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.gallery-item figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--main);
+}
+
+.gallery-item .index-label {
+  display: block;
+  text-align: center;
+  border-bottom: none;
+  margin-bottom: 0.2em;
+}
+
+/* ---------- フッター ---------- */
+.site-footer {
+  background: var(--main);
+  color: #E7E1CC;
+  margin-top: 3rem;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2.4rem 1.25rem 1.6rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.8rem;
+}
+
+@media (min-width: 700px) {
+  .footer-inner {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
+
+.footer-shop-name {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 0.5em;
+}
+
+.footer-block p {
+  margin: 0 0 0.4em;
+  font-size: 0.9rem;
+  color: #D9D2BC;
+}
+
+.footer-block a {
+  color: #F1C77A;
+}
+
+.footer-rating {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.footer-sitemap ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.2rem;
+}
+
+.footer-sitemap a {
+  font-size: 0.88rem;
+  color: #D9D2BC;
+  border-bottom: 1px solid transparent;
+}
+
+.footer-sitemap a:hover,
+.footer-sitemap a:focus-visible {
+  color: #fff;
+  border-bottom-color: var(--gold);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(231, 225, 204, 0.25);
+  padding: 1.1rem 1.25rem 1.6rem;
+  text-align: center;
+}
+
+.footer-sample-note {
+  font-size: 0.78rem;
+  color: #C7BFA0;
+  max-width: 40em;
+  margin: 0 auto 0.6em;
+}
+
+.footer-copyright {
+  font-size: 0.78rem;
+  color: #C7BFA0;
+  margin: 0;
+}
+
+/* ---------- ユーティリティ ---------- */
+.text-center {
+  text-align: center;
+}
+
+.mt-lg {
+  margin-top: 2.2rem;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+@media (min-width: 480px) {
+  .stack--row {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+.note-box {
+  border: 1px dashed var(--border);
+  padding: 1.2rem 1.4rem;
+  font-size: 0.9rem;
+  color: var(--sub);
+  background: var(--bg-panel);
+}
+
+.scene-list li {
+  position: relative;
+  padding-left: 1.4em;
+  margin-bottom: 0.6em;
+}
+
+.scene-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--accent);
+  transform: rotate(45deg);
+}
+
+/* モバイルでは1カラム、広い画面のみ2カラムに分割するレイアウト */
+.split-2 {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .split-2 {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+  }
+}
+
+.split-single {
+  grid-template-columns: 1fr;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.card-row {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+@media (max-width: 420px) {
+  .card-row {
+    flex-direction: column;
+  }
+}
