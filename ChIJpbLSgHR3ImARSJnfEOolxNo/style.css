@@ -1,0 +1,925 @@
+/* ==========================================================
+   （株）フラワーショップナガツカ 試作HP 共通スタイル
+   コンセプト:「暖簾と帳場 ― 取手の老舗花屋」
+   深藍・生成り・金茶・抑えた深紅を基調に、罫線ベースの矩形UIでまとめる
+   ========================================================== */
+
+:root {
+  --color-navy: #1c2b44;
+  --color-navy-deep: #121e33;
+  --color-bg: #f4efe4;
+  --color-bg-soft: #ece3d1;
+  --color-gold: #b8863a;
+  --color-red: #7b2e26;
+  --color-text: #2b2620;
+  --color-cream: #faf7ef;
+  --font-serif: "Noto Serif JP", "游明朝", "Yu Mincho", serif;
+  --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+  --container-width: 1120px;
+  --line: 1px solid rgba(43, 38, 32, 0.25);
+  --line-gold: 1px solid rgba(184, 134, 58, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  color: var(--color-navy);
+  line-height: 1.5;
+  margin: 0 0 0.6em;
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 56px 0;
+}
+
+.section-bg-soft {
+  background: var(--color-bg-soft);
+}
+
+.section-bg-navy {
+  background: var(--color-navy);
+  color: var(--color-cream);
+}
+
+.section-bg-navy h2,
+.section-bg-navy h3 {
+  color: var(--color-cream);
+}
+
+.section-bg-navy p {
+  color: rgba(250, 247, 239, 0.92);
+}
+
+.section-head {
+  margin-bottom: 36px;
+}
+
+.section-head .eyebrow {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  color: var(--color-gold);
+  margin-bottom: 10px;
+}
+
+.section-head h2 {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+}
+
+.lead {
+  max-width: 42em;
+  font-size: 1.02rem;
+}
+
+/* ==========================================================
+   家紋風ワンポイントマーク
+   ========================================================== */
+.crest {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--color-gold);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.crest::before,
+.crest::after {
+  content: "";
+  position: absolute;
+  background: var(--color-gold);
+}
+
+.crest::before {
+  top: 50%;
+  left: 18%;
+  right: 18%;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.crest::after {
+  left: 50%;
+  top: 18%;
+  bottom: 18%;
+  width: 2px;
+  transform: translateX(-50%);
+}
+
+.divider {
+  border: none;
+  border-top: var(--line-gold);
+  margin: 0 auto;
+  max-width: var(--container-width);
+  position: relative;
+}
+
+.divider-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 48px auto;
+  max-width: var(--container-width);
+  padding: 0 20px;
+}
+
+.divider-center::before,
+.divider-center::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(184, 134, 58, 0.5);
+}
+
+/* ==========================================================
+   SAMPLE 透かし(全ページ共通/操作を妨げないよう pointer-events: none)
+   ========================================================== */
+body::before {
+  content: "SAMPLE SAMPLE SAMPLE SAMPLE\A SAMPLE SAMPLE SAMPLE SAMPLE\A SAMPLE SAMPLE SAMPLE SAMPLE\A SAMPLE SAMPLE SAMPLE SAMPLE\A SAMPLE SAMPLE SAMPLE SAMPLE\A SAMPLE SAMPLE SAMPLE SAMPLE\A SAMPLE SAMPLE SAMPLE SAMPLE\A SAMPLE SAMPLE SAMPLE SAMPLE\A SAMPLE SAMPLE SAMPLE SAMPLE\A SAMPLE SAMPLE SAMPLE SAMPLE";
+  white-space: pre;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 220vw;
+  height: 220vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(1.3rem, 2.8vw, 2rem);
+  letter-spacing: 0.3em;
+  line-height: 3.6;
+  color: rgba(28, 43, 68, 0.06);
+  pointer-events: none;
+  z-index: 500;
+}
+
+body::after {
+  content: "SAMPLE";
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 900;
+  pointer-events: none;
+  background: rgba(123, 46, 38, 0.92);
+  color: var(--color-cream);
+  font-family: var(--font-serif);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  padding: 5px 12px;
+  border: 1px solid var(--color-cream);
+}
+
+/* ==========================================================
+   ヘッダー
+   ========================================================== */
+.site-header {
+  background: var(--color-navy);
+  color: var(--color-cream);
+  border-bottom: 3px solid var(--color-gold);
+  position: sticky;
+  top: 0;
+  z-index: 700;
+}
+
+.header-inner {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: auto;
+}
+
+.logo-text {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-cream);
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+}
+
+.header-tel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.3;
+  border: var(--line-gold);
+  padding: 6px 14px;
+  order: 2;
+}
+
+.header-tel-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--color-gold);
+}
+
+.header-tel-number {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-cream);
+  white-space: nowrap;
+}
+
+.nav-toggle {
+  order: 1;
+  width: 40px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid rgba(250, 247, 239, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.nav-toggle-bar {
+  width: 20px;
+  height: 2px;
+  background: var(--color-cream);
+  display: block;
+}
+
+.global-nav {
+  order: 3;
+  flex-basis: 100%;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+.global-nav.is-open {
+  max-height: 320px;
+}
+
+.global-nav ul {
+  border-top: 1px solid rgba(250, 247, 239, 0.2);
+  margin-top: 10px;
+  padding-top: 6px;
+}
+
+.global-nav li a {
+  display: block;
+  padding: 12px 4px;
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(250, 247, 239, 0.12);
+}
+
+.global-nav li a[aria-current="page"] {
+  color: var(--color-gold);
+  font-weight: 700;
+}
+
+/* ==========================================================
+   ボタン / CTA
+   ========================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-family: var(--font-serif);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-gold {
+  background: var(--color-gold);
+  color: var(--color-navy-deep);
+  border-color: var(--color-gold);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-cream);
+  border-color: var(--color-gold);
+}
+
+.btn-outline-navy {
+  background: transparent;
+  color: var(--color-navy);
+  border-color: var(--color-navy);
+}
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* ==========================================================
+   写真プレースホルダー(CSSのみ・画像ファイル未使用)
+   ========================================================== */
+.photo-placeholder {
+  position: relative;
+  width: 100%;
+  background:
+    repeating-linear-gradient(135deg, rgba(28, 43, 68, 0.08) 0 2px, transparent 2px 16px),
+    linear-gradient(155deg, #ece2cb 0%, #f4efe4 55%, #e7dcc4 100%);
+  border: 1px solid rgba(28, 43, 68, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
+  aspect-ratio: 4 / 3;
+}
+
+.photo-placeholder span {
+  display: inline-block;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--color-navy);
+  background: rgba(250, 247, 239, 0.85);
+  border: 1px solid rgba(28, 43, 68, 0.3);
+  padding: 0.5em 0.9em;
+}
+
+.photo-placeholder.ph-wide {
+  aspect-ratio: 16 / 8;
+}
+
+.photo-placeholder.ph-square {
+  aspect-ratio: 1 / 1;
+}
+
+.photo-placeholder.ph-tall {
+  aspect-ratio: 3 / 4;
+}
+
+/* シルエットプレースホルダー(店主夫婦イメージ) */
+.silhouette-placeholder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(180deg, #e7dcc4 0%, #f4efe4 100%);
+  border: 1px solid rgba(28, 43, 68, 0.35);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 18px;
+  padding: 20px 20px 0;
+  overflow: hidden;
+}
+
+.silhouette-figure {
+  width: 72px;
+  height: 150px;
+  background: var(--color-navy);
+  opacity: 0.82;
+  clip-path: polygon(50% 0%, 70% 8%, 78% 30%, 68% 34%, 78% 100%, 22% 100%, 32% 34%, 22% 30%, 30% 8%);
+}
+
+.silhouette-caption {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.78rem;
+  color: var(--color-navy);
+  background: rgba(250, 247, 239, 0.88);
+  border: 1px solid rgba(28, 43, 68, 0.3);
+  padding: 0.4em 0.8em;
+  white-space: nowrap;
+}
+
+/* ==========================================================
+   ヒーロー(index.html)
+   ========================================================== */
+.hero {
+  background: var(--color-bg);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.hero-copy {
+  background: var(--color-navy);
+  color: var(--color-cream);
+  padding: 48px 24px;
+  position: relative;
+}
+
+.hero-copy::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-gold) 0 3px,
+    transparent 3px 26px
+  );
+  opacity: 0.7;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 0.78rem;
+  letter-spacing: 0.35em;
+  color: var(--color-gold);
+  margin-bottom: 16px;
+}
+
+.hero-copy h1 {
+  color: var(--color-cream);
+  font-size: clamp(1.7rem, 5vw, 2.5rem);
+  margin-bottom: 0.7em;
+}
+
+.hero-sub {
+  font-size: 1rem;
+  max-width: 32em;
+  color: rgba(250, 247, 239, 0.92);
+  margin-bottom: 28px;
+}
+
+.hero-photo-wrap {
+  background: var(--color-bg-soft);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================================================
+   選ばれる理由
+   ========================================================== */
+.reason-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.reason-item {
+  border: var(--line);
+  background: var(--color-cream);
+  padding: 26px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.reason-item h3 {
+  font-size: 1.05rem;
+}
+
+.reason-item p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ==========================================================
+   ご用命カテゴリカード
+   ========================================================== */
+.category-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.category-card {
+  border: var(--line);
+  background: var(--color-cream);
+}
+
+.category-card-body {
+  padding: 20px;
+  border-top: 3px solid var(--color-gold);
+}
+
+/* lineup.html の用途別セクション(画像+本文の横並びカード) */
+.category-card-row {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+/* concept.html の左右分割ブロック(モバイルは縦積み) */
+.split-block {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: center;
+}
+
+/* split-block-reverse は DOM順(画像→本文)をそのまま活かし、
+   2カラム時に画像が左・本文が右になるようにする(orderは使わない) */
+
+.category-card h3 {
+  font-size: 1.1rem;
+}
+
+.category-card p {
+  font-size: 0.94rem;
+}
+
+.category-card-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-weight: 700;
+  color: var(--color-red);
+  border-bottom: 1px solid var(--color-red);
+  padding-bottom: 2px;
+}
+
+/* ==========================================================
+   お客様の声(抜粋/全件共通)
+   ========================================================== */
+.review-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+.review-card {
+  border: var(--line);
+  border-left: 4px solid var(--color-gold);
+  background: var(--color-cream);
+  padding: 22px 24px;
+}
+
+.review-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 16px;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+}
+
+.review-rating {
+  color: var(--color-gold);
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+}
+
+.review-author {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.review-time {
+  color: rgba(43, 38, 32, 0.6);
+}
+
+.review-text {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.9;
+}
+
+.review-source-note {
+  font-size: 0.85rem;
+  color: rgba(43, 38, 32, 0.75);
+  margin-bottom: 28px;
+}
+
+/* ==========================================================
+   ギャラリー(gallery.html)
+   ========================================================== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.gallery-item figcaption {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 0.88rem;
+  color: var(--color-navy);
+}
+
+/* ==========================================================
+   アクセス(access.html)
+   ========================================================== */
+.shop-info-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: var(--line);
+}
+
+.shop-info-table th,
+.shop-info-table td {
+  text-align: left;
+  padding: 14px 12px;
+  border-bottom: var(--line);
+  vertical-align: top;
+}
+
+.shop-info-table th {
+  width: 8em;
+  font-family: var(--font-serif);
+  color: var(--color-navy);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.map-frame {
+  border: var(--line);
+  background: var(--color-bg-soft);
+  padding: 10px;
+}
+
+.map-frame iframe {
+  width: 100%;
+  height: 320px;
+  border: 0;
+  display: block;
+}
+
+.map-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-weight: 700;
+  color: var(--color-red);
+  border-bottom: 1px solid var(--color-red);
+}
+
+.info-box {
+  border: var(--line-gold);
+  background: var(--color-cream);
+  padding: 22px 24px;
+}
+
+.access-tel-cta {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--color-navy);
+  color: var(--color-cream);
+}
+
+.access-tel-cta .header-tel-number {
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
+  display: block;
+  margin: 10px 0 22px;
+}
+
+/* ==========================================================
+   共通ユーティリティ(下層ページのタイトル帯・細かな余白調整)
+   ========================================================== */
+.page-hero h1 {
+  color: var(--color-cream);
+}
+
+.page-hero .lead {
+  color: rgba(250, 247, 239, 0.92);
+}
+
+.field-note {
+  font-size: 0.85rem;
+  color: var(--color-gold);
+  margin-bottom: 10px;
+}
+
+.mt-24 {
+  margin-top: 24px;
+}
+
+.mt-32 {
+  margin-top: 32px;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+/* ==========================================================
+   フッター
+   ========================================================== */
+.site-footer {
+  background: var(--color-navy-deep);
+  color: rgba(250, 247, 239, 0.88);
+  border-top: 3px solid var(--color-gold);
+  padding: 44px 0 26px;
+  font-size: 0.9rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  margin-bottom: 26px;
+}
+
+.footer-shop-name {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--color-cream);
+  margin-bottom: 10px;
+}
+
+.footer-tel {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-gold);
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(250, 247, 239, 0.2);
+  padding-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: rgba(250, 247, 239, 0.7);
+}
+
+.footer-sample-badge {
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  padding: 2px 10px;
+  letter-spacing: 0.15em;
+}
+
+/* ==========================================================
+   レスポンシブ(タブレット/PC)
+   ========================================================== */
+@media (min-width: 700px) {
+  .reason-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .category-card-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .category-card-row .category-card-body {
+    border-top: none;
+    border-left: 3px solid var(--color-gold);
+  }
+
+  .split-block {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 900px) {
+  .header-inner {
+    flex-wrap: nowrap;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .global-nav {
+    order: 2;
+    flex-basis: auto;
+    max-height: none;
+    overflow: visible;
+    margin: 0 20px;
+  }
+
+  .global-nav ul {
+    display: flex;
+    gap: 6px;
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .global-nav li a {
+    padding: 8px 12px;
+    border-bottom: none;
+    font-size: 0.92rem;
+  }
+
+  .header-tel {
+    order: 3;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1.35fr 1fr;
+    align-items: stretch;
+  }
+
+  .reason-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .review-list.review-list-2col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .hero-copy,
+  .hero-photo-wrap {
+    padding: 64px 56px;
+  }
+}
