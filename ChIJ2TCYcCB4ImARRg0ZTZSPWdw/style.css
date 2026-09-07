@@ -1,0 +1,519 @@
+/* ==========================================================================
+   白炭焼肉飯店 明星苑 — 試作HP スタイルシート
+   コンセプト:「住宅街にひっそり灯る、一番星」
+   紺藍(夜空)+灰白(白炭の灰)を基調に、熾火のアンバーをごく少量差す。
+   黒×赤×金・網焼きグリッド・炎アイコンは使用しない。
+   ========================================================================== */
+
+/* ---------- 1. リセット・ベース ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  position: relative;
+  color: var(--ink);
+  background-color: var(--cream);
+  font-family: var(--font-round);
+  line-height: 1.85;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; }
+ul { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, h4 { font-family: var(--font-mincho); font-weight: 700; margin: 0 0 .6em; line-height: 1.5; color: var(--navy); }
+p { margin: 0 0 1em; }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.25rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+}
+
+/* ---------- 2. カスタムプロパティ ---------- */
+:root {
+  --navy: #1E2A44;
+  --navy-deep: #131b2e;
+  --navy-light: #2c3c60;
+  --cream: #F6F1E7;
+  --cream-deep: #ece2cb;
+  --amber: #E3A15E;
+  --amber-deep: #c07f3d;
+  --coral: #D97B5A;
+  --ink: #3B3B3B;
+  --white: #ffffff;
+  --font-mincho: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-round: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+  --max-width: 1080px;
+  --radius: 16px;
+  --shadow-soft: 0 10px 28px rgba(19, 27, 46, 0.14);
+}
+
+/* ---------- 3. SAMPLE 透かし(全ページ共通・必須) ---------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='170'><text x='0' y='110' font-size='30' font-family='sans-serif' letter-spacing='4' fill='rgba(30,42,68,0.075)' transform='rotate(-28 130 85)'>SAMPLE</text></svg>");
+  background-repeat: repeat;
+}
+body::after {
+  content: "SAMPLE";
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  z-index: 999;
+  pointer-events: none;
+  background: rgba(227, 161, 94, 0.92);
+  color: var(--navy-deep);
+  font-family: var(--font-round);
+  font-weight: 700;
+  font-size: .65rem;
+  letter-spacing: .12em;
+  padding: .3em .6em;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(19, 27, 46, 0.3);
+}
+
+/* ---------- 4. アクセシビリティ ---------- */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--amber);
+  color: var(--navy-deep);
+  padding: .8em 1.2em;
+  z-index: 1100;
+  border-radius: 0 0 8px 0;
+  font-weight: 700;
+}
+.skip-link:focus { left: 0; }
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* ---------- 5. モチーフ ---------- */
+/* 星の点描 */
+.star-field { position: relative; }
+.star-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.6px 1.6px at 8% 18%, rgba(255,255,255,.9), transparent 60%),
+    radial-gradient(1.2px 1.2px at 22% 42%, rgba(255,255,255,.7), transparent 60%),
+    radial-gradient(1.6px 1.6px at 36% 12%, rgba(255,255,255,.85), transparent 60%),
+    radial-gradient(1.2px 1.2px at 48% 58%, rgba(255,255,255,.6), transparent 60%),
+    radial-gradient(1.6px 1.6px at 61% 26%, rgba(255,255,255,.9), transparent 60%),
+    radial-gradient(1.2px 1.2px at 73% 46%, rgba(255,255,255,.65), transparent 60%),
+    radial-gradient(1.8px 1.8px at 86% 16%, rgba(255,255,255,.9), transparent 60%),
+    radial-gradient(1.2px 1.2px at 93% 63%, rgba(255,255,255,.6), transparent 60%),
+    radial-gradient(1.6px 1.6px at 15% 78%, rgba(255,255,255,.7), transparent 60%),
+    radial-gradient(1.2px 1.2px at 41% 88%, rgba(255,255,255,.55), transparent 60%),
+    radial-gradient(1.6px 1.6px at 67% 82%, rgba(255,255,255,.8), transparent 60%),
+    radial-gradient(1.2px 1.2px at 90% 92%, rgba(255,255,255,.55), transparent 60%);
+  background-repeat: repeat;
+  background-size: 280px 280px;
+  opacity: .85;
+}
+.star-field--dense::before { background-size: 160px 160px; opacity: 1; }
+
+/* 熾火の淡いグロー */
+.ember-glow { position: absolute; border-radius: 50%; pointer-events: none; filter: blur(6px);
+  background: radial-gradient(circle, rgba(227,161,94,.45) 0%, rgba(227,161,94,.16) 45%, transparent 72%); }
+
+/* 和紙・布のテクスチャ */
+.washi-texture {
+  background-color: var(--cream);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(59,59,59,.03) 0, rgba(59,59,59,.03) 1px, transparent 1px, transparent 5px),
+    repeating-linear-gradient(-45deg, rgba(59,59,59,.022) 0, rgba(59,59,59,.022) 1px, transparent 1px, transparent 5px);
+}
+
+/* 星印(ロゴ用) */
+.star-mark {
+  display: inline-block;
+  width: 15px; height: 15px;
+  flex-shrink: 0;
+  background: radial-gradient(circle, #fff 0%, var(--amber) 55%, transparent 78%);
+  clip-path: polygon(50% 0%, 61% 38%, 100% 50%, 61% 62%, 50% 100%, 39% 62%, 0% 50%, 39% 38%);
+  filter: drop-shadow(0 0 5px rgba(227,161,94,.85));
+}
+
+/* 手書き風の引用吹き出し(女将さんトーン・珊瑚色のみ) */
+.quote-bubble {
+  position: relative;
+  background: var(--white);
+  border: 2px solid var(--coral);
+  border-radius: 26px 26px 26px 6px;
+  padding: 1.3em 1.5em;
+  margin: 0 0 2.2em;
+  max-width: 30em;
+  box-shadow: var(--shadow-soft);
+}
+.quote-bubble p { margin: 0; font-size: 1.05rem; color: var(--ink); }
+.quote-bubble cite { display: block; margin-top: .7em; font-size: .82rem; color: var(--coral); font-style: normal; text-align: right; }
+.quote-bubble::after {
+  content: ""; position: absolute; left: 26px; bottom: -18px;
+  border: 16px solid transparent; border-top-color: var(--coral);
+}
+.quote-bubble::before {
+  content: ""; position: absolute; left: 30px; bottom: -12px; z-index: 1;
+  border: 12px solid transparent; border-top-color: var(--white);
+}
+
+/* ---------- 6. ヘッダー ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--navy);
+  color: var(--cream);
+  box-shadow: 0 3px 14px rgba(19,27,46,.25);
+}
+.site-header__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: .8rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+  text-decoration: none;
+  color: var(--cream);
+}
+.logo__text { font-family: var(--font-mincho); font-size: .95rem; line-height: 1.35; font-weight: 700; }
+.logo__sub { display: block; font-size: .8em; letter-spacing: .08em; color: var(--amber); }
+.header-tel {
+  text-decoration: none;
+  text-align: right;
+  color: var(--cream);
+  border: 1.5px solid var(--amber);
+  border-radius: 999px;
+  padding: .45em .9em;
+  line-height: 1.3;
+}
+.header-tel__label { display: block; font-size: .62rem; letter-spacing: .06em; color: var(--amber); }
+.header-tel__number { display: block; font-family: var(--font-mincho); font-weight: 700; font-size: 1rem; letter-spacing: .02em; }
+
+.global-nav { background: var(--navy-deep); }
+.global-nav ul {
+  display: flex;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.global-nav a {
+  display: block;
+  white-space: nowrap;
+  padding: .75em 1.1em;
+  text-decoration: none;
+  font-size: .88rem;
+  letter-spacing: .04em;
+  color: var(--cream);
+  border-bottom: 3px solid transparent;
+}
+.global-nav a[aria-current="page"] { color: var(--amber); border-bottom-color: var(--amber); font-weight: 700; }
+.global-nav a:hover, .global-nav a:focus-visible { color: var(--amber); }
+
+@media (min-width: 760px) {
+  .site-header__inner { padding: 1rem 1.5rem; }
+  .logo__text { font-size: 1.1rem; }
+  .global-nav ul { overflow-x: visible; justify-content: center; }
+  .global-nav a { padding: .9em 1.4em; font-size: .95rem; }
+}
+
+/* ---------- 7. スマホ下部スティッキー電話バー ---------- */
+.sticky-call-bar { display: none; }
+@media (max-width: 760px) {
+  .sticky-call-bar {
+    display: block;
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 900;
+    background: linear-gradient(180deg, var(--amber), var(--amber-deep));
+    box-shadow: 0 -4px 16px rgba(19,27,46,.35);
+  }
+  .sticky-call-bar a {
+    display: block;
+    text-align: center;
+    padding: .9em 1em;
+    text-decoration: none;
+    font-family: var(--font-round);
+    font-weight: 700;
+    font-size: .98rem;
+    color: var(--navy-deep);
+  }
+  body { padding-bottom: 58px; }
+}
+
+/* ---------- 8. ボタン ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4em;
+  padding: .95em 1.7em;
+  border-radius: 999px;
+  font-family: var(--font-round);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: transform .15s ease, box-shadow .15s ease;
+  cursor: pointer;
+}
+.btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+.btn--primary { background: linear-gradient(135deg, var(--amber), var(--amber-deep)); color: var(--navy-deep); box-shadow: 0 8px 20px rgba(227,161,94,.4); }
+.btn--outline { background: transparent; border-color: var(--cream); color: var(--cream); }
+.btn--outline-navy { background: transparent; border-color: var(--navy); color: var(--navy); }
+.btn-row { display: flex; flex-wrap: wrap; gap: .9em; }
+
+/* ---------- 9. ヒーロー ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #16213a 0%, var(--navy) 55%, #24345a 100%);
+  color: var(--cream);
+  padding: 4.2rem 0 3.2rem;
+  text-align: center;
+}
+.hero .ember-glow { width: 460px; height: 460px; left: 50%; bottom: -220px; transform: translateX(-50%); }
+.hero__inner { position: relative; z-index: 2; max-width: 44em; margin: 0 auto; padding: 0 1.25rem; }
+.hero__eyebrow { color: var(--amber); letter-spacing: .18em; font-size: .78rem; margin-bottom: 1em; }
+.hero h1 { color: var(--cream); font-size: 1.7rem; line-height: 1.6; margin-bottom: .7em; }
+.hero__sub { font-size: .95rem; color: var(--cream-deep); margin-bottom: 1.8em; }
+.hero .btn-row { justify-content: center; margin-bottom: 1.6em; }
+.hero__note {
+  font-size: .78rem;
+  color: var(--cream-deep);
+  border-top: 1px solid rgba(246,241,231,.25);
+  padding-top: 1em;
+  max-width: 30em;
+  margin: 0 auto;
+}
+@media (min-width: 760px) {
+  .hero { padding: 6rem 0 4.5rem; }
+  .hero h1 { font-size: 2.3rem; }
+  .hero__sub { font-size: 1.05rem; }
+}
+
+/* ---------- 10. 汎用セクション ---------- */
+.section { padding: 3.2rem 0; }
+.section--navy { background: var(--navy); color: var(--cream); }
+.section--navy h2 { color: var(--cream); }
+.section--cream { background: var(--cream); }
+.section-head { text-align: center; max-width: 42em; margin: 0 auto 2.4em; }
+.section-head h2 { font-size: 1.5rem; }
+.section-head__lead { color: var(--amber-deep); font-size: .8rem; letter-spacing: .14em; margin-bottom: .8em; }
+.section--navy .section-head__lead { color: var(--amber); }
+.section-head p { color: inherit; }
+@media (min-width: 760px) { .section { padding: 4.5rem 0; } .section-head h2 { font-size: 1.9rem; } }
+
+/* ---------- 11. 選ばれる理由(3カラム) ---------- */
+.reason-grid { display: grid; gap: 1.6rem; grid-template-columns: 1fr; }
+.reason-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.8rem 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+.icon-badge {
+  width: 58px; height: 58px; margin: 0 auto 1em;
+  border-radius: 50%; position: relative;
+  background: radial-gradient(circle at 35% 30%, var(--amber-deep), var(--navy) 72%);
+  box-shadow: 0 0 0 4px rgba(227,161,94,.22);
+  display: flex; align-items: center; justify-content: center;
+}
+.icon-badge.icon-cost::before { content: "¥"; color: #fff; font-family: var(--font-mincho); font-size: 1.4rem; }
+.icon-badge.icon-clean::before {
+  content: ""; width: 20px; height: 11px;
+  border-left: 3px solid #fff; border-bottom: 3px solid #fff;
+  transform: rotate(-45deg) translate(2px, -3px);
+}
+.icon-badge.icon-couple::before, .icon-badge.icon-couple::after {
+  content: ""; position: absolute; width: 17px; height: 17px; border-radius: 50%; top: 50%; transform: translateY(-50%);
+}
+.icon-badge.icon-couple::before { left: 13px; background: #fff; }
+.icon-badge.icon-couple::after { left: 25px; background: var(--amber); opacity: .92; }
+.reason-card h3 { font-size: 1.1rem; margin-bottom: .5em; }
+.reason-card p { font-size: .92rem; color: var(--ink); }
+@media (min-width: 700px) { .reason-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ---------- 12. カードグリッド(メニュー抜粋・メニューページ) ---------- */
+.card-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
+.dish-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+}
+.dish-card__body { padding: 1.3rem 1.4rem 1.5rem; }
+.dish-card__body h3 { font-size: 1.05rem; margin-bottom: .5em; }
+.dish-card__body p { font-size: .88rem; color: var(--ink); margin-bottom: 0; }
+/* 写真がない案内カードは空の画像枠を出さず、テキストのみを中央寄せで見せる */
+.dish-card--text-only { justify-content: center; }
+.dish-card--text-only .dish-card__body { padding: 1.8rem 1.4rem; }
+@media (min-width: 600px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .card-grid--4 { grid-template-columns: repeat(4, 1fr); } }
+
+/* ---------- 13. 写真プレースホルダー ---------- */
+.photo-placeholder {
+  position: relative;
+  min-height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.2em;
+  overflow: hidden;
+}
+.photo-placeholder span {
+  position: relative;
+  z-index: 2;
+  background: rgba(19,27,46,.55);
+  color: var(--cream);
+  font-size: .82rem;
+  line-height: 1.5;
+  padding: .5em .9em;
+  border-radius: 8px;
+}
+.ph-navy { background: linear-gradient(160deg, var(--navy-deep), var(--navy) 60%, #2c3c60); }
+.ph-navy.star-field span { background: rgba(19,27,46,.6); }
+.ph-texture { background: var(--cream-deep); }
+.ph-texture span { background: rgba(59,59,59,.68); }
+.ph-plate { background: radial-gradient(circle at 50% 50%, var(--amber) 0%, var(--amber-deep) 42%, var(--cream-deep) 70%); }
+.ph-soup1 { background: radial-gradient(circle at 40% 40%, #f0c08a 0%, var(--coral) 55%, #b5573a 100%); }
+.ph-soup2 { background: radial-gradient(circle at 60% 35%, #f2b98d 0%, var(--amber-deep) 55%, #8a4a26 100%); }
+.ph-kimchi { background: linear-gradient(135deg, var(--cream-deep) 0%, #d97b5a 55%, #a4482c 100%); }
+.ph-night { background: linear-gradient(180deg, #10182a, var(--navy)); }
+.ph-parking { background: var(--cream); position: relative; }
+.ph-parking::before, .ph-parking::after {
+  content: ""; position: absolute; top: 12%; bottom: 12%; width: 3px; background: var(--amber);
+}
+.ph-parking::before { left: 32%; transform: skewX(-8deg); }
+.ph-parking::after { left: 62%; transform: skewX(-8deg); }
+.ph-parking span { background: rgba(30,42,68,.68); }
+
+/* ---------- 14. お客様の声 ---------- */
+.review-meta {
+  text-align: center;
+  font-family: var(--font-mincho);
+  font-weight: 700;
+  color: var(--amber-deep);
+  margin-bottom: 2em;
+}
+.section--navy .review-meta { color: var(--amber); }
+.review-grid { display: grid; gap: 1.4rem; grid-template-columns: 1fr; }
+.review-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.5rem 1.6rem;
+  box-shadow: var(--shadow-soft);
+}
+.review-card__head { display: flex; align-items: baseline; justify-content: space-between; gap: .8em; margin-bottom: .8em; flex-wrap: wrap; }
+.stars { font-size: 1.05rem; letter-spacing: .05em; }
+.stars .filled { color: var(--amber-deep); }
+.stars .empty { color: #d9d2c2; }
+.review-card__time { font-size: .78rem; color: #8a8a8a; }
+.review-card__body { white-space: pre-line; font-size: .9rem; color: var(--ink); margin-bottom: .8em; }
+.review-card__author { font-size: .8rem; color: var(--navy); text-align: right; font-weight: 700; }
+@media (min-width: 700px) { .review-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .review-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ---------- 15. 店主紹介・アクセスティザー ---------- */
+.split { display: grid; gap: 1.8rem; grid-template-columns: 1fr; align-items: center; }
+.split__text h2 { font-size: 1.4rem; }
+@media (min-width: 800px) { .split { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+
+.map-thumb {
+  position: relative;
+  min-height: 180px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--navy-deep), var(--navy));
+  display: flex; align-items: center; justify-content: center;
+}
+.map-thumb__pin {
+  position: relative; z-index: 2;
+  width: 16px; height: 16px; border-radius: 50% 50% 50% 0;
+  background: var(--amber); transform: rotate(-45deg);
+  box-shadow: 0 0 14px rgba(227,161,94,.75);
+}
+.map-thumb__label {
+  position: absolute; bottom: .9em; left: 50%; transform: translateX(-50%);
+  z-index: 2; background: rgba(19,27,46,.7); color: var(--cream);
+  font-size: .78rem; padding: .4em .9em; border-radius: 999px; white-space: nowrap;
+}
+
+/* ---------- 16. こだわりページ ---------- */
+.concept-block { padding: 3rem 0; }
+.concept-block:nth-child(even) { background: var(--cream); }
+.concept-block__inner { max-width: 42em; margin: 0 auto; padding: 0 1.25rem; }
+.concept-block h2 { font-size: 1.35rem; }
+.concept-block p { font-size: .96rem; }
+.quote-set { margin-top: 2rem; }
+
+/* ---------- 17. お知らせ・注意書きボックス ---------- */
+.notice-box {
+  background: var(--white);
+  border: 2px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.6rem;
+  margin: 0 auto;
+  max-width: 42em;
+}
+.notice-box h2, .notice-box h3 { color: var(--navy); font-size: 1.15rem; }
+.notice-box p:last-child { margin-bottom: 0; }
+.notice-box--intro { background: var(--cream-deep); border-color: var(--navy-light); font-size: .92rem; }
+
+/* ---------- 18. ギャラリー ---------- */
+.gallery-grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(2, 1fr); }
+.gallery-grid .photo-placeholder { min-height: 200px; border-radius: var(--radius); box-shadow: var(--shadow-soft); }
+@media (min-width: 700px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1000px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* ---------- 19. アクセスページ ---------- */
+.map-embed { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-soft); }
+.map-embed iframe { width: 100%; height: 320px; border: 0; display: block; }
+.map-caption { font-size: .8rem; color: #7a7a7a; text-align: center; margin-top: .8em; }
+.info-table { width: 100%; border-collapse: collapse; margin: 0; }
+.info-table th, .info-table td { text-align: left; padding: .7em .5em; border-bottom: 1px solid var(--cream-deep); font-size: .95rem; }
+.info-table th { width: 7.5em; color: var(--navy); font-family: var(--font-mincho); font-weight: 700; white-space: nowrap; }
+.info-table a { color: var(--amber-deep); font-weight: 700; text-decoration: underline; }
+.access-cta { text-align: center; padding: 3rem 0 3.5rem; background: var(--navy); color: var(--cream); }
+.access-cta p { color: var(--cream-deep); margin-bottom: 1.4em; }
+
+/* ---------- 20. フッター ---------- */
+.site-footer { background: var(--navy-deep); color: var(--cream-deep); padding: 2.8rem 0 2.2rem; }
+.site-footer__inner { max-width: var(--max-width); margin: 0 auto; padding: 0 1.25rem; text-align: center; }
+.site-footer__name { font-family: var(--font-mincho); font-size: 1.15rem; color: var(--cream); margin-bottom: .3em; }
+.site-footer__addr, .site-footer__tel { font-size: .9rem; margin-bottom: .3em; }
+.site-footer__tel a { color: var(--amber); text-decoration: none; font-weight: 700; }
+.site-footer__map-link { margin-bottom: 1.4em; }
+.site-footer__map-link a { color: var(--cream-deep); font-size: .85rem; text-decoration: underline; }
+.site-footer__sample {
+  font-size: .78rem; color: var(--amber);
+  border-top: 1px solid rgba(246,241,231,.2);
+  padding-top: 1.2em; margin-top: 1.2em; max-width: 34em; margin-left: auto; margin-right: auto;
+}
+.site-footer__copy { font-size: .72rem; color: #8791a3; margin-top: .8em; margin-bottom: 0; }
+
+/* ---------- 21. ユーティリティ ---------- */
+.text-center { text-align: center; }
+.mt-0 { margin-top: 0; }
+.mb-0 { margin-bottom: 0; }
