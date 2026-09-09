@@ -181,15 +181,12 @@ img, svg { display: block; max-width: 100%; }
    ========================================================================== */
 .hero {
   position: relative;
-  background:
-    radial-gradient(circle at 15% 20%, rgba(184,168,138,0.35) 0, transparent 3px),
-    radial-gradient(circle at 35% 55%, rgba(184,168,138,0.3) 0, transparent 3px),
-    radial-gradient(circle at 60% 15%, rgba(184,168,138,0.3) 0, transparent 3px),
-    radial-gradient(circle at 80% 45%, rgba(184,168,138,0.3) 0, transparent 3px),
-    radial-gradient(circle at 25% 80%, rgba(184,168,138,0.3) 0, transparent 3px),
-    radial-gradient(circle at 90% 80%, rgba(184,168,138,0.3) 0, transparent 3px),
-    linear-gradient(160deg, var(--wheat) 0%, var(--oatmeal) 65%);
-  background-size: 90px 90px, 110px 110px, 130px 130px, 100px 100px, 120px 120px, 95px 95px, 100% 100%;
+  background-image:
+    linear-gradient(160deg, rgba(243,233,216,0.87) 0%, rgba(251,246,236,0.93) 60%, rgba(251,246,236,0.97) 100%),
+    url("assets/bakery-shelf.jpg");
+  background-size: cover, cover;
+  background-position: center, center 32%;
+  background-repeat: no-repeat, no-repeat;
   padding: 72px 20px 0;
   overflow: hidden;
 }
@@ -351,48 +348,24 @@ img, svg { display: block; max-width: 100%; }
   overflow: hidden;
 }
 
-/* クロワッサン: バターの層を思わせる斜め縞グラデーション */
-.product-visual--croissant {
-  background:
-    repeating-linear-gradient(
-      118deg,
-      #E7C68A 0px, #E7C68A 10px,
-      #D9A85C 10px, #D9A85C 20px,
-      #C68A3E 20px, #C68A3E 26px,
-      #F3E9D8 26px, #F3E9D8 34px
-    );
-}
-.product-visual--croissant::after {
-  content: "";
-  position: absolute;
-  inset: -20% -10%;
-  border-radius: 50%;
-  box-shadow: 0 0 0 60px var(--oatmeal);
-  opacity: 0.9;
-}
-
-/* カンパーニュ: 気泡のあるまだら模様 + クープの十字スコア */
+/* クロワッサン・カンパーニュ: フリー素材写真を配置し、ブランドトーンに馴染ませる */
+.product-visual--croissant,
 .product-visual--campagne {
-  background:
-    radial-gradient(circle at 20% 30%, rgba(243,233,216,0.55) 0 6px, transparent 7px),
-    radial-gradient(circle at 60% 20%, rgba(243,233,216,0.45) 0 4px, transparent 5px),
-    radial-gradient(circle at 80% 60%, rgba(243,233,216,0.5) 0 8px, transparent 9px),
-    radial-gradient(circle at 35% 70%, rgba(243,233,216,0.4) 0 5px, transparent 6px),
-    radial-gradient(circle at 50% 45%, rgba(243,233,216,0.4) 0 7px, transparent 8px),
-    radial-gradient(circle at 90% 25%, rgba(243,233,216,0.4) 0 4px, transparent 5px),
-    radial-gradient(circle at 10% 80%, rgba(243,233,216,0.4) 0 5px, transparent 6px),
-    linear-gradient(155deg, #C6934F 0%, #A66B32 60%, #8A5326 100%);
+  background: var(--crust);
 }
-.product-visual--campagne::before,
+.product-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-visual--croissant::after,
 .product-visual--campagne::after {
   content: "";
   position: absolute;
-  top: 50%; left: 50%;
-  width: 62%; height: 3px;
-  background: rgba(251,246,236,0.55);
-  transform: translate(-50%, -50%) rotate(-14deg);
+  inset: 0;
+  background: linear-gradient(185deg, rgba(92,58,33,0) 50%, rgba(92,58,33,0.28) 100%);
+  pointer-events: none;
 }
-.product-visual--campagne::after { transform: translate(-50%, -50%) rotate(14deg); }
 
 .product-visual--season {
   background: repeating-linear-gradient(
@@ -453,6 +426,26 @@ img, svg { display: block; max-width: 100%; }
    職人のこだわり工程(縦タイムライン)
    ========================================================================== */
 .process { padding: 60px 0 64px; background: var(--oatmeal); }
+
+.process-photo {
+  max-width: 640px;
+  margin: 36px auto 0;
+  padding: 0 20px;
+  position: relative;
+}
+.process-photo img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border: 1px solid rgba(92,58,33,0.15);
+}
+.process-photo::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 20px; bottom: 0; left: 20px;
+  background: linear-gradient(185deg, rgba(92,58,33,0) 55%, rgba(92,58,33,0.22) 100%);
+  pointer-events: none;
+}
 
 .timeline {
   max-width: 640px;
