@@ -1,6 +1,7 @@
 /* ==========================================================================
    Table de Lumière ポートフォリオサンプル
-   写真は一切使用せず、グラデーション・ぼかし円・罫線・タイポグラフィのみで
+   グラデーション・ぼかし円・罫線・タイポグラフィに加え、
+   Unsplash提供のフリー写真(assets/)を要所に組み合わせて
    「光」「季節」の世界観を表現する。
    ========================================================================== */
 
@@ -272,7 +273,9 @@ img {
   justify-content: center;
   text-align: center;
   padding: 120px 24px 80px;
-  background: linear-gradient(160deg, var(--color-ivory) 0%, var(--color-ivory-deep) 55%, var(--color-gold-light) 100%);
+  background:
+    linear-gradient(160deg, rgba(247, 242, 234, 0.88) 0%, rgba(241, 233, 218, 0.72) 55%, rgba(245, 230, 200, 0.6) 100%),
+    url("assets/hero-window-light.jpg") center 30% / cover no-repeat;
 }
 
 .hero-light-band {
@@ -432,6 +435,19 @@ img {
   padding: 100px 0;
 }
 
+.kodawari-photo {
+  margin: 0 0 48px;
+}
+
+.kodawari-photo img {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-soft);
+  filter: saturate(0.94) sepia(0.05) contrast(1.02);
+  box-shadow: 0 24px 48px -28px rgba(90, 42, 52, 0.45);
+}
+
 .kodawari-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -518,6 +534,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   background: radial-gradient(circle at 40% 35%, var(--color-gold-light), var(--color-gold) 55%, var(--color-bordeaux-light) 100%);
   box-shadow: 0 0 0 1px var(--color-gold), 0 20px 40px -20px rgba(90, 42, 52, 0.4);
   position: relative;
@@ -529,14 +546,15 @@ img {
   inset: 14px;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.5);
+  z-index: 1;
+  pointer-events: none;
 }
 
-.chef-monogram {
-  font-family: var(--font-serif-en);
-  font-style: italic;
-  font-size: 4rem;
-  color: var(--color-ivory);
-  text-shadow: 0 2px 12px rgba(90, 42, 52, 0.4);
+.chef-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.92) sepia(0.05) contrast(1.02);
 }
 
 .chef-text {
@@ -700,6 +718,21 @@ img {
 
 .panel-night {
   background: radial-gradient(circle at 50% 30%, var(--color-gold), var(--color-bordeaux-light) 75%, var(--color-bordeaux) 100%);
+}
+
+.interior-panel.has-photo {
+  background: none;
+}
+
+.interior-panel.has-photo::before {
+  content: none;
+}
+
+.interior-panel.has-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.92) sepia(0.05) contrast(1.02);
 }
 
 .interior-list p {
