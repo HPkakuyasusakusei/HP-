@@ -1,0 +1,1425 @@
+/* ============================================================
+   Cafe&Bar Hero's 試作サイト
+   コンセプト: 盤上に灯る、杯の時間(GAME TABLE & AMBER LAMP)
+   このサイト専用に新規作成。他案件からの流用なし。
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Bitter:wght@600;800&display=swap");
+
+:root {
+  --bg: #1f3a2e;
+  --bg-deep: #172c22;
+  --panel: #29473a;
+  --panel-light: #305343;
+  --accent: #e0813f;
+  --accent-light: #f2a76b;
+  --wood: #6b4226;
+  --wood-dark: #4a2c19;
+  --dice-red: #b4523e;
+  --text: #f2ead8;
+  --text-muted: #c9bba0;
+  --line: rgba(242, 234, 216, 0.16);
+  --shadow: 0 18px 40px rgba(10, 18, 14, 0.45);
+  --radius-card: 20px;
+  --header-h: 76px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Zen Maru Gothic", "Zen Kaku Gothic New", sans-serif;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0 0 0.6em;
+  color: var(--text);
+}
+
+.eyebrow {
+  font-family: "Bitter", serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ------------------------------------------------------------
+   盤面のマス目グリッド(全ページ下地)+ SAMPLE 透かし
+   ------------------------------------------------------------ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(242, 234, 216, 0.05) 0, rgba(242, 234, 216, 0.05) 1px, transparent 1px, transparent 46px),
+    repeating-linear-gradient(90deg, rgba(242, 234, 216, 0.05) 0, rgba(242, 234, 216, 0.05) 1px, transparent 1px, transparent 46px);
+}
+
+.sample-watermark {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='170'><text x='-10' y='110' font-family='Bitter, Arial, sans-serif' font-size='40' font-weight='800' letter-spacing='4' fill='%23F2A76B' fill-opacity='0.09' transform='rotate(-24 130 85)'>SAMPLE</text></svg>");
+  background-repeat: repeat;
+  background-size: 260px 170px;
+}
+
+/* ------------------------------------------------------------
+   ヘッダー
+   ------------------------------------------------------------ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg) 100%);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.logo-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(150deg, var(--wood), var(--wood-dark));
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  padding: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+}
+
+.logo-icon span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-light);
+}
+
+.logo-icon span:nth-child(1) { grid-area: 1 / 1; }
+.logo-icon span:nth-child(2) { grid-area: 2 / 2; }
+.logo-icon span:nth-child(3) { grid-area: 3 / 3; }
+
+.logo-text {
+  font-family: "Bitter", serif;
+  font-weight: 800;
+  font-size: 1.18rem;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.nav-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  flex-wrap: wrap;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.site-nav a {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  position: relative;
+  padding: 6px 2px;
+  transition: color 0.2s ease;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  color: var(--accent-light);
+}
+
+.site-nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ------------------------------------------------------------
+   ボタン
+   ------------------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #c9702f);
+  color: #23150c;
+  box-shadow: 0 10px 22px rgba(224, 129, 63, 0.35);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--accent);
+  color: var(--accent-light);
+}
+
+.btn-outline:hover {
+  background: rgba(224, 129, 63, 0.12);
+}
+
+.btn-instagram {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--text);
+  padding: 9px 18px;
+}
+
+.btn-instagram:hover {
+  border-color: var(--accent-light);
+  color: var(--accent-light);
+}
+
+.ig-icon {
+  width: 16px;
+  height: 16px;
+  border: 1.6px solid currentColor;
+  border-radius: 5px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.ig-icon::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1.6px solid currentColor;
+  border-radius: 50%;
+}
+
+.ig-icon::after {
+  content: "";
+  position: absolute;
+  top: 1.5px;
+  right: 1.5px;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.btn-disabled,
+.btn[disabled] {
+  background: rgba(242, 234, 216, 0.06);
+  border-color: var(--line);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.75;
+  padding: 9px 18px;
+  font-size: 0.85rem;
+}
+
+.btn-disabled:hover,
+.btn[disabled]:hover {
+  transform: none;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* ------------------------------------------------------------
+   モバイルナビ
+   ------------------------------------------------------------ */
+@media (max-width: 880px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .site-nav {
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-deep);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px 24px;
+    gap: 28px;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 490;
+  }
+
+  .site-nav.is-open {
+    transform: translateX(0);
+  }
+
+  .site-nav ul {
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+  }
+
+  .site-nav a {
+    font-size: 1.08rem;
+  }
+
+  .nav-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .nav-actions .btn {
+    width: 100%;
+  }
+}
+
+/* ------------------------------------------------------------
+   共通セクション
+   ------------------------------------------------------------ */
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.section {
+  padding: 76px 0;
+  position: relative;
+}
+
+.section--tight {
+  padding: 56px 0;
+}
+
+.section-head {
+  max-width: 640px;
+  margin: 0 0 42px;
+}
+
+.section-head.is-center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.section-head h2 {
+  font-size: clamp(1.6rem, 3.6vw, 2.2rem);
+}
+
+.lead {
+  color: var(--text-muted);
+  font-size: 1.02rem;
+}
+
+/* フェードイン */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ------------------------------------------------------------
+   装飾モチーフ
+   ------------------------------------------------------------ */
+.bg-wood {
+  background-image: repeating-linear-gradient(
+    112deg,
+    rgba(107, 66, 38, 0.5) 0,
+    rgba(107, 66, 38, 0.5) 2px,
+    transparent 2px,
+    transparent 9px
+  );
+}
+
+.bg-glow {
+  background-image: radial-gradient(circle at 25% 20%, rgba(224, 129, 63, 0.32), transparent 55%);
+}
+
+.bg-glow-strong {
+  background-image: radial-gradient(circle at 75% 30%, rgba(224, 129, 63, 0.48), transparent 60%),
+    radial-gradient(circle at 15% 80%, rgba(242, 167, 107, 0.22), transparent 55%);
+}
+
+.piece {
+  position: absolute;
+  border-radius: 50% 50% 42% 42% / 60% 60% 40% 40%;
+  background: linear-gradient(160deg, var(--accent), var(--accent-light));
+  opacity: 0.5;
+  filter: blur(0.2px);
+  pointer-events: none;
+}
+
+.piece--wood {
+  background: linear-gradient(160deg, var(--wood), #8a5a34);
+}
+
+.dice-deco {
+  width: 58px;
+  height: 58px;
+  border-radius: 13px;
+  background: linear-gradient(150deg, var(--wood), var(--wood-dark));
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  padding: 9px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+}
+
+.dice-deco span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-light);
+}
+
+.dice-deco.face-1 span:nth-child(1) { grid-area: 2 / 2; }
+
+.dice-deco.face-3 span:nth-child(1) { grid-area: 1 / 1; }
+.dice-deco.face-3 span:nth-child(2) { grid-area: 2 / 2; }
+.dice-deco.face-3 span:nth-child(3) { grid-area: 3 / 3; }
+
+.dice-deco.face-5 span:nth-child(1) { grid-area: 1 / 1; }
+.dice-deco.face-5 span:nth-child(2) { grid-area: 1 / 3; }
+.dice-deco.face-5 span:nth-child(3) { grid-area: 2 / 2; }
+.dice-deco.face-5 span:nth-child(4) { grid-area: 3 / 1; }
+.dice-deco.face-5 span:nth-child(5) { grid-area: 3 / 3; }
+
+.dice-deco.face-6 { background: linear-gradient(150deg, var(--dice-red), #7c3225); }
+.dice-deco.face-6 span:nth-child(1) { grid-area: 1 / 1; }
+.dice-deco.face-6 span:nth-child(2) { grid-area: 1 / 3; }
+.dice-deco.face-6 span:nth-child(3) { grid-area: 2 / 1; }
+.dice-deco.face-6 span:nth-child(4) { grid-area: 2 / 3; }
+.dice-deco.face-6 span:nth-child(5) { grid-area: 3 / 1; }
+.dice-deco.face-6 span:nth-child(6) { grid-area: 3 / 3; }
+.dice-deco.face-6 span { background: var(--text); }
+
+.glass-icon {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.corner-mark {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--accent);
+  transform: rotate(45deg);
+  opacity: 0.7;
+}
+
+/* ------------------------------------------------------------
+   PHOTO SAMPLE プレースホルダー
+   ------------------------------------------------------------ */
+.photo-placeholder {
+  position: relative;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--accent);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background-color: var(--panel);
+}
+
+.photo-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(242, 234, 216, 0.06) 0, rgba(242, 234, 216, 0.06) 1px, transparent 1px, transparent 28px),
+    repeating-linear-gradient(90deg, rgba(242, 234, 216, 0.06) 0, rgba(242, 234, 216, 0.06) 1px, transparent 1px, transparent 28px),
+    radial-gradient(circle at 30% 25%, rgba(224, 129, 63, 0.4), transparent 60%);
+}
+
+.photo-placeholder .ph-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--wood);
+  border-style: solid;
+  border-width: 0;
+}
+
+.photo-placeholder .ph-corner--tl { top: 10px; left: 10px; border-top-width: 3px; border-left-width: 3px; }
+.photo-placeholder .ph-corner--tr { top: 10px; right: 10px; border-top-width: 3px; border-right-width: 3px; }
+.photo-placeholder .ph-corner--bl { bottom: 10px; left: 10px; border-bottom-width: 3px; border-left-width: 3px; }
+.photo-placeholder .ph-corner--br { bottom: 10px; right: 10px; border-bottom-width: 3px; border-right-width: 3px; }
+
+.ph-label {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.ph-label .ph-title {
+  display: block;
+  font-family: "Bitter", serif;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--accent-light);
+  font-size: 0.86rem;
+}
+
+.ph-label .ph-sub {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   フッター
+   ============================================================ */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  background: var(--bg-deep);
+  border-top: 1px solid var(--line);
+  padding: 52px 0 28px;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 32px;
+}
+
+.footer-brand .logo-text {
+  font-size: 1.3rem;
+}
+
+.footer-brand p {
+  color: var(--text-muted);
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+.footer-col h3 {
+  font-size: 0.95rem;
+  color: var(--accent-light);
+  margin-bottom: 14px;
+}
+
+.footer-col address {
+  font-style: normal;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-col a {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  transition: color 0.2s ease;
+}
+
+.footer-col a:hover {
+  color: var(--accent-light);
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-sample {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.footer-copyright {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+@media (max-width: 760px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+}
+
+/* ============================================================
+   P1 index.html — 昼と夜、ふたつの顔
+   ============================================================ */
+.hero {
+  position: relative;
+  padding: 64px 0 88px;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 82% 12%, rgba(224, 129, 63, 0.3), transparent 55%),
+    radial-gradient(circle at 6% 90%, rgba(107, 66, 38, 0.35), transparent 50%);
+  z-index: 0;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+}
+
+.hero .eyebrow {
+  display: inline-block;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(1.9rem, 5.4vw, 3.2rem);
+  letter-spacing: 0.01em;
+}
+
+.hero .lead {
+  font-size: 1.05rem;
+  max-width: 560px;
+}
+
+.hero-piece {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-piece--1 { width: 70px; height: 100px; top: 12%; right: 12%; }
+.hero-piece--2 { width: 40px; height: 60px; top: 55%; right: 26%; opacity: 0.35; }
+
+.stat-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 28px;
+  margin: 32px 0 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-num {
+  font-family: "Bitter", serif;
+  font-weight: 800;
+  font-size: clamp(2.6rem, 7vw, 3.6rem);
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-caption {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  max-width: 200px;
+}
+
+/* 昼と夜、ふたつの顔 */
+.day-night {
+  position: relative;
+  z-index: 1;
+}
+
+.band {
+  padding: 68px 0;
+  position: relative;
+}
+
+.band-inner {
+  max-width: 640px;
+}
+
+.band--day {
+  background: var(--panel);
+}
+
+.band--day .band-inner::before {
+  content: "";
+}
+
+.band-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Bitter", serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.band-tag::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--accent-light);
+}
+
+.band--night {
+  background: linear-gradient(180deg, #23392f 0%, #1a2f26 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.band--night::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 80% 30%, rgba(224, 129, 63, 0.4), transparent 55%);
+  pointer-events: none;
+}
+
+.band--night .band-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.band-divider {
+  height: 64px;
+  background: linear-gradient(180deg, var(--panel) 0%, rgba(224, 129, 63, 0.18) 50%, #23392f 100%);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(242, 234, 216, 0.05) 0, rgba(242, 234, 216, 0.05) 1px, transparent 1px, transparent 40px),
+    linear-gradient(180deg, var(--panel) 0%, rgba(224, 129, 63, 0.22) 50%, #23392f 100%);
+  position: relative;
+}
+
+.night-glass {
+  position: absolute;
+  right: 6%;
+  bottom: 10%;
+  opacity: 0.55;
+}
+
+/* ボードゲームへの橋渡し */
+.bridge {
+  background: var(--bg);
+  text-align: center;
+  padding: 64px 0;
+  position: relative;
+}
+
+.bridge-inner {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.bridge .btn-row {
+  justify-content: center;
+  margin-top: 22px;
+}
+
+/* お客様の声(抜粋) */
+.quote-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.quote-card {
+  flex: 1 1 320px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 28px;
+  position: relative;
+}
+
+.quote-card::before,
+.quote-card::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 1.4px solid var(--accent);
+  opacity: 0.7;
+}
+
+.quote-card::before { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+.quote-card::after { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+.quote-stars {
+  color: var(--accent);
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.quote-text {
+  font-size: 0.96rem;
+  color: var(--text);
+}
+
+.quote-source {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  margin-top: 14px;
+}
+
+/* アクセス予告 */
+.access-preview {
+  background: var(--panel);
+  padding: 68px 0;
+}
+
+.access-card-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.address-card {
+  flex: 1 1 320px;
+  background: var(--bg-deep);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-card);
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.address-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(0deg, rgba(242, 234, 216, 0.05) 0, rgba(242, 234, 216, 0.05) 1px, transparent 1px, transparent 30px),
+    repeating-linear-gradient(90deg, rgba(242, 234, 216, 0.05) 0, rgba(242, 234, 216, 0.05) 1px, transparent 1px, transparent 30px);
+  z-index: 0;
+}
+
+.address-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.address-card .addr-text {
+  font-size: 1.05rem;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+/* ============================================================
+   P2 concept.html — テーブルを囲む輪
+   ============================================================ */
+.round-table {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.round-table-visual {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, var(--panel-light) 0%, var(--panel) 62%, var(--bg-deep) 100%);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.round-table-visual::before {
+  content: "";
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+  background-image: repeating-linear-gradient(0deg, rgba(242, 234, 216, 0.06) 0, rgba(242, 234, 216, 0.06) 1px, transparent 1px, transparent 22px),
+    repeating-linear-gradient(90deg, rgba(242, 234, 216, 0.06) 0, rgba(242, 234, 216, 0.06) 1px, transparent 1px, transparent 22px);
+}
+
+.round-table-pieces {
+  position: relative;
+  width: 60%;
+  height: 60%;
+}
+
+.round-table-pieces .piece {
+  position: absolute;
+}
+
+.master-block {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.master-visual {
+  border-radius: var(--radius-card);
+  min-height: 180px;
+  position: relative;
+  overflow: hidden;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.master-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 75% 30%, rgba(224, 129, 63, 0.45), transparent 55%);
+}
+
+.master-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(112deg, rgba(107, 66, 38, 0.4) 0, rgba(107, 66, 38, 0.4) 2px, transparent 2px, transparent 10px);
+  opacity: 0.5;
+}
+
+.bg-note {
+  position: relative;
+  z-index: 1;
+  padding: 14px 18px;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.boardgame-block {
+  position: relative;
+  padding: 56px 0;
+}
+
+.bg-callout {
+  margin-top: 22px;
+  background: var(--panel);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px 12px 12px 4px;
+  padding: 18px 22px;
+}
+
+.bg-callout h4 {
+  font-size: 1rem;
+  color: var(--accent-light);
+  margin-bottom: 8px;
+}
+
+.bg-callout p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* 一人でも、みんなでも */
+.solo-group {
+  background: var(--panel);
+  border-radius: var(--radius-card);
+  padding: 44px 36px;
+}
+
+.solo-group ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.solo-group li {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.solo-group li:last-child {
+  border-bottom: none;
+}
+
+.solo-group li::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   P3 drink.html — 一杯ずつ、言葉を交わしながら
+   ============================================================ */
+.timeline {
+  position: relative;
+  margin-top: 20px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 27px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--wood));
+}
+
+.timeline-step {
+  position: relative;
+  padding-left: 74px;
+  margin-bottom: 44px;
+}
+
+.timeline-step:last-child {
+  margin-bottom: 0;
+}
+
+.step-marker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--panel);
+  border: 1.5px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-num {
+  font-family: "Bitter", serif;
+  font-weight: 800;
+  color: var(--accent-light);
+  font-size: 1.2rem;
+}
+
+.timeline-step h3 {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.timeline-step .glass-icon {
+  position: absolute;
+  right: 0;
+  top: 4px;
+  width: 34px;
+  opacity: 0.6;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .timeline-step .glass-icon {
+    display: block;
+  }
+  .timeline-step {
+    padding-right: 60px;
+  }
+}
+
+.simple-block {
+  background: var(--panel);
+  border-radius: var(--radius-card);
+  padding: 40px;
+  margin-top: 8px;
+}
+
+.cafe-note {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 28px 32px;
+  margin-top: 8px;
+}
+
+.footnote {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--line);
+}
+
+/* ============================================================
+   P4 voice.html — ゲームカードの声
+   ============================================================ */
+.review-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.review-card {
+  background: var(--panel);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-card);
+  padding: 30px 28px;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+
+.review-card .corner-mark { display: block; }
+.review-card .corner-mark--tl { top: -6px; left: 20px; }
+.review-card .corner-mark--br { bottom: -6px; right: 20px; }
+
+.review-card:nth-child(odd) {
+  transform: rotate(-1.1deg);
+}
+
+.review-card:nth-child(even) {
+  transform: rotate(1.1deg);
+}
+
+@media (min-width: 700px) {
+  .review-card:nth-child(1) { margin-right: 8%; }
+  .review-card:nth-child(2) { margin-left: 8%; margin-top: -12px; }
+  .review-card:nth-child(3) { margin-right: 4%; margin-top: -12px; }
+  .review-card:nth-child(4) { margin-left: 10%; margin-top: -12px; }
+  .review-card:nth-child(5) { margin-right: 2%; margin-top: -12px; }
+}
+
+.stars {
+  color: var(--accent);
+  font-size: 1rem;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+
+.review-card p.quote-text {
+  font-size: 0.98rem;
+}
+
+.review-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.review-note {
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* ============================================================
+   P5 access.html — 盤面の案内マス
+   ============================================================ */
+.masu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.masu {
+  background: var(--panel);
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+.masu::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(0deg, rgba(242, 234, 216, 0.05) 0, rgba(242, 234, 216, 0.05) 1px, transparent 1px, transparent 20px),
+    repeating-linear-gradient(90deg, rgba(242, 234, 216, 0.05) 0, rgba(242, 234, 216, 0.05) 1px, transparent 1px, transparent 20px);
+  z-index: 0;
+}
+
+.masu > * {
+  position: relative;
+  z-index: 1;
+}
+
+.masu-label {
+  font-family: "Bitter", serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.masu-value {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.masu-value.is-tbd {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.masu--wide {
+  grid-column: span 2;
+}
+
+@media (max-width: 560px) {
+  .masu--wide {
+    grid-column: span 1;
+  }
+}
+
+.map-block {
+  margin-top: 52px;
+  background: var(--bg-deep);
+  border-radius: var(--radius-card);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.map-block::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(112deg, rgba(107, 66, 38, 0.35) 0, rgba(107, 66, 38, 0.35) 2px, transparent 2px, transparent 10px);
+  opacity: 0.6;
+}
+
+.map-block > * {
+  position: relative;
+  z-index: 1;
+}
+
+.map-frame {
+  margin-top: 20px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.map-frame iframe {
+  width: 100%;
+  height: 320px;
+  border: 0;
+  display: block;
+  filter: grayscale(0.15) sepia(0.08);
+}
+
+/* 注意喚起ブロック */
+.warning-block {
+  margin-top: 56px;
+  background: linear-gradient(155deg, var(--dice-red), #8a3d2c);
+  border: 3px solid var(--wood);
+  border-radius: var(--radius-card);
+  padding: 40px;
+  color: var(--text);
+}
+
+.warning-block h2 {
+  color: var(--text);
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.warning-block .lead {
+  color: rgba(242, 234, 216, 0.92);
+}
+
+.warning-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.warning-list li {
+  background: rgba(31, 58, 46, 0.28);
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-size: 0.92rem;
+  border-left: 3px solid var(--text);
+}
+
+.final-cta {
+  margin-top: 60px;
+  text-align: center;
+  background: var(--panel);
+  border-radius: var(--radius-card);
+  padding: 52px 30px;
+}
+
+.final-cta .btn-row {
+  justify-content: center;
+  margin-top: 22px;
+}
+
+/* ============================================================
+   レスポンシブ調整
+   ============================================================ */
+@media (min-width: 760px) {
+  .master-block {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .round-table {
+    grid-template-columns: 1fr 1.1fr 1fr;
+  }
+
+  .round-table .text-left { text-align: right; }
+}
+
+@media (max-width: 600px) {
+  .section { padding: 56px 0; }
+  .band { padding: 52px 0; }
+  .hero { padding: 48px 0 60px; }
+  .warning-block { padding: 28px 22px; }
+  .masu-grid { grid-template-columns: 1fr; }
+}
