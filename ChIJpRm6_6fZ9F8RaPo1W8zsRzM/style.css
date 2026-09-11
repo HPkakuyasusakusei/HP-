@@ -1,0 +1,914 @@
+/* ==========================================================================
+   竹ぞう ― 「たそがれ、灯る。」
+   昼の残光から夜の灯りへ。スクロールするほど暗くなる構成。写真は使用しない。
+   ========================================================================== */
+
+:root {
+  --fukaai: #16213E;
+  --sumi: #171416;
+  --sumi-deep: #0E0C0D;
+  --kohaku: #C98A3B;
+  --bengara: #8B4226;
+  --tankin: #E8C77E;
+  --kinari: #F4EDE1;
+  --ink: #221D1A;
+  --muted-on-dark: #B9AFA0;
+
+  --font-heading: "Noto Serif JP", serif;
+  --font-body: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+
+  --edge: 28px;
+  --container: 1080px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background-color: var(--sumi-deep);
+  line-height: 1.9;
+  letter-spacing: 0.03em;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  line-height: 1.5;
+  margin: 0 0 0.6em;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: none;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--kohaku);
+  color: var(--ink);
+  padding: 0.6em 1em;
+  z-index: 999;
+}
+
+.skip-link:focus {
+  left: 8px;
+  top: 8px;
+}
+
+.section-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--edge);
+}
+
+.section-heading {
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+  position: relative;
+  padding-bottom: 0.5em;
+}
+
+.section-heading::after {
+  content: "";
+  display: block;
+  width: 3em;
+  height: 3px;
+  background: var(--kohaku);
+  margin-top: 0.5em;
+}
+
+.section-heading-muted::after {
+  background: var(--bengara);
+  opacity: 0.7;
+}
+
+.lead {
+  font-size: 1.02rem;
+}
+
+.note {
+  color: var(--kinari);
+  font-size: 0.9em;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.9em 1.8em;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-align: center;
+  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--kohaku);
+  color: var(--sumi-deep);
+  border-color: var(--kohaku);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--tankin);
+  border-color: var(--tankin);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  background: var(--ink);
+  color: var(--kinari);
+}
+
+.btn-outline-light {
+  color: var(--kinari);
+  border-color: var(--kinari);
+}
+
+.btn-outline-light:hover,
+.btn-outline-light:focus-visible {
+  background: var(--kinari);
+  color: var(--sumi-deep);
+}
+
+.vertical-label {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  letter-spacing: 0.5em;
+  color: var(--kohaku);
+  border-left: 1px solid var(--kohaku);
+  padding-left: 0.6em;
+}
+
+.vertical-label-light {
+  color: var(--tankin);
+  border-left-color: var(--tankin);
+}
+
+/* ==========================================================================
+   ヘッダー
+   ========================================================================== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  /* 初期状態からコントラストを確保するため、常に暗色の半透明背景を敷く(JS未実行/無効時も安全) */
+  background: rgba(23, 20, 22, 0.82);
+  backdrop-filter: blur(6px);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.site-header.is-scrolled {
+  background: rgba(23, 20, 22, 0.94);
+  box-shadow: 0 1px 0 rgba(201, 138, 59, 0.25);
+}
+
+.header-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0.9em var(--edge);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.brand {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+}
+
+.brand a {
+  color: var(--kinari);
+  text-decoration: none;
+}
+
+.nav-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: 1px solid rgba(244, 237, 225, 0.4);
+  border-radius: 2px;
+  padding: 0.5em 0.7em;
+  cursor: pointer;
+}
+
+.nav-toggle-bar {
+  width: 20px;
+  height: 2px;
+  background: var(--kinari);
+  display: block;
+}
+
+.nav-toggle-label {
+  /* 視覚的には非表示にしつつ、スクリーンリーダーには読み上げさせる */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.global-nav {
+  /* 親の.site-header(position: fixed)を基準に、実際のヘッダー高さに追従させる */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--sumi);
+  border-top: 1px solid rgba(201, 138, 59, 0.3);
+  padding: 1.2em var(--edge) 1.6em;
+  display: none;
+  flex-direction: column;
+  gap: 1.2em;
+}
+
+.global-nav.is-open {
+  display: flex;
+}
+
+.global-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.global-nav a {
+  color: var(--kinari);
+  text-decoration: none;
+  font-size: 1.05rem;
+}
+
+.global-nav a:hover,
+.global-nav a:focus-visible {
+  color: var(--kohaku);
+}
+
+.header-cta {
+  align-self: flex-start;
+  color: var(--kinari);
+  border-color: var(--kinari);
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: 84px;
+  background: linear-gradient(180deg, var(--kinari) 0%, var(--tankin) 55%, var(--kohaku) 100%);
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  inset: auto -20% -30% auto;
+  width: 60vw;
+  height: 60vw;
+  max-width: 640px;
+  max-height: 640px;
+  background: radial-gradient(circle, rgba(139, 66, 38, 0.35) 0%, rgba(139, 66, 38, 0) 70%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  padding-top: 2.5em;
+  padding-bottom: 4em;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  font-size: 0.9rem;
+  letter-spacing: 0.25em;
+  color: var(--bengara);
+  margin-bottom: 1.2em;
+}
+
+.eyebrow-line {
+  width: 2.5em;
+  height: 1px;
+  background: var(--bengara);
+  display: inline-block;
+}
+
+.hero-title {
+  font-size: clamp(2.1rem, 1.6rem + 2.4vw, 3.4rem);
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+.hero-lead {
+  max-width: 32em;
+  font-size: 1.05rem;
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin-top: 1.6em;
+}
+
+/* ==========================================================================
+   お知らせ
+   ========================================================================== */
+
+.notice {
+  background: var(--kohaku);
+  color: var(--ink);
+  clip-path: polygon(0 26px, 100% 0, 100% 100%, 0 100%);
+  margin-top: -26px;
+  padding: 4.2em 0 3em;
+  position: relative;
+  z-index: 1;
+}
+
+.notice-heading {
+  font-size: 1.4rem;
+  letter-spacing: 0.2em;
+}
+
+.notice-body {
+  max-width: 42em;
+}
+
+.notice-body p {
+  margin-bottom: 1em;
+}
+
+/* ==========================================================================
+   竹ぞうについて
+   ========================================================================== */
+
+.concept {
+  background: var(--fukaai);
+  color: var(--kinari);
+  clip-path: polygon(0 0, 100% 26px, 100% 100%, 0 100%);
+  margin-top: -26px;
+  padding: 4.5em 0;
+  position: relative;
+  z-index: 1;
+}
+
+.concept-inner {
+  display: flex;
+  gap: 1.6em;
+  align-items: flex-start;
+}
+
+.concept-body {
+  max-width: 42em;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+/* ==========================================================================
+   看板メニュー
+   ========================================================================== */
+
+.menu-current {
+  background: var(--kinari);
+  color: var(--ink);
+  clip-path: polygon(0 26px, 100% 0, 100% 100%, 0 100%);
+  margin-top: -26px;
+  padding: 4.5em 0 4em;
+  position: relative;
+  z-index: 1;
+}
+
+.menu-current-head {
+  display: flex;
+  gap: 1.4em;
+  align-items: flex-start;
+  margin-bottom: 2.2em;
+}
+
+.menu-current-head > div {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.menu-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.6em;
+}
+
+.menu-item {
+  display: flex;
+  gap: 1.1em;
+  align-items: flex-start;
+  padding-bottom: 1.6em;
+  border-bottom: 1px solid rgba(139, 66, 38, 0.2);
+}
+
+.skewer {
+  flex: none;
+  width: 2px;
+  height: 3.4em;
+  margin-top: 0.3em;
+  background: var(--bengara);
+  position: relative;
+}
+
+.skewer::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--kohaku);
+}
+
+.skewer::after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bengara);
+}
+
+.skewer-cup {
+  background: var(--tankin);
+}
+
+.skewer-cup::before,
+.skewer-cup::after {
+  background: var(--tankin);
+}
+
+.menu-item-body {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.menu-item-body h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.3em;
+}
+
+.menu-item-body p {
+  margin: 0;
+  font-size: 0.96rem;
+}
+
+.menu-note {
+  margin-top: 2em;
+  font-size: 0.92rem;
+  color: var(--bengara);
+  border-top: 1px dashed rgba(139, 66, 38, 0.4);
+  padding-top: 1.2em;
+}
+
+/* ==========================================================================
+   かつての人気メニュー(過去実績・控えめトーン)
+   ========================================================================== */
+
+.menu-past {
+  background: var(--sumi);
+  color: var(--muted-on-dark);
+  clip-path: polygon(0 0, 100% 22px, 100% 100%, 0 100%);
+  margin-top: -22px;
+  padding: 3.4em 0 3.2em;
+  position: relative;
+  z-index: 1;
+  font-size: 0.94rem;
+}
+
+.menu-past .section-heading {
+  font-size: 1.25rem;
+  color: var(--kinari);
+  opacity: 0.85;
+}
+
+.past-notice {
+  max-width: 40em;
+  padding: 1em 1.2em;
+  border-left: 2px solid var(--bengara);
+  background: rgba(139, 66, 38, 0.12);
+  font-size: 0.9rem;
+}
+
+.past-menu-main {
+  margin-top: 1.8em;
+  max-width: 36em;
+}
+
+.past-menu-main h3 {
+  font-size: 1rem;
+  color: var(--kinari);
+  opacity: 0.8;
+  margin-bottom: 0.3em;
+}
+
+.past-menu-main p {
+  font-size: 0.9rem;
+}
+
+.past-menu-list {
+  margin-top: 1.2em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5em 1.5em;
+  max-width: 40em;
+  font-size: 0.88rem;
+}
+
+.past-menu-list li {
+  position: relative;
+  padding-left: 1em;
+}
+
+.past-menu-list li::before {
+  content: "・";
+  position: absolute;
+  left: 0;
+}
+
+.past-footnote {
+  margin-top: 1.6em;
+  font-size: 0.82rem;
+  opacity: 0.75;
+}
+
+/* ==========================================================================
+   店内の雰囲気・お客様の声
+   ========================================================================== */
+
+.voice {
+  background: var(--fukaai);
+  color: var(--kinari);
+  clip-path: polygon(0 26px, 100% 0, 100% 100%, 0 100%);
+  margin-top: -26px;
+  padding: 4.4em 0;
+  position: relative;
+  z-index: 1;
+}
+
+.voice-head {
+  display: flex;
+  gap: 1.4em;
+  align-items: flex-start;
+}
+
+.voice-head > div {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.voice-list {
+  margin-top: 2.4em;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.8em;
+}
+
+.voice-item {
+  margin: 0;
+  padding: 1.6em 1.8em;
+  border: 1px solid rgba(232, 199, 126, 0.25);
+  border-left: 3px solid var(--tankin);
+  position: relative;
+}
+
+.stars {
+  margin: 0 0 0.5em;
+  color: var(--tankin);
+  letter-spacing: 0.15em;
+  font-size: 0.95rem;
+}
+
+.voice-quote {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  margin-bottom: 0.6em;
+}
+
+.voice-note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted-on-dark);
+}
+
+/* ==========================================================================
+   アクセス・営業情報
+   ========================================================================== */
+
+.access {
+  background: var(--sumi);
+  color: var(--kinari);
+  clip-path: polygon(0 0, 100% 26px, 100% 100%, 0 100%);
+  margin-top: -26px;
+  padding: 4.4em 0;
+  position: relative;
+  z-index: 1;
+}
+
+.access-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2em;
+  margin: 2em 0 2.2em;
+}
+
+.access-list {
+  display: grid;
+  gap: 1.2em;
+  margin: 0;
+}
+
+.access-list dt {
+  font-family: var(--font-heading);
+  color: var(--kohaku);
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3em;
+}
+
+.access-list dd {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.map-placeholder {
+  border: 1px dashed rgba(244, 237, 225, 0.35);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.4em;
+  color: var(--muted-on-dark);
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(244, 237, 225, 0.03) 0px,
+    rgba(244, 237, 225, 0.03) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+}
+
+.map-placeholder p {
+  margin: 0;
+}
+
+.map-placeholder-sub {
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   CTA
+   ========================================================================== */
+
+.cta {
+  position: relative;
+  background: linear-gradient(180deg, var(--sumi) 0%, var(--sumi-deep) 100%);
+  color: var(--kinari);
+  clip-path: polygon(0 26px, 100% 0, 100% 100%, 0 100%);
+  margin-top: -26px;
+  padding: 5em 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cta-glow {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70vw;
+  height: 70vw;
+  max-width: 560px;
+  max-height: 560px;
+  background: radial-gradient(circle, rgba(201, 138, 59, 0.28) 0%, rgba(201, 138, 59, 0) 72%);
+  pointer-events: none;
+}
+
+.cta-inner {
+  position: relative;
+  text-align: center;
+}
+
+.cta-inner .section-heading::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin: 1.6em 0 1.6em;
+}
+
+.cta-phone {
+  color: var(--muted-on-dark);
+  font-size: 0.95rem;
+}
+
+.cta-form-note {
+  max-width: 34em;
+  margin: 1.6em auto 0;
+  font-size: 0.88rem;
+  color: var(--muted-on-dark);
+}
+
+/* ==========================================================================
+   フッター
+   ========================================================================== */
+
+.site-footer {
+  background: var(--sumi-deep);
+  color: var(--muted-on-dark);
+  padding: 3.4em 0 2.4em;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1em;
+}
+
+.footer-brand {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--kinari);
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em 1.6em;
+}
+
+.footer-nav a {
+  color: var(--kinari);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-nav a:hover,
+.footer-nav a:focus-visible {
+  color: var(--kohaku);
+}
+
+.footer-sns {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.footer-note {
+  font-size: 0.78rem;
+  max-width: 30em;
+  margin: 0;
+}
+
+.footer-copyright {
+  font-size: 0.8rem;
+  margin: 0.6em 0 0;
+}
+
+/* ==========================================================================
+   レスポンシブ(タブレット・PC)
+   ========================================================================== */
+
+@media (min-width: 768px) {
+  :root {
+    --edge: 40px;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .global-nav {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2em;
+    background: transparent;
+    border-top: none;
+    padding: 0;
+  }
+
+  .global-nav ul {
+    flex-direction: row;
+    gap: 1.6em;
+  }
+
+  .header-cta {
+    align-self: center;
+  }
+
+  .hero-title {
+    max-width: 20em;
+  }
+
+  .concept-inner {
+    gap: 2.4em;
+  }
+
+  .menu-list {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2.4em;
+  }
+
+  .voice-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .access-grid {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: start;
+  }
+
+  .past-menu-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-inner {
+    padding-top: 4em;
+    padding-bottom: 6em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .btn {
+    transition: none;
+  }
+}
