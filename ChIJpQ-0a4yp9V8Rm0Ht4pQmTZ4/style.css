@@ -1,0 +1,903 @@
+/* =========================================================
+   お菓子ラボ FLAN — style.css
+   知的で落ち着いた大人の工房感。写真は使わずCSSのみで装飾。
+   ========================================================= */
+
+:root {
+  --color-base: #faf3e6;
+  --color-base-alt: #f2e6d2;
+  --color-main: #8b5a3c;
+  --color-main-dark: #5f3c26;
+  --color-main-light: #b9855f;
+  --color-text: #43332a;
+  --color-text-soft: #6b5a4c;
+  --color-border: #ddc9ab;
+
+  --accent-strawberry: #c1443a;
+  --accent-blueberry: #2e3a59;
+  --accent-lemon: #d9a02f;
+  --accent-fig: #6b2a44;
+
+  --font-heading: "Klee One", "Yu Mincho", serif;
+  --font-body: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+
+  --max-width: 1120px;
+  --radius-card: 18px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+
+body {
+  margin: 0;
+  background: var(--color-base);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  color: var(--color-main-dark);
+  margin: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--color-main);
+  color: #fff;
+  padding: 0.6em 1em;
+  z-index: 1000;
+}
+.skip-link:focus {
+  left: 0.5em;
+  top: 0.5em;
+}
+
+.section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 4.5rem 1.5rem;
+}
+.section-inner--narrow {
+  max-width: 760px;
+}
+
+.section-eyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-main-light);
+  text-align: center;
+  font-weight: 700;
+}
+
+.section-title {
+  font-size: clamp(1.6rem, 3.6vw, 2.2rem);
+  text-align: center;
+  margin-bottom: 1.75rem;
+  letter-spacing: 0.02em;
+}
+
+.section-lead {
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+  color: var(--color-text-soft);
+}
+
+.only-mobile {
+  display: none;
+}
+
+/* ---------- ボタン ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.85em 1.6em;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: 2px solid transparent;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn-primary {
+  background: var(--color-main);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--color-main-dark);
+}
+.btn-outline {
+  background: transparent;
+  border-color: var(--color-main);
+  color: var(--color-main-dark);
+}
+.btn-outline:hover {
+  background: var(--color-main);
+  color: #fff;
+}
+
+/* ---------- Instagramアイコン(CSSのみ) ---------- */
+.ig-icon {
+  width: 20px;
+  height: 20px;
+  border: 2px solid currentColor;
+  border-radius: 7px;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.ig-icon::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+}
+.ig-icon::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ---------- カラードット ---------- */
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.dot-strawberry { background: var(--accent-strawberry); }
+.dot-blueberry  { background: var(--accent-blueberry); }
+.dot-lemon      { background: var(--accent-lemon); }
+.dot-fig        { background: var(--accent-fig); }
+
+.fruit-line {
+  display: flex;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 3rem;
+}
+
+/* ---------- スカラップ区切り(タルトの縁) ---------- */
+.scallop-divider {
+  height: 18px;
+  background-image: radial-gradient(circle at 9px 9px, transparent 9px, var(--color-main) 10px);
+  background-size: 18px 18px;
+  background-repeat: repeat-x;
+  background-position: center top;
+  opacity: 0.55;
+}
+
+/* =========================================================
+   ヘッダー
+   ========================================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: rgba(250, 243, 230, 0.95);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.logo-main {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-main-dark);
+}
+.logo-sub {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--color-text-soft);
+  text-transform: uppercase;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 1.6rem;
+}
+.site-nav a {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--color-text);
+  position: relative;
+  padding-bottom: 2px;
+}
+.site-nav a:hover {
+  color: var(--color-main);
+}
+
+.header-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-main-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.header-instagram--mobile {
+  display: none;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.nav-toggle-bar {
+  width: 20px;
+  height: 2px;
+  margin: 0 auto;
+  background: var(--color-main-dark);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* =========================================================
+   ファーストビュー(Hero)
+   ========================================================= */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 4.5rem 1.5rem 4rem;
+  background: var(--color-base);
+}
+
+.hero-deco {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-ring {
+  position: absolute;
+  top: -140px;
+  right: -140px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(
+      circle at center,
+      var(--color-base-alt) 0px,
+      var(--color-base-alt) 18px,
+      #e8d3ae 18px,
+      #e8d3ae 34px,
+      var(--color-main-light) 34px,
+      var(--color-main-light) 46px
+    );
+  opacity: 0.6;
+}
+.hero-deco .dot {
+  position: absolute;
+}
+.hero-deco .dot-strawberry { top: 12%; left: 8%; }
+.hero-deco .dot-blueberry  { top: 60%; left: 4%; width: 14px; height: 14px; }
+.hero-deco .dot-lemon      { bottom: 14%; left: 20%; }
+.hero-deco .dot-fig        { top: 30%; left: 30%; width: 8px; height: 8px; }
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  color: var(--color-main);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5.5vw, 3.1rem);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.hero-text {
+  max-width: 560px;
+  margin: 0 auto 2.25rem;
+  color: var(--color-text-soft);
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* =========================================================
+   選ばれる理由
+   ========================================================= */
+.features {
+  background: var(--color-base-alt);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background: var(--color-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 2.1rem 1.75rem;
+  text-align: center;
+}
+.feature-card h3 {
+  font-size: 1.1rem;
+  margin: 1.1rem 0 0.75rem;
+}
+.feature-card p {
+  color: var(--color-text-soft);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.feature-icon {
+  display: inline-block;
+  width: 52px;
+  height: 52px;
+  position: relative;
+}
+
+.icon-rings {
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(
+      circle,
+      var(--color-main) 0 4px,
+      transparent 4px 10px
+    );
+}
+
+.icon-dots::before,
+.icon-dots::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+.icon-dots {
+  background: var(--accent-strawberry);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin: 16px auto;
+}
+.icon-dots::before {
+  width: 14px;
+  height: 14px;
+  background: var(--accent-lemon);
+  top: -6px;
+  left: -18px;
+}
+.icon-dots::after {
+  width: 14px;
+  height: 14px;
+  background: var(--accent-blueberry);
+  top: -6px;
+  right: -18px;
+}
+
+.icon-wave {
+  background-image:
+    radial-gradient(circle at 10px 30px, transparent 8px, var(--color-main) 9px 10px, transparent 11px),
+    radial-gradient(circle at 30px 20px, transparent 8px, var(--color-main) 9px 10px, transparent 11px),
+    radial-gradient(circle at 50px 30px, transparent 8px, var(--color-main) 9px 10px, transparent 11px);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.icon-scallop {
+  background: var(--color-main);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px var(--color-base-alt) inset;
+  position: relative;
+}
+.icon-scallop::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background-image: radial-gradient(circle at 8px 8px, var(--color-base-alt) 3px, transparent 3.5px);
+  background-size: 12px 12px;
+}
+
+/* =========================================================
+   商品ラインナップ
+   ========================================================= */
+.products {
+  background: var(--color-base);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.product-card {
+  background: var(--color-base-alt);
+  border-radius: var(--radius-card);
+  padding: 2rem 1.75rem;
+  border-top: 4px solid var(--color-main);
+}
+.product-card--strawberry { border-top-color: var(--accent-strawberry); }
+.product-card--blueberry  { border-top-color: var(--accent-blueberry); }
+.product-card--lemon      { border-top-color: var(--accent-lemon); }
+.product-card--fig        { border-top-color: var(--accent-fig); }
+
+.product-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+}
+.product-card p {
+  color: var(--color-text-soft);
+  font-size: 0.92rem;
+  margin: 0 0 0.5rem;
+}
+.product-price {
+  font-weight: 700;
+  color: var(--color-main-dark) !important;
+}
+
+.product-reserve {
+  text-align: center;
+  color: var(--color-text-soft);
+  max-width: 560px;
+  margin: 0 auto 2.5rem;
+  font-size: 0.92rem;
+}
+
+.product-footer {
+  text-align: center;
+}
+.product-footer p {
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+  color: var(--color-main-dark);
+}
+
+/* =========================================================
+   こだわり・店主より
+   ========================================================= */
+.commitment {
+  background: var(--color-base-alt);
+}
+
+.owner-message {
+  position: relative;
+  background: var(--color-base);
+  border-radius: var(--radius-card);
+  padding: 2.5rem 2rem;
+  border: 1px solid var(--color-border);
+}
+
+.owner-signature {
+  font-family: var(--font-heading);
+  font-size: 3.4rem;
+  color: var(--color-main-light);
+  opacity: 0.35;
+  margin: -1rem 0 -1.5rem;
+  transform: rotate(-4deg);
+  text-align: right;
+}
+
+.owner-heading {
+  font-size: 1.15rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.owner-message p {
+  margin: 0 0 1.1rem;
+}
+.owner-message p:last-child {
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   お客様の声
+   ========================================================= */
+.reviews {
+  background: var(--color-base);
+}
+
+.rating-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 2.75rem;
+}
+
+.stars {
+  position: relative;
+  display: inline-block;
+  font-size: 1.4rem;
+  letter-spacing: 3px;
+  color: #ddd0ba;
+}
+.stars::before {
+  content: "\2605\2605\2605\2605\2605";
+}
+.stars-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  overflow: hidden;
+  width: 94%;
+  white-space: nowrap;
+  color: var(--accent-lemon);
+}
+.stars-fill::before {
+  content: "\2605\2605\2605\2605\2605";
+}
+
+.rating-text {
+  font-weight: 700;
+  color: var(--color-main-dark);
+  font-size: 0.95rem;
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.review-card {
+  background: var(--color-base-alt);
+  border-radius: var(--radius-card);
+  padding: 1.75rem;
+  position: relative;
+}
+.review-heading {
+  font-weight: 700;
+  color: var(--color-main-dark);
+  font-size: 0.85rem;
+  margin: 0 0 0.6rem;
+}
+.review-card p:last-child {
+  margin: 0;
+  color: var(--color-text-soft);
+  font-size: 0.93rem;
+}
+
+/* =========================================================
+   ご来店にあたって
+   ========================================================= */
+.visit-guide {
+  background: var(--color-base-alt);
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.checklist li {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.check-icon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-main);
+  position: relative;
+  margin-top: 2px;
+}
+.check-icon::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 12px;
+  width: 6px;
+  height: 2px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+.check-icon::after {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  width: 11px;
+  height: 2px;
+  background: #fff;
+  transform: rotate(-45deg);
+}
+
+.check-title {
+  font-weight: 700;
+  color: var(--color-main-dark);
+  margin: 0 0 0.35rem;
+}
+.checklist p {
+  margin: 0;
+}
+.checklist li p + p {
+  color: var(--color-text-soft);
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   アクセス・店舗情報
+   ========================================================= */
+.access {
+  background: var(--color-base);
+}
+
+.access-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.access-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.access-table th,
+.access-table td {
+  text-align: left;
+  padding: 0.9rem 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+.access-table th {
+  width: 32%;
+  color: var(--color-main-dark);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.access-table td {
+  color: var(--color-text-soft);
+  font-size: 0.92rem;
+}
+
+.access-note {
+  background: var(--color-base-alt);
+  border-radius: var(--radius-card);
+  padding: 1.75rem;
+}
+.access-note p {
+  margin: 0 0 1.5rem;
+  color: var(--color-text-soft);
+  font-size: 0.92rem;
+}
+.access-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+/* =========================================================
+   フッター
+   ========================================================= */
+.site-footer {
+  background: var(--color-main-dark);
+  color: #f3e6d2;
+  padding: 3rem 1.5rem 1.5rem;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer-logo {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  margin: 0 0 0.6rem;
+}
+.footer-brand p {
+  margin: 0 0 0.5rem;
+  font-size: 0.88rem;
+  color: #e2cfb2;
+}
+.footer-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.88rem;
+  color: #fff;
+  font-weight: 700;
+}
+
+.footer-sitemap ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.footer-sitemap a {
+  font-size: 0.88rem;
+  color: #e2cfb2;
+}
+.footer-sitemap a:hover {
+  color: #fff;
+}
+
+.footer-copyright {
+  max-width: var(--max-width);
+  margin: 1.5rem auto 0;
+  font-size: 0.78rem;
+  color: #c9b191;
+  text-align: center;
+}
+
+/* =========================================================
+   レスポンシブ
+   ========================================================= */
+@media (max-width: 860px) {
+  .only-mobile {
+    display: inline;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .header-instagram--desktop {
+    display: none;
+  }
+  .header-instagram--mobile {
+    display: inline-flex;
+    margin-top: 1.5rem;
+  }
+
+  .site-nav {
+    position: fixed;
+    inset: 68px 0 0 0;
+    background: var(--color-base);
+    padding: 2rem 1.5rem;
+    transform: translateY(-12px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    overflow-y: auto;
+  }
+  .site-nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  .site-nav ul {
+    flex-direction: column;
+    gap: 0;
+  }
+  .site-nav ul li {
+    border-bottom: 1px solid var(--color-border);
+  }
+  .site-nav ul a {
+    display: block;
+    padding: 1rem 0.25rem;
+    font-size: 1.05rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .review-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .feature-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .access-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .btn,
+  .nav-toggle-bar,
+  .site-nav {
+    transition: none;
+  }
+}
