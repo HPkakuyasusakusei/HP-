@@ -1,0 +1,517 @@
+/* ==========================================================================
+   ortomare(オルトマーレ) スタイルシート
+   配色: 地中海ブルー / テラコッタ / レモンイエロー / 生成り帆布色
+   写真は一切使用せず、CSS/SVGのみでビジュアルを構成する
+   ========================================================================== */
+
+:root {
+  --sea-deep: #1F4E5F;
+  --sea-mid: #3E7C8C;
+  --sea-light: #A9D2D6;
+  --terracotta: #C1633A;
+  --terracotta-deep: #9C4A28;
+  --lemon: #E8B33D;
+  --sand-canvas: #F4EDDD;
+  --olive: #7C8B5B;
+  --ink-navy: #253238;
+  --line-rope: #D8C9A8;
+  --surface-card: #FFFBF2;
+
+  --font-heading: "Shippori Mincho", serif;
+  --font-body: "Zen Kaku Gothic New", sans-serif;
+  --font-en-accent: "Cormorant", serif;
+  --font-hand: "Kaisei Opti", serif;
+
+  --container-w: 1120px;
+}
+
+/* ---------- reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--sand-canvas);
+  color: var(--ink-navy);
+  font-family: var(--font-body);
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0;
+}
+p { margin: 0 0 1em; }
+button { font: inherit; background: none; border: none; cursor: pointer; }
+
+.en { font-family: var(--font-en-accent); letter-spacing: 0.04em; }
+
+.container {
+  width: 100%;
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- 装飾: 航海図グリッド ---------- */
+.chart-grid { position: relative; }
+.chart-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line, rgba(169, 210, 214, 0.35)) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line, rgba(169, 210, 214, 0.35)) 1px, transparent 1px);
+  background-size: 42px 42px;
+  pointer-events: none;
+}
+.section--deep.chart-grid::before { --grid-line: rgba(169, 210, 214, 0.18); }
+.chart-grid > .container { position: relative; z-index: 1; }
+
+/* ---------- 装飾: 陶器タイル(マイオリカ)ストライプ ---------- */
+.tile-strip {
+  height: 14px;
+  width: 100%;
+  background-color: var(--lemon);
+  background-image: repeating-conic-gradient(var(--terracotta) 0% 25%, transparent 0% 50%);
+  background-size: 14px 14px;
+  border-top: 2px solid var(--olive);
+  border-bottom: 2px solid var(--olive);
+}
+
+/* ---------- 装飾: 波の区切り線 ---------- */
+.divider-wave { width: 100%; height: 56px; display: block; position: relative; z-index: 2; }
+.divider-wave path { fill: var(--sand-canvas); }
+.divider-wave--to-deep path { fill: var(--sea-deep); }
+
+/* ---------- アイコン共通 ---------- */
+.icon { width: 28px; height: 28px; flex-shrink: 0; }
+.icon-star, .icon-star-outline { width: 18px; height: 18px; color: var(--lemon); }
+.icon-boat { color: var(--terracotta); width: 56px; height: 40px; }
+.icon-lemon { color: var(--lemon); width: 30px; height: 30px; }
+.icon-olive { color: var(--olive); width: 30px; height: 30px; }
+.icon-plate-share { color: var(--sea-deep); width: 56px; height: 56px; }
+
+/* ==========================================================================
+   ヘッダー
+   ========================================================================== */
+.site-header {
+  background: var(--sea-deep);
+  color: var(--sand-canvas);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(31, 78, 95, 0.25);
+}
+.header-inner {
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.logo { display: flex; flex-direction: column; line-height: 1.1; }
+.logo-en {
+  font-family: var(--font-en-accent);
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+  color: var(--lemon);
+}
+.logo-jp { font-family: var(--font-heading); font-size: 0.68rem; letter-spacing: 0.16em; color: var(--sand-canvas); }
+
+.header-actions { display: flex; align-items: center; gap: 8px; order: 3; }
+.icon-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 1px solid rgba(244, 237, 221, 0.45);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+.icon-btn svg { width: 18px; height: 18px; }
+.icon-btn.phone-btn { background: var(--terracotta); border-color: var(--terracotta); }
+.icon-btn.phone-btn:hover { background: var(--terracotta-deep); }
+.icon-btn.insta-btn:hover { border-color: var(--lemon); color: var(--lemon); }
+.icon-btn-label { display: none; }
+
+.nav-toggle {
+  order: 4;
+  width: 40px;
+  height: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.nav-toggle span {
+  width: 22px;
+  height: 2px;
+  background: var(--sand-canvas);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.global-nav {
+  order: 5;
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+  background: var(--sea-deep);
+}
+.global-nav.is-open { max-height: 360px; }
+.global-nav ul { display: flex; flex-direction: column; padding: 6px 0 14px; }
+.global-nav a {
+  display: block;
+  padding: 12px 6px;
+  border-bottom: 1px solid rgba(244, 237, 221, 0.15);
+  font-size: 0.95rem;
+}
+.global-nav a[aria-current="page"] { color: var(--lemon); font-weight: 700; }
+
+@media (min-width: 900px) {
+  .header-inner { flex-wrap: nowrap; padding: 16px 20px; }
+  .nav-toggle { display: none; }
+  .global-nav {
+    order: 2;
+    width: auto;
+    max-height: none;
+    overflow: visible;
+    background: none;
+  }
+  .global-nav ul { flex-direction: row; gap: 4px; }
+  .global-nav a { border-bottom: none; padding: 8px 14px; border-radius: 999px; font-size: 0.92rem; }
+  .global-nav a:hover { background: rgba(244, 237, 221, 0.12); }
+  .icon-btn-label { display: inline; }
+}
+
+/* ==========================================================================
+   ページ見出しバンド(サブページ共通)
+   ========================================================================== */
+.page-header {
+  position: relative;
+  background: linear-gradient(160deg, var(--sea-deep) 0%, var(--sea-mid) 100%);
+  color: var(--sand-canvas);
+  padding: 56px 0 46px;
+  overflow: hidden;
+}
+.page-header .container { position: relative; z-index: 2; text-align: center; }
+.page-header-en { display: block; font-family: var(--font-en-accent); color: var(--lemon); font-size: 1rem; letter-spacing: 0.24em; margin-bottom: 10px; }
+.page-header h1 { font-size: clamp(1.6rem, 5vw, 2.3rem); }
+.page-header-lead { margin-top: 14px; font-size: 0.92rem; color: var(--sea-light); max-width: 46em; margin-left: auto; margin-right: auto; }
+
+/* ==========================================================================
+   トップ: ヒーロー(海のファーストビュー)
+   ========================================================================== */
+.hero {
+  position: relative;
+  background: linear-gradient(180deg, var(--sea-deep) 0%, var(--sea-mid) 70%, var(--sea-light) 100%);
+  color: var(--sand-canvas);
+  overflow: hidden;
+  padding-bottom: 40px;
+}
+.hero-waves {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: 64px 20px 40px;
+  text-align: center;
+}
+.hero-eyebrow {
+  display: block;
+  font-family: var(--font-en-accent);
+  font-size: 1.05rem;
+  letter-spacing: 0.3em;
+  color: var(--lemon);
+  margin-bottom: 18px;
+}
+.hero-catch {
+  font-size: clamp(1.9rem, 6vw, 3rem);
+  color: var(--sand-canvas);
+}
+.hero-sub {
+  margin-top: 16px;
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 2.6vw, 1.2rem);
+  color: var(--sea-light);
+}
+.hero-lead {
+  margin: 24px auto 0;
+  max-width: 40em;
+  font-size: 0.95rem;
+  color: rgba(244, 237, 221, 0.92);
+}
+
+.cta-group { display: flex; flex-direction: column; gap: 14px; margin-top: 30px; align-items: center; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 15px 30px;
+  border-radius: 999px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  border: 2px solid transparent;
+  width: 100%;
+  max-width: 320px;
+}
+.btn-primary { background: var(--terracotta); color: var(--sand-canvas); }
+.btn-primary:hover { background: var(--terracotta-deep); }
+.btn-secondary { border-color: var(--sea-light); color: var(--sand-canvas); }
+.btn-secondary:hover { background: rgba(244, 237, 221, 0.12); }
+.btn svg { width: 18px; height: 18px; }
+
+@media (min-width: 600px) {
+  .cta-group { flex-direction: row; justify-content: center; }
+  .btn { width: auto; }
+}
+
+/* ==========================================================================
+   セクション共通(深海/砂浜の交互配置)
+   ========================================================================== */
+.section { position: relative; padding: 56px 0; }
+.section--sand { background: var(--sand-canvas); color: var(--ink-navy); }
+.section--deep { background: var(--sea-deep); color: var(--sand-canvas); }
+.section--deep h2, .section--deep h3 { color: var(--sand-canvas); }
+.section--deep .section-lead { color: var(--sea-light); }
+
+.section-head { text-align: center; margin-bottom: 36px; }
+.section-title-en { display: block; font-family: var(--font-en-accent); letter-spacing: 0.22em; color: var(--terracotta); font-size: 0.9rem; margin-bottom: 8px; }
+.section--deep .section-title-en { color: var(--lemon); }
+.section-title { font-size: clamp(1.35rem, 4vw, 1.9rem); }
+.section-lead { max-width: 42em; margin: 14px auto 0; font-size: 0.92rem; color: #4a5a5f; }
+
+.section-body { max-width: 46em; margin: 0 auto; }
+.section-body p { font-size: 0.96rem; }
+
+/* ---------- お店の紹介(小舟アイコン付き導入) ---------- */
+.intro-block { display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+.intro-block .icon-boat { margin: 0 auto; }
+
+/* ---------- お料理紹介カード ---------- */
+.dish-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 10px; }
+.dish-card {
+  background: var(--surface-card);
+  color: var(--ink-navy);
+  border-radius: 6px;
+  padding: 26px 22px;
+  position: relative;
+  box-shadow: 0 6px 18px rgba(31, 78, 95, 0.14);
+}
+.dish-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background-color: var(--lemon);
+  background-image: repeating-conic-gradient(var(--terracotta) 0% 25%, transparent 0% 50%);
+  background-size: 8px 8px;
+  border-radius: 6px 6px 0 0;
+}
+.dish-card h3 { font-size: 1.08rem; margin: 14px 0 10px; color: var(--ink-navy); }
+.dish-card p { font-size: 0.9rem; color: #3c4a4e; margin-bottom: 0; }
+.dish-note { margin-top: 20px; font-size: 0.82rem; color: var(--sea-light); text-align: center; }
+.section--sand .dish-note { color: #6b6153; }
+
+@media (min-width: 700px) {
+  .dish-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ---------- CTA リンク(セクション内) ---------- */
+.section-cta { text-align: center; margin-top: 34px; }
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  padding-bottom: 3px;
+  border-bottom: 2px solid var(--terracotta);
+}
+.section--deep .link-arrow { border-bottom-color: var(--lemon); }
+.link-arrow::after { content: "\2192"; }
+
+/* ---------- お客様の声カード(共通/手紙風) ---------- */
+.voice-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.voice-card {
+  background: var(--surface-card);
+  border: 1px solid var(--line-rope);
+  border-radius: 4px;
+  padding: 26px 24px;
+  position: relative;
+}
+.voice-card .stars { display: flex; gap: 3px; margin-bottom: 10px; }
+.voice-card blockquote {
+  margin: 0 0 14px;
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  line-height: 2;
+  color: var(--ink-navy);
+}
+.voice-card cite { font-size: 0.82rem; color: var(--sea-mid); font-style: normal; }
+.voice-note { margin-top: 12px; font-size: 0.78rem; color: #6b6153; border-top: 1px dashed var(--line-rope); padding-top: 12px; }
+
+@media (min-width: 760px) {
+  .voice-grid { grid-template-columns: repeat(2, 1fr); }
+  .voice-grid > article:last-child:nth-child(odd) { grid-column: 1 / -1; max-width: 48%; margin: 0 auto; }
+}
+
+/* ---------- アクセス要約リスト ---------- */
+.access-list { max-width: 40em; margin: 0 auto; }
+.access-list li {
+  position: relative;
+  padding: 10px 0 10px 26px;
+  border-bottom: 1px solid rgba(169, 210, 214, 0.3);
+  font-size: 0.94rem;
+}
+.access-list li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 18px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--lemon);
+}
+.access-cta { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 32px; }
+.tel-huge {
+  font-family: var(--font-en-accent);
+  font-size: clamp(1.6rem, 6vw, 2.4rem);
+  color: var(--lemon);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+/* ==========================================================================
+   汎用: コンセプト/コース/声/アクセスの本文セクション
+   ========================================================================== */
+.text-section h2 { font-size: clamp(1.3rem, 4vw, 1.7rem); margin-bottom: 16px; }
+.text-section + .text-section { margin-top: 44px; }
+.icon-row { display: flex; justify-content: center; gap: 22px; margin: 22px 0; }
+
+.plate-block { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
+
+@media (min-width: 760px) {
+  .plate-block { flex-direction: row; align-items: flex-start; text-align: left; gap: 30px; }
+  .plate-block .icon-plate-share { margin-top: 6px; }
+}
+
+/* ---------- 締めの一皿(レモン/オリーブ装飾) ---------- */
+.citrus-row { display: flex; justify-content: center; gap: 16px; margin-bottom: 18px; }
+
+/* ---------- 価格注記ブロック ---------- */
+.note-box {
+  max-width: 44em;
+  margin: 40px auto 0;
+  padding: 20px 22px;
+  border: 1px dashed var(--line-rope);
+  border-radius: 4px;
+  background: var(--surface-card);
+  font-size: 0.86rem;
+  color: #4a5a5f;
+  text-align: center;
+}
+
+/* ---------- CTAバンド(下部) ---------- */
+.cta-band {
+  background: var(--terracotta);
+  color: var(--sand-canvas);
+  text-align: center;
+  padding: 44px 20px;
+}
+.cta-band h2 { color: var(--sand-canvas); font-size: clamp(1.2rem, 4vw, 1.6rem); margin-bottom: 20px; }
+.cta-band .cta-group { margin-top: 0; }
+.cta-band .btn-secondary { border-color: rgba(244, 237, 221, 0.7); }
+
+/* ==========================================================================
+   voice.html 導入(評価)
+   ========================================================================== */
+.rating-block { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 30px; }
+.rating-block .stars { display: flex; gap: 4px; }
+.rating-block .stars .icon-star { width: 22px; height: 22px; }
+.rating-number { font-family: var(--font-en-accent); font-size: 1.6rem; color: var(--sea-deep); }
+.rating-count { font-size: 0.85rem; color: #6b6153; }
+
+/* ==========================================================================
+   access.html 地図・額縁
+   ========================================================================== */
+.map-frame {
+  position: relative;
+  max-width: 44em;
+  margin: 0 auto;
+  padding: 10px;
+  background: var(--surface-card);
+  border: 2px solid var(--sea-deep);
+  box-shadow: 0 0 0 6px var(--sand-canvas), 0 0 0 7px var(--line-rope);
+}
+.map-frame .map-embed { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; }
+.map-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.map-frame .tile-strip { margin: 10px 0 0; }
+.map-frame .tile-strip:first-child { margin: 0 0 10px; }
+
+.info-block { max-width: 40em; margin: 40px auto 0; text-align: center; }
+.info-block h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--sea-deep); }
+.info-block + .info-block { margin-top: 30px; }
+
+.reserve-box {
+  max-width: 44em;
+  margin: 0 auto;
+  text-align: center;
+  padding: 34px 24px;
+  background: var(--surface-card);
+  color: var(--ink-navy);
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(31, 78, 95, 0.14);
+}
+.reserve-box .tel-huge { color: var(--terracotta-deep); }
+
+/* ==========================================================================
+   フッター
+   ========================================================================== */
+.site-footer { background: var(--ink-navy); color: var(--sand-canvas); padding: 48px 0 28px; text-align: center; }
+.footer-logo { font-family: var(--font-en-accent); font-size: 1.6rem; color: var(--lemon); }
+.footer-logo span { font-family: var(--font-heading); font-size: 0.7rem; color: var(--sand-canvas); margin-left: 6px; }
+.footer-address, .footer-tel, .footer-insta { font-size: 0.86rem; margin-top: 6px; color: rgba(244, 237, 221, 0.85); }
+.footer-tel a, .footer-insta a { border-bottom: 1px solid rgba(244, 237, 221, 0.4); }
+.footer-nav ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin-top: 24px; }
+.footer-nav a { font-size: 0.82rem; }
+.footer-copy { margin-top: 26px; font-size: 0.72rem; color: rgba(244, 237, 221, 0.5); }
+
+/* ==========================================================================
+   共通ユーティリティ
+   ========================================================================== */
+.stack-md { display: flex; flex-direction: column; gap: 16px; }
+
+@media (min-width: 900px) {
+  .section { padding: 84px 0; }
+  .page-header { padding: 76px 0 60px; }
+  .hero-content { padding: 96px 20px 60px; }
+}
