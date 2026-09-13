@@ -1,0 +1,1136 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   カフェさんばる 共通スタイル
+   コンセプト: 見た目はふつうの喫茶店。中身は、まさかのごちそう。
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&family=EB+Garamond:ital@0;1&display=swap");
+
+:root {
+  --color-bg: #FBF1DD;
+  --color-bg-alt: #F3E4C2;
+  --color-wine: #5C2733;
+  --color-wine-deep: #3E1B22;
+  --color-soda-green: #4FA672;
+  --color-soda-green-light: #B7E3C6;
+  --color-cherry: #C23B54;
+  --color-brass: #B8863B;
+  --color-text: #3A2A20;
+  --color-text-soft: #7A6A58;
+  --color-snow: #EEEFEA;
+
+  --font-heading: "Kaisei Decol", "Noto Sans JP", serif;
+  --font-en: "EB Garamond", serif;
+  --font-body: "Noto Sans JP", sans-serif;
+
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-sm: 10px;
+
+  --shadow-soft: 0 10px 30px rgba(62, 27, 34, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  margin: 0 0 0.6em;
+  color: var(--color-wine);
+  letter-spacing: 0.03em;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+.container {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* --------------------------------------------------------------------
+   SAMPLE 透かし(試作サイトである旨を明示)
+   -------------------------------------------------------------------- */
+.sample-watermark {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sample-watermark::before {
+  content: "SAMPLE";
+  position: absolute;
+  inset: -50% -20%;
+  display: block;
+  font-family: var(--font-en), sans-serif;
+  font-size: 7vw;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: rgba(92, 39, 51, 0.08);
+  line-height: 3.4;
+  white-space: pre-wrap;
+  word-break: keep-all;
+  content: "SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE";
+  transform: rotate(-28deg);
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------
+   二重線・真鍮フレーム装飾(共通)
+   -------------------------------------------------------------------- */
+.brass-frame {
+  position: relative;
+  border: 2px solid var(--color-brass);
+  border-radius: var(--radius-md);
+  padding: 2px;
+}
+
+.brass-frame::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid var(--color-brass);
+  border-radius: calc(var(--radius-md) - 6px);
+  pointer-events: none;
+}
+
+.brass-frame .corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--color-brass);
+}
+
+.brass-frame .corner--tl { top: -3px; left: -3px; border-right: none; border-bottom: none; }
+.brass-frame .corner--tr { top: -3px; right: -3px; border-left: none; border-bottom: none; }
+.brass-frame .corner--bl { bottom: -3px; left: -3px; border-right: none; border-top: none; }
+.brass-frame .corner--br { bottom: -3px; right: -3px; border-left: none; border-top: none; }
+
+.section-heading {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.4em;
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.1rem);
+}
+
+.section-heading::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--color-brass), transparent);
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: 2.4em;
+}
+
+.section-lead {
+  color: var(--color-text-soft);
+  max-width: 640px;
+  margin: 0.6em auto 0;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------
+   ヘッダー
+   -------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--color-wine);
+  color: var(--color-bg);
+  box-shadow: var(--shadow-soft);
+}
+
+.site-header__inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.logo a {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo__ja {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  color: var(--color-bg);
+  letter-spacing: 0.08em;
+}
+
+.logo__en {
+  font-family: var(--font-en);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  color: var(--color-soda-green-light);
+  margin-top: 2px;
+}
+
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-soda-green-light);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.nav-toggle span,
+.nav-toggle span::before,
+.nav-toggle span::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 2px;
+  background: var(--color-bg);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-toggle span { top: 50%; transform: translateY(-50%); }
+.nav-toggle span::before { top: -8px; }
+.nav-toggle span::after { top: 8px; }
+
+.nav-toggle[aria-expanded="true"] span { background: transparent; }
+.nav-toggle[aria-expanded="true"] span::before { top: 0; transform: rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span::after { top: 0; transform: rotate(-45deg); }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.main-nav__list {
+  display: flex;
+  gap: 22px;
+  font-size: 0.94rem;
+  letter-spacing: 0.05em;
+}
+
+.main-nav__list a {
+  position: relative;
+  padding: 4px 2px;
+}
+
+.main-nav__list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: var(--color-soda-green-light);
+  transition: width 0.2s ease;
+}
+
+.main-nav__list a:hover::after,
+.main-nav__list a[aria-current="page"]::after {
+  width: 100%;
+}
+
+.header-cta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.phone-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.3;
+  border: 1px solid var(--color-brass);
+  border-radius: var(--radius-sm);
+  padding: 5px 12px;
+  font-size: 0.82rem;
+}
+
+.phone-badge__label {
+  font-size: 0.68rem;
+  color: var(--color-soda-green-light);
+}
+
+.phone-badge__num {
+  font-family: var(--font-en);
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+  color: var(--color-bg);
+}
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--color-soda-green-light);
+  flex-shrink: 0;
+}
+
+.icon-link svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--color-bg);
+}
+
+@media (max-width: 860px) {
+  .nav-toggle {
+    display: block;
+    order: 3;
+  }
+
+  .header-actions {
+    order: 2;
+    gap: 10px;
+  }
+
+  .phone-badge {
+    padding: 4px 8px;
+  }
+
+  .phone-badge__label {
+    display: none;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-wine-deep);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    width: 100%;
+  }
+
+  .main-nav.is-open {
+    max-height: 320px;
+  }
+
+  .main-nav__list {
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 20px 18px;
+  }
+
+  .main-nav__list a {
+    display: block;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(238, 239, 234, 0.15);
+  }
+}
+
+/* --------------------------------------------------------------------
+   ヒーロー
+   -------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  background: radial-gradient(ellipse at top, var(--color-wine) 0%, var(--color-wine-deep) 70%);
+  color: var(--color-bg);
+  padding: 64px 20px 72px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero::before {
+  background-image:
+    repeating-linear-gradient(45deg, rgba(184, 134, 59, 0.08) 0 2px, transparent 2px 42px),
+    repeating-linear-gradient(-45deg, rgba(79, 166, 114, 0.06) 0 2px, transparent 2px 42px);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.hero__logo {
+  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.6rem);
+  color: var(--color-bg);
+  margin-bottom: 0.2em;
+}
+
+.hero__logo-en {
+  display: block;
+  font-family: var(--font-en);
+  font-size: 0.85rem;
+  letter-spacing: 0.4em;
+  color: var(--color-soda-green-light);
+  margin-bottom: 1.4em;
+}
+
+.hero__copy {
+  font-size: clamp(1.4rem, 1.05rem + 1.4vw, 1.9rem);
+  font-weight: 700;
+  margin-bottom: 0.7em;
+  line-height: 1.6;
+}
+
+.hero__sub {
+  color: var(--color-bg-alt);
+  font-size: 0.98rem;
+  max-width: 520px;
+  margin: 0 auto 1.6em;
+}
+
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(251, 241, 221, 0.1);
+  border: 1px solid var(--color-brass);
+  border-radius: 999px;
+  padding: 7px 18px;
+  margin-bottom: 2em;
+  font-size: 0.92rem;
+}
+
+.rating-badge svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--color-brass);
+}
+
+.hero__peek-caption {
+  font-size: 0.82rem;
+  color: var(--color-bg-alt);
+  margin-top: 0.8em;
+}
+
+/* --------------------------------------------------------------------
+   のぞき窓モチーフ
+   -------------------------------------------------------------------- */
+.peek-window {
+  width: min(320px, 78vw);
+  margin: 0 auto;
+}
+
+.peek-window--sm {
+  width: 150px;
+}
+
+/* --------------------------------------------------------------------
+   CTAボタン
+   -------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.96rem;
+  letter-spacing: 0.03em;
+  border: 2px solid transparent;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.btn--primary {
+  background: var(--color-soda-green);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(79, 166, 114, 0.35);
+}
+
+.btn--primary svg { fill: #fff; }
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--color-bg-alt);
+  color: var(--color-bg);
+}
+
+.btn--outline svg { fill: var(--color-bg); }
+
+.btn--ghost {
+  background: var(--color-bg);
+  color: var(--color-wine);
+  border-color: var(--color-wine);
+}
+
+.btn--ghost svg { fill: var(--color-wine); }
+
+.btn--block {
+  width: 100%;
+}
+
+.cta-block {
+  padding: 56px 20px;
+  background: var(--color-bg-alt);
+  text-align: center;
+}
+
+.cta-block__title {
+  margin-bottom: 1.4em;
+}
+
+.cta-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.cta-note {
+  margin-top: 1.2em;
+  font-size: 0.86rem;
+  color: var(--color-text-soft);
+}
+
+@media (max-width: 560px) {
+  .cta-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* --------------------------------------------------------------------
+   セクション共通
+   -------------------------------------------------------------------- */
+.section {
+  padding: 72px 20px;
+}
+
+.section--alt {
+  background: var(--color-bg-alt);
+}
+
+.section--wine {
+  background: var(--color-wine);
+  color: var(--color-bg-alt);
+}
+
+.section--wine h2,
+.section--wine h3 {
+  color: var(--color-bg);
+}
+
+.section--wine .section-lead {
+  color: var(--color-bg-alt);
+}
+
+/* --------------------------------------------------------------------
+   ページヒーロー(サブページ)
+   -------------------------------------------------------------------- */
+.page-hero {
+  background: linear-gradient(180deg, var(--color-wine) 0%, var(--color-wine-deep) 100%);
+  color: var(--color-bg);
+  padding: 56px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero__title {
+  color: var(--color-bg);
+  font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem);
+}
+
+.page-hero__lead {
+  color: var(--color-bg-alt);
+  max-width: 560px;
+  margin: 0.6em auto 0;
+}
+
+.page-hero__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.page-hero__bg-pattern {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.16;
+  z-index: 0;
+}
+
+.stained-strip {
+  display: block;
+  width: 100%;
+}
+
+.hero__stained {
+  height: 40px;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.4;
+}
+
+.hero__stained--top {
+  margin-bottom: 24px;
+}
+
+.hero__stained--bottom {
+  margin-top: 36px;
+}
+
+/* --------------------------------------------------------------------
+   概要セクション
+   -------------------------------------------------------------------- */
+.about-flex {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.about-flex__visual {
+  flex: 0 0 220px;
+  margin: 0 auto;
+}
+
+.about-flex__text {
+  flex: 1 1 340px;
+}
+
+/* --------------------------------------------------------------------
+   3カラムカード(メニュー導線)
+   -------------------------------------------------------------------- */
+.menu-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+@media (max-width: 860px) {
+  .menu-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.menu-card {
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 4px solid var(--color-brass);
+}
+
+.menu-card__icon {
+  width: 84px;
+  height: 84px;
+  margin-bottom: 1em;
+}
+
+.menu-card__title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5em;
+}
+
+.menu-card__lead {
+  color: var(--color-text-soft);
+  font-size: 0.92rem;
+  flex: 1;
+  margin-bottom: 1.4em;
+}
+
+/* --------------------------------------------------------------------
+   クチコミカード
+   -------------------------------------------------------------------- */
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.review-card {
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: 26px 22px;
+  box-shadow: var(--shadow-soft);
+  border-left: 4px solid var(--color-cherry);
+}
+
+.review-card__label {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: var(--color-wine);
+  font-weight: 700;
+  background: var(--color-soda-green-light);
+  border-radius: 999px;
+  padding: 4px 12px;
+  margin-bottom: 0.9em;
+}
+
+.review-card__body {
+  font-size: 0.92rem;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.review-head-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2.2em;
+}
+
+.map-link-inline {
+  font-size: 0.86rem;
+  color: var(--color-wine);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------
+   メニューページ セクション
+   -------------------------------------------------------------------- */
+.menu-section {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.menu-section.is-reversed {
+  flex-direction: row-reverse;
+}
+
+.menu-section__visual {
+  flex: 0 0 240px;
+  margin: 0 auto;
+}
+
+.menu-section__text {
+  flex: 1 1 340px;
+}
+
+.menu-section__text p {
+  color: var(--color-text);
+}
+
+.local-ingredient {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  flex-wrap: wrap;
+}
+
+.local-ingredient__visual {
+  flex: 0 0 120px;
+}
+
+.local-ingredient__text {
+  flex: 1 1 260px;
+}
+
+/* --------------------------------------------------------------------
+   STORYページ こだわりセクション
+   -------------------------------------------------------------------- */
+.story-block {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  padding: 48px 0;
+  border-bottom: 1px dashed var(--color-brass);
+}
+
+.story-block:last-of-type {
+  border-bottom: none;
+}
+
+.story-block:nth-of-type(even) {
+  flex-direction: row-reverse;
+}
+
+.story-block__visual {
+  flex: 0 0 200px;
+  margin: 0 auto;
+}
+
+.story-block__text {
+  flex: 1 1 340px;
+}
+
+@media (max-width: 700px) {
+  .menu-section,
+  .story-block,
+  .local-ingredient {
+    flex-direction: column !important;
+  }
+}
+
+/* --------------------------------------------------------------------
+   ドリップコーヒー一滴アニメーション
+   -------------------------------------------------------------------- */
+.drip-drop {
+  animation: drip-fall 3.2s ease-in infinite;
+  transform-origin: center;
+}
+
+@keyframes drip-fall {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  70% { transform: translateY(34px); opacity: 1; }
+  85% { transform: translateY(40px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+.steam-line {
+  animation: steam-wave 4.5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.steam-line--delay {
+  animation-delay: 1.2s;
+}
+
+@keyframes steam-wave {
+  0%, 100% { transform: translateX(0) scaleY(1); opacity: 0.7; }
+  50% { transform: translateX(3px) scaleY(1.05); opacity: 0.4; }
+}
+
+.soda-bubble {
+  animation: bubble-rise 3.6s ease-in-out infinite;
+}
+
+@keyframes bubble-rise {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(-6px); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drip-drop,
+  .steam-line,
+  .steam-line--delay,
+  .soda-bubble {
+    animation: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------
+   アクセスページ
+   -------------------------------------------------------------------- */
+.access-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .access-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.info-table th,
+.info-table td {
+  text-align: left;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--color-bg-alt);
+  font-size: 0.94rem;
+}
+
+.info-table tr:last-child th,
+.info-table tr:last-child td {
+  border-bottom: none;
+}
+
+.info-table th {
+  width: 34%;
+  color: var(--color-wine);
+  font-weight: 700;
+  background: var(--color-bg-alt);
+}
+
+.tel-cta {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.tel-cta .btn {
+  font-size: 1.15rem;
+  padding: 18px 34px;
+}
+
+.parking-notice {
+  margin-top: 28px;
+  padding: 26px;
+  background: var(--color-bg);
+  position: relative;
+}
+
+.parking-notice h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+  margin-bottom: 0.5em;
+}
+
+.parking-notice p {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.access-visual {
+  text-align: center;
+}
+
+.map-wrap {
+  margin-top: 20px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  line-height: 0;
+}
+
+.map-wrap iframe {
+  width: 100%;
+  height: 380px;
+  border: 0;
+  display: block;
+}
+
+.map-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.map-note {
+  text-align: center;
+  font-size: 0.84rem;
+  color: var(--color-text-soft);
+  margin-top: 1em;
+}
+
+/* --------------------------------------------------------------------
+   フッター
+   -------------------------------------------------------------------- */
+.site-footer {
+  background: var(--color-wine-deep);
+  color: var(--color-bg-alt);
+  padding: 56px 20px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-grid {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 36px;
+}
+
+@media (max-width: 760px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+.footer-brand__ja {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--color-bg);
+  margin-bottom: 0.2em;
+}
+
+.footer-brand__tagline {
+  font-size: 0.86rem;
+  color: var(--color-soda-green-light);
+  margin-bottom: 1em;
+}
+
+.footer-brand__address {
+  font-size: 0.86rem;
+  color: var(--color-bg-alt);
+  margin-bottom: 1.4em;
+}
+
+.footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-actions .btn {
+  padding: 10px 18px;
+  font-size: 0.84rem;
+}
+
+.footer-heading {
+  color: var(--color-bg);
+  font-size: 0.94rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid rgba(238, 239, 234, 0.25);
+  padding-bottom: 0.5em;
+}
+
+.footer-hours dl {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.footer-hours dt {
+  color: var(--color-soda-green-light);
+  margin-top: 0.8em;
+}
+
+.footer-hours dd {
+  margin: 0.2em 0 0;
+}
+
+.footer-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 1em;
+  font-size: 0.86rem;
+  border: 1px solid var(--color-brass);
+  border-radius: 999px;
+  padding: 5px 14px;
+}
+
+.footer-rating svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--color-brass);
+}
+
+.footer-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.footer-bottom {
+  max-width: 1080px;
+  margin: 40px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(238, 239, 234, 0.18);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: var(--color-text-soft);
+}
+
+.snowflake-deco {
+  display: inline-flex;
+  gap: 6px;
+  vertical-align: middle;
+}
+
+.snowflake-deco svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--color-snow);
+}
