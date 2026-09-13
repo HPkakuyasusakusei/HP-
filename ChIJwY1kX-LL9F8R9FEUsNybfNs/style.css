@@ -1,0 +1,662 @@
+/* 肴 青鬼(さかな あおに) - 試作HP スタイルシート
+   コンセプト: 暖簾の向こうの、静かな夜
+   配色: 墨/藍鉄/薄墨をベースに辰砂を一点差し色、山吹を微量差し色として使用 */
+
+:root {
+  --sumi: #14171d;
+  --aitetsu: #1c2b3d;
+  --usuzumi: #e9e6df;
+  --shinsha: #c8442c;
+  --yamabuki: #d9a441;
+  --nama-white: #f2ede4;
+  --text-on-light: #14171d;
+
+  --font-mincho: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+  --font-gothic: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+
+  --header-h: 72px;
+}
+
+@media (max-width: 640px) {
+  :root { --header-h: 60px; }
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-gothic);
+  background: var(--sumi);
+  color: var(--nama-white);
+  line-height: 1.9;
+  padding-top: var(--header-h);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-mincho);
+  font-weight: 600;
+  margin: 0 0 .6em;
+}
+
+p { margin: 0 0 1em; }
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px 0 20px;
+}
+
+section { scroll-margin-top: var(--header-h); position: relative; }
+
+.note {
+  font-size: .85rem;
+  opacity: .75;
+  font-family: var(--font-gothic);
+}
+
+.num-inline {
+  font-family: var(--font-gothic);
+  font-weight: 900;
+  color: var(--shinsha);
+  font-size: 1.15em;
+}
+
+/* ===== 引用(blockquote) ===== */
+.quote-inline {
+  margin: 1.4em 0 0;
+  padding: .9em 1.1em .9em 1.3em;
+  border-left: 2px solid var(--shinsha);
+  background: rgba(242, 237, 228, .04);
+  font-size: .92rem;
+}
+.quote-inline p { margin: 0 0 .5em; }
+.quote-inline cite {
+  display: block;
+  font-style: normal;
+  font-size: .8rem;
+  opacity: .7;
+  text-align: right;
+}
+.sec-sankon .quote-inline,
+.sec-master .quote-inline {
+  background: rgba(20, 23, 29, .35);
+}
+
+/* ===== ヘッダー ===== */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  z-index: 100;
+  background: rgba(20, 23, 29, .88);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(242, 237, 228, .12);
+}
+.header-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 18px 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--nama-white);
+}
+.oni-mark { width: 22px; height: 22px; color: var(--nama-white); flex-shrink: 0; }
+.logo-text {
+  font-family: var(--font-mincho);
+  font-size: 1.15rem;
+  letter-spacing: .06em;
+}
+.header-cta { display: flex; align-items: center; gap: 14px; }
+.icon-phone, .icon-insta { width: 18px; height: 18px; }
+
+.btn-phone-sm {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--shinsha);
+  color: var(--nama-white);
+  padding: 8px 14px;
+  border-radius: 3px 12px 3px 12px;
+  font-size: .82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.icon-link { color: var(--nama-white); display: flex; opacity: .85; }
+.icon-link:hover { opacity: 1; }
+
+@media (max-width: 560px) {
+  .btn-phone-sm span { display: none; }
+  .btn-phone-sm { padding: 9px; border-radius: 50%; }
+}
+
+/* ===== ボタン共通 ===== */
+.btn-phone-lg {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  background: var(--shinsha);
+  color: var(--nama-white);
+  padding: 14px 26px;
+  border-radius: 2px 18px 2px 18px;
+  box-shadow: 0 10px 26px rgba(200, 68, 44, .35);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.btn-phone-lg:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(200, 68, 44, .45); }
+.btn-phone-main { font-family: var(--font-gothic); font-weight: 700; font-size: .92rem; }
+.btn-phone-num { font-family: var(--font-gothic); font-weight: 900; font-size: 1.3rem; letter-spacing: .02em; }
+.btn-sub { display: block; font-size: .75rem; opacity: .65; margin: 6px 0 18px; }
+
+.link-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .88rem;
+  opacity: .9;
+  border-bottom: 1px solid rgba(242, 237, 228, .4);
+  padding-bottom: 2px;
+}
+.link-instagram:hover { opacity: 1; }
+.link-instagram .icon-insta { width: 18px; height: 18px; flex-shrink: 0; }
+
+.btn-map {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 22px;
+  border: 1px solid var(--nama-white);
+  border-radius: 2px 14px 2px 14px;
+  font-size: .85rem;
+  font-weight: 700;
+  opacity: .92;
+}
+.btn-map:hover { background: rgba(242, 237, 228, .08); }
+
+/* ===== 暖簾スリット(ファーストビュー背景装飾) ===== */
+.noren-slits {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.noren-slits span {
+  position: absolute;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(242, 237, 228, .3), transparent);
+}
+.noren-slits span:nth-child(1) { left: 4%;  top: 8%;  height: 60%; opacity: .5; }
+.noren-slits span:nth-child(2) { left: 11%; top: 22%; height: 40%; opacity: .3; }
+.noren-slits span:nth-child(3) { left: 19%; top: 4%;  height: 74%; opacity: .45; }
+.noren-slits span:nth-child(4) { left: 27%; top: 30%; height: 35%; opacity: .25; }
+.noren-slits span:nth-child(5) { left: 58%; top: 12%; height: 55%; opacity: .35; }
+.noren-slits span:nth-child(6) { left: 68%; top: 2%;  height: 68%; opacity: .5; }
+.noren-slits span:nth-child(7) { left: 77%; top: 26%; height: 42%; opacity: .3; }
+.noren-slits span:nth-child(8) { left: 87%; top: 10%; height: 58%; opacity: .4; }
+.noren-slits span:nth-child(9) { left: 95%; top: 34%; height: 30%; opacity: .2; }
+
+/* ===== 第一景:暖簾(ファーストビュー) ===== */
+.sec-hero {
+  background: radial-gradient(120% 90% at 78% 18%, #24384f 0%, var(--aitetsu) 45%, var(--sumi) 100%);
+  padding: 64px 0 88px;
+  overflow: hidden;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  align-items: center;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+  min-height: 62vh;
+}
+.hero-left { padding-right: 12px; }
+.kana-sub {
+  font-family: var(--font-gothic);
+  letter-spacing: .3em;
+  font-size: .78rem;
+  opacity: .7;
+  margin-bottom: 14px;
+}
+.hero-title {
+  font-size: clamp(2.6rem, 7vw, 4.4rem);
+  writing-mode: horizontal-tb;
+  letter-spacing: .08em;
+  margin-bottom: 22px;
+  color: var(--nama-white);
+}
+.hero-copy {
+  font-family: var(--font-gothic);
+  font-size: 1.05rem;
+  max-width: 30em;
+  opacity: .92;
+  margin-bottom: 6px;
+}
+.hero-cta { margin-top: 26px; }
+.hero-right {
+  position: relative;
+  min-height: 320px;
+}
+.lantern-wrap {
+  position: absolute;
+  top: 4%;
+  right: 22%;
+  width: 150px;
+}
+.lantern-glow {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: 220px;
+  height: 220px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--shinsha) 0%, var(--yamabuki) 55%, transparent 72%);
+  filter: blur(38px);
+  opacity: .55;
+  animation: lanternFlicker 5s ease-in-out infinite;
+}
+.lantern-svg { position: relative; width: 100%; height: auto; filter: drop-shadow(0 0 18px rgba(200,68,44,.4)); }
+
+@keyframes lanternFlicker {
+  0%, 100% { opacity: .5; transform: translateX(-50%) scale(1); }
+  50% { opacity: .68; transform: translateX(-50%) scale(1.06); }
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    height: 360px;
+    font-size: clamp(2.8rem, 5.4vw, 4.2rem);
+    margin: 0 0 28px auto;
+  }
+  .kana-sub { writing-mode: vertical-rl; height: 140px; margin: 0 0 0 auto; }
+  .hero-left { display: flex; flex-direction: column; }
+}
+
+/* ===== 暖簾スリット・区切り(セクション間) ===== */
+.noren-divider {
+  position: relative;
+  z-index: 5;
+  height: 58px;
+  margin-bottom: -30px;
+}
+.edge-aitetsu { background: var(--aitetsu); }
+.edge-sumi { background: var(--sumi); }
+.edge-usuzumi { background: var(--usuzumi); }
+
+.zig-a {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 42%, 93% 100%, 85% 32%, 79% 92%, 70% 48%, 63% 100%,
+    55% 22%, 47% 88%, 40% 52%, 31% 100%, 24% 38%, 16% 96%, 9% 58%, 0% 100%);
+}
+.zig-b {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 55%, 91% 96%, 83% 20%, 76% 82%, 67% 30%, 59% 100%,
+    50% 46%, 42% 92%, 34% 26%, 26% 100%, 18% 40%, 10% 88%, 4% 20%, 0% 65%);
+}
+.zig-c {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 30%, 90% 100%, 82% 44%, 73% 90%, 66% 15%, 57% 96%,
+    49% 40%, 40% 100%, 32% 24%, 23% 92%, 15% 34%, 8% 100%, 0% 50%);
+}
+.zig-closing {
+  height: 84px;
+  margin-bottom: -46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  clip-path: polygon(0% 0%, 46% 0%, 50% 62%, 54% 0%, 100% 0%, 100% 40%, 52% 100%, 48% 100%, 0% 40%);
+}
+.closing-mark { width: 30px; height: 30px; position: relative; z-index: 6; margin-top: 14px; }
+
+/* ===== 第二景:灯りの下で ===== */
+.sec-akari {
+  background: linear-gradient(160deg, var(--sumi) 0%, #10131a 100%);
+  padding: 96px 0 88px;
+}
+.akari-grid {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  position: relative;
+}
+.akari-glow {
+  position: absolute;
+  left: -6%;
+  top: -10%;
+  width: 55%;
+  height: 130%;
+  background: radial-gradient(circle at 30% 40%, rgba(200, 68, 44, .16), transparent 60%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+.akari-content {
+  grid-column: 2 / 3;
+  position: relative;
+  z-index: 1;
+}
+.akari-content h2 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); border-bottom: 2px solid var(--shinsha); padding-bottom: .5em; display: inline-block; }
+.akari-content p { font-size: .96rem; opacity: .9; }
+
+/* ===== 第三景:三献 ===== */
+.sec-sankon {
+  background: var(--usuzumi);
+  color: var(--text-on-light);
+  padding: 96px 0 100px;
+}
+.sec-sankon h2 {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  border-bottom: 2px solid var(--shinsha);
+  display: inline-block;
+  padding-bottom: .3em;
+}
+.sec-sankon .lead {
+  font-family: var(--font-gothic);
+  font-size: .92rem;
+  opacity: .75;
+  margin-bottom: 60px;
+}
+
+.kon-timeline { list-style: none; margin: 0; padding: 0; }
+.kon {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 20px 28px;
+  align-items: start;
+  margin-bottom: 64px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(20, 23, 29, .18);
+  max-width: 720px;
+}
+.kon:last-child { margin-bottom: 0; }
+.kon-icon { color: var(--sumi); opacity: .82; }
+.icon-kon { width: 100%; height: auto; }
+.kon-body h3 {
+  font-size: 1.3rem;
+  margin-bottom: .5em;
+}
+.kon-body p { font-size: .94rem; }
+
+.kon-highlight {
+  font-family: var(--font-gothic);
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: var(--shinsha);
+  margin: .4em 0 .3em;
+}
+.kon-highlight-num { font-size: 1.7em; margin-right: 2px; }
+
+.kon-1 { margin-right: 8%; }
+.kon-2 {
+  margin-left: 12%;
+  grid-template-columns: 1fr 90px;
+}
+.kon-2 .kon-icon { grid-column: 2; grid-row: 1; }
+.kon-2 .kon-body { grid-column: 1; grid-row: 1; }
+.kon-3 { margin-right: 4%; }
+
+@media (min-width: 900px) {
+  .kon-1 { margin-left: 0; margin-right: 28%; }
+  .kon-2 { margin-left: 26%; margin-right: 0; }
+  .kon-3 { margin-left: 4%; margin-right: 20%; }
+}
+
+/* ===== 第四景:マスターとスタッフ ===== */
+.sec-master {
+  background: linear-gradient(200deg, var(--aitetsu) 0%, #172538 100%);
+  padding: 96px 0;
+}
+.master-grid {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 24px;
+  align-items: center;
+}
+.master-content h2 {
+  font-size: clamp(1.7rem, 3.4vw, 2.3rem);
+  border-bottom: 2px solid var(--shinsha);
+  display: inline-block;
+  padding-bottom: .4em;
+}
+.master-content p { font-size: .96rem; opacity: .92; max-width: 34em; }
+.master-figure { position: relative; min-height: 220px; }
+.master-svg { width: 100%; height: auto; max-width: 300px; }
+
+/* ===== 第五景:一人でも、二人でも、三人でも ===== */
+.sec-hitori {
+  background: var(--usuzumi);
+  color: var(--text-on-light);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+.hitori-grid { position: relative; }
+.hitori-circles { position: absolute; inset: 0; pointer-events: none; }
+.circle { position: absolute; border-radius: 50%; border: 1.5px solid rgba(20,23,29,.25); }
+.circle.c1 { width: 26px; height: 26px; top: 6%; right: 8%; border-color: rgba(200,68,44,.55); }
+.circle.c2 { width: 54px; height: 54px; top: 42%; right: 20%; }
+.circle.c3 { width: 96px; height: 96px; bottom: 2%; right: 2%; opacity: .8; }
+.hitori-content {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin-right: 30%;
+}
+.hitori-content h2 {
+  font-size: clamp(1.7rem, 3.6vw, 2.4rem);
+  border-bottom: 2px solid var(--shinsha);
+  display: inline-block;
+  padding-bottom: .4em;
+}
+.hitori-content p { font-size: .96rem; }
+
+@media (max-width: 900px) {
+  .hitori-content { margin-right: 8%; }
+}
+
+/* ===== 短冊だより ===== */
+.sec-tanzaku {
+  background: var(--sumi);
+  padding: 100px 0 120px;
+}
+.tanzaku-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.tanzaku-head h2 {
+  font-size: clamp(1.7rem, 3.6vw, 2.3rem);
+  border-bottom: 2px solid var(--shinsha);
+  padding-bottom: .3em;
+}
+.rating {
+  font-family: var(--font-gothic);
+  font-size: .82rem;
+  opacity: .75;
+  letter-spacing: .04em;
+}
+.tanzaku-rack {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 26px;
+  padding-top: 64px;
+  margin-top: 30px;
+}
+.tanzaku-rack::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--yamabuki), var(--yamabuki) 80%, transparent);
+  opacity: .6;
+}
+.tanzaku {
+  position: relative;
+  background: var(--usuzumi);
+  color: var(--text-on-light);
+  width: 270px;
+  max-width: 82vw;
+  padding: 30px 22px 24px;
+  margin: 0;
+  box-shadow: 0 18px 32px rgba(0, 0, 0, .4);
+  font-family: var(--font-gothic);
+}
+.tanzaku::before {
+  content: "";
+  position: absolute;
+  top: -36px;
+  left: 50%;
+  width: 1px;
+  height: 36px;
+  background: var(--yamabuki);
+}
+.tanzaku p { font-size: .88rem; margin-bottom: .8em; }
+.tanzaku cite { display: block; text-align: right; font-size: .78rem; opacity: .7; font-style: normal; }
+
+.t1 { transform: rotate(-3deg) translateY(2px); }
+.t2 { transform: rotate(2.2deg) translateY(-10px); margin-left: 4%; }
+.t3 { transform: rotate(-1.4deg) translateY(8px); margin-left: 8%; }
+
+@media (min-width: 900px) {
+  .t1 { margin-right: 6%; }
+  .t3 { margin-left: 16%; }
+}
+
+/* ===== 結び ===== */
+.sec-musubi {
+  background: radial-gradient(120% 100% at 20% 0%, #24384f 0%, var(--aitetsu) 50%, var(--sumi) 120%);
+  padding: 110px 0 90px;
+}
+.musubi-grid { display: grid; }
+.musubi-content { max-width: 640px; padding-right: 6%; }
+.musubi-content h2 {
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  border-bottom: 2px solid var(--shinsha);
+  display: inline-block;
+  padding-bottom: .4em;
+}
+.musubi-content > p { font-size: 1rem; opacity: .92; margin-bottom: 2em; }
+
+.info-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 20px;
+  margin: 0 0 2.2em;
+  font-size: .94rem;
+}
+.info-list dt {
+  font-family: var(--font-mincho);
+  opacity: .75;
+}
+.info-list dd { margin: 0; }
+.info-list small { opacity: .7; font-size: .82em; }
+
+.musubi-cta { display: flex; flex-direction: column; align-items: flex-start; }
+
+@media (min-width: 900px) {
+  .musubi-grid { grid-template-columns: 7fr 5fr; }
+}
+
+/* ===== フッター ===== */
+.site-footer {
+  background: var(--sumi);
+  border-top: 1px solid rgba(242, 237, 228, .12);
+  padding: 48px 0 100px;
+  font-size: .85rem;
+}
+.footer-inner { text-align: left; }
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mincho);
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  color: var(--nama-white);
+}
+.footer-inner p { margin: 0 0 .6em; opacity: .85; }
+.footer-inner a:hover { text-decoration: underline; }
+.copyright { margin-top: 1.4em; opacity: .55; font-size: .8rem; }
+
+/* ===== モバイル固定フローティング電話ボタン ===== */
+.floating-phone {
+  display: none;
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 200;
+  background: var(--shinsha);
+  color: var(--nama-white);
+  padding: 14px 18px;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: .92rem;
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, .35);
+}
+.floating-phone .icon-phone { width: 20px; height: 20px; }
+
+@media (max-width: 640px) {
+  .floating-phone { display: flex; }
+  body { padding-bottom: 58px; }
+}
+
+/* ===== 湯気アニメーション ===== */
+.icon-kon .steam {
+  transform-origin: center;
+  animation: steamRise 3.2s ease-in-out infinite;
+}
+.icon-kon .s2 { animation-delay: .6s; }
+.icon-kon .s3 { animation-delay: 1.2s; }
+@keyframes steamRise {
+  0% { transform: translateY(4px); opacity: 0; }
+  35% { opacity: .8; }
+  100% { transform: translateY(-10px); opacity: 0; }
+}
+
+/* ===== レスポンシブ:全体の非対称崩し ===== */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-right { min-height: 220px; order: -1; margin-left: 20%; }
+  .lantern-wrap { right: 4%; width: 120px; }
+  .hero-left { padding-right: 0; }
+
+  .akari-grid { grid-template-columns: 1fr; }
+  .akari-content { grid-column: 1; padding-right: 6%; }
+  .akari-glow { width: 90%; }
+
+  .master-grid { grid-template-columns: 1fr; }
+  .master-figure { order: -1; margin-right: 18%; min-height: 160px; }
+  .master-content { padding-right: 4%; }
+
+  .musubi-content { padding-right: 0; margin-right: 6%; }
+}
+
+@media (max-width: 560px) {
+  .container { padding: 0 18px 0 16px; }
+  .kon { grid-template-columns: 60px 1fr; gap: 14px 18px; }
+  .kon-2 { grid-template-columns: 1fr 60px; }
+  .tanzaku { width: 100%; }
+  .tanzaku-rack { gap: 46px 0; }
+}
+
+/* ===== モーション低減設定 ===== */
+@media (prefers-reduced-motion: reduce) {
+  .lantern-glow, .icon-kon .steam { animation: none; }
+  html { scroll-behavior: auto; }
+}
