@@ -1,0 +1,706 @@
+/* ==========================================================================
+   メレパレカイコ (新潟県佐渡市虫崎 薬膳料理店) スタイルシート
+   配色: 磯白/貝白(寒色ベース) × 内海府紺(藍ダーク) × 薬草緑 × 椿紅
+   モチーフ: のぼり旗 / 坂道ジグザグ / 海霞バンド / くろもじ小枝 / 生薬ドット / 岩肌ライン
+   写真は一切不使用。装飾はすべてCSSグラデーション・インラインSVGで構成。
+   ========================================================================== */
+
+:root {
+  --iso-white: #E7EFEA;
+  --kai-white: #DCE6DE;
+  --uchikaifu-kon: #1B3A42;
+  --yoru-umi-kon: #12262C;
+  --yakusou-midori: #748C55;
+  --koyakusou: #4F5F3B;
+  --tsubaki-beni: #B23A4A;
+  --isogiri-hai: #7C8C86;
+  --text-on-dark: #F1F5F2;
+  --text-main: #1B3A42;
+
+  --font-heading: 'Shippori Mincho', serif;
+  --font-body: 'Noto Sans JP', sans-serif;
+
+  --header-h: 64px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text-main);
+  background: var(--iso-white);
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  margin: 0;
+  line-height: 1.5;
+}
+
+p { margin: 0 0 1em; }
+p:last-child { margin-bottom: 0; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul { list-style: none; margin: 0; padding: 0; }
+
+img, svg { display: block; max-width: 100%; }
+
+.container {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--uchikaifu-kon);
+  color: var(--text-on-dark);
+  padding: 10px 16px;
+  z-index: 1000;
+}
+.skip-link:focus {
+  left: 12px;
+  top: 12px;
+}
+
+/* ---------- ボタン共通 ---------- */
+.cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 32px;
+}
+@media (min-width: 640px) {
+  .cta-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  border-radius: 2px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--yakusou-midori);
+  color: var(--text-on-dark);
+}
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--koyakusou);
+}
+
+.btn-secondary {
+  background: transparent;
+  border-color: var(--tsubaki-beni);
+  color: var(--tsubaki-beni);
+}
+.hero .btn-secondary,
+.access .btn-secondary {
+  color: var(--text-on-dark);
+  border-color: var(--tsubaki-beni);
+}
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  background: var(--tsubaki-beni);
+  color: #fff;
+}
+
+.btn-text {
+  padding: 14px 8px;
+  color: var(--yakusou-midori);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.hero .btn-text {
+  color: var(--iso-white);
+}
+.btn-text:hover,
+.btn-text:focus-visible {
+  color: var(--tsubaki-beni);
+}
+
+/* ---------- header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: rgba(27, 58, 66, 0.55);
+  backdrop-filter: blur(6px);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+.site-header.is-scrolled {
+  background: var(--uchikaifu-kon);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--header-h);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: auto;
+  color: var(--text-on-dark);
+}
+.icon-flag { color: var(--yakusou-midori); flex-shrink: 0; }
+
+.brand-name {
+  font-family: var(--font-heading);
+  font-size: clamp(0.9rem, 4vw, 1.05rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-bottom: 2px solid var(--yakusou-midori);
+  padding-bottom: 2px;
+  white-space: nowrap;
+}
+
+.nav-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text-on-dark);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.site-nav {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--uchikaifu-kon);
+  padding: 32px 24px;
+  transform: translateX(100%);
+  transition: transform 0.28s ease;
+  overflow-y: auto;
+}
+.site-nav.is-open { transform: translateX(0); }
+
+.site-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.site-nav a {
+  color: var(--text-on-dark);
+  font-size: 1.1rem;
+}
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--yakusou-midori);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 10px;
+  border-radius: 2px;
+  font-size: 0.76rem;
+  white-space: nowrap;
+}
+.header-btn-tel {
+  background: var(--yakusou-midori);
+  color: var(--text-on-dark);
+}
+.header-btn-insta {
+  border: 1px solid var(--isogiri-hai);
+  color: var(--text-on-dark);
+}
+
+@media (max-width: 480px) {
+  /* 341〜480px帯での電話+Instagramボタン同時オーバーフローを防ぐため、両方のテキストを同じ閾値で非表示にする */
+  .header-btn-insta span,
+  .header-btn-tel span { display: none; }
+}
+
+@media (min-width: 900px) {
+  .nav-toggle { display: none; }
+  .site-nav {
+    position: static;
+    background: transparent;
+    padding: 0;
+    transform: none;
+    overflow: visible;
+    order: 1;
+    min-width: 0;
+  }
+  .site-nav ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    gap: 16px;
+  }
+  .site-nav a { font-size: 0.9rem; }
+  .nav-actions {
+    order: 2;
+    gap: 8px;
+  }
+  .header-btn {
+    padding: 9px 12px;
+    font-size: 0.82rem;
+  }
+  .header-btn-insta span { display: inline; }
+}
+
+@media (min-width: 1100px) {
+  /* 900px到達直後は幅に余裕がないため、余白の広いレイアウトはさらに広い幅から適用する */
+  .site-nav ul { gap: 26px; }
+  .nav-actions { gap: 12px; }
+  .header-btn {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+/* ---------- 共通セクション見出し ---------- */
+.section-heading {
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  letter-spacing: 0.04em;
+  position: relative;
+  padding-bottom: 18px;
+  margin-bottom: 28px;
+}
+.section-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 48px;
+  height: 3px;
+  background: var(--yakusou-midori);
+}
+.section-heading-dark { color: var(--text-on-dark); }
+
+.section-lead {
+  max-width: 640px;
+  font-size: 1rem;
+}
+.section-lead-dark { color: var(--isogiri-hai); }
+
+.section-caption,
+.section-note {
+  margin-top: 32px;
+  font-size: 0.82rem;
+  color: var(--isogiri-hai);
+  border-top: 1px solid rgba(124, 140, 134, 0.35);
+  padding-top: 16px;
+}
+.section-note { color: rgba(241, 245, 242, 0.65); border-top-color: rgba(241, 245, 242, 0.2); }
+
+.section-cta-link {
+  margin-top: 36px;
+  text-align: center;
+}
+.section-cta-link a {
+  color: var(--yakusou-midori);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: 500;
+}
+.section-cta-link a:hover { color: var(--tsubaki-beni); }
+
+section { position: relative; padding: 72px 0; }
+@media (min-width: 900px) {
+  section { padding: 104px 0; }
+}
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  padding-top: calc(var(--header-h) + 56px);
+  padding-bottom: 88px;
+  background:
+    linear-gradient(to bottom, transparent 0%, transparent 54%, rgba(231, 239, 234, 0.07) 54%, rgba(231, 239, 234, 0.07) 61%, transparent 61%),
+    linear-gradient(to bottom, transparent 67%, rgba(231, 239, 234, 0.045) 67%, rgba(231, 239, 234, 0.045) 73%, transparent 73%),
+    linear-gradient(180deg, var(--uchikaifu-kon) 0%, var(--yoru-umi-kon) 100%);
+  color: var(--text-on-dark);
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero-bg { position: absolute; inset: 0; overflow: hidden; }
+.rock-lines-hero {
+  position: absolute;
+  right: -40px;
+  bottom: -20px;
+  width: 320px;
+  height: 240px;
+  color: var(--iso-white);
+  opacity: 0.08;
+}
+
+.hero-inner { position: relative; z-index: 1; }
+
+.hero-tagline {
+  font-size: 0.8rem;
+  letter-spacing: 0.28em;
+  color: var(--yakusou-midori);
+  margin-bottom: 18px;
+}
+
+.hero-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--yakusou-midori);
+  margin-bottom: 28px;
+}
+.hero-logo-text {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  color: var(--text-on-dark);
+  letter-spacing: 0.06em;
+}
+
+.hero-heading {
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
+  letter-spacing: 0.03em;
+  margin-bottom: 20px;
+}
+
+.hero-sub {
+  max-width: 520px;
+  margin: 0 auto 28px;
+  color: rgba(241, 245, 242, 0.85);
+  font-size: 0.95rem;
+}
+
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border: 1px solid rgba(178, 58, 74, 0.55);
+  border-radius: 999px;
+}
+.stars { display: inline-flex; gap: 2px; color: var(--tsubaki-beni); }
+.stars-sm { margin: 6px 0 12px; }
+.star-outline { color: var(--tsubaki-beni); opacity: 0.55; }
+.rating-num { font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; }
+.rating-count { font-size: 0.8rem; color: var(--isogiri-hai); }
+.rating-badge-onlight { border-color: rgba(178, 58, 74, 0.35); margin-bottom: 32px; }
+
+.hero .cta-group { justify-content: center; }
+
+.zigzag-divider {
+  display: block;
+  width: 100%;
+  height: 40px;
+  color: var(--yakusou-midori);
+  opacity: 0.7;
+  margin-top: 56px;
+}
+.zigzag-divider-alt { color: var(--tsubaki-beni); opacity: 0.5; margin-top: 0; }
+
+/* ---------- concept ---------- */
+.concept { background: var(--iso-white); }
+
+.card-grid { display: grid; gap: 24px; margin-top: 40px; }
+.card-grid-3 { grid-template-columns: 1fr; }
+@media (min-width: 720px) {
+  .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+.info-card {
+  background: var(--kai-white);
+  padding: 32px 24px;
+  border-radius: 2px;
+}
+.info-icon { display: inline-block; color: var(--yakusou-midori); margin-bottom: 16px; }
+.info-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+.info-card p { font-size: 0.92rem; color: var(--text-main); }
+
+/* ---------- menu ---------- */
+.menu {
+  background: var(--yoru-umi-kon);
+  color: var(--text-on-dark);
+  overflow: hidden;
+}
+.menu-bg { position: absolute; inset: 0; pointer-events: none; }
+.dot-pattern { position: absolute; width: 180px; height: 140px; color: var(--yakusou-midori); opacity: 0.14; }
+.dot-pattern-a { top: 24px; right: -20px; }
+.dot-pattern-b { bottom: 10px; left: -30px; transform: rotate(15deg); }
+
+.menu .container { position: relative; z-index: 1; }
+
+.card-grid-2 { grid-template-columns: 1fr; }
+@media (min-width: 640px) {
+  .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+.menu-card {
+  background: rgba(231, 239, 234, 0.05);
+  border: 1px solid rgba(241, 245, 242, 0.18);
+  padding: 28px;
+  border-radius: 2px;
+}
+.menu-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+.menu-price {
+  color: var(--tsubaki-beni);
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.menu-card p:last-child { color: rgba(241, 245, 242, 0.85); font-size: 0.92rem; }
+
+.menu-card-sub {
+  margin-top: 24px;
+  border-style: dashed;
+  border-color: rgba(124, 140, 134, 0.5);
+  background: transparent;
+}
+
+/* ---------- atmosphere ---------- */
+.atmosphere { background: var(--kai-white); }
+
+.atmosphere-grid {
+  display: grid;
+  gap: 40px;
+}
+@media (min-width: 860px) {
+  .atmosphere-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+  }
+}
+
+.atmosphere-text p { margin-bottom: 20px; }
+
+.highlight-box {
+  background: var(--iso-white);
+  border-left: 3px solid var(--yakusou-midori);
+  padding: 20px 22px;
+  margin-top: 20px;
+  border-radius: 2px;
+}
+.highlight-box h3 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+.highlight-box p { font-size: 0.92rem; margin: 0; }
+.highlight-box-alt { border-left-color: var(--tsubaki-beni); }
+
+.atmosphere-visual {
+  max-width: 340px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ---------- voice ---------- */
+.voice { background: var(--iso-white); }
+
+.card-grid-voice { grid-template-columns: 1fr; }
+@media (min-width: 640px) {
+  .card-grid-voice { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1000px) {
+  .card-grid-voice { grid-template-columns: repeat(3, 1fr); }
+}
+
+.voice-card {
+  background: var(--kai-white);
+  padding: 26px 24px;
+  border-radius: 2px;
+  border-top: 3px solid var(--yakusou-midori);
+}
+.voice-label {
+  font-size: 0.82rem;
+  color: var(--isogiri-hai);
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+.voice-body { font-size: 0.9rem; }
+
+/* ---------- access ---------- */
+.access {
+  background: var(--uchikaifu-kon);
+  color: var(--text-on-dark);
+  overflow: hidden;
+}
+.access-bg { position: absolute; inset: 0; pointer-events: none; }
+.rock-lines {
+  position: absolute;
+  top: -20px;
+  left: -40px;
+  width: 300px;
+  height: 220px;
+  color: var(--iso-white);
+  opacity: 0.06;
+}
+.access .container { position: relative; z-index: 1; }
+
+.warning-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid var(--tsubaki-beni);
+  color: var(--text-on-dark);
+  padding: 16px 20px;
+  border-radius: 2px;
+  margin-bottom: 40px;
+}
+.warning-banner svg { color: var(--tsubaki-beni); flex-shrink: 0; margin-top: 2px; }
+.warning-banner p { margin: 0; font-size: 0.92rem; }
+
+.access-grid {
+  display: grid;
+  gap: 32px;
+}
+@media (min-width: 860px) {
+  .access-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+}
+
+.access-list div {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(241, 245, 242, 0.15);
+}
+.access-list div:first-child { padding-top: 0; }
+.access-list dt {
+  font-size: 0.8rem;
+  color: var(--yakusou-midori);
+  margin-bottom: 4px;
+  letter-spacing: 0.05em;
+}
+.access-list dd {
+  margin: 0;
+  font-size: 0.92rem;
+  color: rgba(241, 245, 242, 0.92);
+}
+
+.access-map iframe {
+  width: 100%;
+  height: 280px;
+  border: 0;
+  filter: grayscale(0.15);
+}
+.map-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.88rem;
+  color: var(--iso-white);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.map-link:hover { color: var(--tsubaki-beni); }
+
+/* ---------- reservation ---------- */
+.reservation {
+  background: var(--kai-white);
+  text-align: left;
+}
+.reservation .container { max-width: 700px; }
+.reservation p { font-size: 0.98rem; }
+
+/* ---------- footer ---------- */
+.site-footer {
+  background: var(--yoru-umi-kon);
+  color: rgba(241, 245, 242, 0.85);
+  padding: 56px 0 0;
+}
+
+.footer-grid {
+  display: grid;
+  gap: 36px;
+  padding-bottom: 40px;
+}
+@media (min-width: 720px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-on-dark);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+}
+.footer-logo svg { color: var(--yakusou-midori); }
+
+.footer-brand p { font-size: 0.88rem; margin-bottom: 20px; }
+.twig-icon { color: var(--yakusou-midori); opacity: 0.7; }
+
+.footer-contact {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 0.92rem;
+}
+.footer-contact a { text-decoration: underline; text-underline-offset: 4px; }
+.footer-contact a:hover { color: var(--yakusou-midori); }
+.footer-contact p { margin: 0; color: rgba(241, 245, 242, 0.7); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(241, 245, 242, 0.12);
+  padding: 20px 0 28px;
+  font-size: 0.76rem;
+  color: rgba(241, 245, 242, 0.55);
+}
+.footer-bottom p { margin-bottom: 6px; }
+.footer-bottom p:last-child { margin-bottom: 0; }
