@@ -1,0 +1,602 @@
+@charset "UTF-8";
+/* ===========================================================
+   パンと暮らしとヤナギヤ - 共通スタイル
+   コンセプト: 古民家の建材(漆喰壁・土間・杉苔・べんがら)から起こした配色。
+   写真は使用せず、CSS/SVGのみで古民家・山並み・ショーケース等を表現する。
+   =========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+:root {
+  --bg-base: #EDE9DE;      /* 漆喰壁 */
+  --bg-section: #DCD4C2;   /* 土間 */
+  --bg-band: #E4D5C4;      /* べんがら寄りの差し色帯(彩度を抑えた帯用トーン) */
+  --text-main: #2E2822;    /* 囲炉裏の煤色 */
+  --accent-green: #3D4F43; /* 杉苔の深緑 */
+  --accent-red: #9C4A2E;   /* べんがら色。Instagram導線・重要CTA限定 */
+  --accent-flax: #B3A179;  /* 粉色 */
+  --line-gray: #C9C0AC;    /* 石灰の淡グレー */
+  --font-mincho: "Shippori Mincho B1", "Zen Old Mincho", serif;
+  --font-sans: "Noto Sans JP", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg-base);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  line-height: 1.85;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, svg { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3 {
+  font-family: var(--font-mincho);
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0 0 .6em;
+  letter-spacing: .02em;
+}
+
+h1 { font-size: clamp(1.8rem, 4.6vw, 2.6rem); }
+h2 { font-size: clamp(1.4rem, 3.4vw, 1.9rem); }
+h3 { font-size: 1.1rem; }
+
+p { margin: 0 0 1em; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+.container {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- 障子格子の背景パターン(薄い格子模様) ---------- */
+.shoji-bg {
+  background-color: var(--bg-section);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(46,40,34,.05) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(0deg, rgba(46,40,34,.05) 0 1px, transparent 1px 46px);
+}
+.shoji-bg--base {
+  background-color: var(--bg-base);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(46,40,34,.04) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(0deg, rgba(46,40,34,.04) 0 1px, transparent 1px 46px);
+}
+
+/* ---------- SAMPLE 透かし(全ページ共通) ---------- */
+.sample-ribbon {
+  position: fixed;
+  top: 18px;
+  left: -46px;
+  transform: rotate(-45deg);
+  background: var(--text-main);
+  color: var(--bg-base);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .22em;
+  padding: 5px 52px;
+  z-index: 500;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+  pointer-events: none;
+}
+.sample-watermark {
+  position: fixed;
+  inset: -20% -20%;
+  z-index: 1;
+  pointer-events: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  justify-content: space-around;
+  transform: rotate(-26deg);
+  opacity: .05;
+}
+.sample-watermark span {
+  font-family: var(--font-mincho);
+  font-weight: 800;
+  font-size: 2.2rem;
+  color: var(--text-main);
+  white-space: nowrap;
+  margin: 2.2rem 3rem;
+}
+
+/* ---------- 梁(はり)を模した太い横帯 ---------- */
+.beam {
+  height: 16px;
+  width: 100%;
+  background:
+    repeating-linear-gradient(180deg, rgba(0,0,0,.10) 0 2px, transparent 2px 5px),
+    var(--accent-green);
+}
+.beam--flax {
+  background:
+    repeating-linear-gradient(180deg, rgba(0,0,0,.08) 0 2px, transparent 2px 5px),
+    var(--accent-flax);
+}
+
+/* ---------- クープ(パンの切れ目)を模した波形区切り線(SVG polyline) ---------- */
+.coupe-divider {
+  height: 18px;
+  width: 100%;
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: 40px 18px;
+}
+.coupe-divider--green {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='18'%3E%3Cpolyline points='0,16 10,3 20,16 30,3 40,16' fill='none' stroke='%233D4F43' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.coupe-divider--gray {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='18'%3E%3Cpolyline points='0,16 10,3 20,16 30,3 40,16' fill='none' stroke='%23C9C0AC' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* ---------- ヘッダー(非対称) ---------- */
+.site-header {
+  position: relative;
+  z-index: 10;
+  background: var(--bg-base);
+  border-bottom: 1px solid var(--line-gray);
+}
+.header__inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.logo {
+  font-family: var(--font-mincho);
+  font-weight: 800;
+  font-size: 1.32rem;
+  color: var(--text-main);
+  letter-spacing: .04em;
+  line-height: 1.3;
+}
+.logo span { color: var(--accent-green); }
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.header__nav ul {
+  display: flex;
+  gap: 18px;
+}
+.header__nav a:not(.icon-instagram) {
+  font-size: .86rem;
+  letter-spacing: .05em;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+}
+.header__nav a:not(.icon-instagram):hover {
+  border-bottom-color: var(--accent-green);
+}
+.icon-instagram {
+  color: var(--accent-red);
+  display: inline-flex;
+  border: 1.5px solid var(--accent-red);
+  border-radius: 50%;
+  padding: 6px;
+}
+
+/* ---------- ボタン ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: .92rem;
+  padding: 13px 26px;
+  border-radius: 4px;
+  letter-spacing: .04em;
+  border: 1.5px solid transparent;
+}
+.btn--cta {
+  background: var(--accent-red);
+  color: #F6EFE4;
+  box-shadow: 0 3px 0 rgba(0,0,0,.12);
+}
+.btn--outline {
+  background: transparent;
+  color: var(--text-main);
+  border-color: var(--text-main);
+}
+.btn--green {
+  background: var(--accent-green);
+  color: #F3EFE3;
+}
+.btn-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
+
+/* ---------- セクション共通 ---------- */
+section { padding: 64px 0; position: relative; }
+.section-lead { max-width: 640px; color: var(--text-main); }
+.eyebrow {
+  font-size: .78rem;
+  letter-spacing: .18em;
+  color: var(--accent-green);
+  font-weight: 700;
+  margin-bottom: .5em;
+  display: block;
+}
+
+/* ---------- 暖簾(のれん)見出し装飾 ---------- */
+.noren { display: flex; justify-content: center; margin-bottom: 10px; }
+.noren span {
+  width: 13px;
+  height: 26px;
+  background: var(--accent-green);
+  margin: 0 2px;
+  border-radius: 0 0 7px 7px;
+}
+.noren span:nth-child(odd) { background: var(--accent-flax); height: 22px; }
+.section-heading { text-align: center; margin-bottom: 36px; }
+
+/* ---------- 囲炉裏の炎アイコン ---------- */
+.irori-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--accent-flax), var(--accent-red) 75%);
+  flex: none;
+}
+
+/* ---------- ヒーロー(index専用でも再利用) ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0 0;
+  background: linear-gradient(180deg, var(--bg-base) 0%, var(--bg-section) 100%);
+}
+.hero__inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 3;
+}
+.hero__copy { max-width: 640px; }
+.hero h1 { margin-bottom: .5em; }
+.hero__sub { font-size: 1rem; margin-bottom: 1.6em; }
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-base);
+  border: 1px solid var(--line-gray);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: .88rem;
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+.hero__badge .stars { color: var(--accent-red); letter-spacing: 1px; }
+
+/* 山並みシルエット(複数のclip-pathレイヤー) */
+.hero__mountains {
+  position: relative;
+  height: 150px;
+  margin-top: 46px;
+  z-index: 2;
+}
+.hero__mountains i {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.hero__mountains i:nth-child(1) {
+  background: var(--accent-green);
+  opacity: .18;
+  clip-path: polygon(0% 100%, 0% 55%, 12% 38%, 24% 60%, 38% 30%, 52% 58%, 64% 40%, 78% 62%, 90% 42%, 100% 60%, 100% 100%);
+}
+.hero__mountains i:nth-child(2) {
+  background: var(--accent-green);
+  opacity: .32;
+  height: 78%;
+  clip-path: polygon(0% 100%, 0% 66%, 10% 48%, 22% 70%, 36% 42%, 50% 68%, 66% 46%, 80% 72%, 92% 50%, 100% 68%, 100% 100%);
+}
+.hero__mountains i:nth-child(3) {
+  background: var(--accent-green);
+  opacity: .55;
+  height: 46%;
+  clip-path: polygon(0% 100%, 0% 60%, 14% 20%, 28% 62%, 44% 10%, 58% 58%, 72% 24%, 86% 60%, 100% 30%, 100% 100%);
+}
+
+/* 切妻屋根シルエット(古民家) */
+.hero__roof {
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  transform: translateX(-50%);
+  width: min(70vw, 420px);
+  height: 120px;
+  z-index: 2;
+}
+.hero__roof .roof-shape {
+  position: absolute;
+  inset: 0;
+  background: var(--text-main);
+  opacity: .82;
+  clip-path: polygon(50% 0%, 96% 42%, 96% 100%, 4% 100%, 4% 42%);
+}
+.hero__roof .roof-ridge {
+  position: absolute;
+  top: 0; left: 50%;
+  width: 3px; height: 46%;
+  background: var(--accent-flax);
+  transform: translateX(-50%);
+  opacity: .7;
+}
+
+/* ---------- カードグリッド(土間の飛び石=不揃い) ---------- */
+.card-grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  margin-top: 20px;
+}
+.card {
+  background: var(--bg-base);
+  border: 1px solid var(--line-gray);
+  padding: 26px 22px;
+  border-radius: 14px 6px 16px 4px;
+}
+.card-grid .card:nth-child(2n) {
+  transform: translateY(10px);
+  border-radius: 4px 16px 6px 18px;
+}
+.card-grid .card:nth-child(3n) {
+  transform: translateY(-4px) rotate(-.3deg);
+  border-radius: 18px 4px 10px 14px;
+}
+.card-grid .card:nth-child(4n) {
+  transform: translateY(6px) rotate(.4deg);
+}
+
+/* ---------- ショーケース(半透明パネル+パンのシルエット) ---------- */
+.showcase {
+  position: relative;
+  background: linear-gradient(180deg, rgba(237,233,222,.55), rgba(220,212,194,.75));
+  border: 1px solid var(--line-gray);
+  border-top: 3px solid var(--accent-green);
+  border-radius: 6px;
+  padding: 30px 24px;
+  backdrop-filter: blur(1px);
+}
+.showcase__shapes {
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  min-height: 70px;
+}
+.bread { background: var(--accent-flax); flex: none; }
+.bread--baguette { width: 92px; height: 16px; border-radius: 40px; background: linear-gradient(90deg, var(--accent-flax), var(--text-main) 130%); opacity: .8; }
+.bread--round { width: 46px; height: 46px; border-radius: 50%; background: var(--text-main); opacity: .55; }
+.bread--oval { width: 60px; height: 36px; border-radius: 50%; background: var(--accent-green); opacity: .45; transform: rotate(-8deg); }
+.bread--rect { width: 50px; height: 30px; border-radius: 5px; background: var(--accent-red); opacity: .35; }
+.bread--small-oval { width: 34px; height: 22px; border-radius: 50%; background: var(--accent-flax); opacity: .8; transform: rotate(10deg); }
+
+.showcase__list {
+  display: grid;
+  gap: 10px 20px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+.showcase__list li {
+  border-bottom: 1px dashed var(--line-gray);
+  padding: 8px 0;
+  font-weight: 500;
+}
+
+/* ---------- 開店前の行列(半円/雫ドット) ---------- */
+.queue-dots { display: flex; gap: 10px; align-items: flex-end; margin: 20px 0; flex-wrap: wrap; }
+.queue-dots i {
+  width: 14px; height: 20px;
+  background: var(--accent-green);
+  opacity: .5;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(45deg);
+  display: block;
+}
+.queue-dots i:nth-child(3n) { opacity: .75; }
+.queue-dots i:nth-child(5n) { opacity: .35; }
+
+/* ---------- お客様の声 ---------- */
+.review-card {
+  background: var(--bg-base);
+  border: 1px solid var(--line-gray);
+  border-top: 4px solid var(--accent-flax);
+  padding: 24px;
+  border-radius: 4px 12px 4px 12px;
+  position: relative;
+}
+.review-card__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: .84rem;
+}
+.review-card__stars { color: var(--accent-red); letter-spacing: 1px; font-weight: 700; }
+.review-card__time { color: var(--text-main); opacity: .65; }
+.review-card__author { font-size: .8rem; opacity: .7; margin-top: 10px; text-align: right; }
+.review-card blockquote { margin: 0; font-size: .95rem; }
+.review-card--full blockquote { white-space: pre-line; }
+
+/* ---------- 帯セクション(べんがら寄りの差し色。アクセントとして限定使用) ---------- */
+.band {
+  background: var(--bg-band);
+  border-top: 3px solid var(--accent-red);
+  border-bottom: 3px solid var(--accent-red);
+}
+.band ul { margin: 20px 0 26px; display: grid; gap: 12px; }
+.band ul li { padding-left: 1.3em; position: relative; }
+.band ul li::before {
+  content: "";
+  position: absolute; left: 0; top: .5em;
+  width: 8px; height: 8px;
+  background: var(--accent-red);
+  border-radius: 50%;
+}
+
+/* ---------- ページヘッダー(下層ページ共通) ---------- */
+.page-header {
+  padding: 56px 0 44px;
+  text-align: center;
+  position: relative;
+}
+.page-header .lead { max-width: 620px; margin: 0 auto; }
+
+/* ---------- フッター ---------- */
+.site-footer {
+  background: var(--text-main);
+  color: var(--bg-base);
+  padding: 48px 0 28px;
+}
+.site-footer .logo { color: var(--bg-base); }
+.site-footer .logo span { color: var(--accent-flax); }
+.footer__grid {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin-bottom: 30px;
+}
+.footer__nav ul { display: flex; gap: 18px; flex-wrap: wrap; }
+.footer__nav a { font-size: .88rem; opacity: .9; }
+.site-footer .icon-instagram { color: var(--accent-flax); border-color: var(--accent-flax); }
+.footer__insta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: .9rem;
+}
+.footer__note {
+  border-top: 1px solid rgba(237,233,222,.25);
+  padding-top: 18px;
+  font-size: .78rem;
+  opacity: .75;
+  line-height: 1.8;
+}
+
+/* ---------- table的な情報リスト(access.html) ---------- */
+.info-list { border-top: 1px solid var(--line-gray); margin-top: 18px; }
+.info-list__row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-gray);
+}
+.info-list__row dt { font-weight: 700; color: var(--accent-green); }
+.info-list__row dd { margin: 0; }
+
+.map-frame {
+  border: 3px solid var(--accent-green);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+.map-frame iframe { width: 100%; height: 340px; border: 0; display: block; }
+.map-link { display: inline-block; margin-top: 12px; font-size: .9rem; border-bottom: 1px solid var(--accent-green); }
+
+/* ---------- ユーティリティ ---------- */
+.text-center { text-align: center; }
+.mt-24 { margin-top: 24px; }
+.note-box {
+  background: var(--bg-base);
+  border: 1px solid var(--line-gray);
+  border-left: 4px solid var(--accent-green);
+  padding: 20px 22px;
+  border-radius: 2px 10px 2px 10px;
+  font-size: .92rem;
+}
+.note-box ul { display: grid; gap: 8px; }
+.note-box ul li { padding-left: 1.2em; position: relative; }
+.note-box ul li::before {
+  content: "-";
+  position: absolute; left: 0;
+  color: var(--accent-green);
+}
+
+/* ---------- 2カラムレイアウト(非対称) ---------- */
+.split {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 40px;
+  align-items: center;
+}
+.split--reverse .split__visual { order: 2; }
+
+/* 古民家+山並みのミニ装飾(セクション用) */
+.mini-scene {
+  position: relative;
+  height: 180px;
+  background: var(--bg-section);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--line-gray);
+}
+.mini-scene .roof-shape {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 55%;
+  height: 60%;
+  background: var(--text-main);
+  opacity: .85;
+  clip-path: polygon(50% 0%, 96% 40%, 96% 100%, 4% 100%, 4% 40%);
+}
+.mini-scene .ridge-line {
+  position: absolute; bottom: 0; left: 0; width: 100%; height: 40%;
+  background: var(--accent-green);
+  opacity: .3;
+  clip-path: polygon(0 100%, 0 60%, 20% 30%, 40% 65%, 60% 20%, 80% 55%, 100% 35%, 100% 100%);
+}
+.mini-scene .lattice {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(46,40,34,.08) 0 1px, transparent 1px 20px),
+    repeating-linear-gradient(0deg, rgba(46,40,34,.08) 0 1px, transparent 1px 20px);
+}
+
+@media (max-width: 780px) {
+  .split { grid-template-columns: 1fr; }
+  .split--reverse .split__visual { order: 0; }
+  .header__inner { padding: 14px 20px; }
+  .header__nav { gap: 14px; width: 100%; justify-content: space-between; }
+  .header__nav ul { gap: 12px; }
+  .header__nav a:not(.icon-instagram) { font-size: .8rem; }
+  section { padding: 48px 0; }
+  .hero { padding-top: 54px; }
+  .hero__mountains { height: 100px; margin-top: 30px; }
+  .hero__roof { height: 84px; }
+  .info-list__row { grid-template-columns: 1fr; }
+  .footer__grid { flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+  body { font-size: 15px; }
+  .btn { width: 100%; justify-content: center; }
+  .btn-row { flex-direction: column; }
+}
