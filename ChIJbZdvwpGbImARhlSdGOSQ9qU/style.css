@@ -1,0 +1,543 @@
+/* ==========================================================================
+   PON COFFEE SPOT — style.css
+   コンセプト:「サニーウッド(陽だまりの木目)」。写真は一切使用せず、
+   木目ストライプ・サンビーム・コーヒー豆や湯気のSVG、手描き風の吹き出しで
+   「おゆみ野に移った、焙煎小屋の休憩所」の空気感を表現する。
+   ========================================================================== */
+
+:root {
+  --bg: #FBF3E7;
+  --bg-alt: #F3E5CB;
+  --brown: #6B4226;
+  --brown-deep: #4E2F1B;
+  --cta: #C1592C;
+  --cta-deep: #A9481F;
+  --sage: #8A9A5B;
+  --sage-deep: #6E7C48;
+  --amber: #F2B441;
+  --text: #3E2C23;
+  --line: #D9C7A3;
+  --cream: #FFFBF2;
+
+  --font-heading: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+  --font-body: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+
+  --header-h: 68px;
+  --content-w: 1120px;
+}
+
+/* --- リセット --- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3 { font-family: var(--font-heading); margin: 0; color: var(--brown-deep); font-weight: 700; }
+p { margin: 0 0 1em; }
+p:last-child { margin-bottom: 0; }
+table { border-collapse: collapse; }
+.icon { width: 1.2em; height: 1.2em; display: inline-block; vertical-align: -0.2em; fill: none; }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--brown-deep);
+  color: var(--cream);
+  padding: .8em 1.2em;
+  z-index: 2000;
+  border-radius: 0 0 8px 0;
+}
+.skip-link:focus { left: 0; }
+
+.section-inner { max-width: var(--content-w); margin: 0 auto; padding: 0 20px; }
+.section { padding: 64px 0; scroll-margin-top: var(--header-h); position: relative; }
+.section--alt { background: var(--bg-alt); }
+.section-eyebrow {
+  font-family: var(--font-heading);
+  color: var(--cta);
+  letter-spacing: .16em;
+  font-weight: 700;
+  font-size: .8rem;
+  margin: 0 0 .5em;
+}
+.section-eyebrow--light { color: var(--amber); }
+.section-title { font-size: clamp(1.5rem, 4.2vw, 2rem); margin-bottom: 1.1em; line-height: 1.5; }
+.section-title--light { color: var(--cream); }
+
+/* ==========================================================================
+   ヘッダー
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: var(--header-h);
+  background: var(--brown);
+  box-shadow: 0 2px 10px rgba(78, 47, 27, .25);
+}
+.header-inner {
+  max-width: var(--content-w);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cream);
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.05rem;
+  letter-spacing: .02em;
+  flex-shrink: 0;
+}
+.icon-bean-mark { width: 1.5em; height: 1.5em; color: var(--amber); }
+
+.site-nav {
+  position: fixed;
+  inset: var(--header-h) 0 0 auto;
+  width: min(80vw, 320px);
+  height: calc(100vh - var(--header-h));
+  background: var(--brown-deep);
+  transform: translateX(100%);
+  transition: transform .3s ease;
+  overflow-y: auto;
+  z-index: 999;
+}
+.site-nav.is-open { transform: translateX(0); }
+.site-nav ul { display: flex; flex-direction: column; padding: 12px 0; }
+.site-nav a.nav-link {
+  display: block;
+  padding: 14px 24px;
+  color: var(--cream);
+  font-size: .98rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.site-nav a.nav-link:hover,
+.site-nav a.nav-link:focus-visible { background: rgba(242,180,65,.15); color: var(--amber); }
+
+.nav-overlay {
+  position: fixed;
+  inset: var(--header-h) 0 0 0;
+  background: rgba(62, 44, 35, .45);
+  z-index: 998;
+}
+
+.header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.icon-link.header-ig {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.6px solid var(--amber);
+  color: var(--amber);
+  flex-shrink: 0;
+}
+.icon-link.header-ig .icon { width: 1.1em; height: 1.1em; }
+.icon-link.header-ig:hover { background: var(--amber); color: var(--brown-deep); }
+
+.nav-toggle {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.nav-toggle span {
+  width: 22px;
+  height: 2.4px;
+  background: var(--cream);
+  border-radius: 2px;
+  transition: transform .25s ease, opacity .25s ease;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7.4px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7.4px) rotate(-45deg); }
+
+/* ==========================================================================
+   ボタン
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: .95rem;
+  border: 2px solid transparent;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  cursor: pointer;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--cta); color: var(--cream); box-shadow: 0 4px 0 var(--cta-deep); }
+.btn-primary:hover { background: var(--cta-deep); }
+.btn-outline { background: transparent; border-color: var(--brown); color: var(--brown); }
+.btn-outline:hover { background: var(--brown); color: var(--cream); }
+.btn-large { background: var(--amber); color: var(--brown-deep); font-size: 1.1rem; padding: 18px 40px; box-shadow: 0 5px 0 #c98f26; }
+.btn-large:hover { background: #f7c364; }
+
+/* ==========================================================================
+   ヒーロー
+   ========================================================================== */
+.hero {
+  position: relative;
+  padding: 72px 0 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #FDF6EA 0%, var(--bg) 100%);
+}
+.hero-sunbeam {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(112deg,
+      rgba(242, 180, 65, .35) 0px, rgba(242, 180, 65, .35) 26px,
+      transparent 26px, transparent 130px),
+    repeating-linear-gradient(112deg,
+      rgba(193, 89, 44, .12) 0px, rgba(193, 89, 44, .12) 10px,
+      transparent 10px, transparent 90px);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 30% 20%, black 40%, transparent 90%);
+  mask-image: radial-gradient(ellipse 80% 70% at 30% 20%, black 40%, transparent 90%);
+  pointer-events: none;
+}
+.hero-beans-scatter { position: absolute; inset: 0; pointer-events: none; }
+.hero-beans-scatter .scatter-bean { position: absolute; color: var(--brown); opacity: .16; }
+.scatter-bean.s1 { width: 70px; height: 70px; top: 12%; right: 8%; transform: rotate(18deg); }
+.scatter-bean.s2 { width: 46px; height: 46px; top: 55%; right: 22%; transform: rotate(-12deg); }
+.scatter-bean.s3 { width: 54px; height: 54px; bottom: 10%; left: 6%; transform: rotate(30deg); color: var(--sage); opacity: .18; }
+.scatter-bean.s4 { width: 34px; height: 34px; top: 30%; left: 14%; transform: rotate(-20deg); }
+
+.hero-inner {
+  position: relative;
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: 56px 24px 90px;
+  text-align: center;
+}
+.hero-eyebrow {
+  color: var(--cta);
+  font-weight: 700;
+  letter-spacing: .1em;
+  font-size: .85rem;
+  margin-bottom: .8em;
+}
+.hero-title {
+  font-size: clamp(1.7rem, 5.6vw, 2.9rem);
+  line-height: 1.5;
+  color: var(--brown-deep);
+  margin-bottom: .6em;
+}
+.hero-sub {
+  font-size: clamp(.95rem, 2.4vw, 1.1rem);
+  color: var(--text);
+  margin-bottom: 1.8em;
+  line-height: 1.9;
+}
+.hero-cta { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+
+.wood-divider { display: block; width: 100%; height: 46px; }
+.wood-divider.divider-alt { background: var(--bg-alt); }
+
+/* ==========================================================================
+   当店について
+   ========================================================================== */
+.about-grid { display: grid; gap: 36px; align-items: center; }
+.about-text p { color: var(--text); }
+.about-visual { display: flex; justify-content: center; }
+.window-light {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 4/5;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #FCEFD4 0%, #F6DFB2 100%);
+  border: 10px solid var(--brown);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 14px 0 -4px rgba(107,66,38,.18);
+}
+.window-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    115deg,
+    rgba(255,255,255,.55) 0 18px,
+    transparent 18px 60px
+  );
+}
+.window-frame { position: absolute; inset: 0; }
+.window-frame span { position: absolute; background: var(--brown); opacity: .55; }
+.window-frame span:nth-child(1) { top: 0; bottom: 0; left: 50%; width: 8px; transform: translateX(-50%); }
+.window-frame span:nth-child(2) { left: 0; right: 0; top: 50%; height: 8px; transform: translateY(-50%); }
+
+.scroll-cue {
+  display: flex;
+  justify-content: center;
+  color: var(--sage-deep);
+  margin-top: 44px;
+  animation: bob 1.8s ease-in-out infinite;
+}
+.scroll-cue .icon { width: 1.8em; height: 1.8em; }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+/* ==========================================================================
+   コーヒー豆・日替わりコーヒー
+   ========================================================================== */
+.beans-grid { display: grid; gap: 36px; align-items: center; }
+.beans-visual { display: flex; justify-content: center; align-items: center; gap: 6px; }
+.big-bean { width: 130px; height: 130px; color: var(--brown); }
+.big-steam { width: 90px; height: 90px; color: var(--amber); margin-left: -18px; }
+.beans-text p { color: var(--text); }
+.beans-text .btn { margin-top: 8px; }
+
+.leaf-divider { display: flex; justify-content: center; padding: 8px 0; color: var(--sage); }
+.leaf-line { width: min(80%, 480px); height: 30px; }
+.footer-leaf { color: var(--amber); opacity: .5; width: min(70%, 380px); height: 26px; margin: 24px auto 0; display: block; }
+
+/* ==========================================================================
+   口コミで紹介されたメニュー例
+   ========================================================================== */
+.menu-preface {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  font-size: .92rem;
+  color: var(--text);
+  max-width: 760px;
+}
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-top: 28px;
+}
+.menu-card {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px 20px;
+  position: relative;
+}
+.menu-icon { width: 40px; height: 40px; color: var(--cta); margin-bottom: 10px; }
+.menu-card h3 { font-size: 1.08rem; margin-bottom: .3em; }
+.menu-price { color: var(--cta); font-weight: 700; margin-bottom: .5em; }
+.menu-price--placeholder { color: var(--sage-deep); font-weight: 500; font-size: .88rem; }
+.menu-card p:not(.menu-price):not(.menu-footnote) { color: var(--text); font-size: .93rem; }
+.menu-footnote {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+  font-size: .82rem;
+  color: var(--sage-deep);
+}
+
+/* ==========================================================================
+   お客様の声(手描き風吹き出しカード)
+   ========================================================================== */
+.rating-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: var(--brown-deep);
+  margin-bottom: 30px;
+}
+.stars { display: inline-flex; gap: 2px; color: var(--amber); }
+.stars .icon { width: 1.1em; height: 1.1em; }
+
+.voices-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
+.voice-card {
+  margin: 0;
+  position: relative;
+  background: var(--cream);
+  padding: 26px 24px 20px;
+  border: 2.5px solid var(--brown);
+  box-shadow: 6px 6px 0 -1px rgba(107,66,38,.12);
+}
+.voice-card p { color: var(--text); font-size: .95rem; margin-bottom: 1em; }
+.voice-card footer { font-weight: 700; color: var(--cta); font-size: .88rem; }
+.vc-1 { border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; transform: rotate(-.6deg); }
+.vc-2 { border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px; transform: rotate(.5deg); }
+.vc-3 { border-radius: 225px 15px 255px 15px / 15px 255px 15px 225px; transform: rotate(-.4deg); }
+.vc-4 { border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px; transform: rotate(.6deg); }
+.vc-5 { border-radius: 240px 20px 240px 20px / 20px 240px 20px 240px; transform: rotate(-.5deg); grid-column: 1 / -1; max-width: 640px; margin: 0 auto; }
+
+/* ==========================================================================
+   遠方からのファン・出店情報
+   ========================================================================== */
+.fans {
+  background: var(--brown);
+  color: var(--cream);
+}
+.fans .section-title,
+.fans p { color: var(--cream); }
+.fans-inner { position: relative; z-index: 1; max-width: 760px; }
+.fans-road {
+  position: absolute;
+  top: 30px;
+  right: 4%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: .5;
+  pointer-events: none;
+}
+.icon-bike-deco { width: 60px; height: 46px; color: var(--amber); flex-shrink: 0; }
+.road-line { width: 140px; height: 20px; flex-shrink: 0; }
+.icon-pin-deco { width: 34px; height: 34px; color: var(--cta); flex-shrink: 0; }
+.fans .btn-primary { margin-top: 8px; }
+
+/* ==========================================================================
+   アクセス
+   ========================================================================== */
+.access-grid { display: grid; gap: 32px; margin-top: 8px; }
+.access-list { margin: 0 0 28px; }
+.access-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 420px) {
+  .access-row { grid-template-columns: 130px 1fr; gap: 10px; }
+}
+.access-row dt { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--brown-deep); }
+.access-row dt .icon { color: var(--cta); }
+.access-row dd { margin: 0; color: var(--text); }
+.access-row .note { font-size: .82rem; color: var(--sage-deep); }
+
+.hours-box {
+  background: var(--cream);
+  border: 1.5px dashed var(--cta);
+  border-radius: 14px;
+  padding: 22px 20px;
+  margin-bottom: 26px;
+}
+.hours-box h3 { display: flex; align-items: center; gap: 8px; font-size: 1.05rem; margin-bottom: .6em; color: var(--cta-deep); }
+.hours-box h3 .icon { color: var(--cta); }
+.hours-box > p { font-size: .9rem; color: var(--text); }
+.hours-table { width: 100%; margin: 12px 0; }
+.hours-table th, .hours-table td { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
+.hours-table th { color: var(--brown-deep); width: 90px; font-weight: 700; }
+.hours-disclaimer { font-size: .82rem; color: var(--sage-deep); margin-top: 10px; }
+
+.access-cta { display: flex; flex-wrap: wrap; gap: 14px; }
+
+.access-map iframe {
+  width: 100%;
+  height: 320px;
+  border: 0;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+}
+.map-note { font-size: .78rem; color: var(--sage-deep); margin-top: 8px; }
+
+/* ==========================================================================
+   Instagram誘導セクション
+   ========================================================================== */
+.instagram-cta {
+  background: radial-gradient(ellipse at 50% 0%, var(--amber) 0%, var(--cta) 70%);
+  text-align: center;
+}
+.instagram-inner { max-width: 640px; }
+.instagram-big-icon { width: 60px; height: 60px; color: var(--cream); margin-bottom: 14px; }
+.instagram-cta .section-eyebrow--light { color: var(--brown-deep); }
+.instagram-handle { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--cream); margin-bottom: .8em; }
+.instagram-text { color: var(--cream); margin-bottom: 1.6em; }
+
+/* ==========================================================================
+   フッター
+   ========================================================================== */
+.site-footer { background: var(--brown-deep); color: var(--cream); padding: 52px 0 28px; }
+.footer-inner { max-width: var(--content-w); margin: 0 auto; padding: 0 20px; text-align: center; }
+.footer-brand { display: flex; justify-content: center; align-items: center; gap: 8px; font-family: var(--font-heading); font-weight: 900; font-size: 1.2rem; margin-bottom: 32px; }
+.footer-brand .icon-bean-mark { color: var(--amber); }
+.footer-cols { display: grid; grid-template-columns: 1fr; gap: 26px; text-align: left; max-width: 720px; margin: 0 auto; }
+.footer-col h3 { font-size: .9rem; color: var(--amber); margin-bottom: .6em; letter-spacing: .05em; }
+.footer-col p { font-size: .88rem; color: #EADFCB; margin-bottom: .5em; }
+.footer-col .note { color: #C9B79A; }
+.footer-link { display: inline-flex; align-items: center; gap: 6px; color: var(--cream); }
+.footer-link:hover { color: var(--amber); }
+.copyright { text-align: center; margin-top: 30px; font-size: .78rem; color: #C9B79A; }
+
+/* ==========================================================================
+   タブレット以上
+   ========================================================================== */
+@media (min-width: 760px) {
+  .section { padding: 88px 0; }
+  .hero-inner { padding: 76px 24px 110px; }
+  .about-grid { grid-template-columns: 1.1fr .9fr; }
+  .beans-grid { grid-template-columns: .9fr 1.1fr; }
+  .menu-grid { grid-template-columns: repeat(2, 1fr); }
+  .voices-grid { grid-template-columns: repeat(2, 1fr); }
+  .access-grid { grid-template-columns: 1.1fr .9fr; }
+  .access-map iframe { height: 100%; min-height: 420px; }
+  .footer-cols { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ==========================================================================
+   デスクトップ
+   ========================================================================== */
+@media (min-width: 1020px) {
+  .site-nav {
+    position: static;
+    width: auto;
+    height: auto;
+    background: transparent;
+    transform: none;
+    transition: none;
+    overflow: visible;
+  }
+  .site-nav ul { flex-direction: row; align-items: center; gap: 4px; }
+  .site-nav a.nav-link {
+    padding: 8px 12px;
+    font-size: .88rem;
+    border-bottom: none;
+    color: var(--cream);
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .site-nav a.nav-link:hover,
+  .site-nav a.nav-link:focus-visible { background: rgba(242,180,65,.18); color: var(--amber); }
+  .nav-toggle, .nav-overlay { display: none; }
+  .header-inner { padding: 0 32px; }
+
+  .menu-grid { grid-template-columns: repeat(3, 1fr); }
+  .voices-grid { grid-template-columns: repeat(3, 1fr); }
+  .vc-5 { grid-column: auto; max-width: none; margin: 0; }
+}
+
+@media (min-width: 1020px) and (max-width: 1240px) {
+  .site-nav a.nav-link { font-size: .8rem; padding: 8px 8px; }
+}
+
+/* --- reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scroll-cue { animation: none; }
+  .btn { transition: none; }
+}
