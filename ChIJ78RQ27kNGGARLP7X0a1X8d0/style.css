@@ -1,0 +1,343 @@
+/* ==========================================================================
+   YO-TSU-BA(よつば) 共通スタイル
+   配色: クローバーグリーン#2F4A2E / ボルドー#6E1F2C / チーズアンバー#D3963E
+        / マスタードオリーブ#8B8636 / プラスターホワイト#F6F1E4
+   写真は使用せず、CSS(グラデーション・チェック柄)とインラインSVGのみで構成する
+   ========================================================================== */
+
+:root{
+  --green:#2F4A2E;
+  --green-deep:#1E2F1D;
+  --bordeaux:#6E1F2C;
+  --amber:#D3963E;
+  --olive:#8B8636;
+  --base:#F6F1E4;
+  --card:#FFFDF6;
+  --text:#2B241C;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(43,36,28,.14);
+  --check-green:rgba(47,74,46,.1);
+  --check-base:rgba(246,241,228,.14);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  margin:0;
+  background:var(--base);
+  color:var(--text);
+  font-family:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3{
+  font-family:"Zen Old Mincho",serif;
+  color:var(--green);
+  line-height:1.5;
+  margin:0 0 .8rem;
+}
+
+p{margin:0 0 1rem;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;margin:0;padding:0;}
+
+.container{max-width:1100px;margin:0 auto;padding:0 1.25rem;}
+
+.skip-link{
+  position:absolute;left:-999px;top:0;background:var(--amber);color:var(--green-deep);
+  padding:.6rem 1rem;z-index:200;border-radius:0 0 8px 0;font-weight:700;
+}
+.skip-link:focus{left:0;}
+
+/* ---------- セクション共通 ---------- */
+.section{padding:3.4rem 0;}
+.section--tint{background:#FBF3E1;}
+.section--deep{background:var(--green);color:var(--base);}
+.section--deep h2{color:var(--base);}
+
+.section--check{position:relative;overflow:hidden;}
+.section--check::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(45deg, var(--check-green) 0 2px, transparent 2px 13px),
+    repeating-linear-gradient(-45deg, var(--check-green) 0 2px, transparent 2px 13px);
+}
+.section--deep.section--check::before{
+  background-image:
+    repeating-linear-gradient(45deg, var(--check-base) 0 2px, transparent 2px 13px),
+    repeating-linear-gradient(-45deg, var(--check-base) 0 2px, transparent 2px 13px);
+}
+.section--check > .container{position:relative;z-index:1;}
+
+.section-eyebrow{
+  font-family:"Klee One",cursive;color:var(--amber);font-size:.95rem;letter-spacing:.06em;
+  display:block;margin-bottom:.3rem;
+}
+.section-title{
+  font-size:1.55rem;position:relative;padding-bottom:.7rem;margin-bottom:1rem;
+}
+.section-title::after{
+  content:"";position:absolute;left:0;bottom:0;width:50px;height:3px;background:var(--amber);
+}
+.section--deep .section-title::after{background:var(--amber);}
+.section-lead{max-width:62ch;opacity:.88;}
+
+/* ---------- ボタン ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.85rem 1.6rem;border-radius:999px;font-weight:700;font-size:.96rem;
+  border:2px solid transparent;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  cursor:pointer;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{background:var(--bordeaux);color:var(--base);}
+.btn-primary:hover{box-shadow:0 10px 22px rgba(110,31,44,.35);}
+.btn-secondary{background:transparent;color:var(--base);border-color:var(--base);}
+.btn-secondary:hover{background:var(--base);color:var(--green);}
+.btn-outline{background:transparent;color:var(--green);border-color:var(--green);}
+.btn-outline:hover{background:var(--green);color:var(--base);}
+.btn-instagram{background:var(--amber);color:var(--green-deep);}
+.btn-instagram:hover{box-shadow:0 10px 22px rgba(211,150,62,.4);}
+.btn-lg{padding:1.05rem 2.1rem;font-size:1.05rem;}
+.btn svg{width:18px;height:18px;color:currentColor;}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:1.6rem;}
+
+/* ---------- ヘッダー ---------- */
+.site-header{
+  background:var(--green);color:var(--base);position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 12px rgba(0,0,0,.18);
+}
+.header-inner{
+  max-width:1100px;margin:0 auto;padding:.9rem 1.2rem;
+  display:flex;flex-direction:column;align-items:center;gap:.7rem;text-align:center;
+}
+.brand{display:inline-flex;align-items:center;gap:.6rem;}
+.brand-mark{width:36px;height:36px;flex-shrink:0;}
+.brand-text{display:flex;flex-direction:column;line-height:1.15;text-align:left;}
+.brand-en{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.15rem;letter-spacing:.03em;color:var(--base);}
+.brand-jp{font-family:"Zen Old Mincho",serif;font-size:.72rem;letter-spacing:.25em;color:var(--amber);}
+
+.site-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:.3rem 1.1rem;font-size:.88rem;}
+.site-nav a{padding:.3rem .15rem;border-bottom:2px solid transparent;font-weight:500;}
+.site-nav a:hover,.site-nav a[aria-current="page"]{border-color:var(--amber);color:var(--amber);}
+
+.header-phone{
+  display:inline-flex;align-items:center;gap:.45rem;background:var(--amber);color:var(--green-deep);
+  padding:.55rem 1rem;border-radius:999px;font-weight:700;font-size:.88rem;white-space:nowrap;
+}
+.header-phone:hover{background:var(--base);}
+.ico-phone{width:16px;height:16px;}
+
+@media (min-width:880px){
+  .header-inner{flex-direction:row;justify-content:space-between;text-align:left;padding:1rem 2rem;}
+  .site-nav{font-size:.95rem;gap:1.5rem;}
+  .brand-text{text-align:left;}
+}
+
+/* ---------- ヒーロー(トップ) ---------- */
+.hero{
+  position:relative;overflow:hidden;color:var(--base);padding:4rem 0 3.6rem;
+  background:linear-gradient(155deg, var(--green) 0%, #24391f 55%, var(--green-deep) 100%);
+}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(45deg, var(--check-base) 0 2px, transparent 2px 14px),
+    repeating-linear-gradient(-45deg, var(--check-base) 0 2px, transparent 2px 14px);
+}
+.hero-glass{
+  position:absolute;right:-10px;top:6%;width:150px;height:auto;color:var(--base);opacity:.35;z-index:0;
+}
+.hero-inner{
+  position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 1.25rem;
+  display:flex;flex-direction:column;gap:.9rem;align-items:flex-start;
+}
+.hero-en{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:2.3rem;color:var(--amber);letter-spacing:.03em;}
+.hero-jp{font-family:"Zen Old Mincho",serif;font-size:1.25rem;letter-spacing:.35em;color:var(--base);margin-left:.1em;}
+.hero-catch{font-size:1.45rem;font-weight:700;line-height:1.65;max-width:19ch;color:var(--base);}
+.hero-sub{font-size:.98rem;opacity:.92;max-width:36ch;}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:.4rem;}
+
+@media (min-width:640px){
+  .hero{padding:5.5rem 0 4.6rem;}
+  .hero-glass{width:220px;top:0;right:4%;opacity:.45;}
+  .hero-en{font-size:3rem;}
+  .hero-catch{font-size:1.9rem;}
+}
+
+/* ---------- ページヒーロー(下層) ---------- */
+.page-hero{
+  position:relative;overflow:hidden;background:var(--green);color:var(--base);
+  padding:3.2rem 0 2.6rem;text-align:center;
+}
+.page-hero::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(45deg, var(--check-base) 0 2px, transparent 2px 14px),
+    repeating-linear-gradient(-45deg, var(--check-base) 0 2px, transparent 2px 14px);
+}
+.page-hero-icon{
+  position:absolute;z-index:0;opacity:.16;color:var(--base);
+  top:-10%;right:-6%;width:210px;height:auto;
+}
+.page-hero-inner{position:relative;z-index:1;}
+.page-hero-en{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:2.1rem;color:var(--amber);letter-spacing:.05em;}
+.page-hero-lead{margin-top:.5rem;font-size:1rem;opacity:.92;}
+
+/* ---------- 3カード(トップ:お店の魅力) ---------- */
+.cards-3{display:grid;grid-template-columns:1fr;gap:1.4rem;margin-top:2rem;}
+@media (min-width:720px){.cards-3{grid-template-columns:repeat(3,1fr);}}
+
+.feature-card{
+  display:block;background:var(--card);border:1px solid rgba(47,74,46,.15);
+  border-radius:var(--radius);padding:1.8rem 1.5rem;box-shadow:var(--shadow);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.feature-card:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(43,36,28,.2);}
+.feature-card .ico{width:52px;height:52px;color:var(--bordeaux);margin-bottom:1rem;}
+.feature-card h3{font-size:1.1rem;margin:.2rem 0 .55rem;}
+.feature-card p{margin:0;font-size:.92rem;opacity:.88;}
+.feature-card .card-more{display:inline-block;margin-top:.8rem;font-size:.85rem;font-weight:700;color:var(--green);}
+
+/* ---------- 評価バッジ・装飾行 ---------- */
+.rating-badge{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem;margin-top:1.3rem;}
+.rating-badge a{
+  display:inline-flex;align-items:center;gap:.4rem;background:var(--green);color:var(--base);
+  padding:.55rem 1.1rem;border-radius:999px;font-weight:700;font-size:.92rem;
+}
+.rating-badge a:hover{background:var(--bordeaux);}
+.rating-caption{font-size:.82rem;opacity:.7;}
+
+.deco-row{display:flex;align-items:center;gap:1.3rem;margin-top:1.5rem;color:var(--olive);opacity:.85;}
+.deco-row svg{width:38px;height:38px;}
+
+/* ---------- 区切り(クローバー/フォーク) ---------- */
+.divider{display:flex;align-items:center;justify-content:center;gap:.9rem;margin:2.6rem 0;color:var(--olive);}
+.divider-line{width:56px;height:1px;background:var(--olive);opacity:.5;}
+.divider-clover{width:24px;height:24px;color:var(--bordeaux);}
+.divider-fork{
+  width:16px;height:38px;color:var(--bordeaux);transform:rotate(90deg);
+  fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+}
+
+/* ---------- フロアアイコン(1F/2F) ---------- */
+.floor-icons{display:grid;grid-template-columns:1fr;gap:1.6rem;margin:2rem 0 .6rem;}
+@media (min-width:640px){.floor-icons{grid-template-columns:1fr 1fr;}}
+.floor-item{background:var(--card);border:1px solid rgba(47,74,46,.15);border-radius:var(--radius);padding:1.5rem;text-align:center;}
+.floor-item .ico-floor{width:100%;max-width:220px;height:auto;color:var(--green);margin:0 auto .9rem;}
+.floor-label{font-weight:700;color:var(--green);font-size:.92rem;margin:0;}
+
+/* ---------- お客様の声 ---------- */
+.reviews-grid{display:grid;grid-template-columns:1fr;gap:1.4rem;margin-top:2rem;}
+@media (min-width:720px){.reviews-grid{grid-template-columns:1fr 1fr;}}
+@media (min-width:1060px){.reviews-grid{grid-template-columns:repeat(3,1fr);}}
+.review-card{
+  background:var(--card);border-top:4px solid var(--bordeaux);border-radius:var(--radius);
+  padding:1.5rem;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:.7rem;
+}
+.review-stars{color:var(--bordeaux);letter-spacing:.12em;font-size:1.05rem;}
+.review-time{font-size:.75rem;color:var(--olive);font-weight:700;}
+.review-text{font-size:.92rem;line-height:1.9;flex:1;}
+.review-foot{
+  display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--green);font-weight:700;
+  border-top:1px dashed rgba(47,74,46,.3);padding-top:.7rem;
+}
+.review-foot svg{width:16px;height:16px;color:var(--olive);}
+
+/* ---------- 注記ボックス ---------- */
+.note-box{
+  background:#FBF3E1;border-left:4px solid var(--amber);border-radius:8px;
+  padding:1.2rem 1.4rem;font-size:.9rem;
+}
+.note-box p{margin:0;}
+
+/* ---------- こだわりブロック(concept.html) ---------- */
+.concept-block{
+  display:grid;grid-template-columns:1fr;gap:1.4rem;align-items:center;
+  padding:2.2rem 0;border-bottom:1px solid rgba(47,74,46,.16);
+}
+.concept-block:last-of-type{border-bottom:none;}
+.concept-icon-wrap{display:flex;justify-content:center;gap:.6rem;}
+.concept-icon-wrap .ico{width:96px;height:96px;color:var(--bordeaux);}
+.concept-icon-wrap .ico-bottle{width:52px;height:104px;color:var(--green);}
+.concept-icon-wrap .ico-wineglass{width:44px;height:104px;}
+.concept-block h2{font-size:1.28rem;}
+.concept-block p{margin:0;}
+
+@media (min-width:800px){
+  .concept-block{grid-template-columns:160px 1fr;gap:2rem;}
+}
+
+/* ---------- メニューカテゴリ(menu.html) ---------- */
+.cards-4{display:grid;grid-template-columns:1fr;gap:1.3rem;margin-top:2rem;}
+@media (min-width:640px){.cards-4{grid-template-columns:1fr 1fr;}}
+@media (min-width:1060px){.cards-4{grid-template-columns:repeat(4,1fr);}}
+.menu-card{
+  background:var(--card);border:1px solid rgba(110,31,44,.16);border-radius:var(--radius);
+  padding:1.6rem;box-shadow:var(--shadow);
+}
+.menu-card .ico{width:48px;height:48px;color:var(--green);margin-bottom:.8rem;}
+.menu-card h3{font-size:1.02rem;margin:.2rem 0 .5rem;}
+.menu-card p{font-size:.88rem;margin:0;opacity:.88;}
+
+/* ---------- アクセス情報テーブル ---------- */
+.info-table{width:100%;border-collapse:collapse;margin-top:1.6rem;}
+.info-table th,.info-table td{
+  text-align:left;padding:.95rem .6rem;border-bottom:1px solid rgba(47,74,46,.18);
+  font-size:.94rem;vertical-align:top;
+}
+.info-table th{width:9.5em;color:var(--green);font-weight:700;}
+.info-table td .note-inline{display:block;font-size:.82rem;opacity:.75;margin-top:.25rem;}
+
+@media (max-width:560px){
+  .info-table, .info-table tbody, .info-table tr, .info-table th, .info-table td{display:block;width:100%;}
+  .info-table th{padding-bottom:.15rem;border-bottom:none;}
+  .info-table td{padding-top:0;padding-bottom:1.1rem;}
+}
+
+/* ---------- 地図埋め込み ---------- */
+.map-wrap{
+  position:relative;width:100%;padding-top:62%;border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow);margin-top:1.4rem;
+}
+.map-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.map-caption{font-size:.85rem;opacity:.75;margin-top:.8rem;}
+
+/* ---------- フッター ---------- */
+.site-footer{background:var(--green);color:var(--base);padding:3.2rem 0 1.5rem;margin-top:3rem;}
+.footer-inner{
+  max-width:1100px;margin:0 auto;padding:0 1.25rem;
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:.6rem;
+}
+.footer-mark{width:44px;height:44px;color:var(--amber);}
+.footer-title{font-family:"Zen Old Mincho",serif;font-size:1.15rem;margin:.4rem 0 0;color:var(--base);}
+.footer-address,.footer-tel{font-size:.92rem;margin:0;}
+.footer-tel a{font-weight:700;color:var(--amber);}
+.footer-insta{display:inline-block;margin-top:.2rem;font-size:.9rem;text-decoration:underline;text-underline-offset:3px;}
+.footer-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.2rem;margin-top:1.1rem;font-size:.86rem;}
+.copyright{text-align:center;margin-top:2.2rem;font-size:.74rem;opacity:.65;}
+
+@media (min-width:880px){
+  .footer-inner{align-items:flex-start;text-align:left;}
+  .footer-nav{justify-content:flex-start;}
+}
+
+/* ---------- SVGアイコン基本設定 ---------- */
+.brand-mark,.footer-mark,.review-clover,.divider-clover,.deco-row svg.ico-clover{
+  fill:var(--olive);fill-opacity:.25;stroke:currentColor;stroke-width:3;
+  stroke-linejoin:round;stroke-linecap:round;
+}
+.ico-wineglass{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.wine-fill{stroke:none;fill:var(--bordeaux);fill-opacity:.5;}
+.ico-cheese{fill:none;stroke:currentColor;stroke-width:2.4;}
+.ico-cheese circle.rim{fill:var(--amber);fill-opacity:.2;}
+.ico-cheese circle.hole{fill:currentColor;stroke:none;}
+.ico-floor{fill:none;stroke:currentColor;stroke-width:2.2;}
+.ico-sprig{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;}
+.ico-forkknife{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+.ico-bottle{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linejoin:round;}
+.hero-glass,.page-hero-icon{fill:none;stroke:currentColor;stroke-width:1.6;}
