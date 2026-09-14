@@ -1,0 +1,502 @@
+/* ボタニカルカフェ オールドヒッコリー
+   テーマ: 古材と苔、柿色の実り(炭色×生成りの交互配置) */
+
+:root {
+  --charcoal: #2B2622;
+  --plaster: #EFE6D8;
+  --moss: #5C6B4E;
+  --kaki: #B9622F;
+  --amber: #A9834F;
+  --text-on-dark: #F4EEE3;
+  --text-on-light: #33291F;
+  --font-serif: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+  --font-sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--text-on-light);
+  background: var(--plaster);
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+p { margin: 0 0 1rem; }
+
+a { color: inherit; }
+
+img, svg { display: block; max-width: 100%; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--kaki);
+  color: var(--text-on-dark);
+  padding: 0.6rem 1rem;
+  z-index: 200;
+}
+.skip-link:focus { left: 0.5rem; top: 0.5rem; }
+
+.section-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* ---------- ボタン共通 ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.95rem;
+  border: 2px solid transparent;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-1px); opacity: 0.92; }
+
+.btn-kaki {
+  background: var(--kaki);
+  color: var(--text-on-dark);
+  border-color: var(--kaki);
+}
+
+.btn-outline-moss {
+  background: transparent;
+  color: var(--moss);
+  border-color: var(--moss);
+}
+.section-dark .btn-outline-moss,
+.hero .btn-outline-moss {
+  color: #CBE0B8;
+  border-color: #CBE0B8;
+}
+
+.btn-lg { padding: 1rem 2rem; font-size: 1rem; }
+.btn-xl {
+  padding: 1.2rem 2.4rem;
+  font-size: 1.1rem;
+  white-space: normal;
+  text-align: center;
+}
+
+/* ---------- ヘッダー ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--charcoal);
+  border-bottom: 1px solid var(--amber);
+}
+
+.header-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0.7rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--text-on-dark);
+}
+.brand-text {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.brand-break { display: inline; }
+
+.nav-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid var(--amber);
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0;
+}
+.nav-toggle-bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  margin: 0 auto;
+  background: var(--text-on-dark);
+}
+
+.site-nav {
+  position: fixed;
+  top: var(--header-height, 61px);
+  left: 0;
+  right: 0;
+  background: var(--charcoal);
+  border-bottom: 1px solid var(--amber);
+  padding: 1rem 1.25rem 1.5rem;
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: calc(100vh - var(--header-height, 61px));
+  overflow-y: auto;
+}
+.site-nav.is-open { display: flex; }
+
+.site-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.site-nav a {
+  text-decoration: none;
+  color: var(--text-on-dark);
+  font-size: 0.98rem;
+}
+.nav-tel { align-self: flex-start; }
+
+/* ---------- ヒーロー ---------- */
+.hero {
+  position: relative;
+  background: var(--charcoal);
+  overflow: hidden;
+  padding: 4.5rem 1.25rem 5.5rem;
+}
+.hero-lattice {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+.hero-branch {
+  position: absolute;
+  right: -20px;
+  bottom: -10px;
+  width: 160px;
+  opacity: 0.85;
+}
+.hero-inner {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--text-on-dark);
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(92, 107, 78, 0.25);
+  border: 1px solid var(--moss);
+  color: var(--text-on-dark);
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  margin: 0 0 1.5rem;
+}
+.hero-badge svg { fill: #E7C08A; }
+.hero-title {
+  font-size: 1.9rem;
+  margin-bottom: 1rem;
+}
+.hero-sub {
+  font-size: 1.05rem;
+  color: #D8CDBC;
+  margin-bottom: 2rem;
+}
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+/* ---------- セクション共通 ---------- */
+.section { padding: 4rem 0 5.5rem; }
+.section-light { background: var(--plaster); color: var(--text-on-light); }
+.section-dark { background: var(--charcoal); color: var(--text-on-dark); }
+
+.uneven-bottom {
+  clip-path: polygon(
+    0 0, 100% 0, 100% 93%,
+    94% 97%, 86% 94%, 78% 98%,
+    70% 95%, 62% 99%, 54% 95%,
+    46% 98%, 38% 94%, 30% 97%,
+    22% 94%, 14% 98%, 6% 95%, 0 97%
+  );
+}
+
+.eyebrow {
+  font-family: var(--font-serif);
+  letter-spacing: 0.15em;
+  color: var(--moss);
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.eyebrow-light { color: #B7C7A3; }
+
+.section-title { font-size: 1.55rem; }
+.section-title-light { color: var(--text-on-dark); }
+
+.section-lead { max-width: 640px; }
+
+.section-footnote {
+  font-size: 0.85rem;
+  color: #6b5d47;
+  border-top: 1px dashed var(--amber);
+  padding-top: 1rem;
+  margin-top: 1.5rem;
+}
+.section-footnote a { color: var(--kaki); text-decoration: underline; }
+.section-footnote-light { color: #C9BFAE; border-top-color: var(--amber); }
+
+.section-cta { margin-top: 1.5rem; }
+.section-cta-left { text-align: left; }
+
+/* ---------- こだわり ---------- */
+.kodawari-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+.kodawari-visual { opacity: 0.9; }
+.kodawari-visual svg { width: 100%; max-width: 320px; margin: 0 auto; }
+
+/* ---------- メニュー ---------- */
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.menu-card {
+  background: rgba(244, 238, 227, 0.06);
+  border: 1px solid var(--amber);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+.menu-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+  color: var(--text-on-dark);
+  margin-bottom: 0.6rem;
+}
+.menu-card-desc { color: #D8CDBC; font-size: 0.92rem; }
+.menu-list li {
+  padding: 0.5rem 0;
+  border-top: 1px dotted var(--amber);
+}
+.menu-list li:first-child { border-top: none; }
+.menu-note {
+  font-size: 0.8rem;
+  color: #B7A98C;
+  margin-top: 0.8rem;
+  margin-bottom: 0;
+}
+
+/* ---------- テイクアウト ---------- */
+.takeout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+.takeout-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.takeout-list li {
+  background: var(--charcoal);
+  color: var(--text-on-dark);
+  border-radius: 8px;
+  padding: 1.2rem 1rem;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  border: 1px solid var(--amber);
+}
+
+/* ---------- お客様の声 ---------- */
+.voice-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.voice-card {
+  background: rgba(244, 238, 227, 0.06);
+  border: 1px solid var(--amber);
+  border-radius: 10px;
+  padding: 1.4rem;
+}
+.voice-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+}
+.voice-label {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--text-on-dark);
+}
+.stars { display: inline-flex; gap: 2px; }
+.voice-card p { font-size: 0.92rem; color: #E4DBCB; margin: 0; }
+
+/* ---------- アクセス ---------- */
+.access-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+.access-subtitle {
+  font-size: 1.05rem;
+  margin-top: 1.5rem;
+}
+.access-map iframe {
+  border-radius: 10px;
+  border: 1px solid var(--amber);
+}
+
+/* ---------- ご予約 ---------- */
+.reservation-inner { text-align: center; }
+.reservation-inner .section-lead { margin: 0 auto 2rem; }
+
+/* ---------- Instagram ---------- */
+.insta-inner { text-align: center; max-width: 560px; }
+.insta-icon { margin: 0 auto 1rem; }
+
+/* ---------- フッター ---------- */
+.site-footer {
+  background: var(--charcoal);
+  color: var(--text-on-dark);
+  padding: 3.5rem 0 1.5rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+.footer-brand { display: flex; align-items: center; gap: 0.6rem; }
+.footer-name { font-family: var(--font-serif); font-weight: 700; margin: 0; }
+.footer-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  margin: 0;
+}
+.footer-info dt {
+  font-size: 0.78rem;
+  color: #B7A98C;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+.footer-info dd { margin: 0; }
+.footer-info a {
+  color: var(--text-on-dark);
+  text-decoration: underline;
+}
+.footer-copyright {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #8A7C64;
+  margin: 3rem 0 0;
+  padding: 0 1.25rem;
+}
+
+/* =====================================================
+   タブレット (600px〜)
+===================================================== */
+@media (min-width: 600px) {
+  .hero-cta { flex-direction: row; justify-content: center; }
+  .takeout-list { grid-template-columns: repeat(4, 1fr); }
+  .menu-grid { grid-template-columns: 1fr 1fr; }
+  .voice-grid { grid-template-columns: 1fr 1fr; }
+  .footer-info { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* =====================================================
+   デスクトップ (900px〜)
+===================================================== */
+@media (min-width: 900px) {
+  html { scroll-padding-top: 76px; }
+
+  .header-inner { padding: 0.9rem 1.5rem; }
+  .brand-text { font-size: 1.05rem; }
+  .brand-break { display: none; }
+
+  .nav-toggle { display: none; }
+
+  .site-nav {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.8rem;
+    background: transparent;
+    border: none;
+    padding: 0;
+    max-height: none;
+    overflow: visible;
+  }
+  .site-nav ul { flex-direction: row; gap: 1.6rem; }
+  .nav-tel { padding: 0.6rem 1.3rem; font-size: 0.85rem; }
+
+  .hero { padding: 6.5rem 1.5rem 7.5rem; }
+  .hero-title { font-size: 2.6rem; }
+  .hero-sub { font-size: 1.15rem; }
+  .hero-branch { width: 220px; }
+
+  .section { padding: 6rem 0 7.5rem; }
+  .section-title { font-size: 2rem; }
+
+  .kodawari-grid { grid-template-columns: 3fr 2fr; gap: 3.5rem; }
+  .kodawari-visual svg { max-width: 100%; }
+
+  .menu-grid { grid-template-columns: repeat(4, 1fr); }
+
+  .takeout-grid { grid-template-columns: 3fr 2fr; }
+
+  .voice-grid { grid-template-columns: repeat(3, 1fr); }
+
+  .access-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+
+  .footer-grid { grid-template-columns: 1fr 2fr; align-items: start; }
+  .footer-info { grid-template-columns: repeat(4, 1fr); }
+}
