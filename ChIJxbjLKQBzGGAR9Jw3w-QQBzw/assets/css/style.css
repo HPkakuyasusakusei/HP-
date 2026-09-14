@@ -1,0 +1,798 @@
+/* ========================================================================
+   白(つくも) 試作HP スタイルシート
+   コンセプト: 何も差さない一輪挿し ― 語りすぎない店
+   配色: 墨/生成り/二藍紫/岩もずく藍緑(plan.md 3章準拠。暖色は使用しない)
+   ======================================================================== */
+
+:root {
+  --sumi: #1E1A17;
+  --sumi-koku: #2B2520;
+  --kinari: #F1E7D6;
+  --kinari-koku: #E7D9BF;
+  --futaai: #6E4C6B;
+  --futaai-koku: #4A3049;
+  --iwamozuku: #2F4A42;
+  --sumi-moji: #2A241F;
+  --kinari-moji: #EFE4D0;
+  --geppaku: #C9BBA0;
+
+  --season-sakura: #DDC3C9;
+  --season-wakatake: #B7C9AE;
+  --season-kaki: #CBA98C;
+  --season-yuki: #F5F0E6;
+
+  --font-mincho: "Zen Old Mincho", "Noto Serif JP", serif;
+  --font-sans: "Noto Sans JP", "Hiragino Sans", sans-serif;
+
+  --header-h: 60px;
+  --max-w: 1120px;
+}
+
+@media (min-width: 768px) {
+  :root { --header-h: 92px; }
+}
+
+/* ---------- reset ---------- */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--kinari);
+  color: var(--sumi-moji);
+  line-height: 1.85;
+  padding-top: var(--header-h);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3, h4 {
+  font-family: var(--font-mincho);
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+p { margin: 0; }
+button { font-family: inherit; }
+
+.wrap {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 紙の質感(和紙の繊維感): 画像を使わずCSSの縞模様のみで表現 */
+.paper-texture {
+  background-color: var(--kinari);
+  background-image: repeating-linear-gradient(
+    128deg,
+    rgba(42, 36, 31, 0.035) 0px,
+    rgba(42, 36, 31, 0.035) 1px,
+    transparent 1px,
+    transparent 7px
+  );
+}
+.paper-texture--koku {
+  background-color: var(--kinari-koku);
+  background-image: repeating-linear-gradient(
+    128deg,
+    rgba(42, 36, 31, 0.045) 0px,
+    rgba(42, 36, 31, 0.045) 1px,
+    transparent 1px,
+    transparent 7px
+  );
+}
+
+.section {
+  padding: 64px 0;
+  position: relative;
+}
+@media (min-width: 768px) {
+  .section { padding: 96px 0; }
+}
+.section--dark {
+  background: var(--sumi);
+  color: var(--kinari-moji);
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.section-head__eyebrow {
+  display: inline-block;
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  color: var(--futaai);
+  margin-bottom: 10px;
+}
+.section--dark .section-head__eyebrow { color: var(--geppaku); }
+.section-head h2 {
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+}
+.section-head__line {
+  width: 44px;
+  height: 2px;
+  background: var(--futaai);
+  margin: 18px auto 0;
+}
+.section-head p.section-head__lead {
+  margin-top: 16px;
+  font-size: 0.95rem;
+  color: var(--sumi-moji);
+  opacity: 0.85;
+}
+.section--dark .section-head__lead { color: var(--kinari-moji); }
+
+/* ---------- 一輪挿しアイコン ---------- */
+.icon-vase {
+  width: 28px;
+  height: auto;
+  color: var(--kinari-moji);
+  flex-shrink: 0;
+}
+.icon-vase--futaai { color: var(--futaai); }
+.icon-vase--large { width: 96px; }
+.icon-vase--rot-a { transform: rotate(-3deg); }
+.icon-vase--rot-b { transform: rotate(2deg); }
+.icon-vase--rot-c { transform: rotate(-1deg); }
+
+/* ---------- 星アイコン(二藍紫の線画) ---------- */
+.stars { display: inline-flex; gap: 3px; vertical-align: middle; }
+.icon-star { width: 16px; height: 16px; }
+.icon-star.is-empty { fill: none; stroke: var(--futaai); stroke-width: 1.4; }
+.icon-star.is-filled { fill: var(--futaai); stroke: var(--futaai); stroke-width: 1; }
+.star-partial { position: relative; width: 16px; height: 16px; display: inline-block; }
+.star-partial .icon-star { position: absolute; top: 0; left: 0; }
+.star-partial .icon-star.is-filled { clip-path: inset(0 30% 0 0); }
+
+/* ---------- ヘッダー ---------- */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  background: var(--sumi);
+  z-index: 100;
+  border-bottom: 1px solid rgba(241, 231, 214, 0.08);
+}
+.header-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--kinari-moji);
+}
+.brand__name {
+  font-family: var(--font-mincho);
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+@media (min-width: 768px) {
+  .brand__name {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 0.92rem;
+    letter-spacing: 0.18em;
+    height: 64px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.main-nav {
+  display: none;
+}
+.main-nav__list {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+.main-nav__list a {
+  font-size: 0.9rem;
+  color: var(--kinari-moji);
+  letter-spacing: 0.06em;
+  position: relative;
+  padding-bottom: 4px;
+}
+.main-nav__list a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--futaai);
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+}
+.main-nav__list a:hover::after,
+.main-nav__list a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.header-right { display: flex; align-items: center; gap: 10px; }
+
+.tel-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--futaai);
+  color: var(--kinari-moji);
+  padding: 8px 14px;
+  border-radius: 3px;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+.tel-cta:hover { background: var(--futaai-koku); }
+.tel-cta__num { display: none; }
+@media (min-width: 480px) {
+  .tel-cta__num { display: inline; }
+}
+
+.nav-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--kinari-moji);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.mobile-nav {
+  position: fixed;
+  top: var(--header-h);
+  left: 0; right: 0;
+  bottom: 0;
+  background: var(--sumi);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 90;
+  overflow-y: auto;
+}
+.mobile-nav.is-open { transform: translateX(0); }
+.mobile-nav__list { padding: 28px 24px; display: flex; flex-direction: column; gap: 4px; }
+.mobile-nav__list a {
+  display: block;
+  padding: 16px 4px;
+  font-size: 1.05rem;
+  color: var(--kinari-moji);
+  border-bottom: 1px solid rgba(241, 231, 214, 0.1);
+  letter-spacing: 0.06em;
+}
+.mobile-nav__cta {
+  margin: 20px 24px 0;
+  display: block;
+  text-align: center;
+  background: var(--futaai);
+  color: var(--kinari-moji);
+  padding: 14px;
+  border-radius: 3px;
+}
+
+@media (min-width: 900px) {
+  .main-nav { display: block; }
+  .nav-toggle, .mobile-nav { display: none; }
+}
+
+/* ---------- ヒーロー(トップ) ---------- */
+.hero {
+  position: relative;
+  background: var(--sumi);
+  color: var(--kinari-moji);
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .hero { min-height: 88vh; }
+}
+.hero__watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mincho);
+  font-size: clamp(220px, 40vw, 480px);
+  color: var(--kinari);
+  opacity: 0.06;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 96px 20px 64px;
+  width: 100%;
+  text-align: center;
+}
+.hero__vase { margin: 0 auto 28px; width: 60px; color: var(--futaai); }
+.hero__catch {
+  font-family: var(--font-mincho);
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+  .hero__catch {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    margin: 0 auto 28px;
+    height: 220px;
+  }
+}
+.hero__sub {
+  font-size: clamp(1rem, 2.4vw, 1.3rem);
+  letter-spacing: 0.06em;
+  margin-bottom: 18px;
+}
+.hero__lead {
+  max-width: 46em;
+  margin: 0 auto 36px;
+  color: var(--kinari-moji);
+  opacity: 0.88;
+  font-size: 0.95rem;
+}
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* ---------- ページヒーロー(下層) ---------- */
+.page-hero {
+  position: relative;
+  background: var(--sumi);
+  color: var(--kinari-moji);
+  padding: 76px 20px 56px;
+  text-align: center;
+  overflow: hidden;
+}
+.page-hero__watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mincho);
+  font-size: clamp(140px, 30vw, 300px);
+  color: var(--kinari);
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+}
+.page-hero__inner { position: relative; z-index: 1; }
+.page-hero__vase { margin: 0 auto 18px; width: 44px; color: var(--futaai); }
+.page-hero h1 {
+  font-size: clamp(1.7rem, 4.4vw, 2.4rem);
+  letter-spacing: 0.12em;
+}
+@media (min-width: 768px) {
+  .page-hero h1.js-vertical-title {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    margin: 0 auto;
+    height: 160px;
+    display: flex;
+    align-items: center;
+  }
+}
+.page-hero__sub {
+  margin-top: 16px;
+  font-size: 0.92rem;
+  color: var(--kinari-moji);
+  opacity: 0.85;
+}
+
+/* ---------- ボタン ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 3px;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  border: 1px solid transparent;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+}
+.btn--primary {
+  background: var(--futaai);
+  color: var(--kinari-moji);
+}
+.btn--primary:hover { background: var(--futaai-koku); }
+.btn--outline {
+  background: transparent;
+  border-color: var(--kinari-moji);
+  color: var(--kinari-moji);
+}
+.btn--outline:hover { background: rgba(241, 231, 214, 0.08); }
+.btn--outline-dark {
+  background: transparent;
+  border-color: var(--futaai);
+  color: var(--futaai);
+}
+.btn--outline-dark:hover { background: rgba(110, 76, 107, 0.08); }
+.btn--large { padding: 18px 40px; font-size: 1.05rem; }
+.btn--block { width: 100%; }
+
+/* ---------- 墨だまり区切り ---------- */
+.ink-divider {
+  width: 84px;
+  height: 54px;
+  margin: -27px auto 0;
+  position: relative;
+  z-index: 2;
+  border-radius: 63% 37% 54% 46% / 45% 47% 53% 55%;
+}
+.ink-divider--on-dark {
+  background: radial-gradient(circle at 38% 36%, var(--sumi-koku), var(--sumi));
+}
+.ink-divider--on-light {
+  background: radial-gradient(circle at 42% 40%, var(--kinari-koku), var(--kinari));
+  border: 1px solid var(--geppaku);
+}
+.ink-divider--b { border-radius: 46% 54% 37% 63% / 55% 53% 47% 45%; transform: rotate(6deg); }
+.ink-divider--c { border-radius: 55% 45% 60% 40% / 40% 60% 45% 55%; transform: rotate(-5deg); width: 70px; height: 46px; }
+
+/* ---------- お店紹介 / バッジ ---------- */
+.intro-grid {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+@media (min-width: 860px) {
+  .intro-grid { grid-template-columns: 320px 1fr; }
+}
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--kinari-koku);
+  border: 1px solid var(--geppaku);
+  padding: 10px 16px;
+  border-radius: 3px;
+  font-size: 0.92rem;
+}
+.rating-badge__num { font-family: var(--font-mincho); font-size: 1.15rem; color: var(--futaai); }
+.address-line {
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  margin-bottom: 14px;
+  color: var(--sumi-moji);
+}
+.intro-card {
+  background: var(--kinari-koku);
+  border: 1px solid var(--geppaku);
+  padding: 28px;
+  border-radius: 3px;
+}
+
+/* ---------- ティーザー(2カラム) ---------- */
+.teaser {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+}
+@media (min-width: 860px) {
+  .teaser { grid-template-columns: 1fr 1fr; gap: 60px; }
+  .teaser--reverse .teaser__figure { order: 2; }
+}
+.teaser__figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+.teaser__figure .icon-vase { width: 120px; }
+.teaser__body h2 { margin-bottom: 18px; font-size: clamp(1.4rem, 3vw, 1.9rem); }
+.teaser__body p { margin-bottom: 22px; }
+
+/* ---------- 荷札(短冊)型カード ---------- */
+.fuda-rail {
+  height: 1px;
+  background: var(--geppaku);
+  max-width: 720px;
+  margin: 0 auto 0;
+  position: relative;
+}
+.section--dark .fuda-rail { background: rgba(241, 231, 214, 0.25); }
+.fuda-list {
+  display: grid;
+  gap: 46px;
+  margin-top: 20px;
+}
+@media (min-width: 720px) {
+  .fuda-list { grid-template-columns: repeat(2, 1fr); }
+}
+.fuda-card {
+  position: relative;
+  background: var(--kinari);
+  border: 1px solid var(--geppaku);
+  padding: 34px 24px 26px;
+  border-radius: 2px;
+  box-shadow: 0 10px 24px rgba(30, 26, 23, 0.08);
+}
+.section--dark .fuda-card { background: var(--sumi-koku); border-color: rgba(241, 231, 214, 0.15); }
+.fuda-card::before {
+  content: "";
+  position: absolute;
+  top: -22px; left: 50%;
+  width: 1px; height: 22px;
+  background: var(--geppaku);
+  transform: translateX(-50%);
+}
+.section--dark .fuda-card::before { background: rgba(241, 231, 214, 0.25); }
+.fuda-card__hole {
+  position: absolute;
+  top: 10px; left: 50%;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--futaai);
+  transform: translateX(-50%);
+  background: var(--kinari);
+}
+.section--dark .fuda-card__hole { background: var(--sumi-koku); }
+.icon-toten { width: 16px; height: 20px; color: var(--futaai); margin-bottom: 8px; }
+.fuda-card__stars { margin-bottom: 10px; }
+.fuda-card__text {
+  white-space: pre-line;
+  font-size: 0.95rem;
+  color: var(--sumi-moji);
+}
+.section--dark .fuda-card__text { color: var(--kinari-moji); }
+.fuda-card__name {
+  margin-top: 16px;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--futaai);
+}
+
+/* ---------- CTA群 ---------- */
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 36px;
+}
+.cta-block {
+  text-align: center;
+}
+
+/* ---------- concept.html ---------- */
+.concept-section { padding: 56px 0; }
+.concept-quote {
+  max-width: 640px;
+  margin: 24px auto 0;
+}
+.concept-lead { max-width: 640px; margin: 0 auto; text-align: center; }
+.concept-closing {
+  max-width: 640px;
+  margin: 24px auto 0;
+  text-align: center;
+  color: var(--futaai);
+  font-family: var(--font-mincho);
+  font-size: 1.05rem;
+}
+
+.season-swatches {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin: 28px 0 10px;
+}
+.season-swatches span {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.season-swatches .s-sakura { background: var(--season-sakura); }
+.season-swatches .s-wakatake { background: var(--season-wakatake); }
+.season-swatches .s-kaki { background: var(--season-kaki); }
+.season-swatches .s-yuki { background: var(--season-yuki); border: 1px solid var(--geppaku); }
+.season-caption {
+  text-align: center;
+  font-family: var(--font-mincho);
+  font-size: 0.95rem;
+  color: var(--futaai);
+}
+
+/* ---------- course.html ---------- */
+.dish-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+  margin: 28px 0;
+}
+.dish-list li {
+  background: var(--kinari-koku);
+  border: 1px solid var(--geppaku);
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  border-radius: 2px;
+  position: relative;
+  padding-left: 26px;
+}
+.dish-list li::before {
+  content: "";
+  position: absolute;
+  left: 12px; top: 50%;
+  width: 6px; height: 6px;
+  background: var(--iwamozuku);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.sake-section {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+@media (min-width: 860px) {
+  .sake-section { grid-template-columns: 200px 1fr; }
+}
+.sake-icons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+.icon-tokkuri, .icon-sakazuki { color: var(--futaai); }
+.icon-tokkuri { width: 46px; }
+.icon-sakazuki { width: 64px; }
+
+.notice-box {
+  background: var(--kinari-koku);
+  border-left: 3px solid var(--futaai);
+  padding: 22px 24px;
+  margin-top: 24px;
+  font-size: 0.92rem;
+  border-radius: 2px;
+}
+.notice-box + .notice-box { margin-top: 16px; }
+
+/* ---------- access.html ---------- */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--kinari);
+}
+.info-table th, .info-table td {
+  text-align: left;
+  padding: 16px 12px;
+  border-bottom: 1px solid var(--geppaku);
+  font-size: 0.92rem;
+  vertical-align: top;
+}
+.info-table th {
+  width: 34%;
+  color: var(--futaai);
+  font-weight: 500;
+  font-family: var(--font-mincho);
+  letter-spacing: 0.05em;
+}
+
+.map-note {
+  background: var(--kinari-koku);
+  border: 1px solid var(--geppaku);
+  padding: 14px 18px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  border-radius: 2px;
+}
+.map-frame {
+  width: 100%;
+  border: 1px solid var(--geppaku);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.map-frame iframe {
+  width: 100%;
+  height: 360px;
+  border: 0;
+  display: block;
+}
+@media (min-width: 768px) {
+  .map-frame iframe { height: 440px; }
+}
+
+.reserve-note {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+.reserve-note .fuda-card { margin: 22px auto; max-width: 460px; }
+
+/* ---------- フッター ---------- */
+.site-footer {
+  background: var(--sumi);
+  color: var(--kinari-moji);
+  padding: 60px 0 28px;
+}
+.footer-grid {
+  display: grid;
+  gap: 32px;
+  margin-bottom: 36px;
+}
+@media (min-width: 768px) {
+  .footer-grid { grid-template-columns: 1.2fr 1fr 1fr; }
+}
+.footer-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.footer-brand .icon-vase { width: 30px; color: var(--futaai); }
+.footer-brand__name { font-family: var(--font-mincho); font-size: 1.1rem; letter-spacing: 0.08em; }
+.footer-col h3 {
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--geppaku);
+  margin-bottom: 14px;
+}
+.footer-col p, .footer-col li { font-size: 0.88rem; margin-bottom: 8px; }
+.footer-col a:hover { color: var(--futaai); }
+.footer-nav li { margin-bottom: 8px; }
+.footer-divider {
+  border: none;
+  border-top: 1px solid rgba(241, 231, 214, 0.15);
+  margin: 24px 0;
+}
+.footer-disclaimer {
+  font-size: 0.76rem;
+  color: rgba(241, 231, 214, 0.65);
+  line-height: 1.9;
+  max-width: 760px;
+  margin-bottom: 18px;
+}
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.76rem;
+  color: rgba(241, 231, 214, 0.6);
+}
+
+/* ---------- ユーティリティ ---------- */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+.text-center { text-align: center; }
