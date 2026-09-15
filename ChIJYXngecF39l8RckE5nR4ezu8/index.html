@@ -21,8 +21,8 @@
 <link rel="stylesheet" href="css/style.css">
 <!--
   構造化データ(JSON-LD)について:
-  - 住所番地・電話番号・営業時間はクライアント未確定情報のため、意図的にプロパティ自体を省略している(存在しないものとして扱う)。
-  - 確定次第、address.streetAddress / telephone / openingHoursSpecification を追記すること。
+  - 住所番地・営業時間はクライアント未確定情報のため、意図的にプロパティ自体を省略している(存在しないものとして扱う)。電話番号は確定済みのためtelephoneを追加済み。
+  - 確定次第、address.streetAddress / openingHoursSpecification を追記すること。
   - aggregateRatingはGoogleビジネスプロフィールの実データ(4.8/116件・2026年時点)を反映。数値が更新された場合はここも合わせて更新する。
   - カフェ×フラワーショップの複合業態のため @type を配列で CafeOrCoffeeShop と Florist の2つ指定している。
 -->
@@ -33,6 +33,7 @@
   "name": "VINCULO",
   "alternateName": "ヴィンクロ",
   "description": "新潟県上越市岩木にある、ドライフラワー・観葉植物・アガベ&サボテンのある自家焙煎コーヒーの店。",
+  "telephone": "090-7271-5188",
   "address": {
     "@type": "PostalAddress",
     "addressRegion": "新潟県",
@@ -49,8 +50,15 @@
   }
 }
 </script>
+<style id="hp-sample-badge-style">
+.hp-sample-badge{position:fixed;top:0;left:0;z-index:2147483647;pointer-events:none;overflow:hidden;width:130px;height:130px;}
+.hp-sample-badge span{position:absolute;display:block;width:180px;padding:6px 0;background:#e63946;color:#fff;font-family:'Helvetica Neue',Arial,'Noto Sans JP',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-align:center;top:26px;left:-42px;transform:rotate(-45deg);box-shadow:0 2px 6px rgba(0,0,0,.25);}
+@media (max-width:480px){.hp-sample-badge{width:100px;height:100px}.hp-sample-badge span{width:140px;font-size:11px;top:20px;left:-34px}}
+</style>
 </head>
 <body>
+<div class="hp-sample-badge" aria-hidden="true"><span>SAMPLE</span></div>
+
 
 <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;">
   <defs>
@@ -368,9 +376,13 @@
               <dt><svg class="ic ic--clock"><use href="#icon-clock"></use></svg>営業時間</dt>
               <dd>営業時間は準備中です。最新情報はInstagramをご確認いただくか、店舗にお問い合わせください。</dd>
             </div>
+            <div class="access-row">
+              <dt>電話</dt>
+              <dd><a href="tel:09072715188">090-7271-5188</a></dd>
+            </div>
           </dl>
-          <!-- 電話番号・予約方法は未確定のため非設置。店舗から情報提供があり次第CTA追加 -->
           <div class="access-cta">
+            <a class="btn btn--primary btn--large" href="tel:09072715188">電話でお問い合わせ</a>
             <a class="btn btn--primary btn--large" href="https://www.instagram.com/vinculo.flower.coffee/" target="_blank" rel="noopener">最新情報・在庫状況はInstagramで</a>
             <a class="btn btn--outline-dark" href="https://www.google.com/maps/search/?api=1&amp;query=VINCULO%20%E6%96%B0%E6%BD%9F%E7%9C%8C%E4%B8%8A%E8%B6%8A%E5%B8%82%E5%B2%A9%E6%9C%A8" target="_blank" rel="noopener">地図で場所を見る</a>
           </div>
@@ -391,6 +403,7 @@
     <div class="footer-brand">
       <p class="footer-logo">VINCULO<span>（ヴィンクロ）</span></p>
       <p class="footer-address">新潟県上越市岩木<br>詳しい住所は店舗またはInstagramにてご確認ください。</p>
+      <p class="footer-phone">TEL: <a href="tel:09072715188">090-7271-5188</a></p>
       <a class="icon-btn icon-btn--footer" href="https://www.instagram.com/vinculo.flower.coffee/" target="_blank" rel="noopener" aria-label="Instagram">
         <svg class="icon" width="20" height="20"><use href="#icon-instagram"></use></svg>
       </a>
