@@ -28,10 +28,9 @@
 <link rel="stylesheet" href="style.css">
 
 <!-- ▼ 構造化データ（JSON-LD／Bakery）
-     住所詳細・電話番号・営業時間は現時点で未確定のため意図的に省略しています（架空の情報を記載しないため）。
+     住所詳細・営業時間は現時点で未確定のため意図的に省略しています（架空の情報を記載しないため）。
      クライアントが以下の確定情報を入手し次第、対応するプロパティを追記してください。
        - streetAddress（番地等の詳細住所）→ address内に追加
-       - telephone（電話番号）→ 追加
        - openingHoursSpecification（営業時間・定休日）→ 追加
        - geo（緯度経度）・hasMap（Googleマップの共有リンク/embed URL）→ 追加し、#accessのSVG地図プレースホルダーも実地図に差し替える
      AggregateRatingはreviews.json記載の店舗全体の評価（4.9／30件、投稿者個人名は含めない）に基づく値です。 -->
@@ -41,6 +40,7 @@
   "@type": "Bakery",
   "name": "米粉シフォンのお店 chuchu",
   "description": "新潟市江南区にある、米粉100%のグルテンフリーシフォンケーキ専門店。テイクアウト専門で営業。",
+  "telephone": "090-5510-9955",
   "address": {
     "@type": "PostalAddress",
     "addressRegion": "新潟県",
@@ -58,8 +58,15 @@
   }
 }
 </script>
+<style id="hp-sample-badge-style">
+.hp-sample-badge{position:fixed;top:0;left:0;z-index:2147483647;pointer-events:none;overflow:hidden;width:130px;height:130px;}
+.hp-sample-badge span{position:absolute;display:block;width:180px;padding:6px 0;background:#e63946;color:#fff;font-family:'Helvetica Neue',Arial,'Noto Sans JP',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-align:center;top:26px;left:-42px;transform:rotate(-45deg);box-shadow:0 2px 6px rgba(0,0,0,.25);}
+@media (max-width:480px){.hp-sample-badge{width:100px;height:100px}.hp-sample-badge span{width:140px;font-size:11px;top:20px;left:-34px}}
+</style>
 </head>
 <body>
+<div class="hp-sample-badge" aria-hidden="true"><span>SAMPLE</span></div>
+
 
 <a class="skip-link" href="#main">本文へスキップ</a>
 
@@ -347,9 +354,9 @@
   <!-- ===================== ACCESS ===================== -->
   <!-- MEO対応メモ（hp-developer/クライアント向け）:
        1. Googleビジネスプロフィール（GBP）側で「ウェブサイト」欄に本サイトのURLを登録すること。
-       2. 住所・電話番号・営業時間が確定したら、下記access-address／access-note、
-          およびfooterのfooter-address、JSON-LD（head内Bakeryスキーマ）のaddress/telephone/openingHoursSpecificationを
-          GBP掲載情報と完全に一致させること（NAP表記の不一致はMEO評価を下げるため）。
+       2. 住所・営業時間が確定したら、下記access-address／access-note、
+          およびfooterのfooter-address、JSON-LD（head内Bakeryスキーマ）のaddress/openingHoursSpecificationを
+          GBP掲載情報と完全に一致させること（NAP表記の不一致はMEO評価を下げるため）。電話番号（090-5510-9955）は反映済み。
        3. 住所確定後、このセクションのSVG地図プレースホルダーをGoogleマップの実埋め込み（iframe）に差し替え、
           JSON-LDにgeo（緯度経度）とhasMap（マップ共有リンク）を追加すること。
        4. 可能であれば、GBPの「予約」または「投稿」機能でInstagramと同内容を告知し、口コミ返信も継続すること。 -->
