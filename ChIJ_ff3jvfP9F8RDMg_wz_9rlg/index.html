@@ -20,11 +20,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <!-- 構造化データ(schema.org Restaurant)
-     ・telephone / streetAddress(番地) / openingHoursSpecification / priceRange は
+     ・streetAddress(番地) / openingHoursSpecification / priceRange は
        クライアントへの確認が取れていない未確定情報のため、意図的にフィールドごと省略している(値の創作は行わない)
+     ・telephoneは確定済みのため追加済み
      ・address は確定済みの「新潟市江南区横越中央」までのみ記載
      ・hasMap は座標が未確定のため、店舗名でのGoogleマップ検索用URLに留めている
-     ・確定情報(住所詳細・電話番号・営業時間)が判明し次第、該当フィールドを追記すること -->
+     ・確定情報(住所詳細・営業時間)が判明し次第、該当フィールドを追記すること -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -32,6 +33,7 @@
   "name": "PIZZERIA MAKITAYA",
   "alternateName": "ピッツェリア薪田屋",
   "description": "新潟市江南区横越中央、商業施設「PLANT」横越店フードコート内で営業する、専用の石窯で焼き上げる本格ナポリピッツァの専門店。",
+  "telephone": "080-9770-0725",
   "servesCuisine": ["ナポリピッツァ", "イタリア料理"],
   "address": {
     "@type": "PostalAddress",
@@ -55,8 +57,15 @@
   }
 }
 </script>
+<style id="hp-sample-badge-style">
+.hp-sample-badge{position:fixed;top:0;left:0;z-index:2147483647;pointer-events:none;overflow:hidden;width:130px;height:130px;}
+.hp-sample-badge span{position:absolute;display:block;width:180px;padding:6px 0;background:#e63946;color:#fff;font-family:'Helvetica Neue',Arial,'Noto Sans JP',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-align:center;top:26px;left:-42px;transform:rotate(-45deg);box-shadow:0 2px 6px rgba(0,0,0,.25);}
+@media (max-width:480px){.hp-sample-badge{width:100px;height:100px}.hp-sample-badge span{width:140px;font-size:11px;top:20px;left:-34px}}
+</style>
 </head>
 <body>
+<div class="hp-sample-badge" aria-hidden="true"><span>SAMPLE</span></div>
+
 
 <header class="site-header" id="top">
   <div class="header-inner">
@@ -354,15 +363,22 @@
             <dd>※詳細住所は確認中です</dd>
           </div>
           <div class="access-row">
-            <dt>電話番号・営業時間</dt>
-            <dd>※電話番号・営業時間は確認中です。営業時間は仕入れ状況により変動あり。最新情報はInstagramでご確認ください。</dd>
+            <dt>電話</dt>
+            <dd><a href="tel:08097700725">080-9770-0725</a></dd>
+          </div>
+          <div class="access-row">
+            <dt>営業時間</dt>
+            <dd>※営業時間は確認中です。仕入れ状況により変動あり。最新情報はInstagramでご確認ください。</dd>
           </div>
           <div class="access-row">
             <dt>駐車場</dt>
             <dd>PLANT横越店の駐車場をご利用ください(詳細は店舗にご確認ください)。</dd>
           </div>
         </dl>
-        <a class="btn btn-primary" href="https://instagram.com/pizzeria_makitaya" target="_blank" rel="noopener">Instagramはこちら(@pizzeria_makitaya)</a>
+        <div class="access-cta">
+          <a class="btn btn-primary" href="tel:08097700725">電話で問い合わせる(080-9770-0725)</a>
+          <a class="btn btn-primary" href="https://instagram.com/pizzeria_makitaya" target="_blank" rel="noopener">Instagramはこちら(@pizzeria_makitaya)</a>
+        </div>
       </div>
       <div class="access-map">
         <div class="map-placeholder" role="img" aria-label="地図は現在準備中です">
