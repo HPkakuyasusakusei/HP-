@@ -149,9 +149,19 @@ ul{list-style:none;margin:0;padding:0;}
     repeating-linear-gradient(45deg, var(--check-base) 0 2px, transparent 2px 14px),
     repeating-linear-gradient(-45deg, var(--check-base) 0 2px, transparent 2px 14px);
 }
-.hero-glass{
-  position:absolute;right:-10px;top:6%;width:150px;height:auto;color:var(--base);opacity:.35;z-index:0;
+.hero-illustration{
+  position:absolute;z-index:0;pointer-events:none;color:var(--base);
+  right:-9%;top:-2%;width:300px;height:auto;opacity:.27;
 }
+.hero-illustration .wine-fill{fill-opacity:.4;}
+.hero-illustration .ico-cheese-wedge .wedge-rind{opacity:.55;}
+.hero-illustration .glass-shadow{display:none;}
+.clover-vine{
+  position:absolute;left:0;right:0;bottom:0;width:100%;height:40px;z-index:0;
+  pointer-events:none;opacity:.12;
+}
+.clover-vine .vine-stem{fill:none;stroke:var(--base);stroke-width:1.2;}
+.clover-vine .vine-leaf{fill:var(--base);stroke:none;}
 .hero-inner{
   position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 1.25rem;
   display:flex;flex-direction:column;gap:.9rem;align-items:flex-start;
@@ -164,9 +174,18 @@ ul{list-style:none;margin:0;padding:0;}
 
 @media (min-width:640px){
   .hero{padding:5.5rem 0 4.6rem;}
-  .hero-glass{width:220px;top:0;right:4%;opacity:.45;}
+  .hero-illustration{width:360px;top:-4%;right:-8%;}
   .hero-en{font-size:3rem;}
   .hero-catch{font-size:1.9rem;}
+}
+
+@media (max-width:640px){
+  .hero-illustration{max-width:45vw;width:45vw;right:-15%;}
+  .clover-vine{height:20px;}
+}
+
+@media (max-width:420px){
+  .hero-illustration .hero-wedge,.hero-illustration .hero-sprig{display:none;}
 }
 
 /* ---------- ページヒーロー(下層) ---------- */
@@ -181,8 +200,15 @@ ul{list-style:none;margin:0;padding:0;}
     repeating-linear-gradient(-45deg, var(--check-base) 0 2px, transparent 2px 14px);
 }
 .page-hero-icon{
-  position:absolute;z-index:0;opacity:.16;color:var(--base);
+  position:absolute;z-index:0;opacity:.2;color:var(--base);
   top:-10%;right:-6%;width:210px;height:auto;
+}
+.page-hero-icon-sub{
+  position:absolute;z-index:0;opacity:.14;color:var(--base);
+  bottom:-6%;right:14%;width:80px;height:auto;
+}
+@media (max-width:640px){
+  .page-hero-icon-sub{display:none;}
 }
 .page-hero-inner{position:relative;z-index:1;}
 .page-hero-en{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:2.1rem;color:var(--amber);letter-spacing:.05em;}
@@ -261,10 +287,14 @@ ul{list-style:none;margin:0;padding:0;}
   padding:2.2rem 0;border-bottom:1px solid rgba(47,74,46,.16);
 }
 .concept-block:last-of-type{border-bottom:none;}
-.concept-icon-wrap{display:flex;justify-content:center;gap:.6rem;}
+.concept-icon-wrap{display:flex;justify-content:center;gap:.6rem;position:relative;}
 .concept-icon-wrap .ico{width:96px;height:96px;color:var(--bordeaux);}
 .concept-icon-wrap .ico-bottle{width:52px;height:104px;color:var(--green);}
-.concept-icon-wrap .ico-wineglass{width:44px;height:104px;}
+.concept-icon-wrap .ico-wineglass{width:44px;height:104px;position:relative;z-index:1;}
+.concept-icon-wrap .ico-wineglass.ico-wineglass-second{
+  position:absolute;top:4%;right:-2%;width:36px;height:86px;
+  opacity:.6;transform:rotate(-8deg);z-index:0;pointer-events:none;
+}
 .concept-block h2{font-size:1.28rem;}
 .concept-block p{margin:0;}
 
@@ -327,17 +357,59 @@ ul{list-style:none;margin:0;padding:0;}
 }
 
 /* ---------- SVGアイコン基本設定 ---------- */
-.brand-mark,.footer-mark,.review-clover,.divider-clover,.deco-row svg.ico-clover{
+
+/* 四つ葉クローバー: マーク用(簡易/小サイズ)と装飾用(精緻/大サイズ)の2種 */
+.brand-mark,.footer-mark{
   fill:var(--olive);fill-opacity:.25;stroke:currentColor;stroke-width:3;
   stroke-linejoin:round;stroke-linecap:round;
 }
-.ico-wineglass{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-.wine-fill{stroke:none;fill:var(--bordeaux);fill-opacity:.5;}
+.clover-bloom{
+  fill:var(--olive);fill-opacity:.18;stroke:currentColor;stroke-width:2.2;
+  stroke-linejoin:round;stroke-linecap:round;
+}
+.clover-bud{fill:var(--amber);stroke:none;}
+.brand-mark .stem,.footer-mark .stem,.clover-bloom .stem,.clover-bloom .stem-root{fill:none;}
+.clover-bloom .leaf-highlight-fill{fill:var(--amber);fill-opacity:.12;stroke:none;}
+.clover-bloom .leaf-vein-main{fill:none;stroke:var(--green-deep);stroke-width:1;stroke-opacity:.5;}
+.clover-bloom .leaf-vein-side{fill:none;stroke:var(--green-deep);stroke-width:.8;stroke-opacity:.4;}
+.clover-bloom .leaf-notch{fill:none;stroke:currentColor;stroke-width:1;opacity:.6;}
+.clover-bloom .leaf-gloss{fill:none;stroke:var(--base);stroke-opacity:.35;stroke-width:1;}
+
+/* ワイングラス: リム・ハイライト・液面反射・影を追加した精緻版 */
+.ico-wineglass{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.ico-wineglass .glass-rim{fill:none;}
+.wine-fill{stroke:none;fill:var(--bordeaux);fill-opacity:.55;}
+.ico-wineglass .wine-reflection{fill:none;stroke:var(--amber);stroke-opacity:.35;stroke-width:1;}
+.ico-wineglass .glass-highlight{fill:none;stroke:var(--base);stroke-opacity:.5;stroke-width:1;}
+.ico-wineglass .glass-shadow{fill:var(--green-deep);fill-opacity:.12;stroke:none;}
+
+/* ワインボトル: フォイル・ハイライト・ラベル文字風の帯を追加 */
+.ico-bottle{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round;}
+.ico-bottle .bottle-foil{stroke-width:1;opacity:.55;}
+.ico-bottle .bottle-highlight{stroke:var(--base);stroke-opacity:.3;stroke-width:1;}
+.ico-bottle .bottle-label-text{stroke-width:1;opacity:.45;}
+
+/* チーズホイール: リンドの帯・目盛り・穴の陰影を追加(放射スポークは廃止) */
 .ico-cheese{fill:none;stroke:currentColor;stroke-width:2.4;}
-.ico-cheese circle.rim{fill:var(--amber);fill-opacity:.2;}
-.ico-cheese circle.hole{fill:currentColor;stroke:none;}
-.ico-floor{fill:none;stroke:currentColor;stroke-width:2.2;}
+.ico-cheese .rim{fill:var(--amber);fill-opacity:.15;stroke:currentColor;stroke-width:2.4;}
+.ico-cheese .rind-inner{fill:none;stroke:currentColor;stroke-width:1.2;stroke-dasharray:1 3;opacity:.6;}
+.ico-cheese .rind-ticks line{stroke:currentColor;stroke-width:1;opacity:.5;}
+.ico-cheese .hole{fill:currentColor;stroke:none;}
+.ico-cheese .hole-shade{fill:none;stroke:currentColor;stroke-width:.8;opacity:.3;}
+
+/* チーズのカット断面ウェッジ(新規・補助アイコン) */
+.ico-cheese-wedge{fill:var(--olive);fill-opacity:.15;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.ico-cheese-wedge .wedge-rind{fill:none;stroke:var(--amber);stroke-width:3;opacity:.4;}
+.ico-cheese-wedge .hole{fill:currentColor;stroke:none;}
+
+/* フロアアイコン: 家具ディテール(脚・背もたれ・テーブルクロス・ドア記号)を追加 */
+.ico-floor{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+.ico-floor .seat{fill:currentColor;fill-opacity:.15;}
+.ico-floor .chair-back{fill:none;stroke:currentColor;stroke-width:1.6;}
+.ico-floor .stool-leg{stroke-width:1.6;}
+.ico-floor .counter-tick{stroke-width:1;opacity:.5;}
+.ico-floor .tablecloth line{stroke:var(--amber);stroke-width:.8;opacity:.25;}
+.ico-floor .door-swing,.ico-floor .door-leaf{fill:none;stroke-width:1.2;opacity:.7;}
+
 .ico-sprig{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;}
 .ico-forkknife{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
-.ico-bottle{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linejoin:round;}
-.hero-glass,.page-hero-icon{fill:none;stroke:currentColor;stroke-width:1.6;}
