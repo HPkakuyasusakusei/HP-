@@ -6,16 +6,17 @@
    ========================================================================== */
 
 :root {
-  --color-bg: #FBF4E7;
-  --color-bg-alt: #F1E4CF;
-  --color-primary: #4A2E1C;
-  --color-primary-deep: #2E1B10;
-  --color-honey: #D9A441;
-  --color-mist: #7C8FA0;
-  --color-carrot: #C17A4B;
-  --color-soda: #8FBBA0;
+  --color-bg: #FDF9F1;
+  --color-bg-alt: #F6E9D3;
+  --color-primary: #6B4226;
+  --color-primary-deep: #40260F;
+  --color-honey: #E8A93D;
+  --color-mist: #93A8BB;
+  --color-carrot: #D08A56;
+  --color-soda: #9FCBAE;
   --color-text: #3A2A1E;
-  --color-text-soft: #7A6A5C;
+  --color-text-soft: #6A5C4D;
+  --color-surface-warm: #F4DFB0;
 
   --font-logo: 'Cormorant', 'EB Garamond', serif;
   --font-heading: 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
@@ -24,7 +25,7 @@
   --radius-lg: 28px;
   --radius-md: 16px;
   --radius-sm: 10px;
-  --shadow-soft: 0 10px 30px rgba(74, 46, 28, 0.12);
+  --shadow-soft: 0 10px 30px rgba(107, 66, 38, 0.12);
 }
 
 /* ---------- reset ---------- */
@@ -45,6 +46,7 @@ h1, h2, h3, h4 {
   margin: 0 0 .6em;
   letter-spacing: .02em;
 }
+h2, h3, h4 { font-weight: 600; }
 p { margin: 0 0 1em; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; margin: 0; padding: 0; }
@@ -70,7 +72,7 @@ svg { display: block; }
   font-style: italic;
   color: var(--color-mist);
   font-size: 1rem;
-  letter-spacing: .08em;
+  letter-spacing: .1em;
   margin-bottom: .4em;
 }
 .section-head h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
@@ -78,7 +80,7 @@ svg { display: block; }
   color: var(--color-text-soft);
   font-size: .92rem;
   background: var(--color-bg-alt);
-  border: 1px solid rgba(124,143,160,.35);
+  border: 1px solid rgba(147,168,187,.35);
   border-radius: var(--radius-sm);
   padding: .9em 1.1em;
   display: inline-block;
@@ -122,9 +124,9 @@ svg { display: block; }
   position: sticky;
   top: 0;
   z-index: 500;
-  background: rgba(251, 244, 231, .92);
+  background: rgba(253, 249, 241, .92);
   backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(74,46,28,.1);
+  border-bottom: 1px solid rgba(107,66,38,.1);
 }
 .site-header .container {
   display: flex;
@@ -146,7 +148,7 @@ svg { display: block; }
   font-style: normal;
   font-size: .58rem;
   letter-spacing: .3em;
-  color: var(--color-mist);
+  color: var(--color-text-soft);
   margin-top: -2px;
 }
 
@@ -183,10 +185,10 @@ svg { display: block; }
   display: flex;
   gap: clamp(16px, 2.4vw, 34px);
   font-size: .92rem;
-  letter-spacing: .06em;
 }
 .main-nav a {
   padding: 6px 2px;
+  letter-spacing: .08em;
   border-bottom: 2px solid transparent;
   transition: border-color .2s ease, color .2s ease;
 }
@@ -236,7 +238,7 @@ svg { display: block; }
   .main-nav a {
     display: block;
     padding: 18px var(--nav-pad, 24px);
-    border-bottom: 1px solid rgba(74,46,28,.08);
+    border-bottom: 1px solid rgba(107,66,38,.08);
     font-size: 1.05rem;
   }
 }
@@ -260,7 +262,8 @@ svg { display: block; }
 .btn-primary {
   background: var(--color-honey);
   color: var(--color-primary-deep);
-  box-shadow: 0 8px 20px rgba(217,164,65,.35);
+  border-color: var(--color-primary-deep);
+  box-shadow: 0 8px 20px rgba(232,169,61,.35);
 }
 .btn-primary:hover { background: #c8933a; }
 .btn-secondary {
@@ -279,12 +282,12 @@ svg { display: block; }
 
 .cta-block {
   padding: clamp(40px, 6vw, 64px) 0;
-  background: var(--color-primary-deep);
-  color: var(--color-bg);
+  background: linear-gradient(135deg, var(--color-surface-warm), var(--color-bg-alt));
+  color: var(--color-primary);
   text-align: center;
 }
-.cta-block h2 { color: var(--color-bg); font-size: 1.4rem; }
-.cta-block p { color: rgba(251,244,231,.75); }
+.cta-block h2 { color: var(--color-primary); font-size: 1.4rem; }
+.cta-block p { color: var(--color-text-soft); }
 .cta-buttons {
   display: flex;
   justify-content: center;
@@ -305,7 +308,7 @@ svg { display: block; }
   align-items: center;
   gap: .6em;
   background: var(--color-bg-alt);
-  border: 1px solid rgba(217,164,65,.5);
+  border: 1px solid rgba(232,169,61,.5);
   border-radius: 999px;
   padding: .55em 1.2em;
   font-family: var(--font-heading);
@@ -313,13 +316,13 @@ svg { display: block; }
   color: var(--color-primary);
 }
 .cta-block .rating-badge {
-  background: rgba(251,244,231,.08);
-  border-color: rgba(217,164,65,.6);
-  color: var(--color-bg);
+  background: rgba(255,255,255,.55);
+  border-color: rgba(232,169,61,.6);
+  color: var(--color-primary);
 }
 .rating-badge .star-icon { width: 18px; height: 18px; flex-shrink: 0; }
 .rating-badge small { color: var(--color-text-soft); font-weight: 400; }
-.cta-block .rating-badge small { color: rgba(251,244,231,.65); }
+.cta-block .rating-badge small { color: var(--color-text-soft); }
 
 /* ==========================================================================
    ヒーロー（トップ）
@@ -328,7 +331,7 @@ svg { display: block; }
   position: relative;
   overflow: hidden;
   padding: clamp(64px, 12vw, 120px) 0 clamp(56px, 9vw, 96px);
-  background: linear-gradient(160deg, var(--color-bg) 0%, var(--color-bg) 45%, var(--color-primary-deep) 130%);
+  background: linear-gradient(160deg, var(--color-bg) 0%, var(--color-bg) 45%, var(--color-surface-warm) 130%);
   color: var(--color-primary);
 }
 .hero .container { position: relative; z-index: 2; max-width: 640px; }
@@ -374,26 +377,29 @@ svg { display: block; }
   position: relative;
   overflow: hidden;
   padding: clamp(56px, 10vw, 84px) 0 clamp(40px, 6vw, 56px);
-  background: var(--color-primary-deep);
-  color: var(--color-bg);
+  background: linear-gradient(135deg,
+    var(--color-surface-warm) 0%,
+    var(--color-bg-alt) 60%,
+    var(--color-bg) 100%);
+  color: var(--color-primary);
   text-align: left;
 }
 .page-hero .container { position: relative; z-index: 2; max-width: 640px; }
 .page-hero .eyebrow {
   font-family: var(--font-logo);
   font-style: italic;
-  color: var(--color-honey);
+  color: var(--color-primary);
   letter-spacing: .12em;
 }
 .page-hero h1 {
-  color: var(--color-bg);
+  color: var(--color-primary);
   font-size: clamp(1.7rem, 4vw, 2.4rem);
   margin-top: .2em;
 }
 .page-hero .lead-note {
-  background: rgba(251,244,231,.08);
-  border-color: rgba(124,143,160,.4);
-  color: rgba(251,244,231,.85);
+  background: rgba(107, 66, 38, .05);
+  border-color: rgba(147, 168, 187, .4);
+  color: var(--color-text-soft);
 }
 .page-hero .motif { position: absolute; opacity: .35; z-index: 1; }
 .page-hero .motif-scent { top: -10%; right: 2%; width: clamp(120px, 20vw, 220px); }
@@ -419,8 +425,8 @@ svg { display: block; }
   0%, 100% { transform: translateX(0) rotate(0deg); }
   50% { transform: translateX(5px) rotate(1.5deg); }
 }
-/* 香りの気配ライン: 背景の「もや」層（低不透明度・広がり） */
-.scent-bg { fill: none; stroke: var(--color-mist); stroke-width: 7; stroke-linecap: round; opacity: .15; }
+/* 香りの気配ライン: 背景の「もや」層（低不透明度・広がり。明るい背景でも薄れすぎないよう opacity .18 に引き上げ） */
+.scent-bg { fill: none; stroke: var(--color-mist); stroke-width: 7; stroke-linecap: round; opacity: .18; }
 /* 枝分かれ（湯気が途中でふわっと分かれる表現） */
 .scent-branch { fill: none; stroke-width: 1.6; stroke-linecap: round; opacity: .4; }
 .scent-branch-honey { stroke: var(--color-honey); }
@@ -453,6 +459,12 @@ svg { display: block; }
   0%, 100% { opacity: .18; transform: scale(1); }
   50% { opacity: .4; transform: scale(1.25); }
 }
+/* .page-hero の明背景化に伴い、灯りの周囲に薄いリングを足して「光が集まる」実感を残す */
+.page-hero .motif-station .station-glow {
+  stroke: var(--color-primary);
+  stroke-width: 5;
+  stroke-opacity: .1;
+}
 
 /* プリンのカラメル滴（viewBox 0 0 100 100・滴はy=90〜99付近にあり下端の余白が少ないため移動させず明滅のみで表現） */
 .motif-pudding .caramel-drop { animation: caramel-glisten 3.4s ease-in-out infinite; }
@@ -480,7 +492,7 @@ svg { display: block; }
 .flow-list {
   position: relative;
   counter-reset: flow;
-  border-left: 1px solid rgba(124,143,160,.4);
+  border-left: 1px solid rgba(147,168,187,.4);
   padding-left: clamp(20px, 4vw, 44px);
   margin-left: 6px;
 }
@@ -503,7 +515,7 @@ svg { display: block; }
   background: var(--color-honey);
   border-radius: 50%;
   border: 3px solid var(--color-bg);
-  box-shadow: 0 0 0 1px rgba(124,143,160,.4);
+  box-shadow: 0 0 0 1px rgba(147,168,187,.4);
 }
 .flow-item .motif { width: 96px; height: auto; }
 .flow-item h3 { font-size: 1.2rem; }
@@ -532,13 +544,13 @@ svg { display: block; }
   background: var(--color-bg-alt);
   border-radius: var(--radius-md);
   padding: 1.6em 1.5em;
-  border: 1px solid rgba(74,46,28,.08);
+  border: 1px solid rgba(107,66,38,.08);
 }
 .review-card .review-label {
   display: block;
   font-family: var(--font-heading);
   font-size: .82rem;
-  color: var(--color-mist);
+  color: var(--color-text-soft);
   letter-spacing: .04em;
   margin-bottom: .8em;
 }
@@ -547,7 +559,7 @@ svg { display: block; }
 /* ==========================================================================
    MENU ページ
    ========================================================================== */
-.menu-section + .menu-section { border-top: 1px solid rgba(124,143,160,.25); }
+.menu-section + .menu-section { border-top: 1px solid rgba(147,168,187,.25); }
 .menu-block {
   display: grid;
   grid-template-columns: minmax(0,1fr) minmax(160px, 220px);
@@ -589,7 +601,9 @@ svg { display: block; }
   position: relative;
   margin-top: 8px;
   /* 溝: 端ほど幅が詰まる疑似パースペクティブ + 円筒の陰影(端が暗い→中央が明るい)を多重レイヤーで重ねる */
+  /* 新配色は旧配色よりprimary/primary-deepとも明るいため、溝の視認性を保つ目的でハイライト/シャドウ層を1枚追加しmultiplyを2重掛けにしている */
   background:
+    linear-gradient(180deg, rgba(255,255,255,.16) 0%, transparent 35%, transparent 65%, rgba(0,0,0,.18) 100%),
     linear-gradient(90deg, var(--color-primary-deep) 0 5%, transparent 5% 65%, var(--color-primary-deep) 65% 100%),
     linear-gradient(90deg,
       var(--color-primary-deep) 0 4%,
@@ -604,7 +618,7 @@ svg { display: block; }
       var(--color-primary) 90% 96%,
       var(--color-primary-deep) 96% 100%
     );
-  background-blend-mode: multiply, normal;
+  background-blend-mode: overlay, multiply, normal;
 }
 .canele-icon::before {
   content: "";
@@ -699,7 +713,7 @@ svg { display: block; }
   padding: 1.4em 1.6em;
   background: var(--color-bg-alt);
   border-radius: var(--radius-md);
-  border: 1px dashed rgba(124,143,160,.5);
+  border: 1px dashed rgba(147,168,187,.5);
   color: var(--color-text-soft);
   font-size: .92rem;
 }
@@ -716,7 +730,7 @@ svg { display: block; }
 }
 .devotion.reverse { grid-template-columns: minmax(180px, 280px) minmax(0,1fr); }
 .devotion.reverse .devotion-visual { order: -1; }
-.devotion + .devotion { border-top: 1px solid rgba(124,143,160,.22); }
+.devotion + .devotion { border-top: 1px solid rgba(147,168,187,.22); }
 .devotion-visual .motif { width: 100%; height: auto; }
 /* こだわり1「3席のカウンター」は空間紹介の主役のため、他のこだわり項目より一段大きく見せる */
 .devotion-counter { grid-template-columns: minmax(0,1fr) minmax(240px, 360px); }
@@ -742,7 +756,7 @@ svg { display: block; }
 }
 .info-list dt {
   font-family: var(--font-heading);
-  color: var(--color-mist);
+  color: var(--color-text-soft);
   font-size: .82rem;
   letter-spacing: .05em;
   margin-bottom: .25em;
@@ -759,7 +773,7 @@ svg { display: block; }
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(74,46,28,.1);
+  border: 1px solid rgba(107,66,38,.1);
 }
 .map-embed iframe { width: 100%; height: 420px; border: 0; display: block; }
 
@@ -767,8 +781,9 @@ svg { display: block; }
    フッター
    ========================================================================== */
 .site-footer {
-  background: var(--color-primary-deep);
-  color: rgba(251,244,231,.85);
+  background: var(--color-primary);
+  color: rgba(253,249,241,.85);
+  color: color-mix(in srgb, var(--color-bg) 85%, transparent);
   padding: clamp(48px, 8vw, 72px) 0 24px;
 }
 .footer-grid {
@@ -782,9 +797,25 @@ svg { display: block; }
   font-size: 1.5rem;
   color: var(--color-bg);
 }
-.footer-catch { color: var(--color-honey); font-family: var(--font-heading); margin-top: .5em; }
-.footer-info dt { color: var(--color-honey); font-size: .78rem; letter-spacing: .05em; margin-top: 1em; }
-.footer-info dd { margin: .2em 0 0; font-size: .9rem; color: rgba(251,244,231,.75); }
+.footer-catch {
+  color: #EFC377;
+  color: color-mix(in srgb, var(--color-honey) 70%, white 30%);
+  font-family: var(--font-heading);
+  margin-top: .5em;
+}
+.footer-info dt {
+  color: #EFC377;
+  color: color-mix(in srgb, var(--color-honey) 70%, white 30%);
+  font-size: .78rem;
+  letter-spacing: .05em;
+  margin-top: 1em;
+}
+.footer-info dd {
+  margin: .2em 0 0;
+  font-size: .9rem;
+  color: rgba(253,249,241,.75);
+  color: color-mix(in srgb, var(--color-bg) 75%, transparent);
+}
 .footer-nav h4, .footer-cta h4 {
   color: var(--color-bg);
   font-size: .88rem;
@@ -792,19 +823,24 @@ svg { display: block; }
   margin-bottom: 1em;
 }
 .footer-nav ul { display: grid; gap: .7em; font-size: .92rem; }
-.footer-nav a:hover { color: var(--color-honey); }
+.footer-nav a:hover {
+  color: #EFC377;
+  color: color-mix(in srgb, var(--color-honey) 70%, white 30%);
+}
 .footer-cta { display: grid; gap: 14px; align-content: start; }
 .footer-cta .btn { justify-content: center; }
 .footer-bottom {
   margin-top: clamp(32px, 6vw, 56px);
   padding-top: 20px;
-  border-top: 1px solid rgba(251,244,231,.15);
+  border-top: 1px solid rgba(253,249,241,.15);
+  border-top: 1px solid color-mix(in srgb, var(--color-bg) 15%, transparent);
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
   font-size: .8rem;
-  color: rgba(251,244,231,.55);
+  color: rgba(253,249,241,.78);
+  color: color-mix(in srgb, var(--color-bg) 78%, transparent);
 }
 @media (max-width: 760px) {
   .footer-grid { grid-template-columns: 1fr; }
