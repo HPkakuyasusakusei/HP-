@@ -237,7 +237,10 @@ body::before {
 .btn-row { display: flex; flex-wrap: wrap; gap: 1rem; }
 
 /* =========================================================
-   写真プレースホルダー(CSSのみ)
+   写真プレースホルダー(CSS+SVG、3層構成)
+   ① ベースフィールド(ラジアルグラデーション)
+   ② 背景線画パターン(.ph-pattern-*、data URI SVGタイル)
+   ③ 主要線画イラスト(.ph-illustration、インラインSVG)
    ========================================================= */
 .photo-placeholder {
   position: relative;
@@ -246,11 +249,31 @@ body::before {
   justify-content: center;
   text-align: center;
   min-height: 200px;
-  background: repeating-linear-gradient(45deg, var(--ph-1) 0 18px, var(--ph-2) 18px 36px);
-  border: 1px solid rgba(43, 36, 32, 0.15);
+  overflow: hidden;
+  --ph-pattern: none;
+  background-image: var(--ph-pattern), radial-gradient(120% 140% at 50% 30%, var(--bg) 0%, var(--ph-1) 100%);
+  background-repeat: repeat, no-repeat;
+  background-position: 0 0, center;
+  background-size: 120px 120px, cover;
+  border: 1px solid var(--ph-2);
+}
+.photo-placeholder > svg.ph-illustration {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--ink);
+  pointer-events: none;
+  z-index: 0;
+}
+.photo-placeholder--hero > svg.ph-illustration {
+  transform: scale(1.04);
+  transform-origin: center;
 }
 .photo-placeholder span {
-  background: rgba(246, 239, 225, 0.88);
+  position: relative;
+  z-index: 1;
+  background: rgba(246, 239, 225, 0.94);
   color: var(--ink);
   font-size: 0.78rem;
   line-height: 1.6;
@@ -262,6 +285,42 @@ body::before {
 .photo-placeholder--sm { min-height: 130px; }
 @media (min-width: 900px) {
   .photo-placeholder--lg { min-height: 460px; }
+}
+
+/* ---- ② 背景線画パターン(地紋) ---- */
+.ph-pattern-noodle {
+  --ph-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40'%3E%3Cpath d='M0 20 Q15 6 30 20 T60 20 T90 20 T120 20' fill='none' stroke='%232B2420' stroke-width='1' stroke-opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 120px 40px, cover;
+}
+.ph-pattern-noodle--half {
+  --ph-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40'%3E%3Cpath d='M0 20 Q15 6 30 20 T60 20 T90 20 T120 20' fill='none' stroke='%232B2420' stroke-width='1' stroke-opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 120px 40px, cover;
+}
+.ph-pattern-ripple {
+  --ph-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='60'%3E%3Cpath d='M5 50 a40 40 0 0 1 80 0' fill='none' stroke='%235E7C6E' stroke-width='1' stroke-opacity='0.07'/%3E%3Cpath d='M20 50 a25 25 0 0 1 50 0' fill='none' stroke='%235E7C6E' stroke-width='1' stroke-opacity='0.07'/%3E%3C/svg%3E");
+  background-size: 90px 60px, cover;
+}
+.ph-pattern-ripple--half {
+  --ph-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='60'%3E%3Cpath d='M5 50 a40 40 0 0 1 80 0' fill='none' stroke='%235E7C6E' stroke-width='1' stroke-opacity='0.035'/%3E%3Cpath d='M20 50 a25 25 0 0 1 50 0' fill='none' stroke='%235E7C6E' stroke-width='1' stroke-opacity='0.035'/%3E%3C/svg%3E");
+  background-size: 90px 60px, cover;
+}
+.ph-pattern-veg {
+  --ph-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M8 10 a30 30 0 0 1 0 60' fill='none' stroke='%235B4B6A' stroke-width='1' stroke-opacity='0.07'/%3E%3Cpath d='M50 18 a24 24 0 0 1 0 44' fill='none' stroke='%23A8462B' stroke-width='1' stroke-opacity='0.07'/%3E%3C/svg%3E");
+  background-size: 80px 80px, cover;
+}
+.ph-pattern-dice {
+  --ph-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M0 0.5H22M0.5 0V22' stroke='%23C89B4A' stroke-width='1' stroke-opacity='0.06'/%3E%3C/svg%3E");
+  background-size: 22px 22px, cover;
+}
+.ph-pattern-steam-curl {
+  --ph-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M8 30 Q8 15 18 15 Q26 15 26 22 Q26 27 20 27' fill='none' stroke='%235B4B6A' stroke-width='1' stroke-opacity='0.06'/%3E%3C/svg%3E");
+  background-size: 40px 40px, cover;
+}
+
+/* ---- モバイル簡略化(640px未満): 地紋オフ + 装飾パス(.ph-flourish)非表示 ---- */
+@media (max-width: 639px) {
+  .photo-placeholder { --ph-pattern: none; }
+  .ph-flourish { display: none; }
 }
 
 /* =========================================================
@@ -289,10 +348,17 @@ body::before {
 .section-title::after {
   content: "";
   display: block;
-  width: 3.5rem;
-  height: 2px;
-  background: var(--secondary);
+  width: 4.5rem;
+  height: 10px;
   margin-top: 0.7rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='10'%3E%3Cpath d='M2 6 Q14 1 24 6 T46 6 T70 6' fill='none' stroke='%23C89B4A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.section-title--mountain::after {
+  width: 5.5rem;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='22'%3E%3Cpath d='M2 20 L18 6 L28 16 L44 2 L58 15 L74 8 L86 20' fill='none' stroke='%232B2420' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' stroke-opacity='0.65'/%3E%3C/svg%3E");
 }
 .section-lead {
   max-width: 62ch;
@@ -305,7 +371,6 @@ body::before {
   color: var(--bg);
 }
 .band-green .section-title { color: var(--bg); }
-.band-green .section-title::after { background: var(--secondary); }
 .band-green a.btn-outline { color: var(--bg); border-color: var(--bg); }
 .band-green a.btn-outline:hover { background: var(--bg); color: var(--green); }
 .band-green p { color: rgba(246, 239, 225, 0.92); }
@@ -358,13 +423,15 @@ body::before {
   line-height: 1.9;
 }
 .quote-card::before {
-  content: "”";
+  content: "";
   position: absolute;
-  top: -0.4rem;
+  top: -0.5rem;
   left: 0.6rem;
-  font-family: var(--font-num);
-  font-size: 3rem;
-  color: var(--purple);
+  width: 30px;
+  height: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cpath d='M6 24 L24 7' stroke='%235B4B6A' stroke-width='1.6' stroke-linecap='round'/%3E%3Cpath d='M7 8 L23 23' stroke='%235B4B6A' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
   opacity: 0.55;
 }
 .quote-cite {
