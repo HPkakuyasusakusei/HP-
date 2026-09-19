@@ -1,0 +1,701 @@
+/* 木下製パン所 試作サイト 共通CSS
+   配色・タイポグラフィは planning.md 2章の指定に準拠 */
+
+:root {
+  --color-bg: #F2EFEA;          /* 石灰モルタル白 */
+  --color-bg-alt: #E3DFD6;      /* コンクリートグレージュ */
+  --color-text: #2A211B;        /* 焦がしパン皮濃茶黒 */
+  --color-accent: #6E3327;      /* ベーグルの艶マホガニー(CTA限定) */
+  --color-accent-tint: #8a4a3c; /* マホガニーのホバー用ライト */
+  --color-sub: #2E5E4E;         /* すいかピールのディープティール(季節限定タグ限定) */
+  --color-line: #C9C2B4;        /* 小麦粉オフホワイトグレー */
+  --font-heading: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+  --font-hand: "Yomogi", "Zen Kaku Gothic New", sans-serif;
+  --font-body: "Noto Sans JP", sans-serif;
+  --max-width: 1080px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 0.6em;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== SAMPLEバッジ(全ページ右上固定) ===== */
+.hp-sample-badge {
+  position: fixed;
+  top: 14px;
+  right: -46px;
+  z-index: 999;
+  background: #c0392b;
+  color: #fff;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  padding: 6px 52px;
+  transform: rotate(40deg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+/* ===== フリー素材注記バナー(全ページ下部) ===== */
+.hp-photo-note {
+  background: #ddd6c8;
+  color: var(--color-text);
+  font-size: 13px;
+  text-align: center;
+  padding: 14px 20px;
+  border-top: 1px solid var(--color-line);
+}
+
+/* ===== ヘッダー(非対称ナビ) ===== */
+.site-header {
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-line);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-header__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.site-header__logo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.site-header__right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.site-header__nav {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.site-header__nav a {
+  font-size: 13px;
+  text-decoration: none;
+  color: var(--color-text);
+  border-bottom: 1px solid transparent;
+}
+
+.site-header__nav a:hover {
+  border-bottom-color: var(--color-accent);
+}
+
+.site-header__insta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #fff;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.site-header__insta svg {
+  width: 18px;
+  height: 18px;
+  fill: #fff;
+}
+
+/* ===== 汎用セクション ===== */
+.section {
+  padding: 56px 0;
+}
+
+.section--alt {
+  background: var(--color-bg-alt);
+}
+
+.section__heading {
+  font-size: 26px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.section__heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 44px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--color-sub);
+}
+
+.section__lead {
+  max-width: 640px;
+  color: var(--color-text);
+}
+
+/* ベーグルの輪を思わせる円弧のワンポイント装飾 */
+.arc-motif {
+  width: 46px;
+  height: 46px;
+  border: 3px solid var(--color-accent);
+  border-radius: 50%;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  transform: rotate(-45deg);
+  opacity: 0.55;
+}
+
+/* ===== CTAボタン ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--color-accent-tint);
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+.btn--outline:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* ===== ヒーロー ===== */
+.hero {
+  position: relative;
+  min-height: 78vh;
+  display: flex;
+  align-items: flex-end;
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(42, 33, 27, 0.35) 0%, rgba(110, 51, 39, 0.72) 100%);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 60px 20px 44px;
+  width: 100%;
+}
+
+.hero__catch {
+  font-size: clamp(28px, 5vw, 44px);
+  margin-bottom: 14px;
+}
+
+.hero__sub {
+  font-size: 15px;
+  max-width: 480px;
+  margin-bottom: 18px;
+}
+
+.hero__badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 13px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+
+/* ===== 手書き風バッジ ===== */
+.badge-hand {
+  display: inline-block;
+  font-family: var(--font-hand);
+  font-size: 16px;
+  color: #fff;
+  background: var(--color-accent);
+  padding: 5px 16px;
+  border-radius: 4px;
+  transform: rotate(-3deg);
+  margin-bottom: 10px;
+}
+
+.badge-hand--season {
+  background: var(--color-sub);
+}
+
+/* ===== 今日は何がある(日替わりダイジェスト) ===== */
+.digest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.digest-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.digest-card h3 {
+  font-size: 19px;
+}
+
+.digest-note {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+/* ===== 看板メニュー:ベーグル(主役・大カード) ===== */
+.bagel-feature {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 28px;
+  align-items: center;
+}
+
+.bagel-feature__photo {
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.bagel-feature__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bagel-feature__quote {
+  margin-top: 18px;
+  padding: 16px 18px;
+  background: var(--color-bg-alt);
+  border-left: 4px solid var(--color-accent);
+  font-weight: 700;
+  border-radius: 6px;
+}
+
+/* ===== クロワッサン&オリジナルパン(控えめカード) ===== */
+.sub-feature {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 24px;
+  align-items: center;
+}
+
+.sub-feature__photo {
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.sub-feature__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== 商品カードグリッド(menu.html) ===== */
+.bagel-catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.bagel-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.bagel-card__photo {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.bagel-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bagel-card__body {
+  padding: 18px 20px;
+}
+
+.bagel-card__body h3 {
+  font-size: 18px;
+}
+
+.pastry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.pastry-card {
+  background: var(--color-bg-alt);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.pastry-card__photo {
+  aspect-ratio: 3 / 2;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.pastry-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== 日替わり企画・季節限定(写真なし・バッジ+テキスト) ===== */
+.special-block {
+  margin-top: 24px;
+  padding: 26px;
+  border-radius: 14px;
+  background: var(--color-bg);
+  border: 1px dashed var(--color-line);
+}
+
+.special-block--season {
+  border-color: var(--color-sub);
+}
+
+.note-block {
+  margin-top: 32px;
+  padding: 18px 22px;
+  background: var(--color-bg-alt);
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+/* ===== お客様の声 ===== */
+.voice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.voice-card {
+  position: relative;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  padding: 22px 22px 20px;
+  overflow: hidden;
+}
+
+.voice-card .arc-motif {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  opacity: 0.35;
+}
+
+.voice-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  margin-bottom: 10px;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.voice-card__stars {
+  letter-spacing: 1px;
+}
+
+.voice-card__name {
+  font-size: 12px;
+  color: var(--color-text);
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+.voice-card__body {
+  font-size: 14px;
+  white-space: pre-line;
+}
+
+.voice-card__body strong {
+  color: var(--color-accent);
+}
+
+.voice-rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-bg-alt);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* ===== アクセス帯セクション(index.html) ===== */
+.access-strip {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.access-strip .section__heading::after {
+  background: #fff;
+}
+
+.access-strip .btn--outline {
+  border-color: #fff;
+  color: #fff;
+}
+
+.access-strip .btn--outline:hover {
+  background: #fff;
+  color: var(--color-accent);
+}
+
+/* ===== access.html 専用 ===== */
+.info-list {
+  margin-top: 24px;
+  border-top: 1px solid var(--color-line);
+}
+
+.info-list dt {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--color-accent);
+  margin-top: 16px;
+}
+
+.info-list dd {
+  margin: 4px 0 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.map-embed {
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+}
+
+.map-embed iframe {
+  width: 100%;
+  height: 360px;
+  border: 0;
+  display: block;
+}
+
+/* ===== ページヘッダー(下層ページ共通) ===== */
+.page-header {
+  padding: 44px 0 36px;
+  background: var(--color-bg-alt);
+}
+
+.page-header h1 {
+  font-size: 30px;
+}
+
+/* ===== フッター ===== */
+.site-footer {
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: 44px 0 24px;
+}
+
+.site-footer__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: space-between;
+}
+
+.site-footer h2 {
+  font-size: 18px;
+  color: #fff;
+}
+
+.site-footer dl {
+  font-size: 13px;
+  margin: 0;
+}
+
+.site-footer dt {
+  opacity: 0.6;
+  margin-top: 10px;
+}
+
+.site-footer dd {
+  margin: 2px 0 0;
+}
+
+.site-footer nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.site-footer nav a,
+.site-footer a {
+  color: var(--color-bg);
+  text-decoration: none;
+}
+
+.site-footer nav a:hover,
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+.site-footer__bottom {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(242, 239, 234, 0.2);
+  font-size: 12px;
+  opacity: 0.7;
+  text-align: center;
+}
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 860px) {
+  .bagel-feature,
+  .sub-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .sub-feature__photo,
+  .bagel-feature__photo {
+    order: -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-header__inner {
+    flex-wrap: wrap;
+  }
+
+  .site-header__right {
+    flex-wrap: wrap;
+  }
+
+  .site-header__nav {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .hero {
+    min-height: 88vh;
+  }
+
+  .section {
+    padding: 40px 0;
+  }
+
+  .hp-sample-badge {
+    top: 10px;
+    right: -52px;
+    font-size: 11px;
+    padding: 5px 48px;
+  }
+}
