@@ -1,0 +1,801 @@
+/* ==========================================================================
+   小川亭 ホームページ スタイルシート
+   コンセプト:「古民家の座敷でいただく、街の定食」
+   ========================================================================== */
+
+:root {
+  --color-bg: #ECE1C8;        /* 土壁生成り */
+  --color-bg-alt: #DED2B2;    /* 焼灰白 */
+  --color-text: #5A3A21;      /* 欅古材色 */
+  --color-sub: #7C7A45;       /* 畳オリーブ */
+  --color-accent: #B8452B;    /* 柿渋朱 */
+  --color-card: #F8F2E3;      /* 晒し障子白 */
+  --font-heading: "Shippori Mincho B1", serif;
+  --font-body: "Zen Maru Gothic", sans-serif;
+  --header-h: 64px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  color: var(--color-text);
+  margin: 0 0 .6em;
+  line-height: 1.5;
+}
+
+p { margin: 0 0 1em; }
+
+a { color: var(--color-accent); text-decoration: none; }
+
+.section-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+section[id] {
+  scroll-margin-top: var(--header-h);
+}
+
+.eyebrow {
+  font-family: var(--font-heading);
+  letter-spacing: .18em;
+  color: var(--color-sub);
+  font-size: .8rem;
+  margin: 0 0 .5em;
+}
+
+.eyebrow-center { text-align: center; }
+
+.section-title {
+  text-align: center;
+  font-size: 1.7rem;
+  position: relative;
+  padding-bottom: .6em;
+  margin-bottom: 1.4em;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 3px;
+  background: var(--color-sub);
+}
+
+.section-title-left { text-align: left; }
+.section-title-left::after { left: 0; transform: none; }
+
+/* -------------------- 障子格子モチーフ（区切り線） -------------------- */
+.shoji-divider {
+  height: 14px;
+  background-image:
+    repeating-linear-gradient(90deg, var(--color-text) 0 2px, transparent 2px 34px);
+  opacity: .35;
+}
+
+/* -------------------- SAMPLEバッジ -------------------- */
+.hp-sample-badge {
+  position: fixed;
+  top: 14px;
+  right: -46px;
+  z-index: 9999;
+  background: #c1272d;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: .1em;
+  padding: 6px 52px;
+  transform: rotate(40deg);
+  box-shadow: 0 2px 6px rgba(0,0,0,.35);
+  pointer-events: none;
+}
+
+/* -------------------- ヘッダー -------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--color-bg);
+  border-bottom: 2px solid var(--color-text);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.brand-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--color-text);
+}
+
+.brand-sub {
+  font-size: .62rem;
+  color: var(--color-sub);
+  letter-spacing: .05em;
+}
+
+.header-tel {
+  display: none;
+}
+
+.nav-toggle { display: none; }
+
+.nav-toggle-label {
+  width: 34px;
+  height: 26px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.nav-toggle-label span {
+  display: block;
+  height: 3px;
+  background: var(--color-text);
+  border-radius: 0;
+}
+
+.site-nav {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  background: var(--color-card);
+  border-bottom: 2px solid var(--color-text);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease;
+  z-index: 400;
+}
+
+.nav-toggle:checked ~ .site-nav {
+  max-height: 320px;
+}
+
+.site-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 8px 20px 16px;
+}
+
+.site-nav li { border-top: 1px solid var(--color-bg-alt); }
+.site-nav li:first-child { border-top: none; }
+
+.site-nav a {
+  display: block;
+  padding: 14px 4px;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+/* -------------------- 電話フロートボタン（スマホ） -------------------- */
+.float-tel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 70px; /* .hp-photo-note が2行に折り返っても重ならない安全マージン */
+  z-index: 600;
+  background: var(--color-accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: .03em;
+}
+
+.float-tel-icon { font-size: 1.1rem; }
+
+/* -------------------- ボタン共通 -------------------- */
+.btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  font-weight: 700;
+  font-size: 1rem;
+  border: 2px solid var(--color-accent);
+  border-radius: 2px;
+  line-height: 1.3;
+}
+
+.btn-sub {
+  font-size: .78rem;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+.btn-block { display: flex; width: 100%; margin-top: 14px; }
+
+.btn-large { font-size: 1.25rem; padding: 18px 36px; }
+
+/* -------------------- ヒーロー -------------------- */
+.hero {
+  position: relative;
+  min-height: 84vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(90,58,33,.35) 0%, rgba(58,36,20,.55) 55%, rgba(40,24,13,.86) 100%);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  color: #F8F2E3;
+  padding: 40px 20px 44px;
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-rating {
+  display: inline-block;
+  background: rgba(248,242,227,.16);
+  border: 1px solid rgba(248,242,227,.6);
+  padding: 5px 16px;
+  font-size: .8rem;
+  border-radius: 2px;
+  margin-bottom: 18px;
+}
+
+.hero-copy {
+  color: #F8F2E3;
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: .5em;
+  text-shadow: 0 2px 10px rgba(0,0,0,.4);
+}
+
+.hero-sub {
+  font-size: .95rem;
+  margin-bottom: 1.6em;
+}
+
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.hero-cta .btn-outline {
+  border-color: #F8F2E3;
+  color: #F8F2E3;
+}
+
+/* -------------------- お店紹介 -------------------- */
+.intro {
+  padding: 56px 0;
+  background: var(--color-bg);
+}
+
+.intro-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.intro-text h2 { font-size: 1.5rem; }
+
+.intro-photo img {
+  border: 1px solid var(--color-text);
+}
+
+/* -------------------- 名物メニュー -------------------- */
+.menu-section {
+  padding: 56px 0;
+  background: var(--color-bg-alt);
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.menu-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-text);
+  padding: 18px 20px 22px;
+}
+
+.menu-card-photo {
+  position: relative;
+  margin: -18px -20px 16px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-text);
+}
+
+.menu-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.menu-card-photo-badge {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  z-index: 2;
+  max-width: calc(100% - 16px);
+  background: rgba(12,12,12,.86);
+  color: #fff;
+  font-size: .68rem;
+  font-weight: 700;
+  line-height: 1.3;
+  padding: 5px 9px;
+  border: 1px solid #f5a83c;
+}
+
+.menu-tag {
+  display: inline-block;
+  color: var(--color-sub);
+  font-size: .78rem;
+  font-weight: 700;
+  border-bottom: 2px solid var(--color-sub);
+  margin: 0 0 .5em;
+  padding-bottom: 2px;
+}
+
+.menu-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: .4em;
+}
+
+.menu-price {
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: .85rem;
+  margin: .8em 0 0;
+}
+
+.menu-note {
+  text-align: center;
+  margin-top: 30px;
+  padding: 14px 18px;
+  background: var(--color-card);
+  border: 1px dashed var(--color-sub);
+  font-size: .9rem;
+}
+
+/* -------------------- こだわり -------------------- */
+.kodawari {
+  padding: 56px 0 0;
+  background: var(--color-bg);
+}
+
+.kodawari-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 26px;
+  margin-bottom: 36px;
+}
+
+.kodawari-item { text-align: center; }
+
+.kodawari-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 2px solid var(--color-sub);
+  color: var(--color-sub);
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 14px;
+}
+
+.kodawari-item h3 { font-size: 1.05rem; margin-bottom: .4em; }
+.kodawari-item p { font-size: .88rem; color: var(--color-text); }
+
+.kodawari-photo {
+  max-width: 360px;
+  margin: 0 auto 0;
+  text-align: center;
+}
+
+.kodawari-photo img {
+  border: 1px solid var(--color-text);
+}
+
+.photo-caption {
+  font-size: .78rem;
+  color: var(--color-sub);
+  margin-top: .6em;
+}
+
+.cta-band {
+  margin-top: 40px;
+  background: var(--color-text);
+  color: var(--color-card);
+  text-align: center;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.cta-band p { margin: 0; font-weight: 700; }
+
+.cta-band-large { margin-top: 44px; }
+.cta-band-large .btn-large { border-color: var(--color-card); }
+
+/* -------------------- ギャラリー -------------------- */
+.gallery-section {
+  padding: 56px 0;
+  background: var(--color-bg-alt);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.gallery-item {
+  margin: 0;
+  border: 1px solid var(--color-text);
+  background: var(--color-card);
+}
+
+.gallery-item img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  width: 100%;
+}
+
+.gallery-item figcaption {
+  padding: 10px 12px;
+  font-size: .82rem;
+  color: var(--color-text);
+  border-top: 1px solid var(--color-bg-alt);
+}
+
+/* -------------------- お客様の声 -------------------- */
+.reviews-section {
+  padding: 56px 0;
+  background: var(--color-bg);
+}
+
+.rating-badge {
+  text-align: center;
+  color: var(--color-sub);
+  font-weight: 700;
+  margin-top: -1.2em;
+  margin-bottom: 2em;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.review-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-sub);
+  padding: 24px 20px 20px;
+  position: relative;
+}
+
+.review-quote-mark {
+  font-family: var(--font-heading);
+  font-size: 2.6rem;
+  color: var(--color-accent);
+  line-height: 1;
+  margin: 0 0 .1em;
+}
+
+.review-text {
+  font-size: .92rem;
+  margin-bottom: 1.2em;
+}
+
+.review-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid var(--color-bg-alt);
+  padding-top: 10px;
+}
+
+.review-stars {
+  color: var(--color-accent);
+  letter-spacing: 2px;
+}
+
+.review-who {
+  font-size: .78rem;
+  color: var(--color-sub);
+}
+
+.reviews-more {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.link-arrow {
+  font-weight: 700;
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 2px;
+}
+
+/* -------------------- アクセス -------------------- */
+.access-section {
+  padding: 56px 0 0;
+  background: var(--color-bg-alt);
+}
+
+.access-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0 24px;
+  background: var(--color-card);
+}
+
+.info-table th, .info-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--color-bg-alt);
+  font-size: .9rem;
+  vertical-align: top;
+}
+
+.info-table th {
+  width: 92px;
+  color: var(--color-sub);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.muted { color: var(--color-sub); font-size: .82rem; }
+
+.access-note {
+  font-size: .85rem;
+  background: var(--color-card);
+  border-left: 4px solid var(--color-accent);
+  padding: 14px 16px;
+}
+
+.access-map h3 {
+  font-size: 1.1rem;
+  margin-bottom: .6em;
+}
+
+.map-embed {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--color-text);
+  overflow: hidden;
+}
+
+/* -------------------- フッター -------------------- */
+.site-footer {
+  background: var(--color-text);
+  color: var(--color-card);
+  padding: 44px 0 90px;
+}
+
+.footer-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.footer-name {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  margin-bottom: .4em;
+}
+
+.footer-brand p { font-size: .9rem; margin-bottom: .5em; }
+.footer-brand a { color: var(--color-card); text-decoration: underline; }
+
+.footer-message p { font-size: .88rem; }
+
+.back-to-top {
+  display: inline-block;
+  color: var(--color-card);
+  border: 1px solid var(--color-card);
+  padding: 8px 18px;
+  font-size: .82rem;
+}
+
+.copyright {
+  text-align: center;
+  font-size: .74rem;
+  color: var(--color-bg-alt);
+  margin: 30px 0 0;
+}
+
+/* -------------------- 写真プレースホルダー注記バナー -------------------- */
+.hp-photo-note {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 700;
+  margin: 0;
+  background: rgba(12,12,12,.94);
+  color: #fff;
+  font-size: 13.5px;
+  line-height: 1.3;
+  font-weight: 600;
+  text-align: center;
+  padding: 8px 14px;
+  border-top: 3px solid #f5a83c;
+  max-height: 62px;
+  overflow: hidden;
+}
+
+.hp-photo-note-icon {
+  color: #f5a83c;
+  font-size: 17px;
+  margin-right: 6px;
+  vertical-align: -2px;
+}
+
+@media (max-width: 480px) {
+  .hp-photo-note {
+    font-size: 11px;
+    padding: 6px 10px;
+    max-height: 54px;
+  }
+}
+
+/* ==========================================================================
+   レスポンシブ（タブレット以上）
+   ========================================================================== */
+@media (min-width: 768px) {
+  .hero-copy { font-size: 2.6rem; }
+  .hero-sub { font-size: 1.05rem; }
+  .hero-cta { flex-direction: row; justify-content: center; }
+
+  .intro-grid { flex-direction: row; align-items: center; }
+  .intro-text, .intro-photo { flex: 1; }
+
+  .menu-grid { grid-template-columns: repeat(2, 1fr); }
+  .kodawari-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .access-grid { flex-direction: row; align-items: flex-start; }
+  .access-info { flex: 1.05; }
+  .access-map { flex: .95; position: sticky; top: calc(var(--header-h) + 20px); }
+
+  .footer-grid { flex-direction: row; justify-content: space-between; }
+
+  .cta-band { flex-direction: row; justify-content: center; gap: 28px; }
+}
+
+@media (min-width: 1024px) {
+  :root { --header-h: 76px; }
+
+  .nav-toggle-label { display: none; }
+
+  .site-nav {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    background: transparent;
+    border-bottom: none;
+  }
+
+  .site-nav ul {
+    display: flex;
+    gap: 30px;
+    padding: 0;
+  }
+
+  .site-nav li { border-top: none; }
+
+  .site-nav a {
+    padding: 8px 2px;
+    font-size: .95rem;
+    border-bottom: 2px solid transparent;
+  }
+
+  .site-nav a:hover { border-bottom-color: var(--color-accent); }
+
+  .header-tel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    background: var(--color-accent);
+    color: #fff;
+    padding: 8px 20px;
+    line-height: 1.3;
+  }
+
+  .tel-label { font-size: .68rem; }
+  .tel-number { font-size: 1.15rem; font-weight: 700; }
+
+  .float-tel { display: none; }
+
+  .kodawari-grid { grid-template-columns: repeat(4, 1fr); }
+  .menu-grid { grid-template-columns: repeat(4, 1fr); }
+  .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+
+  .section-title { font-size: 2rem; }
+  .hero-copy { font-size: 3.1rem; }
+}
