@@ -1,0 +1,657 @@
+/* ================================
+   竹寿し 試作サイト スタイルシート
+   配色: 煤竹色#4A3C28 / 白磁色#F3F6F1 / 山葵色#7C8C4E / 焦茶#2B2118 / 錆浅葱#5E7A73(地酒セクション限定)
+   ================================ */
+
+:root {
+  --sumidake: #4A3C28;   /* メイン(暗) 煤竹色 */
+  --hakuji: #F3F6F1;     /* ベース(明) 白磁色 */
+  --wasabi: #7C8C4E;     /* アクセント 山葵色 */
+  --kogecha: #2B2118;    /* サブ(濃茶・線・本文) 焦茶 */
+  --sabiasagi: #5E7A73;  /* 差し色(地酒セクション限定) 錆浅葱 */
+  --hakuji-shade: #E4E9DD;
+
+  --font-heading: 'Shippori Mincho', 'Noto Serif JP', serif;
+  --font-body: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--hakuji);
+  color: var(--kogecha);
+  font-family: var(--font-body);
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+.inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  font-weight: 700;
+  color: var(--sumidake);
+  margin: 0 0 32px;
+  letter-spacing: 0.04em;
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.section-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 56px;
+  height: 3px;
+  background: var(--wasabi);
+}
+
+/* ---- SAMPLEバッジ ---- */
+.hp-sample-badge {
+  position: fixed;
+  top: 14px;
+  right: -38px;
+  z-index: 999;
+  background: #C0392B;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  padding: 6px 46px;
+  transform: rotate(40deg);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  pointer-events: none;
+  font-family: var(--font-body);
+}
+
+/* ---- ヘッダー ---- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(243, 246, 241, 0.96);
+  border-bottom: 1px solid var(--hakuji-shade);
+  backdrop-filter: blur(2px);
+}
+
+.site-header .inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.site-logo {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--sumidake);
+  margin: 0;
+  letter-spacing: 0.08em;
+}
+
+.header-tel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-decoration: none;
+  color: var(--kogecha);
+  line-height: 1.3;
+}
+
+.header-tel-label {
+  font-size: 0.65rem;
+  color: var(--wasabi);
+  letter-spacing: 0.1em;
+}
+
+.header-tel-number {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--sumidake);
+}
+
+/* ---- 共通ボタン ---- */
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: opacity 0.2s ease;
+}
+
+.btn:hover { opacity: 0.85; }
+
+.btn-primary {
+  background: var(--wasabi);
+  color: var(--hakuji);
+}
+
+/* ==============================
+   セクション1：導入部
+   ============================== */
+.intro {
+  display: flex;
+  flex-direction: column;
+  background: var(--hakuji);
+  padding: 64px 24px 40px;
+}
+
+.intro-inner {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.intro-shopname {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  letter-spacing: 0.5em;
+  color: var(--wasabi);
+  margin: 0 0 18px;
+}
+
+.intro-catch {
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 1.4rem + 2.2vw, 2.8rem);
+  color: var(--sumidake);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.intro-sub {
+  font-size: 0.95rem;
+  color: var(--kogecha);
+  margin: 0 0 28px;
+  opacity: 0.85;
+}
+
+.intro-address {
+  font-size: 0.9rem;
+  margin: 0 0 28px;
+  color: var(--kogecha);
+}
+
+.intro-photo {
+  margin: 40px auto 0;
+  max-width: 420px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(43, 33, 24, 0.18);
+}
+
+.intro-photo img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+/* ==============================
+   セクション2：竹寿しについて
+   ============================== */
+.about {
+  padding: 72px 0;
+  background: var(--hakuji);
+}
+
+.about-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 8px;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.about-block--taisho {
+  background: var(--sumidake);
+  color: var(--hakuji);
+}
+
+.about-block--okami {
+  background: var(--hakuji-shade);
+  color: var(--kogecha);
+  margin-top: -6px;
+}
+
+.about-photo { position: relative; }
+
+.about-photo img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.about-block--taisho .about-photo img { filter: sepia(0.25) brightness(0.75); }
+
+.about-text {
+  padding: 28px 24px 32px;
+}
+
+.about-block--taisho .about-text h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--hakuji);
+  margin: 0 0 14px;
+}
+
+.about-block--okami .about-text h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--sumidake);
+  margin: 0 0 14px;
+}
+
+.about-block p { margin: 0; }
+
+.about-lede {
+  text-align: center;
+  font-family: var(--font-heading);
+  color: var(--sumidake);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  margin: 32px 0;
+}
+
+/* ==============================
+   セクション3：ランチのご案内
+   ============================== */
+.lunch {
+  padding: 72px 0;
+  background: var(--hakuji-shade);
+}
+
+.lunch-lede {
+  margin: 0 0 36px;
+  max-width: 640px;
+}
+
+.lunch-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.lunch-card {
+  background: #fff;
+  border: 1px solid var(--hakuji-shade);
+  border-radius: 6px;
+  padding: 24px;
+}
+
+.lunch-card h3 {
+  font-family: var(--font-heading);
+  color: var(--sumidake);
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+}
+
+.lunch-card p { margin: 0; font-size: 0.95rem; }
+
+.lunch-card-note {
+  font-size: 0.8rem;
+  color: var(--wasabi);
+  font-weight: 400;
+  margin-left: 6px;
+}
+
+.lunch-card--main {
+  padding: 0;
+  overflow: hidden;
+  grid-column: 1 / -1;
+}
+
+.lunch-card--main .lunch-photo img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+.lunch-card--main .lunch-card-body { padding: 24px; }
+
+.lunch-tag {
+  display: inline-block;
+  background: var(--wasabi);
+  color: var(--hakuji);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin: 0 0 12px;
+  letter-spacing: 0.08em;
+}
+
+.lunch-card--main h3 { font-size: 1.5rem; }
+
+.lunch-card--photo { padding: 0; overflow: hidden; }
+
+.lunch-card--photo .lunch-photo img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.lunch-card--photo .lunch-card-body { padding: 20px 24px 24px; }
+
+.lunch-common-note {
+  text-align: center;
+  margin: 32px 0 0;
+  font-size: 0.9rem;
+  color: var(--sumidake);
+}
+
+.lunch-cta {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.lunch-cta p { margin: 0 0 16px; font-size: 0.9rem; }
+
+/* ==============================
+   セクション4：地酒へのこだわり
+   ============================== */
+.sake {
+  padding: 72px 0;
+  background: var(--sumidake);
+  color: var(--hakuji);
+}
+
+.sake-inner {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 40px;
+  align-items: center;
+}
+
+.sake-text p { color: var(--hakuji); opacity: 0.92; max-width: 620px; }
+
+.section-heading--sake { color: var(--hakuji); }
+.section-heading--sake::after { background: var(--sabiasagi); }
+
+.sake-label {
+  width: 180px;
+  min-height: 320px;
+  background: linear-gradient(rgba(43,33,24,0.72), rgba(43,33,24,0.72)), url("images/wood-counter.jpg");
+  background-size: cover;
+  background-position: center;
+  border: 2px solid var(--sabiasagi);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 12px;
+  flex-shrink: 0;
+}
+
+.sake-label-text {
+  font-family: var(--font-heading);
+  color: var(--hakuji);
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 2;
+  letter-spacing: 0.06em;
+  border-top: 1px solid var(--sabiasagi);
+  border-bottom: 1px solid var(--sabiasagi);
+  padding: 20px 8px;
+}
+
+/* ==============================
+   セクション5：お客様の声
+   ============================== */
+.voice {
+  padding: 72px 0;
+  background: var(--hakuji);
+}
+
+.voice-trust {
+  margin: 0 0 36px;
+  font-size: 0.95rem;
+  color: var(--sumidake);
+}
+
+.voice-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.voice-item {
+  position: relative;
+  background: #fff;
+  border-left: 4px solid var(--wasabi);
+  padding: 20px 22px 20px 52px;
+  border-radius: 2px;
+  box-shadow: 0 2px 6px rgba(43, 33, 24, 0.06);
+}
+
+.voice-quote-mark {
+  position: absolute;
+  left: 14px;
+  top: 8px;
+  font-family: Georgia, serif;
+  font-size: 2rem;
+  color: var(--wasabi);
+  line-height: 1;
+  opacity: 0.8;
+}
+
+.voice-item p { margin: 0; font-size: 0.95rem; }
+
+/* ==============================
+   セクション6：アクセス・駐車場のご案内
+   ============================== */
+.access {
+  padding: 72px 0;
+  background: var(--hakuji-shade);
+}
+
+.access-address {
+  font-size: 1rem;
+  margin: 0 0 20px;
+}
+
+.access-map {
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--hakuji-shade);
+  margin-bottom: 32px;
+}
+
+.access-map iframe { width: 100%; display: block; }
+
+.access-notice {
+  background: #fff;
+  border-left: 4px solid var(--sumidake);
+  padding: 22px 24px;
+  border-radius: 4px;
+  margin-bottom: 32px;
+}
+
+.access-notice h3 {
+  font-family: var(--font-heading);
+  color: var(--sumidake);
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}
+
+.access-notice p { margin: 0; font-size: 0.92rem; }
+
+.access-cta {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.access-cta p { margin: 0 0 16px; font-size: 0.9rem; }
+
+.access-instagram {
+  text-align: center;
+  font-size: 0.92rem;
+}
+
+.access-instagram a {
+  color: var(--wasabi);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.access-instagram a:hover { text-decoration: underline; }
+
+/* ==============================
+   フッター
+   ============================== */
+.site-footer {
+  background: var(--sumidake);
+  color: var(--hakuji);
+  padding: 48px 0 32px;
+  text-align: center;
+}
+
+.site-footer p { margin: 0 0 12px; font-size: 0.9rem; }
+
+.footer-shopname {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  margin-bottom: 14px !important;
+}
+
+.footer-tel a, .footer-instagram a, .footer-map a {
+  color: var(--hakuji);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.hp-photo-note {
+  margin: 28px auto 20px;
+  max-width: 640px;
+  font-size: 0.78rem;
+  color: var(--hakuji);
+  opacity: 0.75;
+  border-top: 1px solid rgba(243, 246, 241, 0.25);
+  padding-top: 18px;
+}
+
+.footer-copyright {
+  font-size: 0.78rem;
+  opacity: 0.7;
+  margin-bottom: 0 !important;
+}
+
+/* ---- モバイル固定電話ボタン ---- */
+.mobile-call-fab {
+  display: none;
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 200;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--wasabi);
+  color: var(--hakuji);
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 14px rgba(43, 33, 24, 0.35);
+}
+
+@media (max-width: 700px) {
+  .mobile-call-fab {
+    display: flex;
+  }
+}
+
+/* ==============================
+   レスポンシブ：タブレット以上
+   ============================== */
+@media (min-width: 700px) {
+  .intro {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 56px;
+    padding: 96px 40px 72px;
+  }
+
+  .intro-inner { text-align: left; margin: 0; }
+
+  .intro-photo {
+    margin: 0;
+    max-width: 340px;
+  }
+
+  .intro-photo img { height: 320px; }
+
+  .about-block {
+    flex-direction: row;
+  }
+
+  .about-block--taisho {
+    max-width: 88%;
+    margin-right: auto;
+  }
+
+  .about-block--okami {
+    max-width: 88%;
+    margin-left: auto;
+    flex-direction: row-reverse;
+  }
+
+  .about-photo { width: 42%; flex-shrink: 0; }
+  .about-photo img { height: 100%; min-height: 280px; }
+  .about-text { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+
+  .lunch-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+  }
+
+  .lunch-card--main {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+  }
+
+  .lunch-card--main .lunch-photo img { height: 100%; min-height: 360px; }
+  .lunch-card--main { display: flex; }
+  .lunch-card--main .lunch-photo { width: 45%; flex-shrink: 0; }
+  .lunch-card--main .lunch-card-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+  .sake-inner {
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+  }
+
+  .sake-text { flex: 1; }
+
+  .voice-list { margin: 0 auto; }
+
+  .access-notice { max-width: 720px; }
+}
+
+@media (min-width: 1000px) {
+  .about-block--taisho { max-width: 74%; }
+  .about-block--okami { max-width: 74%; }
+  .lunch-card--main .lunch-photo img { min-height: 420px; }
+}
