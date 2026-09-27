@@ -1,0 +1,854 @@
+/* ==========================================================================
+   ちっちゃなビストロしげきち 試作HP スタイルシート
+   コンセプト:「巣ごもりの葡萄色と真鍮の小窓」
+   ========================================================================== */
+
+:root {
+  --wine: #6E2A3B;
+  --wine-dark: #551f2c;
+  --brass: #B8865A;
+  --linen: #F5EDE2;
+  --mousse: #EADFCB;
+  --soft-grape: #9C6B7A;
+  --walnut: #3A2E26;
+  --white: #FFFFFF;
+
+  --font-serif-jp: "Noto Serif JP", serif;
+  --font-serif-en: "Cormorant Garamond", "EB Garamond", serif;
+  --font-sans-jp: "Noto Sans JP", sans-serif;
+
+  --header-height: 84px;
+  --header-height-scrolled: 60px;
+  --banner-height: 44px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  margin: 0;
+  background-color: var(--linen);
+  color: var(--walnut);
+  font-family: var(--font-sans-jp);
+  line-height: 1.9;
+  padding-top: var(--header-height);
+  padding-bottom: var(--banner-height);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif-jp);
+  font-weight: 700;
+  margin: 0;
+}
+
+.en-serif {
+  font-family: var(--font-serif-en);
+  font-style: italic;
+}
+
+.inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- 共通見出し ---------- */
+.section-heading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-heading .eyebrow {
+  display: inline-block;
+  color: var(--brass);
+  font-family: var(--font-serif-en);
+  letter-spacing: 0.12em;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.section-heading h2 {
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.1rem);
+  color: var(--wine);
+  position: relative;
+  display: inline-block;
+  padding-bottom: 18px;
+}
+
+.section-heading h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 3px;
+  background-color: var(--wine);
+}
+
+/* ---------- ワインしずく ドット区切り ---------- */
+.wine-drop-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 36px 0;
+}
+
+.wine-drop-divider span {
+  display: inline-block;
+  width: 10px;
+  height: 13px;
+  background: var(--soft-grape);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  opacity: 0.85;
+}
+
+.wine-drop-divider span:nth-child(2) {
+  width: 14px;
+  height: 18px;
+  background: var(--wine);
+}
+
+/* ---------- 写真の「小さな窓の格子」フレーム ---------- */
+.window-frame {
+  position: relative;
+  padding: 8px;
+  background: var(--white);
+  border: 1px solid var(--brass);
+}
+
+.window-frame::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--brass);
+  background-image:
+    linear-gradient(to right, transparent calc(50% - 1px), rgba(184, 134, 90, 0.55) calc(50% - 1px), rgba(184, 134, 90, 0.55) calc(50% + 1px), transparent calc(50% + 1px)),
+    linear-gradient(to bottom, transparent calc(50% - 1px), rgba(184, 134, 90, 0.55) calc(50% - 1px), rgba(184, 134, 90, 0.55) calc(50% + 1px), transparent calc(50% + 1px));
+  pointer-events: none;
+  z-index: 1;
+}
+
+.window-frame img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   固定要素:SAMPLEバッジ / 写真注記バナー
+   ========================================================================== */
+
+.hp-sample-badge {
+  position: fixed;
+  top: 18px;
+  right: -54px;
+  width: 220px;
+  padding: 8px 0;
+  background: #C0392B;
+  color: #fff;
+  text-align: center;
+  font-family: var(--font-serif-en);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  font-size: 0.95rem;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.hp-photo-note {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background: var(--walnut);
+  color: var(--linen);
+  font-size: 0.72rem;
+  text-align: center;
+  padding: 6px 12px;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   ヘッダー
+   ========================================================================== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  background: var(--wine);
+  border-bottom: 1px solid var(--brass);
+  height: var(--header-height);
+  transition: height 0.25s ease;
+}
+
+.site-header.is-scrolled {
+  height: var(--header-height-scrolled);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo {
+  color: var(--linen);
+  font-family: var(--font-serif-jp);
+  font-size: clamp(1rem, 0.85rem + 0.6vw, 1.3rem);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav a {
+  color: var(--linen);
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 4px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.main-nav a:hover {
+  border-color: var(--brass);
+  color: var(--brass);
+}
+
+.header-tel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--walnut);
+  color: var(--linen);
+  border: 1px solid var(--brass);
+  padding: 9px 16px;
+  border-radius: 2px;
+  text-decoration: none;
+  font-size: 0.92rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.header-tel:hover {
+  background: var(--brass);
+  color: var(--walnut);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  border: 1px solid var(--brass);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  background: var(--linen);
+  margin: 0 6px;
+}
+
+/* ==========================================================================
+   ヒーロー
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--linen);
+  text-align: center;
+  background-image:
+    linear-gradient(180deg, rgba(58,46,38,0.78) 0%, rgba(58,46,38,0.55) 45%, rgba(58,46,38,0.85) 100%),
+    url("assets/images/hero-entrance.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-content {
+  max-width: 720px;
+  padding: 0 24px;
+}
+
+.hero-catch {
+  font-family: var(--font-serif-jp);
+  font-size: clamp(1.2rem, 1rem + 1vw, 1.6rem);
+  letter-spacing: 0.06em;
+  margin-bottom: 18px;
+}
+
+.hero-title {
+  font-family: var(--font-serif-jp);
+  font-size: clamp(2.1rem, 1.6rem + 2.4vw, 3.3rem);
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+
+.hero-sub {
+  font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.08rem);
+  color: var(--mousse);
+  margin-bottom: 26px;
+}
+
+.trust-badge {
+  display: inline-block;
+  border: 1px solid var(--brass);
+  color: var(--brass);
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 30px;
+}
+
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 30px;
+  border-radius: 2px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--wine);
+  color: var(--linen);
+  border-color: var(--brass);
+}
+
+.btn-primary:hover {
+  background: var(--soft-grape);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--linen);
+  border-color: var(--brass);
+}
+
+.btn-outline:hover {
+  background: rgba(184, 134, 90, 0.18);
+}
+
+.btn-large {
+  padding: 18px 44px;
+  font-size: 1.05rem;
+}
+
+/* ==========================================================================
+   セクション共通
+   ========================================================================== */
+
+section {
+  padding: 84px 0;
+}
+
+.section-alt {
+  background: var(--mousse);
+}
+
+/* ---------- お店紹介 ---------- */
+.shop-intro .layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.shop-intro p {
+  margin: 0 0 20px;
+}
+
+.shop-intro p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- シェフのこだわり ---------- */
+.chef-section .layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.chef-badge {
+  display: inline-block;
+  background: var(--wine);
+  color: var(--linen);
+  border: 1px solid var(--brass);
+  padding: 8px 18px;
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  margin-bottom: 20px;
+}
+
+.chef-section p {
+  margin: 0 0 20px;
+}
+
+.chef-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- 名物メニュー ---------- */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.menu-card {
+  background: var(--white);
+  border: 1px solid var(--brass);
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-card .window-frame {
+  border: none;
+  padding: 0;
+}
+
+.menu-card .window-frame::before {
+  inset: 6px;
+}
+
+.menu-card-body {
+  padding: 22px 22px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-card h3 {
+  color: var(--wine);
+  font-size: 1.12rem;
+  margin-bottom: 4px;
+}
+
+.menu-card .image-note {
+  font-size: 0.72rem;
+  color: var(--soft-grape);
+  margin-bottom: 10px;
+}
+
+.menu-card p.desc {
+  font-size: 0.92rem;
+  flex: 1;
+  margin: 0 0 14px;
+}
+
+.menu-card .price {
+  font-size: 0.85rem;
+  color: var(--brass);
+  border-top: 1px dashed var(--brass);
+  padding-top: 12px;
+  margin: 0;
+}
+
+/* ---------- 店内紹介(ダークセクション) ---------- */
+.interior-section {
+  background: var(--walnut);
+  color: var(--linen);
+}
+
+.interior-section .section-heading h2 {
+  color: var(--linen);
+}
+
+.interior-section .section-heading h2::after {
+  background-color: var(--brass);
+}
+
+.interior-section .section-heading .eyebrow {
+  color: var(--brass);
+}
+
+.interior-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.interior-card h3 {
+  font-size: 1.25rem;
+  color: var(--mousse);
+  margin: 22px 0 14px;
+}
+
+.interior-card p {
+  color: var(--linen);
+  opacity: 0.92;
+  margin: 0;
+}
+
+.interior-card .window-frame {
+  background: var(--walnut);
+  border-color: var(--brass);
+}
+
+/* 写真を使わないカード(interior-counter.jpg差し替え対応):焦茶〜ワイン色のグラデーション+真鍮の罫線のみ */
+.window-frame.no-photo {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--walnut) 0%, var(--wine-dark) 55%, var(--wine) 100%);
+}
+
+.window-frame.no-photo .no-photo-label {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-serif-en);
+  font-style: italic;
+  letter-spacing: 0.16em;
+  font-size: 1.05rem;
+  color: var(--brass);
+  padding: 10px 30px;
+  border-top: 1px solid var(--brass);
+  border-bottom: 1px solid var(--brass);
+}
+
+/* ---------- お客様の声 ---------- */
+.reviews-note {
+  text-align: center;
+  color: var(--soft-grape);
+  font-size: 0.85rem;
+  margin-top: -28px;
+  margin-bottom: 44px;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.review-card {
+  background: var(--white);
+  border: 1px solid var(--brass);
+  padding: 26px 24px;
+  position: relative;
+}
+
+.review-card .stars {
+  color: var(--brass);
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+  font-size: 1rem;
+}
+
+.review-card p {
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+/* ---------- アクセス・ご予約 ---------- */
+.access-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.map-wrap {
+  border: 1px solid var(--brass);
+  overflow: hidden;
+  background: var(--white);
+}
+
+.map-wrap iframe {
+  width: 100%;
+  height: 360px;
+  border: 0;
+  display: block;
+}
+
+.store-info dl {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  row-gap: 14px;
+  column-gap: 12px;
+  margin: 0 0 28px;
+}
+
+.store-info dt {
+  color: var(--brass);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+}
+
+.store-info dd {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.reserve-note {
+  background: var(--mousse);
+  border-left: 3px solid var(--wine);
+  padding: 16px 18px;
+  font-size: 0.92rem;
+  margin-bottom: 26px;
+}
+
+.access-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.access-cta .btn-primary {
+  background: var(--wine);
+  color: var(--linen);
+}
+
+.access-cta .btn-outline {
+  color: var(--wine);
+  border-color: var(--wine);
+}
+
+.access-cta .btn-outline:hover {
+  background: var(--wine);
+  color: var(--linen);
+}
+
+/* ==========================================================================
+   フッター
+   ========================================================================== */
+
+.site-footer {
+  background: var(--wine-dark);
+  color: var(--mousse);
+  padding: 56px 0 40px;
+  text-align: center;
+  font-size: 0.88rem;
+}
+
+.site-footer .footer-name {
+  font-family: var(--font-serif-jp);
+  font-size: 1.2rem;
+  color: var(--linen);
+  margin-bottom: 14px;
+}
+
+.site-footer p {
+  margin: 4px 0;
+}
+
+.footer-insta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 18px 0;
+  color: var(--brass);
+  text-decoration: none;
+  border: 1px solid var(--brass);
+  padding: 8px 18px;
+  border-radius: 999px;
+}
+
+.footer-insta:hover {
+  background: var(--brass);
+  color: var(--wine-dark);
+}
+
+.footer-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--brass);
+  margin: 22px auto;
+}
+
+.footer-copyright {
+  font-size: 0.78rem;
+  opacity: 0.85;
+}
+
+.footer-proto-note {
+  font-size: 0.74rem;
+  opacity: 0.75;
+  margin-top: 6px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ==========================================================================
+   レスポンシブ
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--wine);
+    border-bottom: 1px solid var(--brass);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+
+  .main-nav.is-open {
+    max-height: 340px;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 0;
+  }
+
+  .main-nav li {
+    border-top: 1px solid rgba(184, 134, 90, 0.35);
+  }
+
+  .main-nav li:first-child {
+    border-top: none;
+  }
+
+  .main-nav a {
+    display: block;
+    padding: 14px 24px;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .header-tel span.tel-label {
+    display: none;
+  }
+
+  .shop-intro .layout,
+  .chef-section .layout,
+  .interior-grid,
+  .access-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .chef-section .layout {
+    direction: ltr;
+  }
+
+  .chef-section .layout > .window-frame {
+    order: -1;
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --header-height: 68px;
+    --header-height-scrolled: 56px;
+  }
+
+  section {
+    padding: 60px 0;
+  }
+
+  .hero {
+    min-height: 100vh;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .store-info dl {
+    grid-template-columns: 84px 1fr;
+  }
+
+  .hp-sample-badge {
+    width: 168px;
+    top: 14px;
+    right: -46px;
+    font-size: 0.8rem;
+    padding: 6px 0;
+  }
+
+  .hp-photo-note {
+    font-size: 0.64rem;
+    padding: 6px 8px;
+  }
+}
