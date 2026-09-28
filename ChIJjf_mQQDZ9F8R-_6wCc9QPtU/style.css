@@ -1,0 +1,795 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;700&family=Cormorant+Garamond:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap');
+
+/* ==========================================================
+   patisserie PRARI 「飴色の函と、週末だけのアンバー灯」
+   ========================================================== */
+
+:root {
+  --cream: #F7EAC8;        /* 発酵バターのクリーム色(ベース背景) */
+  --cream-sub: #FBF3E1;    /* 粉糖の生成り(サブ背景) */
+  --amber-dark: #8B5A2B;   /* 石窯の飴色(プライマリ濃色) */
+  --deepest: #3B2418;      /* チョコブランニューの濃央茶(限定使用) */
+  --amber: #D98F2B;        /* 週末点灯のアンバー(メインアクセント) */
+  --rose: #D46A82;         /* グランベリーのきらめきローズ(限定使用) */
+  --text: #2E2018;         /* 焦茶 */
+  --text-on-dark: #F8F0DD; /* 濃色ゾーン内テキスト */
+
+  --font-mincho: 'Zen Old Mincho', serif;
+  --font-logo: 'Cormorant Garamond', serif;
+  --font-body: 'Noto Sans JP', sans-serif;
+  --font-label: 'Zen Kaku Gothic New', sans-serif;
+
+  --container: 1120px;
+  --header-h: 76px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 46px; /* hp-photo-note の高さぶん */
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-mincho);
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.6em;
+  line-height: 1.5;
+}
+
+p { margin: 0 0 1em; }
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.eyebrow {
+  font-family: var(--font-logo);
+  font-variant: small-caps;
+  letter-spacing: 0.14em;
+  color: var(--amber-dark);
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.section-title {
+  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem);
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 64px;
+  height: 4px;
+  background: repeating-linear-gradient(135deg, var(--amber-dark) 0 6px, var(--amber) 6px 12px);
+}
+
+.section-title.center { text-align: center; }
+.section-title.center::after { left: 50%; transform: translateX(-50%); }
+
+.section-lead {
+  max-width: 62ch;
+}
+
+.section-lead.center { margin-left: auto; margin-right: auto; text-align: center; }
+
+section { padding: 64px 0; }
+
+.section-alt { background: var(--cream-sub); }
+
+/* ---------- パウンドケーキ断面ストライプ(意匠モチーフ1) ---------- */
+
+.stripe-divider {
+  height: 12px;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--amber-dark) 0px, var(--amber-dark) 16px,
+    var(--deepest) 16px, var(--deepest) 24px,
+    var(--amber) 24px, var(--amber) 32px
+  );
+}
+
+/* ==========================================================
+   ヘッダー
+   ========================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--amber-dark);
+  color: var(--text-on-dark);
+}
+
+.header-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 20px;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo-mark {
+  font-family: var(--font-logo);
+  font-variant: small-caps;
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  color: var(--text-on-dark);
+}
+
+.logo-sub {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  color: var(--cream);
+  margin-top: 2px;
+}
+
+.global-nav ul {
+  display: flex;
+  gap: 28px;
+}
+
+.global-nav a {
+  font-family: var(--font-label);
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding: 8px 2px;
+  position: relative;
+}
+
+.global-nav a[aria-current="page"] {
+  color: var(--amber);
+}
+
+.global-nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 2px;
+  background: var(--amber);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-tel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--amber);
+  color: var(--deepest);
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.header-tel svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+.header-tel-text { display: inline; }
+
+.header-insta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--text-on-dark);
+  border-radius: 50%;
+}
+
+.header-insta svg { width: 18px; height: 18px; }
+
+.hamburger {
+  display: none;
+  width: 40px; height: 40px;
+  background: transparent;
+  border: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 22px; height: 2px;
+  background: var(--text-on-dark);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.header-stripe {
+  height: 6px;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--amber) 0px, var(--amber) 12px,
+    var(--deepest) 12px, var(--deepest) 18px
+  );
+}
+
+/* ==========================================================
+   ヒーロー(タイプB)
+   ========================================================== */
+
+.hero {
+  position: relative;
+  min-height: 62vh;
+  display: flex;
+  align-items: flex-end;
+  color: var(--text-on-dark);
+  overflow: hidden;
+  border-bottom: 10px solid var(--amber-dark);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(59,36,24,0.35) 0%, rgba(59,36,24,0.55) 55%, rgba(59,36,24,0.88) 100%);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  padding: 64px 0 44px;
+  width: 100%;
+}
+
+.hero-badge {
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  color: var(--text-on-dark);
+  font-size: clamp(1.9rem, 1.3rem + 2.6vw, 3.1rem);
+  margin-bottom: 0.4em;
+}
+
+.hero-sub {
+  font-size: 1rem;
+  max-width: 46ch;
+  color: var(--text-on-dark);
+  opacity: 0.95;
+}
+
+.hero-page-title .hero-sub { margin-bottom: 0; }
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+/* ==========================================================
+   週末スタンプ(意匠モチーフ3)
+   ========================================================== */
+
+.weekend-stamp {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  border: 3px solid var(--amber);
+  box-shadow: inset 0 0 0 4px rgba(216,143,43,0.18);
+  background: rgba(59,36,24,0.55);
+  text-align: center;
+  font-family: var(--font-label);
+  font-weight: 700;
+  color: var(--text-on-dark);
+  line-height: 1.3;
+  transform: rotate(-6deg);
+}
+
+.weekend-stamp .stamp-en {
+  font-family: var(--font-logo);
+  font-variant: small-caps;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+}
+
+.weekend-stamp .stamp-jp {
+  font-size: 0.72rem;
+  margin-top: 4px;
+}
+
+.weekend-stamp.light {
+  border-color: var(--amber-dark);
+  background: var(--cream-sub);
+  color: var(--deepest);
+  box-shadow: inset 0 0 0 4px rgba(139,90,43,0.14);
+}
+
+/* ==========================================================
+   ボタン / CTA
+   ========================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 999px;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.btn:hover { opacity: 0.85; }
+
+.btn-primary {
+  background: var(--amber);
+  color: var(--deepest);
+  border-color: var(--amber-dark);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-on-dark);
+  border-color: var(--text-on-dark);
+}
+
+.btn-outline.on-light {
+  color: var(--amber-dark);
+  border-color: var(--amber-dark);
+}
+
+.btn-ghost {
+  background: var(--cream-sub);
+  color: var(--amber-dark);
+  border-color: var(--amber-dark);
+}
+
+.btn svg { width: 16px; height: 16px; }
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* ==========================================================
+   函のリボンライン(意匠モチーフ2) / カード
+   ========================================================== */
+
+.ribbon-card {
+  position: relative;
+  background: var(--cream-sub);
+  padding: 30px 26px;
+}
+
+.ribbon-card::before,
+.ribbon-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--amber);
+}
+
+.ribbon-card::before { width: 30px; height: 4px; }
+.ribbon-card::after { width: 4px; height: 30px; }
+
+.ribbon-card.corner-br { padding-bottom: 34px; }
+.ribbon-card.corner-br::before,
+.ribbon-card.corner-br::after { top: auto; left: auto; bottom: 0; right: 0; }
+.ribbon-card.corner-br::before { width: 30px; height: 4px; }
+.ribbon-card.corner-br::after { width: 4px; height: 30px; }
+
+/* ==========================================================
+   写真枠(タイプA/B共通の写真素材表示)
+   ========================================================== */
+
+.photo-frame {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 2px;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--amber-dark) 100%);
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+
+.photo-frame.wide img { aspect-ratio: 16 / 9; }
+.photo-frame.square img { aspect-ratio: 1 / 1; }
+
+.photo-frame-tag {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background: rgba(59,36,24,0.78);
+  color: var(--text-on-dark);
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  padding: 4px 9px;
+  border-radius: 2px;
+}
+
+/* ==========================================================
+   お客様の声(口コミカード。ローズの縁取りを限定使用)
+   ========================================================== */
+
+.review-card {
+  background: var(--cream-sub);
+  border-left: 3px solid var(--rose);
+  padding: 26px 28px;
+  position: relative;
+}
+
+.review-card p.quote {
+  font-size: 1.02rem;
+  margin-bottom: 12px;
+}
+
+.review-card .quote::before { content: "\201C"; color: var(--amber-dark); }
+.review-card .quote::after { content: "\201D"; color: var(--amber-dark); }
+
+.review-source {
+  font-family: var(--font-label);
+  font-size: 0.82rem;
+  color: var(--amber-dark);
+  font-weight: 700;
+}
+
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--cream-sub);
+  border: 1.5px solid var(--amber-dark);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-family: var(--font-label);
+  font-weight: 700;
+  color: var(--amber-dark);
+}
+
+/* ==========================================================
+   気泡ドット(意匠モチーフ4・グランベリードリンク限定)
+   ========================================================== */
+
+.bubble-zone {
+  position: relative;
+  overflow: hidden;
+}
+
+.bubble-zone .bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--rose);
+  opacity: 0.28;
+}
+
+.bubble-zone .bubble.b1 { width: 18px; height: 18px; left: 6%; top: 18%; }
+.bubble-zone .bubble.b2 { width: 10px; height: 10px; left: 14%; top: 62%; opacity: 0.4; }
+.bubble-zone .bubble.b3 { width: 26px; height: 26px; right: 8%; top: 12%; opacity: 0.2; }
+.bubble-zone .bubble.b4 { width: 12px; height: 12px; right: 16%; top: 70%; opacity: 0.35; }
+.bubble-zone .bubble.b5 { width: 8px; height: 8px; right: 30%; top: 40%; opacity: 0.3; }
+
+/* ==========================================================
+   凝縮グラデーションゾーン(意匠モチーフ5)
+   ========================================================== */
+
+.concentrated-zone {
+  background: linear-gradient(155deg, var(--amber-dark) 0%, var(--deepest) 82%);
+  color: var(--text-on-dark);
+}
+
+.concentrated-zone h2,
+.concentrated-zone h3 { color: var(--text-on-dark); }
+
+.concentrated-zone .section-title::after {
+  background: repeating-linear-gradient(135deg, var(--amber) 0 6px, var(--cream) 6px 12px);
+}
+
+/* ==========================================================
+   共通レイアウト部品
+   ========================================================== */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.center-cta {
+  text-align: center;
+  margin-top: 36px;
+}
+
+.info-line {
+  font-family: var(--font-label);
+  font-size: 0.95rem;
+  color: var(--amber-dark);
+}
+
+table.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--cream-sub);
+}
+
+table.info-table th,
+table.info-table td {
+  text-align: left;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--amber);
+  vertical-align: top;
+}
+
+table.info-table th {
+  font-family: var(--font-label);
+  color: var(--amber-dark);
+  width: 32%;
+  white-space: nowrap;
+}
+
+table.info-table tr:last-child th,
+table.info-table tr:last-child td { border-bottom: none; }
+
+.map-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  filter: sepia(12%) saturate(115%);
+}
+
+.map-frame.short { aspect-ratio: 21 / 9; }
+
+/* ==========================================================
+   フッター
+   ========================================================== */
+
+.site-footer {
+  background: var(--amber-dark);
+  color: var(--text-on-dark);
+  margin-top: 0;
+}
+
+.footer-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 56px 24px 32px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.4fr auto;
+  gap: 36px;
+}
+
+.footer-brand .logo-mark { color: var(--text-on-dark); }
+.footer-brand p { color: var(--cream); font-size: 0.88rem; }
+
+.footer-nav h3,
+.footer-info h3 {
+  color: var(--text-on-dark);
+  font-family: var(--font-label);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+}
+
+.footer-nav ul li { margin-bottom: 10px; }
+.footer-nav a { font-size: 0.9rem; color: var(--cream); }
+
+.footer-info p { font-size: 0.88rem; color: var(--cream); margin-bottom: 8px; }
+.footer-info a { text-decoration: underline; }
+
+.footer-rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--cream);
+  padding: 16px 0 28px;
+  margin: 0;
+  border-top: 1px solid rgba(248,240,221,0.2);
+}
+
+/* ==========================================================
+   スマホ固定CTAバー
+   ========================================================== */
+
+.mobile-cta-bar {
+  display: none;
+}
+
+/* ==========================================================
+   SAMPLEバッジ / 写真注記バナー(全ページ必須)
+   ========================================================== */
+
+.hp-sample-badge {
+  position: fixed;
+  top: 18px;
+  right: -52px;
+  width: 190px;
+  padding: 7px 0;
+  background: #C0392B;
+  color: #fff;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-align: center;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.hp-photo-note {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 800;
+  background: var(--deepest);
+  color: var(--text-on-dark);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  text-align: center;
+  padding: 8px 44px;
+}
+
+/* ==========================================================
+   レスポンシブ
+   ========================================================== */
+
+@media (max-width: 900px) {
+  .global-nav {
+    position: absolute;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    background: var(--amber-dark);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+
+  .global-nav.is-open { max-height: 320px; }
+
+  .global-nav ul {
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 24px 20px;
+  }
+
+  .global-nav a {
+    display: block;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(248,240,221,0.15);
+  }
+
+  .hamburger { display: flex; }
+
+  .header-tel-text { display: none; }
+  .header-tel { padding: 8px 10px; }
+
+  .grid-2 { grid-template-columns: 1fr; gap: 28px; }
+  .grid-3 { grid-template-columns: 1fr; }
+
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+
+  body { padding-bottom: 98px; } /* photo-note + mobile cta */
+
+  .mobile-cta-bar {
+    display: flex;
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 900;
+    border-top: 2px solid var(--amber-dark);
+  }
+
+  .mobile-cta-bar a {
+    flex: 1;
+    text-align: center;
+    background: var(--amber);
+    color: var(--deepest);
+    font-family: var(--font-label);
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 13px 4px;
+    border-right: 1px solid var(--amber-dark);
+  }
+
+  .mobile-cta-bar a:last-child { border-right: none; }
+
+  .hp-photo-note {
+    bottom: 52px;
+    padding: 6px 20px;
+    font-size: 0.66rem;
+  }
+
+  .hp-sample-badge {
+    top: 10px;
+    right: -56px;
+    width: 170px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 640px) {
+  section { padding: 48px 0; }
+  .hero-inner { padding: 48px 0 32px; }
+  .weekend-stamp { width: 96px; height: 96px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  table.info-table th { width: 38%; }
+}
+
+@media (min-width: 901px) {
+  .global-nav ul { align-items: center; }
+}
