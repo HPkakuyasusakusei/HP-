@@ -1,0 +1,651 @@
+@charset "UTF-8";
+/* お好み焼き こけこっこ ― 畳緑と未舗装路地の裸電球 */
+
+@import url("https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap");
+
+:root {
+  --bg: #EFE7D8;
+  --green: #8B9574;
+  --green-dark: #74805f;
+  --brown: #463726;
+  --accent: #C97C3D;
+  --sub: #5B6B73;
+  --mustard: #D8A93E;
+  --card-bg: #FBF8F1;
+  --max-width: 1080px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--brown);
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 56px; /* 下部固定の写真注記バナー分の余白 */
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+h1, h2, h3, h4 {
+  font-family: "Shippori Mincho", serif;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0 0 .6em;
+}
+
+p { margin: 0 0 1em; }
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ==================== 共通パーツ：SAMPLEバッジ ==================== */
+.hp-sample-badge {
+  position: fixed;
+  top: 18px;
+  right: -46px;
+  z-index: 9999;
+  background: #c0392b;
+  color: #fff;
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .12em;
+  padding: 6px 52px;
+  transform: rotate(38deg);
+  box-shadow: 0 2px 6px rgba(0,0,0,.35);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ==================== 共通パーツ：写真注記バナー ==================== */
+.hp-photo-note {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9998;
+  background: rgba(70, 55, 38, .92);
+  color: #F5EFE2;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+  padding: 8px 12px;
+}
+
+/* ==================== ヘッダー ==================== */
+.site-header {
+  background: var(--bg);
+  border-bottom: 3px solid var(--green);
+  position: sticky;
+  top: 0;
+  z-index: 500;
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 20px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.logo {
+  font-family: "Shippori Mincho", serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--brown);
+  text-decoration: none;
+  border-bottom: 3px solid var(--green);
+  padding-bottom: 2px;
+}
+
+.logo small {
+  display: block;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--sub);
+  letter-spacing: .06em;
+}
+
+.header-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.site-nav {
+  width: 100%;
+  order: 3;
+  border-top: 1px solid rgba(139,149,116,.4);
+  margin-top: 8px;
+}
+
+.site-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  justify-content: center;
+}
+
+.site-nav a {
+  display: block;
+  text-decoration: none;
+  color: var(--brown);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  background: var(--green);
+  color: #fff;
+}
+
+/* ==================== ヒーロー ==================== */
+.hero {
+  position: relative;
+  color: #fff;
+  background: linear-gradient(rgba(38,30,20,.62), rgba(38,30,20,.62)), var(--brown) center/cover no-repeat;
+  padding: 64px 20px 56px;
+  text-align: center;
+}
+
+.hero.has-photo { background-image: linear-gradient(rgba(35,27,18,.6), rgba(35,27,18,.68)), url("images/hero_okonomiyaki.jpg"); background-size: cover; background-position: center; }
+
+.hero__catch {
+  font-size: 26px;
+  margin-bottom: .5em;
+}
+
+.hero__sub {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 1.2em;
+  color: #F3EEDF;
+}
+
+.hero__lead {
+  max-width: 640px;
+  margin: 0 auto 1.6em;
+  font-size: 14px;
+  text-align: left;
+  background: rgba(20, 16, 10, .38);
+  padding: 14px 16px;
+  border-radius: 6px;
+}
+
+.cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  border: 2px solid transparent;
+}
+
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-outline { background: transparent; color: #fff; border-color: #fff; }
+.btn-outline.on-light { color: var(--brown); border-color: var(--brown); }
+
+/* ==================== 汎用セクション ==================== */
+.section { padding: 48px 0; }
+.section--green {
+  background: var(--green);
+  color: #fff;
+}
+.section--green h2 { color: #fff; }
+
+.section-title {
+  font-size: 22px;
+  text-align: center;
+  position: relative;
+  margin-bottom: .3em;
+}
+
+.section-lead {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2em;
+  font-size: 14px;
+}
+
+.section-kicker {
+  display: block;
+  text-align: center;
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: .2em;
+  font-weight: 700;
+  margin-bottom: .5em;
+}
+
+.section--green .section-kicker { color: var(--mustard); }
+
+/* 畳の目風の区切り線 */
+.tatami-divider {
+  height: 10px;
+  background-image: repeating-linear-gradient(90deg, var(--green) 0 26px, var(--green-dark) 26px 28px);
+  opacity: .55;
+}
+
+/* ==================== カード群(3つの強み等) ==================== */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid rgba(70,55,38,.15);
+  border-radius: 8px;
+  padding: 22px 20px;
+  text-align: center;
+}
+
+.card__icon {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.card h3 {
+  font-size: 16px;
+  margin-bottom: .5em;
+}
+
+.card p { font-size: 13.5px; margin-bottom: 0; }
+
+/* ==================== メニュー抜粋／メニューページ ==================== */
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.menu-item {
+  background: var(--card-bg);
+  border: 1px solid rgba(70,55,38,.15);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item__photo {
+  aspect-ratio: 4/3;
+  width: 100%;
+  object-fit: cover;
+  border-bottom: 3px solid var(--green);
+}
+
+.menu-item__photo.is-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(45deg, #ded3ba, #ded3ba 10px, #d4c8ac 10px, #d4c8ac 20px);
+  color: var(--brown);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.menu-item__body { padding: 16px 18px 18px; }
+
+.menu-item__name {
+  font-family: "Shippori Mincho", serif;
+  font-weight: 700;
+  font-size: 17px;
+  margin-bottom: .4em;
+}
+
+.menu-item__desc { font-size: 13.5px; margin-bottom: .7em; }
+
+.price-placeholder {
+  display: inline-block;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  padding: 3px 8px;
+}
+
+.menu-category { padding-top: 8px; }
+.menu-category__intro {
+  max-width: 680px;
+  margin: 0 auto 24px;
+  font-size: 14px;
+  background: var(--card-bg);
+  border-left: 4px solid var(--green);
+  padding: 14px 16px;
+}
+
+.price-note {
+  text-align: center;
+  font-size: 13px;
+  color: var(--sub);
+  margin-top: 12px;
+}
+
+/* ドリンクセクション：写真なしのCSSグラフィック */
+.drink-art {
+  width: 84px;
+  height: 100px;
+  margin: 0 auto 14px;
+  border-radius: 6px 6px 30px 30px / 6px 6px 40px 40px;
+  background: linear-gradient(180deg, #bfe3c9 0%, #7fbf94 55%, #5aa172 100%);
+  border: 3px solid var(--brown);
+  position: relative;
+}
+.drink-art::after {
+  content: "";
+  position: absolute;
+  top: 10px; left: 10px; right: 10px;
+  height: 14px;
+  border-radius: 50%;
+  background: #eaf7ee;
+  opacity: .7;
+}
+
+/* こだわり調味料コラム(からし黄 使用箇所) */
+.column-box {
+  background: var(--card-bg);
+  border: 2px dashed var(--mustard);
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.column-box h3 {
+  color: var(--mustard);
+  font-size: 17px;
+}
+
+/* ==================== お客様の声 ==================== */
+.review-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.review-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(70,55,38,.15);
+  border-left: 4px solid var(--sub);
+  border-radius: 6px;
+  padding: 18px 20px;
+}
+
+.stars { color: var(--accent); font-size: 15px; letter-spacing: 2px; margin-bottom: 6px; }
+.review-label { font-size: 12.5px; color: var(--sub); font-weight: 700; margin-bottom: 8px; }
+.review-text { font-size: 13.5px; margin-bottom: 0; }
+
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card-bg);
+  border: 1px solid rgba(70,55,38,.2);
+  border-radius: 30px;
+  padding: 10px 18px;
+  margin: 12px auto 0;
+}
+.rating-badge__score { font-size: 22px; font-weight: 700; color: var(--accent); font-family: "Shippori Mincho", serif; }
+.rating-badge__meta { font-size: 12px; color: var(--sub); text-align: left; line-height: 1.4; }
+
+.review-source-note {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--sub);
+  max-width: 640px;
+  margin: 20px auto 0;
+}
+
+/* ==================== アクセスページ ==================== */
+.page-hero {
+  position: relative;
+  color: #fff;
+  padding: 40px 20px;
+  text-align: center;
+  background: linear-gradient(rgba(35,27,18,.65), rgba(35,27,18,.72)), var(--brown) center/cover no-repeat;
+}
+.page-hero.access-bg { background-image: linear-gradient(rgba(35,27,18,.62), rgba(35,27,18,.72)), url("images/access_alley.jpg"); background-size: cover; background-position: center; }
+.page-hero.about-bg { background-image: linear-gradient(rgba(35,27,18,.55), rgba(35,27,18,.72)), url("images/about_tatami.jpg"); background-size: cover; background-position: center 65%; }
+.page-hero h1 { color: #fff; font-size: 24px; margin-bottom: .3em; }
+.page-hero p { color: #F3EEDF; font-size: 13.5px; margin: 0; }
+
+.map-frame {
+  border: 3px solid var(--brown);
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 16/10;
+}
+.map-frame iframe { width: 100%; height: 100%; border: 0; }
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border: 1px solid rgba(70,55,38,.15);
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 14px;
+}
+.info-table th, .info-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(70,55,38,.12);
+  vertical-align: top;
+}
+.info-table th {
+  width: 92px;
+  background: rgba(139,149,116,.18);
+  color: var(--brown);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.info-table tr:last-child th, .info-table tr:last-child td { border-bottom: none; }
+.info-table a.tel-link { color: var(--accent); font-weight: 700; text-decoration: none; }
+
+.notice-box {
+  background: var(--card-bg);
+  border-left: 4px solid var(--accent);
+  padding: 14px 16px;
+  font-size: 13.5px;
+  max-width: 720px;
+  margin: 20px auto 0;
+}
+
+/* FAQ (details/summary, JS不要) */
+.faq { max-width: 760px; margin: 0 auto; }
+.faq-item {
+  background: var(--card-bg);
+  border: 1px solid rgba(70,55,38,.15);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  padding: 4px 16px;
+}
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14.5px;
+  padding: 12px 0;
+  list-style: none;
+  position: relative;
+  padding-right: 24px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 0; top: 10px;
+  font-size: 18px;
+  color: var(--accent);
+}
+.faq-item[open] summary::after { content: "－"; }
+.faq-item .faq-a {
+  font-size: 13.5px;
+  padding: 0 0 14px;
+  margin: 0;
+  color: var(--brown);
+}
+
+/* 砂利駐車場のCSSテクスチャ */
+.gravel-note {
+  border-radius: 6px;
+  padding: 14px 16px;
+  background-color: #ded2b6;
+  background-image: radial-gradient(circle at 20% 30%, rgba(70,55,38,.18) 0 3px, transparent 4px),
+                     radial-gradient(circle at 60% 70%, rgba(70,55,38,.16) 0 2px, transparent 3px),
+                     radial-gradient(circle at 80% 20%, rgba(70,55,38,.16) 0 2.5px, transparent 3px),
+                     radial-gradient(circle at 40% 85%, rgba(70,55,38,.14) 0 2px, transparent 3px);
+  font-size: 13px;
+}
+
+/* ==================== 女将さんストーリー(aboutページ) ==================== */
+.story-block { max-width: 760px; margin: 0 auto 36px; }
+.story-block h3 {
+  font-size: 18px;
+  border-bottom: 2px solid var(--green);
+  display: inline-block;
+  padding-bottom: 4px;
+  margin-bottom: .8em;
+}
+.story-block p { font-size: 14.5px; }
+
+.flow-steps {
+  list-style: none;
+  counter-reset: flow;
+  padding: 0;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.flow-steps li {
+  counter-increment: flow;
+  position: relative;
+  padding: 10px 0 10px 44px;
+  font-size: 14px;
+  border-bottom: 1px dashed rgba(70,55,38,.25);
+}
+.flow-steps li::before {
+  content: counter(flow);
+  position: absolute;
+  left: 0; top: 8px;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Shippori Mincho", serif;
+}
+
+/* ==================== フッター ==================== */
+.site-footer {
+  background: var(--brown);
+  color: #F1E9D8;
+  padding: 40px 20px 30px;
+  font-size: 13px;
+}
+.site-footer .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  justify-content: space-between;
+}
+.footer-shop h2 {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: .3em;
+}
+.footer-shop p { margin: 0 0 .3em; color: #E4D9C2; }
+.footer-nav ul { list-style: none; margin: 0; padding: 0; }
+.footer-nav a { text-decoration: none; color: #E4D9C2; display: inline-block; padding: 3px 0; }
+.footer-cta .btn { margin-top: 6px; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.15);
+  margin-top: 24px;
+  padding-top: 16px;
+  text-align: center;
+  color: #C9BDA2;
+  font-size: 11.5px;
+}
+
+/* ==================== レスポンシブ ==================== */
+@media (min-width: 768px) {
+  body { padding-bottom: 40px; }
+
+  .site-header__inner { flex-wrap: nowrap; }
+  .site-nav { order: 2; width: auto; border-top: none; margin-top: 0; }
+  .site-nav ul { padding-top: 0; }
+  .header-phone { order: 3; }
+
+  .hero { padding: 96px 20px 84px; }
+  .hero__catch { font-size: 36px; }
+  .hero__sub { font-size: 18px; }
+  .hero__lead { font-size: 15px; padding: 18px 22px; }
+
+  .cards { grid-template-columns: repeat(3, 1fr); }
+  .menu-grid { grid-template-columns: repeat(2, 1fr); }
+  .menu-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .review-grid { grid-template-columns: repeat(2, 1fr); }
+  .review-grid.top-excerpt { grid-template-columns: repeat(3, 1fr); }
+
+  .section-title { font-size: 28px; }
+  .page-hero h1 { font-size: 32px; }
+
+  .info-table th { width: 130px; }
+
+  .hp-sample-badge { top: 22px; right: -54px; font-size: 14px; padding: 7px 60px; }
+}
+
+@media (min-width: 1024px) {
+  .hero__catch { font-size: 42px; }
+}
