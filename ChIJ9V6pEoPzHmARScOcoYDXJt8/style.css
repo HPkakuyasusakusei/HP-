@@ -1,0 +1,672 @@
+/* La Cloche(ラ・クロッシェ) 試作HP スタイル
+   配色: クロワッサン・クリーム / スモーク・ブラウン / リヴァー・インク / ベル・パティナ / バゲット・キャラメル / マカロン・ダスティローズ */
+
+:root {
+  --cream: #F6EFE2;
+  --brown: #3A322A;
+  --river: #2E4A4F;
+  --patina: #7E9B82;
+  --caramel: #C98B4B;
+  --rose: #D99A94;
+  --sample: #5E7A68;
+
+  --font-en: 'Cormorant Garamond', serif;
+  --font-jp-heading: 'Zen Old Mincho', serif;
+  --font-body: 'Zen Maru Gothic', sans-serif;
+
+  --max-width: 1120px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--brown);
+  font-family: var(--font-body);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-heading {
+  font-family: var(--font-jp-heading);
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--river);
+  margin: 0 0 20px;
+  letter-spacing: 0.02em;
+}
+
+.section-heading--center { text-align: center; }
+
+.section-body {
+  margin: 0 0 20px;
+  font-size: 0.98rem;
+}
+
+/* ---------- お知らせバナー ---------- */
+.photo-note {
+  margin: 0;
+  background: var(--river);
+  color: var(--cream);
+  text-align: center;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  padding: 8px 46px 8px 12px;
+}
+
+/* ---------- SAMPLEバッジ ---------- */
+/* 注: ハンバーガーボタン(.nav-toggle)が表示される820px未満では
+   リボンを小さく保ち、拡大(820px以上)はボタンがdisplay:noneになる
+   タイミングに揃えて重なりを構造的に防止する */
+.sample-badge {
+  position: fixed;
+  top: 10px;
+  right: -36px;
+  z-index: 500;
+  background: var(--sample);
+  color: #fff;
+  font-family: var(--font-en);
+  font-weight: 600;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  padding: 3px 30px;
+  transform: rotate(35deg);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  pointer-events: none;
+}
+
+@media (min-width: 820px) {
+  .sample-badge {
+    top: 18px;
+    right: -38px;
+    font-size: 0.85rem;
+    padding: 5px 46px;
+  }
+}
+
+/* ---------- ヘッダー ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 400;
+  background: rgba(246, 239, 226, 0.92);
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid rgba(46, 74, 79, 0.12);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-bell {
+  width: 22px;
+  height: 22px;
+  fill: var(--river);
+  flex-shrink: 0;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo-en {
+  font-family: var(--font-en);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--river);
+}
+
+.logo-jp {
+  font-family: var(--font-jp-heading);
+  font-size: 0.62rem;
+  color: var(--brown);
+  letter-spacing: 0.08em;
+}
+
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  /* SAMPLEリボン(fixed, 右上)と重ならないよう右側に余白を確保 */
+  margin-right: 56px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--river);
+  border-radius: 2px;
+}
+
+.site-nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(46, 74, 79, 0.12);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+.site-nav.is-open {
+  max-height: 320px;
+}
+
+.site-nav a {
+  padding: 14px 20px;
+  font-size: 0.92rem;
+  border-top: 1px solid rgba(46, 74, 79, 0.08);
+}
+
+@media (min-width: 820px) {
+  .nav-toggle { display: none; }
+
+  .site-nav {
+    position: static;
+    flex-direction: row;
+    max-height: none;
+    overflow: visible;
+    background: none;
+    border: none;
+    gap: 28px;
+  }
+
+  .site-nav a {
+    padding: 0;
+    border: none;
+    font-size: 0.9rem;
+    position: relative;
+  }
+
+  .site-nav a:hover { color: var(--caramel); }
+}
+
+/* ---------- ヒーロー ---------- */
+.hero {
+  position: relative;
+  min-height: 86vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(126,155,130,0.35), transparent 55%),
+    radial-gradient(circle at 82% 78%, rgba(201,139,75,0.25), transparent 50%),
+    linear-gradient(160deg, #1f363a 0%, var(--river) 45%, #3c5c58 100%);
+}
+
+.hero-texture {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image: repeating-linear-gradient(
+    115deg,
+    rgba(246,239,226,0.05) 0px,
+    rgba(246,239,226,0.05) 2px,
+    transparent 2px,
+    transparent 34px
+  );
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 90px 24px 64px;
+  text-align: center;
+  color: var(--cream);
+}
+
+.hero-bell {
+  width: 34px;
+  height: 34px;
+  fill: var(--rose);
+  margin-bottom: 18px;
+}
+
+.hero-title {
+  font-family: var(--font-jp-heading);
+  font-weight: 700;
+  font-size: 1.55rem;
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+
+.hero-sub {
+  font-family: var(--font-en);
+  font-size: 1.1rem;
+  letter-spacing: 0.18em;
+  margin: 0 0 16px;
+  color: var(--rose);
+}
+
+.hero-tagline {
+  font-size: 0.92rem;
+  margin: 0 0 24px;
+  color: rgba(246,239,226,0.9);
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.badge-pill {
+  border: 1px solid rgba(246,239,226,0.5);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  color: var(--cream);
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* ---------- ボタン共通 ---------- */
+.btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--caramel);
+  color: #fff;
+}
+
+.btn-primary:hover { opacity: 0.88; }
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--cream);
+  color: var(--cream);
+}
+
+.btn-outline:hover { background: rgba(246,239,226,0.12); }
+
+.btn-disabled {
+  background: rgba(58,50,42,0.08);
+  color: rgba(58,50,42,0.45);
+  border: 1px dashed rgba(58,50,42,0.25);
+  cursor: not-allowed;
+}
+
+/* ---------- 画像プレースホルダー共通 ---------- */
+.img-placeholder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-placeholder--concept {
+  background:
+    linear-gradient(135deg, rgba(126,155,130,0.55), transparent 60%),
+    linear-gradient(315deg, rgba(201,139,75,0.4), transparent 55%),
+    var(--river);
+}
+
+.img-placeholder--drink {
+  aspect-ratio: 4 / 3;
+  background:
+    linear-gradient(135deg, rgba(217,154,148,0.55), transparent 65%),
+    var(--patina);
+}
+
+.img-placeholder--story {
+  background:
+    linear-gradient(135deg, rgba(201,139,75,0.45), transparent 60%),
+    linear-gradient(315deg, rgba(46,74,79,0.5), transparent 55%),
+    var(--cream);
+}
+
+.placeholder-label {
+  background: rgba(58,50,42,0.55);
+  color: var(--cream);
+  font-size: 0.72rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- S2 コンセプト ---------- */
+.concept { padding: 56px 0; }
+
+.concept-grid {
+  display: grid;
+  gap: 32px;
+}
+
+.feature-badges {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature-badges li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  background: rgba(126,155,130,0.14);
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+
+.feature-icon {
+  color: var(--patina);
+  font-weight: 700;
+}
+
+@media (min-width: 820px) {
+  .concept-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 56px;
+  }
+}
+
+/* ---------- S3 ストーリー ---------- */
+.story {
+  background: rgba(126,155,130,0.1);
+  padding: 56px 0;
+}
+
+.story-grid {
+  display: grid;
+  gap: 28px;
+}
+
+.story-media img {
+  border-radius: 6px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+@media (min-width: 820px) {
+  .story-grid {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: center;
+    gap: 56px;
+  }
+}
+
+/* ---------- S4 メニュー ---------- */
+.menu { padding: 56px 0; }
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+@media (min-width: 560px) {
+  .menu-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1000px) {
+  .menu-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.menu-card {
+  background: #fff;
+  border: 1px solid rgba(46,74,79,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-card-media img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.menu-card-title {
+  font-family: var(--font-jp-heading);
+  font-size: 1rem;
+  color: var(--river);
+  margin: 14px 16px 8px;
+}
+
+.menu-card-desc {
+  font-size: 0.82rem;
+  margin: 0 16px 12px;
+  flex-grow: 1;
+}
+
+.menu-card-price {
+  font-size: 0.78rem;
+  color: var(--caramel);
+  margin: 0 16px 16px;
+  font-weight: 500;
+}
+
+.menu-note {
+  font-size: 0.76rem;
+  color: rgba(58,50,42,0.65);
+  text-align: center;
+  margin: 0 0 8px;
+}
+
+.menu-takeout {
+  font-size: 0.88rem;
+  text-align: center;
+  color: var(--river);
+  font-weight: 500;
+  margin: 0;
+}
+
+/* ---------- S5 お客様の声 ---------- */
+.reviews {
+  background: var(--river);
+  color: var(--cream);
+  padding: 56px 0;
+}
+
+.reviews .section-heading { color: var(--cream); }
+
+.review-rating {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--rose);
+  margin: 0 0 30px;
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 700px) {
+  .review-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.review-card {
+  margin: 0;
+  background: rgba(246,239,226,0.08);
+  border: 1px solid rgba(246,239,226,0.18);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.review-source {
+  font-size: 0.72rem;
+  color: var(--rose);
+  margin: 0 0 10px;
+  letter-spacing: 0.04em;
+}
+
+.review-quote {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.8;
+}
+
+.review-footnote {
+  text-align: center;
+  font-size: 0.72rem;
+  color: rgba(246,239,226,0.6);
+  margin: 30px 0 0;
+}
+
+/* ---------- S6 アクセス ---------- */
+.access { padding: 56px 0; }
+
+.access-grid {
+  display: grid;
+  gap: 32px;
+}
+
+.access-table {
+  margin: 0 0 24px;
+}
+
+.access-row {
+  display: grid;
+  grid-template-columns: 4.6em 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(46,74,79,0.12);
+  font-size: 0.86rem;
+}
+
+.access-row dt {
+  color: var(--river);
+  font-weight: 700;
+}
+
+.access-row dd { margin: 0; }
+
+.access-map iframe {
+  width: 100%;
+  height: 280px;
+  border: 0;
+  border-radius: 6px;
+}
+
+@media (min-width: 820px) {
+  .access-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+  }
+
+  .access-map iframe { height: 100%; min-height: 320px; }
+}
+
+/* ---------- S7 お問い合わせ ---------- */
+.contact {
+  background: rgba(201,139,75,0.12);
+  padding: 56px 0;
+}
+
+.contact-inner { text-align: center; max-width: 640px; }
+
+.contact-body {
+  font-size: 0.9rem;
+  margin: 0 0 28px;
+}
+
+.contact-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.contact-note {
+  font-size: 0.78rem;
+  color: rgba(58,50,42,0.7);
+  margin: 0;
+}
+
+/* ---------- フッター ---------- */
+.site-footer {
+  background: var(--brown);
+  color: rgba(246,239,226,0.85);
+  padding: 36px 0 28px;
+  font-size: 0.76rem;
+  text-align: center;
+}
+
+.footer-inner p { margin: 0 0 10px; }
+
+.footer-store { font-weight: 700; color: var(--cream); }
+
+.footer-disclaimer { color: var(--rose); }
+
+.footer-copyright {
+  margin-top: 16px;
+  color: rgba(246,239,226,0.5);
+}
