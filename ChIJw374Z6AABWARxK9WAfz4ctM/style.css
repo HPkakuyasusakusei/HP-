@@ -1,0 +1,816 @@
+/* ===================================================================
+   hair dressing salon cassia — 「潮色帖(しおいろちょう)」
+   染色×入り江の情景。配色軸: 深藍 / 貝殻色 / 鈍い真鍮金
+   =================================================================== */
+
+:root {
+  /* 配色トークン(潮色帖) */
+  --color-ink: #1e2e44;          /* 深藍(ベース) */
+  --color-ink-deep: #121c2c;     /* より深い藍(フッター・最終CTA) */
+  --color-ink-mid: #39506f;      /* 中間の藍(グラデーション用) */
+  --color-shell: #ece9e1;        /* 貝殻色(サブ背景・灰みの白) */
+  --color-shell-deep: #ddd8c9;   /* やや濃い貝殻色(カード境界など) */
+  --color-brass: #ad8a54;        /* 鈍い真鍮金(アクセント) */
+  --color-brass-deep: #8a6c3e;   /* 濃い真鍮(ホバー等) */
+  --color-brass-pale: #cdb686;   /* 淡い真鍮(グラデーション中間) */
+  --color-text: #1e2e44;         /* 本文見出し(藍) */
+  --color-text-soft: #46566d;    /* 本文(やわらかい藍グレー) */
+  --color-text-on-ink: #ece9e1;  /* 藍背景上の文字(貝殻色) */
+  --color-text-on-ink-soft: #b9c2d1; /* 藍背景上の補助文字 */
+  --color-line: rgba(30, 46, 68, 0.14);
+
+  --gradient-tide: linear-gradient(
+    115deg,
+    var(--color-ink) 0%,
+    var(--color-ink-mid) 32%,
+    #8b8f84 55%,
+    var(--color-brass-pale) 78%,
+    var(--color-brass) 100%
+  );
+
+  --font-serif: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+
+  --max-width: 1120px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-text-soft);
+  background: var(--color-shell);
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 3.4rem; /* hp-photo-note の固定バナー分の余白 */
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  color: var(--color-text);
+  line-height: 1.5;
+  margin: 0 0 0.9em;
+}
+
+p {
+  margin: 0 0 1.2em;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------
+   SAMPLEバッジ(右上固定・赤いリボン)
+   --------------------------------------------------------------- */
+.hp-sample-badge {
+  position: fixed;
+  top: 18px;
+  right: -46px;
+  z-index: 500;
+  background: #c0392b;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 6px 54px;
+  transform: rotate(40deg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------
+   写真プレースホルダー注記バナー(下端固定)
+   --------------------------------------------------------------- */
+.hp-photo-note {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 480;
+  background: var(--color-ink-deep);
+  color: var(--color-text-on-ink);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  text-align: center;
+  padding: 0.5rem 0.8rem;
+}
+
+/* ---------------------------------------------------------------
+   ヘッダー
+   --------------------------------------------------------------- */
+.site-header {
+  background: var(--color-shell);
+  border-bottom: 1px solid var(--color-line);
+  position: sticky;
+  top: 0;
+  z-index: 300;
+}
+
+.site-header__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.8rem 1.1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  line-height: 1.2;
+}
+
+.logo__main {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  letter-spacing: 0.04em;
+}
+
+.logo__sub {
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  color: var(--color-brass-deep);
+  text-transform: uppercase;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  order: 2;
+}
+
+.main-nav {
+  width: 100%;
+  order: 3;
+  overflow-x: auto;
+}
+
+.main-nav__list {
+  display: flex;
+  gap: 1.3rem;
+  padding: 0.5rem 0 0.1rem;
+  border-top: 1px solid var(--color-line);
+  margin-top: 0.4rem;
+  white-space: nowrap;
+}
+
+.main-nav__list a {
+  text-decoration: none;
+  font-size: 0.88rem;
+  color: var(--color-text-soft);
+  padding: 0.2rem 0.1rem;
+  border-bottom: 2px solid transparent;
+}
+
+.main-nav__list a:hover,
+.main-nav__list a[aria-current="page"] {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-brass);
+}
+
+.btn-tel-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--color-ink);
+  color: var(--color-text-on-ink);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.5rem 0.8rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.btn-tel-header:hover {
+  background: var(--color-ink-deep);
+}
+
+.btn-insta-header {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-line);
+  color: var(--color-ink);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.btn-insta-header:hover {
+  border-color: var(--color-brass);
+  color: var(--color-brass-deep);
+}
+
+@media (min-width: 860px) {
+  .site-header__inner {
+    flex-wrap: nowrap;
+    padding: 1rem 1.6rem;
+  }
+  .main-nav {
+    width: auto;
+    order: 1;
+    flex: 1;
+    overflow: visible;
+  }
+  .main-nav__list {
+    border-top: none;
+    margin-top: 0;
+    padding: 0;
+    justify-content: center;
+  }
+  .header-actions {
+    order: 2;
+  }
+}
+
+/* ---------------------------------------------------------------
+   汎用ボタン
+   --------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.85rem 1.6rem;
+  border-radius: 3px;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn--primary {
+  background: var(--color-brass);
+  color: var(--color-ink-deep);
+}
+
+.btn--primary:hover {
+  background: var(--color-brass-deep);
+  color: #fff;
+}
+
+.btn--outline-light {
+  background: transparent;
+  border-color: rgba(236, 233, 225, 0.6);
+  color: var(--color-text-on-ink);
+}
+
+.btn--outline-light:hover {
+  border-color: var(--color-text-on-ink);
+  background: rgba(236, 233, 225, 0.1);
+}
+
+.btn--outline-dark {
+  background: transparent;
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+.btn--outline-dark:hover {
+  background: var(--color-ink);
+  color: var(--color-text-on-ink);
+}
+
+.btn--large {
+  padding: 1.25rem 2.4rem;
+  font-size: 1.15rem;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+/* ---------------------------------------------------------------
+   セクション共通(色見本帖的な背景トーンの変化)
+   --------------------------------------------------------------- */
+.section {
+  padding: 3.4rem 1.1rem;
+}
+
+.section__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section--shell {
+  background: var(--color-shell);
+}
+
+.section--shell-deep {
+  background: var(--color-shell-deep);
+}
+
+.section--ink {
+  background: var(--color-ink);
+  color: var(--color-text-on-ink-soft);
+}
+
+.section--ink h1,
+.section--ink h2,
+.section--ink h3 {
+  color: var(--color-text-on-ink);
+}
+
+.section--brass-tint {
+  background: linear-gradient(180deg, var(--color-shell) 0%, #e4dcc7 100%);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  color: var(--color-brass-deep);
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+}
+
+.section--ink .eyebrow {
+  color: var(--color-brass-pale);
+}
+
+.section-lead {
+  max-width: 640px;
+}
+
+@media (min-width: 860px) {
+  .section {
+    padding: 5.2rem 1.6rem;
+  }
+}
+
+/* ---------------------------------------------------------------
+   色見本タイル帯(ヒーロー代替)
+   --------------------------------------------------------------- */
+.tide-band {
+  display: flex;
+  height: 10px;
+  width: 100%;
+}
+
+.tide-band__tile {
+  flex: 1;
+}
+
+.hero {
+  background: var(--color-ink);
+  color: var(--color-text-on-ink-soft);
+  padding-bottom: 0;
+}
+
+.hero__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3.2rem 1.1rem 2.6rem;
+  display: grid;
+  gap: 2.2rem;
+}
+
+.hero__copy h1 {
+  color: var(--color-text-on-ink);
+  font-size: 1.9rem;
+  margin-bottom: 0.9rem;
+}
+
+.hero__lead {
+  white-space: pre-line;
+  color: var(--color-text-on-ink-soft);
+}
+
+.hero__caption {
+  font-size: 0.82rem;
+  color: var(--color-brass-pale);
+  letter-spacing: 0.03em;
+  margin: 0;
+  padding: 0.7rem 1.1rem 1.1rem;
+  text-align: center;
+}
+
+.hero__swatch {
+  background: var(--gradient-tide);
+  min-height: 160px;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__swatch img {
+  position: absolute;
+  right: 0.9rem;
+  bottom: 0.9rem;
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  border: 3px solid var(--color-shell);
+  border-radius: 2px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+@media (min-width: 860px) {
+  .hero__inner {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    padding: 4.6rem 1.6rem 3.6rem;
+  }
+  .hero__copy h1 {
+    font-size: 2.5rem;
+  }
+  .hero__caption {
+    padding: 0.8rem 1.6rem 1.3rem;
+  }
+}
+
+/* ---------------------------------------------------------------
+   非対称2軸ブロック(feature block)
+   --------------------------------------------------------------- */
+.feature-block {
+  display: grid;
+  gap: 1.6rem;
+  align-items: center;
+  margin-bottom: 3.2rem;
+}
+
+.feature-block:last-child {
+  margin-bottom: 0;
+}
+
+.feature-block__media img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.feature-block__media--swatch {
+  background: var(--gradient-tide);
+  height: 230px;
+  border-radius: 3px;
+}
+
+.feature-block__num {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  color: var(--color-brass-deep);
+  letter-spacing: 0.1em;
+}
+
+@media (min-width: 860px) {
+  .feature-block {
+    grid-template-columns: 1fr 1fr;
+    gap: 3.2rem;
+  }
+  .feature-block--reverse .feature-block__media {
+    order: 2;
+  }
+  .feature-block--reverse .feature-block__text {
+    order: 1;
+  }
+  .feature-block__media img,
+  .feature-block__media--swatch {
+    height: 320px;
+  }
+}
+
+/* ---------------------------------------------------------------
+   色見本カード(クチコミ・メニュー)
+   --------------------------------------------------------------- */
+.swatch-grid {
+  display: grid;
+  gap: 1.3rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .swatch-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .swatch-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.swatch-card {
+  background: var(--color-shell);
+  border: 1px solid var(--color-shell-deep);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.swatch-card__tab {
+  height: 10px;
+}
+
+.swatch-card__tab--ink { background: var(--color-ink); }
+.swatch-card__tab--brass { background: var(--color-brass); }
+.swatch-card__tab--mid { background: var(--color-ink-mid); }
+.swatch-card__tab--pale { background: var(--color-brass-pale); }
+.swatch-card__tab--deep { background: var(--color-ink-deep); }
+
+.swatch-card__body {
+  padding: 1.4rem 1.3rem 1.6rem;
+}
+
+.swatch-card__label {
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  color: var(--color-brass-deep);
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.swatch-card__text {
+  font-size: 0.92rem;
+  color: var(--color-text-soft);
+  white-space: pre-line;
+}
+
+/* ---------------------------------------------------------------
+   ステップ(縦スクロール・文章+写真交互)
+   --------------------------------------------------------------- */
+.step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.step {
+  display: grid;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.step__media img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.step__num {
+  font-family: var(--font-serif);
+  color: var(--color-brass-deep);
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+
+@media (min-width: 760px) {
+  .step {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+  .step:nth-child(even) .step__media {
+    order: 2;
+  }
+  .step:nth-child(even) .step__text {
+    order: 1;
+  }
+  .step__media img {
+    height: 230px;
+  }
+}
+
+/* ---------------------------------------------------------------
+   メニューテーブル
+   --------------------------------------------------------------- */
+.menu-note {
+  background: var(--color-ink);
+  color: var(--color-text-on-ink);
+  padding: 1rem 1.3rem;
+  border-radius: 3px;
+  font-size: 0.92rem;
+  margin-bottom: 2.2rem;
+}
+
+.menu-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-shell);
+}
+
+.menu-table caption {
+  text-align: left;
+  font-size: 0.8rem;
+  color: var(--color-text-soft);
+  margin-bottom: 0.6rem;
+}
+
+.menu-table th,
+.menu-table td {
+  text-align: left;
+  padding: 0.9rem 0.9rem;
+  border-bottom: 1px solid var(--color-shell-deep);
+  font-size: 0.92rem;
+}
+
+.menu-table thead th {
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  border-bottom: 2px solid var(--color-brass);
+}
+
+.menu-table td.price {
+  color: var(--color-brass-deep);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------
+   アクセスページ専用
+   --------------------------------------------------------------- */
+.map-embed {
+  position: relative;
+  width: 100%;
+  padding-top: 62%;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+}
+
+.map-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.info-grid {
+  display: grid;
+  gap: 1.6rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 760px) {
+  .info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.info-card {
+  background: var(--color-shell);
+  border: 1px solid var(--color-shell-deep);
+  border-radius: 3px;
+  padding: 1.4rem 1.5rem;
+}
+
+.info-card h3 {
+  font-size: 1.02rem;
+  margin-bottom: 0.6rem;
+}
+
+.final-cta {
+  background: var(--color-ink-deep);
+  color: var(--color-text-on-ink);
+  text-align: center;
+}
+
+.final-cta h2 {
+  color: var(--color-text-on-ink);
+  font-size: 1.7rem;
+}
+
+.final-cta .btn--primary {
+  font-size: 1.25rem;
+}
+
+/* ---------------------------------------------------------------
+   フッター
+   --------------------------------------------------------------- */
+.site-footer {
+  background: var(--color-ink-deep);
+  color: var(--color-text-on-ink-soft);
+  padding: 2.6rem 1.1rem 2rem;
+}
+
+.site-footer__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  gap: 1.8rem;
+}
+
+.site-footer h2 {
+  color: var(--color-text-on-ink);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.site-footer__contact {
+  font-size: 0.9rem;
+  line-height: 1.9;
+}
+
+.site-footer__contact a {
+  color: var(--color-brass-pale);
+  text-decoration: none;
+}
+
+.site-footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem 1.4rem;
+  font-size: 0.86rem;
+}
+
+.site-footer__nav a {
+  text-decoration: none;
+  color: var(--color-text-on-ink-soft);
+}
+
+.site-footer__note {
+  font-size: 0.78rem;
+  color: var(--color-text-on-ink-soft);
+  border-top: 1px solid rgba(236, 233, 225, 0.18);
+  padding-top: 1.2rem;
+}
+
+@media (min-width: 760px) {
+  .site-footer__inner {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+
+/* ---------------------------------------------------------------
+   ページ内導入(下層ページ共通ヘッダー帯)
+   --------------------------------------------------------------- */
+.page-intro {
+  background: var(--color-ink);
+  color: var(--color-text-on-ink-soft);
+}
+
+.page-intro__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3rem 1.1rem 2.4rem;
+}
+
+.page-intro h1 {
+  color: var(--color-text-on-ink);
+  font-size: 1.7rem;
+}
+
+@media (min-width: 860px) {
+  .page-intro__inner {
+    padding: 4rem 1.6rem 3rem;
+  }
+  .page-intro h1 {
+    font-size: 2.1rem;
+  }
+}
+
+.media-strip {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 3px;
+  margin: 2rem 0;
+}
+
+@media (min-width: 860px) {
+  .media-strip {
+    height: 260px;
+  }
+}
