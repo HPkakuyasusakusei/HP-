@@ -1,0 +1,195 @@
+/* ============================================================
+   Ｒe Lien
+   配色コンセプト「結び直す糸 ― 杢灰(もくばい)と刺繍銅」
+   ============================================================ */
+
+:root {
+  --moku: #E4DFD4;
+  --tetsu: #36332E;
+  --shudo: #A9623B;
+  --shudo-deep: #8C4E2E;
+  --fuji: #8B7E8C;
+  --cream: #F6F1E7;
+  --text: #2E2B28;
+  --text-soft: #6B6358;
+  --white: #FFFFFF;
+
+  --font-heading: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", sans-serif;
+
+  --max-width: 1120px;
+  --radius-m: 10px;
+  --radius-l: 20px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--moku);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.9;
+  font-size: 16px;
+  background-image: repeating-linear-gradient(90deg, rgba(139,126,140,0.035) 0 2px, transparent 2px 6px);
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+h1, h2, h3 { font-family: var(--font-heading); font-weight: 700; color: var(--tetsu); margin: 0 0 0.6em; line-height: 1.6; }
+p { margin: 0 0 1em; }
+
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 22px; }
+
+/* ---------- SAMPLEバッジ / フリー素材注記 ---------- */
+.hp-sample-badge{position:fixed;top:0;left:0;z-index:2147483647;pointer-events:none;overflow:hidden;width:130px;height:130px;}
+.hp-sample-badge span{position:absolute;display:block;width:180px;padding:6px 0;background:#e63946;color:#fff;font-family:'Helvetica Neue',Arial,'Noto Sans JP',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-align:center;top:26px;left:-42px;transform:rotate(-45deg);box-shadow:0 2px 6px rgba(0,0,0,.25);}
+@media (max-width:480px){.hp-sample-badge{width:100px;height:100px}.hp-sample-badge span{width:140px;font-size:11px;top:20px;left:-34px}}
+.hp-photo-note{position:fixed;left:0;right:0;bottom:0;z-index:2147483646;width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;background:rgba(46,43,40,0.94);color:#fff;font-family:var(--font-body);font-size:13.5px;font-weight:600;line-height:1.5;border-top:3px solid var(--shudo);box-shadow:0 -2px 10px rgba(0,0,0,.25);pointer-events:none;text-align:center;}
+@media (max-width:480px){.hp-photo-note{font-size:12px;padding:9px 10px;}}
+
+/* ---------- ヘッダー ---------- */
+.site-header { background: var(--tetsu); color: var(--cream); position: sticky; top: 0; z-index: 500; }
+.header-inner { max-width: var(--max-width); margin: 0 auto; padding: 14px 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 22px; font-style: italic; font-weight: 600; color: var(--cream); white-space: nowrap; }
+.brand svg { width: 26px; height: 26px; }
+.nav-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; background: transparent; border: 1px solid rgba(255,255,255,.3); border-radius: 8px; cursor: pointer; }
+.nav-toggle span { display: block; height: 2px; background: var(--cream); width: 20px; margin: 0 auto; }
+.header-right { display: flex; align-items: center; gap: 14px; }
+.main-nav ul { display: flex; gap: 24px; }
+.main-nav a { font-size: 13px; letter-spacing: .05em; font-weight: 700; color: var(--cream); padding: 4px 2px; border-bottom: 2px solid transparent; opacity: .85; }
+.main-nav a:hover, .main-nav a[aria-current="page"] { opacity: 1; color: var(--shudo); border-bottom-color: var(--shudo); }
+.phone-btn { display: inline-flex; flex-direction: column; align-items: flex-start; line-height: 1.15; background: var(--shudo); color: var(--cream); padding: 8px 16px; border-radius: var(--radius-m); font-size: 11px; white-space: nowrap; }
+.phone-btn .tel-number { font-family: var(--font-display); font-size: 15px; font-weight: 700; }
+@media (max-width: 860px) {
+  .nav-toggle { display: flex; }
+  .main-nav { display: none; width: 100%; order: 3; border-top: 1px solid rgba(255,255,255,.15); }
+  .main-nav.is-open { display: block; }
+  .main-nav ul { flex-direction: column; gap: 0; padding: 10px 4px 16px; }
+  .main-nav a { display: block; padding: 12px 4px; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .header-inner { flex-wrap: wrap; }
+}
+
+/* ---------- ボタン ---------- */
+.btn { display: inline-block; padding: 14px 32px; border-radius: var(--radius-m); font-weight: 700; font-size: 14px; text-align: center; border: 2px solid transparent; transition: transform .15s, background .15s; }
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--shudo); color: var(--cream); }
+.btn-primary:hover { background: var(--shudo-deep); }
+.btn-outline { background: transparent; color: var(--shudo); border-color: var(--shudo); }
+.btn-outline.on-dark { color: var(--cream); border-color: var(--cream); }
+.btn-outline.on-dark:hover { background: var(--cream); color: var(--tetsu); }
+.btn-outline:hover { background: var(--shudo); color: var(--cream); }
+.btn-lg { padding: 18px 42px; font-size: 16px; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.cta-row.center { justify-content: center; }
+.btn-note { font-size: 12px; color: var(--text-soft); margin-top: 8px; }
+
+/* ---------- ヒーロー ---------- */
+.hero { position: relative; color: var(--cream); }
+.hero-media { position: relative; min-height: 500px; display: flex; align-items: flex-end; }
+.hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(54,51,46,.35) 0%, rgba(54,51,46,.88) 100%); }
+.hero-content { position: relative; z-index: 2; max-width: var(--max-width); margin: 0 auto; padding: 56px 22px 50px; width: 100%; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(246,241,231,.92); color: var(--tetsu); border-radius: 999px; padding: 8px 18px; font-size: 13px; font-weight: 700; margin-bottom: 18px; }
+.hero-badge .stars { color: var(--shudo); letter-spacing: 1px; }
+.hero h1 { color: var(--cream); font-size: clamp(24px, 4.6vw, 38px); max-width: 640px; margin-bottom: 10px; }
+.hero-sub { font-size: 15px; max-width: 540px; margin-bottom: 26px; opacity: .95; }
+@media (max-width: 600px) { .hero-media { min-height: 440px; } .hero-content { padding: 40px 18px 34px; } }
+
+.page-hero { position: relative; color: var(--cream); }
+.page-hero-media { position: relative; min-height: 220px; display: flex; align-items: center; }
+.page-hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.page-hero-media::after { content: ""; position: absolute; inset: 0; background: rgba(54,51,46,.78); }
+.page-hero-content { position: relative; z-index: 2; max-width: var(--max-width); margin: 0 auto; padding: 50px 22px; text-align: center; }
+.page-hero h1 { color: var(--cream); font-size: clamp(26px, 4vw, 34px); margin-bottom: 6px; }
+.page-hero p { margin: 0; font-size: 14px; opacity: .92; }
+
+/* ---------- セクション共通 ---------- */
+.section { padding: 70px 0; }
+.section-alt { background: var(--cream); }
+.section-head { text-align: center; max-width: 660px; margin: 0 auto 40px; }
+.section-head h2 { font-size: clamp(20px, 3.2vw, 27px); }
+.section-head .lead { color: var(--text-soft); font-size: 14.5px; }
+@media (max-width: 600px) { .section { padding: 48px 0; } }
+
+/* ---------- 糸ライン(結び目タイムライン) ---------- */
+.thread-line { position: relative; max-width: 880px; margin: 0 auto; padding-left: 28px; }
+.thread-line::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--fuji); }
+.knot-item { position: relative; padding: 0 0 36px 28px; }
+.knot-item:last-child { padding-bottom: 0; }
+.knot-item::before {
+  content: ""; position: absolute; left: -35px; top: 4px; width: 16px; height: 16px;
+  border-radius: 50%; background: var(--shudo); border: 3px solid var(--moku);
+}
+.knot-item h3 { font-size: 17px; margin-bottom: 6px; }
+.knot-item p { font-size: 14.5px; color: var(--text-soft); margin-bottom: 0; }
+
+/* ---------- コンセプト本文 ---------- */
+.concept-block { max-width: 760px; margin: 0 auto; }
+.concept-block p { font-size: 15.5px; }
+
+/* ---------- カード(メニュー等) ---------- */
+.card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+.menu-cat { background: var(--white); border-radius: var(--radius-l); padding: 26px 28px; box-shadow: 0 10px 26px rgba(54,51,46,.07); }
+.menu-cat-media { border-radius: var(--radius-m); overflow: hidden; aspect-ratio: 16/9; margin-bottom: 16px; }
+.menu-cat-media img { width: 100%; height: 100%; object-fit: cover; }
+.menu-cat h3 { font-family: var(--font-display); font-style: italic; font-size: 20px; margin-bottom: 8px; }
+.menu-cat p { font-size: 14px; color: var(--text-soft); }
+.menu-cat .price-line { display: flex; justify-content: space-between; border-top: 1px solid var(--moku); padding-top: 10px; margin-top: 10px; font-size: 14px; }
+.menu-cat .price-line .price { color: var(--shudo); font-weight: 700; }
+@media (max-width: 680px) { .card-grid { grid-template-columns: 1fr; } }
+
+.notice-box { background: var(--white); border: 1px solid var(--moku); border-left: 4px solid var(--shudo); border-radius: var(--radius-m); padding: 16px 22px; font-size: 13.5px; color: var(--text); margin-bottom: 30px; }
+
+/* ---------- スタイリスト紹介 ---------- */
+.stylist-card { background: var(--white); border-radius: var(--radius-l); padding: 36px 32px; box-shadow: 0 10px 26px rgba(54,51,46,.08); max-width: 640px; margin: 0 auto; text-align: center; }
+.stylist-badge { display: inline-block; font-size: 12px; letter-spacing: .15em; color: var(--shudo); border: 1px solid var(--shudo); border-radius: 999px; padding: 5px 16px; margin-bottom: 14px; }
+.stylist-card p { font-size: 14.5px; color: var(--text-soft); }
+.placeholder-card { max-width: 420px; margin: 40px auto 0; text-align: center; background: var(--white); border: 2px dashed var(--fuji); border-radius: var(--radius-l); padding: 30px 24px; color: var(--text-soft); font-size: 14px; }
+
+/* ---------- お客様の声 ---------- */
+.rating-badge-wrap { text-align: center; margin-bottom: 36px; }
+.rating-badge { display: inline-flex; align-items: baseline; gap: 10px; background: var(--white); border-radius: 999px; padding: 12px 30px; box-shadow: 0 10px 26px rgba(54,51,46,.08); }
+.rating-badge .stars { color: var(--shudo); letter-spacing: 2px; font-size: 16px; }
+.rating-badge .score { font-family: var(--font-display); font-size: 22px; color: var(--tetsu); font-weight: 700; }
+.rating-badge .count { font-size: 13px; color: var(--text-soft); }
+.voice-placeholder { max-width: 520px; margin: 0 auto; text-align: center; background: var(--white); border: 2px dashed var(--fuji); border-radius: var(--radius-l); padding: 30px 24px; color: var(--text-soft); font-size: 14px; }
+
+/* ---------- 店舗情報テーブル ---------- */
+.info-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius-l); overflow: hidden; box-shadow: 0 10px 26px rgba(54,51,46,.08); }
+.info-table th, .info-table td { padding: 18px 22px; text-align: left; font-size: 14.5px; border-bottom: 1px solid var(--moku); }
+.info-table tr:last-child th, .info-table tr:last-child td { border-bottom: none; }
+.info-table th { width: 28%; color: var(--shudo); font-family: var(--font-heading); font-weight: 700; background: var(--cream); }
+.info-table a { color: var(--shudo); font-weight: 700; }
+.info-table .note { display: block; font-size: 12px; color: var(--text-soft); margin-top: 4px; }
+@media (max-width: 560px) {
+  .info-table, .info-table tbody, .info-table tr, .info-table th, .info-table td { display: block; width: 100%; }
+  .info-table th { border-bottom: none; padding-bottom: 4px; }
+  .info-table td { padding-top: 4px; }
+  .info-table tr { padding: 14px 0; border-bottom: 1px solid var(--moku); }
+}
+.map-frame { border-radius: var(--radius-l); overflow: hidden; box-shadow: 0 10px 26px rgba(54,51,46,.08); }
+.map-frame iframe { width: 100%; height: 380px; border: 0; display: block; }
+
+/* ---------- CTA帯 ---------- */
+.cta-band { background: var(--tetsu); color: var(--cream); text-align: center; padding: 58px 22px; }
+.cta-band h2 { color: var(--cream); font-size: clamp(19px, 3.2vw, 25px); }
+.cta-band p { font-size: 14px; opacity: .9; }
+
+/* ---------- フッター ---------- */
+.site-footer { background: var(--tetsu); color: #D8D1C5; padding: 40px 0 0; border-top: 1px solid rgba(255,255,255,.1); }
+.footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 30px; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,.12); }
+.footer-brand { font-family: var(--font-display); font-style: italic; font-size: 19px; color: var(--cream); margin-bottom: 8px; }
+.footer-grid p { font-size: 13px; color: #B9AF9E; }
+.footer-nav a { display: block; font-size: 13px; padding: 6px 0; color: #B9AF9E; }
+.footer-sns a { display: inline-flex; align-items: center; gap: 6px; color: var(--shudo); font-weight: 700; font-size: 13px; }
+.footer-sns .note { display: block; font-size: 11px; color: #9B9284; margin-top: 4px; }
+.footer-notice { max-width: var(--max-width); margin: 0 auto; padding: 20px 22px; font-size: 12px; color: #9B9284; text-align: center; line-height: 1.7; }
+.footer-bottom { text-align: center; font-size: 12px; padding: 14px 22px 26px; color: #857C6E; }
+@media (max-width: 760px) { .footer-grid { grid-template-columns: 1fr; } }
+
+.text-center { text-align: center; }
