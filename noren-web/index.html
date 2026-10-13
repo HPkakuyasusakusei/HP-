@@ -218,16 +218,37 @@
 <script>
 (function(){
   try{history.scrollRestoration="manual"}catch(e){}
-  function goTop(){
-    if(location.hash)return;
+  var touched=false;
+  ["touchstart","wheel","keydown","mousedown"].forEach(function(t){
+    window.addEventListener(t,function(){touched=true},{passive:true,once:true});
+  });
+  function jump(el){
     var de=document.documentElement;
     de.style.scrollBehavior="auto";
-    window.scrollTo(0,0);
+    if(el){el.scrollIntoView(true)}else{window.scrollTo(0,0)}
     de.style.scrollBehavior="";
   }
+  function goTop(){if(!touched)jump(null)}
+  /* アドレス末尾の #contact などを消して、必ず一番上から始める */
+  if(location.hash){
+    try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}
+  }
   goTop();
+  [100,400,900,1600,3000].forEach(function(ms){setTimeout(goTop,ms)});
   window.addEventListener("load",goTop);
   window.addEventListener("pageshow",goTop);
+  /* メニューのリンクは、アドレスを変えずに移動する */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener("click",function(e){
+      var id=a.getAttribute("href").slice(1);
+      var el=id==="top"?null:document.getElementById(id);
+      if(id!=="top"&&!el)return;
+      e.preventDefault();
+      touched=true;
+      if(el){el.scrollIntoView({behavior:"smooth",block:"start"})}
+      else{window.scrollTo({top:0,behavior:"smooth"})}
+    });
+  });
 })();
 </script>
 <script>
