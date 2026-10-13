@@ -215,6 +215,21 @@
 </script>
 <script>
 (function(){
+  try{history.scrollRestoration="manual"}catch(e){}
+  function goTop(){
+    if(location.hash)return;
+    var de=document.documentElement;
+    de.style.scrollBehavior="auto";
+    window.scrollTo(0,0);
+    de.style.scrollBehavior="";
+  }
+  goTop();
+  window.addEventListener("load",goTop);
+  window.addEventListener("pageshow",goTop);
+})();
+</script>
+<script>
+(function(){
   var link=document.querySelector('a[href^="https://mail.google.com/mail/"]');
   var tpl="";
   try{tpl=new URL(link.href).searchParams.get("body")||""}catch(e){}
