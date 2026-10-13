@@ -210,5 +210,22 @@
   els.forEach(function(e){io.observe(e)});
 })();
 </script>
+<script>
+(function(){
+  var ua=navigator.userAgent||"";
+  var mobile=/Android|iPhone|iPad|iPod/i.test(ua)||(/Macintosh/i.test(ua)&&navigator.maxTouchPoints>1);
+  if(!mobile)return;
+  document.querySelectorAll('a[href^="https://mail.google.com/mail/"]').forEach(function(a){
+    try{
+      var u=new URL(a.href);
+      var to=u.searchParams.get("to"),su=u.searchParams.get("su")||"",body=u.searchParams.get("body")||"";
+      a.href="mailto:"+to+"?subject="+encodeURIComponent(su)+"&body="+encodeURIComponent(body.replace(/?
+/g,"
+"));
+      a.removeAttribute("target");a.removeAttribute("rel");
+    }catch(e){}
+  });
+})();
+</script>
 </body>
 </html>
