@@ -1,3 +1,16 @@
+// URLにアンカー(#access等)が付いていても、開いた直後はトップ画面を表示する
+(function () {
+  if (window.location.hash) {
+    window.scrollTo(0, 0);
+    window.addEventListener('load', function () {
+      window.scrollTo(0, 0);
+    });
+    if (window.history.replaceState) {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }
+})();
+
 // ハンバーガーメニューの開閉のみを扱う最小限のスクリプト
 (function () {
   var toggle = document.getElementById('navToggle');
