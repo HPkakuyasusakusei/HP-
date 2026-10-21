@@ -1,0 +1,577 @@
+/* Dog Studio NOCHE — 専用スタイルシート
+   「NOCHE(夜)」の世界観を波型ダイバイダー・肉球トレイル・月バッジ・月の出ヒーローで表現する。
+   モバイルファーストで記述し、min-width の分岐でタブレット/PCを拡張する。 */
+
+:root {
+  --bg: #EFF6FA;
+  --bg-sub: #DCEAF2;
+  --accent1: #2E6E8E;
+  --accent2: #E0A52C;
+  --ink: #1F2D33;
+  --white: #FFFFFF;
+  --font-heading: "Quicksand", "Zen Maru Gothic", sans-serif;
+  --font-body: "Zen Maru Gothic", "Quicksand", sans-serif;
+  --container: 1120px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  margin: 0 0 .6em;
+  line-height: 1.4;
+}
+p { margin: 0 0 1em; }
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Eyebrow / section title ---------- */
+.eyebrow {
+  font-family: var(--font-heading);
+  font-size: .78rem;
+  letter-spacing: .18em;
+  font-weight: 700;
+  color: var(--accent1);
+  margin: 0 0 .6em;
+}
+.eyebrow--on-dark { color: var(--accent2); }
+.section-title { font-size: 1.5rem; }
+.section-lead { max-width: 640px; }
+.section { padding: 56px 0; position: relative; }
+.section--sub { background: var(--bg-sub); }
+.section--dark {
+  background: var(--accent1);
+  color: var(--white);
+}
+.section--dark .eyebrow { color: var(--accent2); }
+.section--dark h2, .section--dark h3 { color: var(--white); }
+
+/* ---------- Wave divider (静かな水面モチーフ) ----------
+   div 自体の背景色=次セクションの色、内側の svg path の色=前セクションの色。
+   normal flow に置くだけで継ぎ目なく繋がる。 */
+.wave-divider {
+  width: 100%;
+  line-height: 0;
+  overflow: hidden;
+}
+.wave-divider svg {
+  display: block;
+  width: 100%;
+  height: 40px;
+}
+@media (min-width: 640px) {
+  .wave-divider svg { height: 56px; }
+}
+.wave-divider--light-to-dark { background: var(--accent1); }
+.wave-divider--light-to-dark path { fill: var(--bg); }
+.wave-divider--dark-to-light { background: var(--bg); }
+.wave-divider--dark-to-light path { fill: var(--accent1); }
+.wave-divider--light-to-sub { background: var(--bg-sub); }
+.wave-divider--light-to-sub path { fill: var(--bg); }
+.wave-divider--sub-to-light { background: var(--bg); }
+.wave-divider--sub-to-light path { fill: var(--bg-sub); }
+
+/* ---------- 肉球トレイル(視線誘導) ---------- */
+.paw-trail {
+  position: relative;
+  height: 90px;
+  max-width: 220px;
+  margin: 0 auto;
+  pointer-events: none;
+}
+@media (min-width: 640px) {
+  .paw-trail { height: 60px; max-width: 100%; }
+}
+.paw-print {
+  position: absolute;
+  width: 15px;
+  height: 14px;
+  opacity: .24;
+}
+.paw-print span { position: absolute; border-radius: 50%; background: var(--accent2); }
+.paw-print span:nth-child(1) { width: 8px; height: 6px; left: 4px; top: 7px; }
+.paw-print span:nth-child(2) { width: 3px; height: 3px; left: 0; top: 2px; }
+.paw-print span:nth-child(3) { width: 3px; height: 3px; left: 5px; top: 0; }
+.paw-print span:nth-child(4) { width: 3px; height: 3px; left: 10px; top: 2px; }
+.paw-trail .paw-print:nth-child(1) { top: 0; left: 46%; transform: rotate(-10deg); }
+.paw-trail .paw-print:nth-child(2) { top: 18px; left: 38%; transform: rotate(6deg); }
+.paw-trail .paw-print:nth-child(3) { top: 38px; left: 52%; transform: rotate(-8deg); }
+.paw-trail .paw-print:nth-child(4) { top: 58px; left: 40%; transform: rotate(10deg); }
+.paw-trail .paw-print:nth-child(5) { top: 76px; left: 54%; transform: rotate(-4deg); }
+@media (min-width: 640px) {
+  .paw-trail .paw-print:nth-child(1) { top: 24px; left: 6%; }
+  .paw-trail .paw-print:nth-child(2) { top: 10px; left: 27%; }
+  .paw-trail .paw-print:nth-child(3) { top: 30px; left: 48%; }
+  .paw-trail .paw-print:nth-child(4) { top: 8px; left: 69%; }
+  .paw-trail .paw-print:nth-child(5) { top: 26px; left: 90%; }
+}
+
+/* ---------- 月バッジ(カード型UIの代替) ---------- */
+.moon-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 32px;
+}
+@media (min-width: 760px) {
+  .moon-badges { flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 24px; }
+  .moon-badges .moon-badge { flex: 1 1 220px; }
+  .moon-badges .moon-badge:nth-child(2n) { transform: translateY(26px); }
+  .moon-badges .moon-badge:nth-child(3n) { transform: translateY(-10px); }
+}
+.moon-badge { text-align: center; }
+.moon-badge__circle {
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  border: 2px solid var(--accent2);
+  background: radial-gradient(circle at 32% 30%, rgba(46, 110, 142, .14), var(--bg) 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px rgba(31, 45, 51, .08);
+}
+.moon-badge__crescent {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--accent2);
+  position: relative;
+  overflow: hidden;
+}
+.moon-badge__crescent::after {
+  content: "";
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg);
+  top: 3px;
+  left: 12px;
+}
+.moon-badge__title { font-size: 1.02rem; margin-bottom: .5em; }
+.moon-badge__text { font-size: .92rem; margin: 0 auto; max-width: 280px; }
+
+/* ---------- STEP(月の満ち欠け) ---------- */
+.step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 32px;
+  counter-reset: step;
+}
+@media (min-width: 820px) {
+  .step-list { flex-direction: row; gap: 20px; }
+  .step-list > li { flex: 1; }
+}
+.step-list > li { text-align: center; }
+.step-moon {
+  width: 86px;
+  height: 86px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  border: 2px solid var(--accent2);
+  position: relative;
+  background: var(--bg);
+  overflow: hidden;
+}
+.step-moon::after { content: ""; position: absolute; inset: 0; border-radius: 50%; }
+.step-moon--new::after { background: var(--accent1); }
+.step-moon--first-quarter::after { background: linear-gradient(90deg, var(--accent1) 50%, var(--accent2) 50%); }
+.step-moon--full::after { background: var(--accent2); }
+.step-moon--last-quarter::after { background: linear-gradient(90deg, var(--accent2) 50%, var(--accent1) 50%); }
+.step-label {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--accent1);
+  font-size: .82rem;
+  margin-bottom: .4em;
+}
+.step-title { font-size: 1.05rem; margin-bottom: .4em; }
+.step-text { font-size: .92rem; max-width: 280px; margin: 0 auto; }
+
+/* ---------- ボタン ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: .95rem;
+  letter-spacing: .03em;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.btn:hover { opacity: .85; }
+.btn--primary { background: var(--accent2); color: var(--ink); }
+.btn--outline { background: transparent; border-color: var(--accent1); color: var(--accent1); }
+.btn--outline-light { background: transparent; border-color: var(--white); color: var(--white); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
+.btn-row--center { justify-content: center; }
+
+/* ---------- ヘッダー ---------- */
+.utility-bar {
+  background: var(--accent1);
+  color: var(--white);
+}
+.utility-bar__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-heading);
+  font-size: .82rem;
+}
+.utility-bar__phone { display: flex; align-items: center; gap: 6px; letter-spacing: .02em; }
+.utility-bar__insta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent2);
+  color: var(--accent2);
+}
+.utility-bar__insta svg { width: 16px; height: 16px; }
+
+.site-header { position: sticky; top: 0; z-index: 50; }
+.main-nav { background: var(--bg); box-shadow: 0 2px 10px rgba(31, 45, 51, .08); }
+.main-nav__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo { display: flex; align-items: center; gap: 8px; font-family: var(--font-heading); }
+.logo__mark {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--accent1);
+  position: relative;
+  flex-shrink: 0;
+}
+.logo__mark::after {
+  content: "";
+  position: absolute;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--accent2);
+  top: 7px; left: 15px;
+}
+.logo__text { line-height: 1.1; }
+.logo__text strong { display: block; font-size: 1.15rem; letter-spacing: .04em; color: var(--ink); }
+.logo__text span { display: block; font-size: .62rem; letter-spacing: .14em; color: var(--accent1); }
+
+.nav-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 38px; height: 34px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nav-toggle span { display: block; width: 100%; height: 2px; background: var(--ink); border-radius: 2px; }
+
+.nav-panel {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(78vw, 300px);
+  height: 100vh;
+  background: var(--bg);
+  transform: translateX(100%);
+  transition: transform .25s ease;
+  padding: 90px 28px 28px;
+  box-shadow: -8px 0 24px rgba(31, 45, 51, .12);
+  z-index: 60;
+}
+.nav-panel.is-open { transform: translateX(0); }
+.nav-panel__links { display: flex; flex-direction: column; gap: 18px; font-family: var(--font-heading); font-weight: 700; margin-bottom: 26px; }
+.nav-panel__links a.is-current { color: var(--accent1); }
+.nav-overlay {
+  position: fixed; inset: 0;
+  background: rgba(31, 45, 51, .4);
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s ease;
+  z-index: 55;
+}
+.nav-overlay.is-open { opacity: 1; pointer-events: auto; }
+
+@media (min-width: 900px) {
+  .nav-toggle { display: none; }
+  .nav-overlay { display: none; }
+  .nav-panel {
+    position: static;
+    width: auto; height: auto;
+    transform: none;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  .nav-panel__links { flex-direction: row; gap: 26px; margin-bottom: 0; font-size: .92rem; }
+}
+
+/* ---------- ヒーロー「月の出」構成 ---------- */
+.hero { position: relative; background: var(--bg); }
+.hero__dark {
+  background: var(--accent1);
+  color: var(--white);
+  padding: 44px 0 110px;
+  position: relative;
+}
+.hero__stars { position: absolute; inset: 0; overflow: hidden; }
+.hero__stars span {
+  position: absolute;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--accent2);
+  opacity: .8;
+}
+.hero__stars span:nth-child(1) { top: 16%; left: 12%; }
+.hero__stars span:nth-child(2) { top: 30%; left: 76%; width: 3px; height: 3px; }
+.hero__stars span:nth-child(3) { top: 10%; left: 54%; width: 3px; height: 3px; }
+.hero__stars span:nth-child(4) { top: 48%; left: 30%; width: 2px; height: 2px; }
+.hero__stars span:nth-child(5) { top: 20%; left: 90%; width: 2px; height: 2px; }
+.hero__inner { position: relative; z-index: 2; max-width: var(--container); margin: 0 auto; padding: 0 20px; }
+.hero__text { max-width: 560px; }
+.hero__text h1 { font-size: 1.6rem; color: var(--white); }
+.hero__lead { font-size: 1rem; opacity: .92; }
+
+/* 円形クロップ写真(汎用) — ヒーロー以外のページでも使う丸写真の基本形 */
+.circle-photo {
+  width: 190px;
+  height: 190px;
+  margin: 28px auto 0;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid var(--bg);
+  box-shadow: 0 16px 30px rgba(31, 45, 51, .2);
+}
+.circle-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ヒーロー専用: 円形写真が暗色帯の波型境界にまたがる「月の出」演出 */
+.hero__photo-frame {
+  margin: 28px auto -126px;
+  position: relative;
+  z-index: 3;
+  border-color: var(--bg);
+}
+.hero__dark .wave-divider { position: relative; z-index: 1; margin-top: 20px; }
+
+@media (min-width: 860px) {
+  .hero__inner { display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 30px; }
+  .hero__text h1 { font-size: 2.3rem; }
+  .hero__dark .hero__photo-frame {
+    width: 260px; height: 260px;
+    margin: 0;
+    position: absolute;
+    right: 6%;
+    bottom: -150px;
+  }
+  .hero__dark { padding-bottom: 150px; }
+}
+
+/* ---------- お客様の声「夜の便箋」カード ---------- */
+.voice-card {
+  position: relative;
+  background: var(--accent1);
+  color: var(--white);
+  border-radius: 6px 6px 18px 6px;
+  padding: 30px 24px 26px;
+  margin-bottom: 26px;
+}
+.voice-card::before {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 26px 26px 0;
+  border-color: transparent var(--bg) transparent transparent;
+}
+.voice-sample-tag {
+  display: inline-block;
+  background: var(--accent2);
+  color: var(--ink);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .06em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+.voice-card__stars { color: var(--accent2); letter-spacing: .15em; margin-bottom: 10px; }
+.voice-card__author { font-family: var(--font-heading); font-weight: 700; margin-bottom: 10px; }
+.voice-card__text { font-size: .95rem; opacity: .95; }
+.voice-disclaimer {
+  background: var(--bg-sub);
+  border-left: 4px solid var(--accent1);
+  padding: 16px 18px;
+  font-size: .92rem;
+  margin: 20px 0 36px;
+}
+
+/* ---------- SAMPLE バッジ / 写真注記バナー ---------- */
+.hp-sample-badge {
+  position: fixed;
+  top: 14px;
+  right: -46px;
+  width: 170px;
+  text-align: center;
+  background: var(--accent2);
+  color: var(--ink);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: .12em;
+  font-size: .78rem;
+  padding: 6px 0;
+  transform: rotate(35deg);
+  box-shadow: 0 4px 10px rgba(31, 45, 51, .25);
+  z-index: 80;
+  pointer-events: none;
+}
+.hp-photo-note {
+  background: var(--bg-sub);
+  border-left: 4px solid var(--accent2);
+  padding: 16px 20px;
+  font-size: .86rem;
+  margin: 40px 20px;
+  max-width: calc(var(--container) - 40px);
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+}
+
+/* ---------- フローティングCTA ---------- */
+.floating-cta { position: fixed; right: 18px; bottom: 18px; z-index: 70; }
+.floating-cta__main {
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  background: var(--accent1);
+  border: 2px solid var(--accent2);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 22px rgba(31, 45, 51, .3);
+  cursor: pointer;
+}
+.floating-cta__main svg { width: 24px; height: 24px; }
+.floating-cta__options {
+  position: absolute;
+  bottom: 68px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+.floating-cta.is-open .floating-cta__options { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.floating-cta__options a {
+  white-space: nowrap;
+  background: var(--white);
+  border: 1.5px solid var(--accent1);
+  color: var(--accent1);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: .82rem;
+  box-shadow: 0 6px 14px rgba(31, 45, 51, .18);
+}
+
+/* ---------- フッター ---------- */
+.site-footer { background: var(--accent1); color: var(--white); padding: 44px 0 26px; }
+.site-footer .logo__text strong { color: var(--white); }
+.site-footer .logo__text span { color: var(--accent2); }
+.footer-grid { display: flex; flex-direction: column; gap: 22px; margin-bottom: 26px; }
+@media (min-width: 760px) {
+  .footer-grid { flex-direction: row; justify-content: space-between; align-items: flex-start; }
+}
+.footer-nav { display: flex; flex-wrap: wrap; gap: 14px 20px; font-size: .88rem; }
+.footer-contact { font-size: .9rem; line-height: 1.9; }
+.footer-insta { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; }
+.footer-insta svg { width: 18px; height: 18px; }
+.footer-bottom { border-top: 1px solid rgba(255, 255, 255, .25); padding-top: 16px; font-size: .76rem; opacity: .85; }
+
+/* ---------- サービス / About 共通パーツ ---------- */
+.notice-line {
+  background: var(--bg-sub);
+  border-left: 4px solid var(--accent1);
+  padding: 14px 18px;
+  font-size: .9rem;
+}
+.photo-band {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.photo-band img { width: 100%; height: auto; max-height: 420px; object-fit: cover; }
+.photo-band__caption {
+  padding: 18px 4px 0;
+}
+.two-col-photo { display: flex; flex-direction: column; gap: 14px; }
+@media (min-width: 700px) { .two-col-photo { flex-direction: row; } .two-col-photo > div { flex: 1; } }
+
+/* ---------- アクセスページ ---------- */
+.map-frame { position: relative; width: 100%; padding-top: 65%; border-radius: 4px; overflow: hidden; }
+.map-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.info-list { border-top: 1px solid var(--bg-sub); margin-top: 20px; }
+.info-list div { display: flex; flex-direction: column; gap: 4px; padding: 14px 0; border-bottom: 1px solid var(--bg-sub); }
+@media (min-width: 600px) {
+  .info-list div { flex-direction: row; }
+  .info-list dt { width: 140px; flex-shrink: 0; font-weight: 700; }
+}
+.info-list dt { font-family: var(--font-heading); color: var(--accent1); }
+.info-list dd { margin: 0; }
+
+/* ---------- 汎用 ---------- */
+.stack { display: flex; flex-direction: column; gap: 14px; }
+.teaser-grid { display: flex; flex-direction: column; gap: 10px; margin: 18px 0 10px; }
+@media (min-width: 760px) { .teaser-grid { flex-direction: row; } .teaser-grid > div { flex: 1; } }
+.teaser-item h3 { font-size: 1rem; }
+.text-link { color: var(--accent1); font-weight: 700; display: inline-block; margin-top: 10px; }
+.text-link::after { content: " →"; }
+.center { text-align: center; }
