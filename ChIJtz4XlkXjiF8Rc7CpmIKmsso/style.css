@@ -1,0 +1,611 @@
+/* ===========================================================
+   ぱんや つきあかり 試作HP 共通スタイル
+   コンセプト: 里山に灯る、月明かりの窯(寒色基調・三日月/畦道/灯り窓モチーフ)
+   =========================================================== */
+
+:root {
+  --color-bg: #EAF0EC;
+  --color-bg-alt: #E1E9E2;
+  --color-ink: #342F46;
+  --color-ink-soft: #4C4663;
+  --color-accent: #B99A52;
+  --color-accent-soft: #D9C390;
+  --color-green: #4F6354;
+  --color-wood: #8C6E4E;
+  --color-line: #D7DAD2;
+  --color-paper: #F5F7F3;
+  --font-heading: 'Shippori Antique', 'Hiragino Mincho ProN', serif;
+  --font-body: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
+  --max-width: 1080px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 54px; /* hp-photo-note bar分の余白 */
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.4rem;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--color-ink);
+  margin: 0 0 0.6em;
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+}
+
+p { margin: 0 0 1em; }
+
+.kicker {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  letter-spacing: 0.32em;
+  color: var(--color-accent);
+  margin-bottom: 0.9em;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ===== ヘッダー ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.header-top {
+  background: var(--color-ink);
+}
+
+.header-top .wrap {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+.ig-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  text-decoration: none;
+  color: #F5EFE2;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+}
+
+.ig-link .ig-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+}
+
+.ig-link .ig-icon svg { width: 15px; height: 15px; }
+
+.header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.wordmark {
+  text-decoration: none;
+  font-family: var(--font-heading);
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.wordmark .wm-jp { font-size: 1.22rem; color: var(--color-ink); letter-spacing: 0.08em; }
+.wordmark .wm-sub { font-size: 0.66rem; color: var(--color-accent); letter-spacing: 0.22em; }
+
+.nav-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 38px; height: 34px;
+  background: none;
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  background: var(--color-ink);
+  margin: 0 7px;
+}
+
+.site-nav {
+  position: absolute;
+  left: 0; right: 0; top: 100%;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-line);
+  display: none;
+}
+.site-nav.is-open { display: block; }
+.site-nav ul {
+  list-style: none;
+  margin: 0; padding: 0.6rem 1.4rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+.site-nav a {
+  display: block;
+  text-decoration: none;
+  padding: 0.65rem 0.2rem;
+  border-bottom: 1px solid var(--color-line);
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+}
+.site-nav a[aria-current="page"] { color: var(--color-accent); }
+
+@media (min-width: 860px) {
+  .nav-toggle { display: none; }
+  .site-nav {
+    position: static;
+    display: block;
+    background: none;
+    border: none;
+  }
+  .site-nav ul {
+    flex-direction: row;
+    gap: 1.9rem;
+    padding: 0;
+  }
+  .site-nav a { border-bottom: none; padding: 0.3rem 0.1em; position: relative; }
+  .site-nav a[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -3px;
+    height: 2px;
+    background: var(--color-accent);
+  }
+}
+
+/* ===== SAMPLEバッジ ===== */
+.hp-sample-badge {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 2147483647;
+  pointer-events: none;
+  overflow: hidden;
+  width: 128px; height: 128px;
+}
+.hp-sample-badge span {
+  position: absolute;
+  display: block;
+  width: 180px;
+  padding: 7px 0;
+  background: var(--color-ink);
+  color: var(--color-accent-soft);
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-align: center;
+  top: 28px; left: -46px;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  border-top: 1px solid var(--color-accent);
+  border-bottom: 1px solid var(--color-accent);
+}
+@media (max-width: 480px) {
+  .hp-sample-badge { width: 100px; height: 100px; }
+  .hp-sample-badge span { width: 142px; font-size: 11px; top: 22px; left: -36px; }
+}
+
+/* ===== フリー素材注記バナー ===== */
+.hp-photo-note {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 2147483646;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.7rem 1rem;
+  background: var(--color-ink);
+  color: #EFE7D6;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  border-top: 2px solid var(--color-accent);
+  text-align: center;
+}
+.hp-photo-note svg { flex: none; width: 16px; height: 16px; color: var(--color-accent); }
+@media (max-width: 480px) {
+  .hp-photo-note { font-size: 0.68rem; padding: 0.55rem 0.6rem; }
+}
+
+/* ===== 灯り窓タグ(CTAボタン共通) ===== */
+.lantern-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.85em 1.6em;
+  border-radius: 999px;
+  background: var(--color-ink);
+  color: #F3E9D0;
+  text-decoration: none;
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+  box-shadow: 0 0 0 1px rgba(185,154,82,0.4), 0 8px 22px -10px rgba(52,47,70,0.55);
+  position: relative;
+}
+.lantern-tag::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 10px 3px rgba(185,154,82,0.75);
+}
+.lantern-tag:hover { background: var(--color-ink-soft); }
+
+.lantern-tag--ghost {
+  background: transparent;
+  color: var(--color-ink);
+  box-shadow: inset 0 0 0 1px var(--color-ink);
+}
+.lantern-tag--ghost::before { background: var(--color-green); box-shadow: 0 0 8px 2px rgba(79,99,84,0.5); }
+.lantern-tag--ghost:hover { background: rgba(52,47,70,0.06); }
+
+.cta-note {
+  display: block;
+  margin-top: 0.6em;
+  font-size: 0.74rem;
+  color: var(--color-ink-soft);
+  letter-spacing: 0.04em;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+/* ===== 三日月フレーム写真 ===== */
+.moon-frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 320px;
+}
+.moon-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  clip-path: url(#moon-clip);
+}
+.moon-frame figcaption {
+  margin-top: 0.7em;
+  font-size: 0.72rem;
+  color: var(--color-ink-soft);
+  letter-spacing: 0.06em;
+}
+
+/* ===== 畦道導線(千鳥配置の非対称セクション) ===== */
+.feature-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  align-items: center;
+  margin: 3.4rem auto;
+  max-width: var(--max-width);
+  padding: 0 1.4rem;
+}
+.feature-row .feature-text { width: 100%; }
+.feature-row .feature-media { width: 100%; display: flex; justify-content: center; }
+
+@media (min-width: 760px) {
+  .feature-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+  }
+  .feature-row .feature-text { flex: 1 1 50%; }
+  .feature-row .feature-media { flex: 1 1 42%; }
+  .feature-row--reverse { flex-direction: row-reverse; }
+  .feature-row:nth-of-type(odd) { transform: translateX(-1.2rem); }
+  .feature-row:nth-of-type(even) { transform: translateX(1.2rem); }
+}
+
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--color-line);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* ===== 三行で分かる店(インライン・区切り線) ===== */
+.inline-strip {
+  list-style: none;
+  margin: 2.6rem auto;
+  padding: 1.4rem 1.4rem;
+  max-width: var(--max-width);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--color-ink-soft);
+}
+.inline-strip li { position: relative; }
+
+@media (min-width: 700px) {
+  .inline-strip {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.4rem;
+  }
+  .inline-strip li:not(:first-child)::before {
+    content: "｜";
+    margin-right: 1.4rem;
+    color: var(--color-accent);
+  }
+}
+
+/* ===== セクション共通 ===== */
+.section {
+  padding: 3.6rem 0;
+}
+.section--alt { background: var(--color-bg-alt); }
+.section--ink {
+  background: var(--color-ink);
+  color: #EFE9DC;
+}
+.section--ink h1, .section--ink h2, .section--ink h3 { color: #F6F1E4; }
+.section--ink .kicker { color: var(--color-accent-soft); }
+
+.section-head {
+  max-width: 680px;
+  margin: 0 auto 2.2rem;
+  padding: 0 1.4rem;
+  text-align: center;
+}
+
+/* ===== ヒーロー(index専用だが共通クラス化) ===== */
+.hero {
+  position: relative;
+  background: linear-gradient(180deg, #2A2638 0%, #342F46 38%, #4C4663 70%, var(--color-bg) 100%);
+  color: #F3EEDD;
+  padding: 4.4rem 0 5rem;
+  text-align: center;
+  overflow: hidden;
+}
+.hero .wrap { position: relative; z-index: 2; }
+.hero-moon {
+  width: 86px; height: 86px;
+  margin: 0 auto 1.4rem;
+  opacity: 0.92;
+}
+.hero-moon img { width: 100%; height: 100%; object-fit: cover; clip-path: url(#moon-clip); }
+.hero .kicker { color: var(--color-accent-soft); }
+.hero h1 {
+  color: #FBF7EC;
+  font-size: clamp(1.7rem, 5vw, 2.5rem);
+}
+.hero .hero-copy {
+  font-size: 1.02rem;
+  max-width: 540px;
+  margin: 0 auto 1.2rem;
+  color: #EDE5D2;
+}
+.hero .hero-sub {
+  font-size: 0.88rem;
+  color: #C9C2DA;
+  max-width: 480px;
+  margin: 0 auto 2rem;
+}
+.hero .cta-row { justify-content: center; }
+
+/* ===== 景色とパン: 千鳥グリッド ===== */
+.scenery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.6rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.4rem;
+}
+.scenery-card { position: relative; border-radius: 4px 28px 4px 28px; overflow: hidden; }
+.scenery-card img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.scenery-card figcaption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 0.9rem 1rem 0.7rem;
+  font-size: 0.74rem;
+  color: #FBF7EC;
+  letter-spacing: 0.04em;
+  background: linear-gradient(0deg, rgba(52,47,70,0.82), rgba(52,47,70,0));
+}
+
+@media (min-width: 620px) {
+  .scenery-grid { grid-template-columns: repeat(2, 1fr); }
+  .scenery-grid li:nth-child(odd) { transform: translateY(-0.6rem); }
+  .scenery-grid li:nth-child(even) { transform: translateY(1.2rem); }
+}
+@media (min-width: 960px) {
+  .scenery-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ===== お客様の声カード ===== */
+.voice-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 1.4rem;
+}
+.voice-card {
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: 4px 22px 4px 22px;
+  padding: 1.6rem 1.6rem 1.4rem;
+  position: relative;
+}
+.voice-card:nth-child(odd) { margin-right: 0; }
+@media (min-width: 760px) {
+  .voice-card:nth-child(odd) { margin-right: 10%; }
+  .voice-card:nth-child(even) { margin-left: 10%; }
+}
+.voice-stars { color: var(--color-accent); letter-spacing: 0.18em; margin-bottom: 0.6em; font-size: 0.95rem; }
+.voice-sample-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  background: rgba(185,154,82,0.16);
+  color: var(--color-ink);
+  border: 1px solid var(--color-accent);
+  border-radius: 999px;
+  padding: 0.25em 0.9em;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.9em;
+}
+.voice-sample-tag::before {
+  content: "";
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px 2px rgba(185,154,82,0.7);
+}
+.voice-text { font-size: 0.92rem; color: var(--color-ink); margin: 0; }
+
+.voice-disclaimer {
+  max-width: 680px;
+  margin: 0 auto 2.4rem;
+  padding: 1rem 1.3rem;
+  background: rgba(79,99,84,0.1);
+  border: 1px solid var(--color-green);
+  border-radius: 6px;
+  font-size: 0.86rem;
+  color: var(--color-ink);
+}
+
+/* ===== アクセス情報 ===== */
+.info-list {
+  list-style: none;
+  margin: 0 auto 2rem;
+  padding: 0;
+  max-width: 640px;
+}
+.info-list li {
+  display: flex;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--color-line);
+  font-size: 0.92rem;
+}
+.info-list dt, .info-list .info-term {
+  flex: 0 0 6.4em;
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  letter-spacing: 0.08em;
+}
+
+.map-embed {
+  max-width: 760px;
+  margin: 0 auto 1.2rem;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.map-embed iframe {
+  width: 100%;
+  height: 340px;
+  border: 0;
+  display: block;
+}
+
+/* ===== フッター ===== */
+.site-footer {
+  background: var(--color-ink);
+  color: #D9D2E6;
+  padding: 3rem 0 2rem;
+  margin-top: 2rem;
+  font-size: 0.86rem;
+}
+.site-footer .footer-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+.site-footer h2 {
+  color: #F6F1E4;
+  font-size: 1.1rem;
+}
+.footer-nav {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.2rem;
+}
+.footer-nav a { text-decoration: none; color: #D9D2E6; }
+.footer-ig {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  text-decoration: none;
+  color: #F3E9D0;
+  margin-top: 0.6rem;
+}
+.footer-note {
+  margin-top: 1.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(217,210,230,0.2);
+  font-size: 0.76rem;
+  color: #B8B0CA;
+}
+
+@media (min-width: 760px) {
+  .site-footer .footer-grid {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+/* ===== ページ内共通リード文 ===== */
+.lead {
+  max-width: 680px;
+  margin: 0 auto 1.4rem;
+  text-align: center;
+}
+
+.content-block {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.4rem;
+}
