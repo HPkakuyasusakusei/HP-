@@ -1,0 +1,825 @@
+/* =========================================================
+   プティ グーテ(Petit Goûter) 試作HP 共通スタイル
+   配色・モチーフはdesign.mdの指定に準拠(クリーム×テラコッタ等の
+   定型配色は使わず、あんず色×すみ鉄色×夕凪ブルーグレーで統一)
+   ========================================================= */
+
+:root {
+  --color-bg: #FBF3E4;
+  --color-panel: #F0E1C4;
+  --color-apricot: #D98A4C;
+  --color-apricot-deep: #C06E34;
+  --color-ember: #2E2620;
+  --color-dusk-blue: #6E818C;
+  --color-text: #3A2F26;
+  --color-cream: #FBF3E4;
+
+  --font-heading: 'Kiwi Maru', serif;
+  --font-logo: 'Fraunces', serif;
+  --font-body: 'Noto Sans JP', sans-serif;
+
+  --radius-soft: 18px;
+  --shadow-soft: 0 10px 28px rgba(46, 38, 32, 0.12);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--color-ember);
+  line-height: 1.5;
+  margin: 0;
+}
+
+p { margin: 0 0 1em; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   SAMPLEバッジ(全ページ右上固定)
+   --------------------------------------------------------- */
+.hp-sample-badge {
+  position: fixed;
+  top: 14px;
+  right: -46px;
+  z-index: 2147483000;
+  background: #c0392b;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  padding: 6px 54px;
+  transform: rotate(36deg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+@media (max-width: 480px) {
+  .hp-sample-badge {
+    top: 10px;
+    right: -52px;
+    font-size: 11px;
+    padding: 5px 56px;
+  }
+}
+
+/* ---------------------------------------------------------
+   写真注記バナー(全ページ下部固定)
+   --------------------------------------------------------- */
+.hp-photo-note {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 900;
+  background: var(--color-ember);
+  color: var(--color-cream);
+  font-size: 12px;
+  text-align: center;
+  padding: 8px 48px;
+  letter-spacing: 0.02em;
+}
+
+body { padding-bottom: 48px; }
+
+@media (max-width: 600px) {
+  .hp-photo-note { font-size: 10.5px; padding: 7px 10px; }
+  body { padding-bottom: 56px; }
+}
+
+/* ---------------------------------------------------------
+   スマホ用フッター固定CTAバー(index.htmlのみ)
+   --------------------------------------------------------- */
+.mobile-cta-bar { display: none; }
+
+@media (max-width: 760px) {
+  .mobile-cta-bar {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 34px;
+    z-index: 950;
+  }
+  .mobile-cta-bar a {
+    display: block;
+    text-align: center;
+    background: var(--color-apricot);
+    color: var(--color-cream);
+    padding: 12px 10px;
+    font-weight: 700;
+    font-size: 13.5px;
+    letter-spacing: 0.03em;
+  }
+  body.has-mobile-cta { padding-bottom: 92px; }
+}
+
+/* ---------------------------------------------------------
+   グーテ時計モチーフ(Horloge du Goûter)
+   --------------------------------------------------------- */
+.goute-clock {
+  --clock-size: 64px;
+  width: var(--clock-size);
+  height: var(--clock-size);
+  border-radius: 50%;
+  border: 2px solid var(--color-apricot);
+  position: relative;
+  flex-shrink: 0;
+  background: radial-gradient(circle at 50% 45%, rgba(217,138,76,0.12), transparent 70%);
+}
+
+.goute-clock::before,
+.goute-clock::after {
+  content: "";
+  position: absolute;
+  background: var(--color-apricot);
+  border-radius: 2px;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0% 50%;
+}
+/* 4時を指す針(時針) */
+.goute-clock::before {
+  width: 32%;
+  height: 8%;
+  transform: translate(0, -50%) rotate(120deg);
+}
+/* 中心ドット(分針は短く表現) */
+.goute-clock::after {
+  width: 6%;
+  height: 6%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.goute-clock.goute-clock--large { --clock-size: 120px; }
+
+@media (max-width: 480px) {
+  .goute-clock.goute-clock--large { --clock-size: 92px; }
+}
+
+/* ---------------------------------------------------------
+   波紋の二重円(Rond de Pain) ― 写真フレーム・口コミ枠
+   --------------------------------------------------------- */
+.rond-frame {
+  position: relative;
+  padding: 14px;
+  border-radius: 999px / 24%;
+}
+
+.rond-frame::before,
+.rond-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--color-apricot);
+  pointer-events: none;
+}
+.rond-frame::after {
+  inset: 7px;
+  border-color: var(--color-dusk-blue);
+  opacity: 0.55;
+}
+
+.rond-frame img {
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+
+.rond-frame--round { border-radius: 50%; }
+.rond-frame--round img { aspect-ratio: 1 / 1; }
+
+/* ---------------------------------------------------------
+   籐かごの網目(Banneton) ― 背景テクスチャ
+   --------------------------------------------------------- */
+.banneton-bg {
+  background-image:
+    repeating-linear-gradient(45deg, rgba(46,38,32,0.05) 0 2px, transparent 2px 18px),
+    repeating-linear-gradient(-45deg, rgba(46,38,32,0.05) 0 2px, transparent 2px 18px);
+}
+
+/* ---------------------------------------------------------
+   さざ波の区切り線(Brise de Seto)
+   --------------------------------------------------------- */
+.brise-divider {
+  width: 100%;
+  height: 22px;
+  margin: 0;
+  display: block;
+}
+.brise-divider svg { width: 100%; height: 100%; display: block; }
+
+/* ---------------------------------------------------------
+   焼き色グラデーションバッジ
+   --------------------------------------------------------- */
+.badge-grad {
+  display: inline-block;
+  padding: 4px 16px;
+  border-radius: 999px;
+  background: linear-gradient(120deg, var(--color-ember), var(--color-apricot));
+  color: var(--color-cream);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-family: var(--font-body);
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------
+   Instagramアイコン(ワンクリックリンク)
+   --------------------------------------------------------- */
+.ig-link-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-cream);
+  flex-shrink: 0;
+}
+.ig-link-icon svg { width: 18px; height: 18px; }
+
+/* ---------------------------------------------------------
+   ヘッダー
+   --------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 800;
+  background: var(--color-ember);
+  color: var(--color-cream);
+}
+
+.header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand .goute-clock { --clock-size: 40px; border-color: var(--color-apricot); }
+.brand .goute-clock::before,
+.brand .goute-clock::after { background: var(--color-apricot); }
+.brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+.brand-text .brand-en {
+  font-family: var(--font-logo);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--color-cream);
+}
+.brand-text .brand-ja {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--color-apricot);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.site-nav {
+  display: flex;
+}
+.site-nav ul {
+  display: flex;
+  gap: 22px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+}
+.site-nav a {
+  color: var(--color-cream);
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  border-color: var(--color-apricot);
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  width: 36px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+}
+.nav-toggle-bar {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  height: 2px;
+  background: var(--color-cream);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.nav-toggle-bar:nth-child(1) { top: 7px; }
+.nav-toggle-bar:nth-child(2) { top: 15px; }
+.nav-toggle-bar:nth-child(3) { top: 23px; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+@media (max-width: 860px) {
+  .nav-toggle { display: block; }
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-ember);
+    box-shadow: var(--shadow-soft);
+  }
+  .site-nav.is-open { display: block; }
+  .site-nav ul {
+    flex-direction: column;
+    gap: 0;
+    padding: 6px 20px 16px;
+  }
+  .site-nav li { border-top: 1px solid rgba(251,243,228,0.12); }
+  .site-nav a { display: block; padding: 12px 4px; }
+}
+
+/* ---------------------------------------------------------
+   共通レイアウト
+   --------------------------------------------------------- */
+main { overflow-x: hidden; }
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 64px 0;
+}
+.section--panel { background-color: var(--color-panel); }
+
+.section-head {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.section-head .badge-grad { margin-bottom: 14px; }
+.section-head h2 { font-size: clamp(22px, 3.4vw, 32px); }
+.section-head p.lead { margin-top: 12px; color: var(--color-text); opacity: 0.85; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: 999px;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--color-apricot);
+  color: var(--color-cream);
+}
+.btn-primary:hover { background: var(--color-apricot-deep); }
+.btn-outline {
+  background: transparent;
+  color: var(--color-ember);
+  border-color: var(--color-ember);
+}
+.btn-outline:hover { background: var(--color-ember); color: var(--color-cream); }
+.btn-outline-light {
+  background: transparent;
+  color: var(--color-cream);
+  border-color: var(--color-cream);
+}
+.btn-outline-light:hover { background: var(--color-cream); color: var(--color-ember); }
+.btn-lg { padding: 18px 40px; font-size: 16px; }
+
+.cta-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ---------------------------------------------------------
+   ヒーロー(index)
+   --------------------------------------------------------- */
+.hero {
+  position: relative;
+  padding: 76px 0 72px;
+  background: linear-gradient(180deg, var(--color-bg), var(--color-panel));
+  text-align: center;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+}
+.hero .banneton-bg { position: absolute; inset: 0; opacity: 0.6; }
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.hero .goute-clock { margin: 0 auto 20px; }
+.hero-logo-en {
+  font-family: var(--font-logo);
+  font-style: italic;
+  font-size: clamp(30px, 6vw, 46px);
+  color: var(--color-ember);
+}
+.hero-logo-ja {
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  color: var(--color-apricot-deep);
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-size: clamp(24px, 4.4vw, 36px);
+  margin: 18px 0 16px;
+}
+.hero-sub {
+  font-size: 15px;
+  max-width: 560px;
+  margin: 0 auto 26px;
+}
+
+/* ---------------------------------------------------------
+   ページヒーロー(サブページ共通)
+   --------------------------------------------------------- */
+.page-hero {
+  padding: 56px 0 48px;
+  background: linear-gradient(180deg, var(--color-panel), var(--color-bg));
+  text-align: center;
+  position: relative;
+}
+/* banneton-bgのbackground-imageがpage-heroのbackgroundショートハンドに
+   上書きされるため、結合セレクタで両方のbackground-imageを重ねて指定する */
+.page-hero.banneton-bg {
+  background-image:
+    linear-gradient(180deg, var(--color-panel), var(--color-bg)),
+    repeating-linear-gradient(45deg, rgba(46,38,32,0.05) 0 2px, transparent 2px 18px),
+    repeating-linear-gradient(-45deg, rgba(46,38,32,0.05) 0 2px, transparent 2px 18px);
+}
+.page-hero .goute-clock,
+.page-hero .rond-decor { margin: 0 auto 18px; }
+.page-hero h1 { font-size: clamp(26px, 4.6vw, 38px); }
+.page-hero .lead { max-width: 620px; margin: 14px auto 0; }
+
+.rond-decor {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  position: relative;
+}
+.rond-decor::before,
+.rond-decor::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--color-apricot);
+}
+.rond-decor::after {
+  inset: 14px;
+  border-color: var(--color-dusk-blue);
+}
+
+/* ---------------------------------------------------------
+   コンセプト紹介(店名の意味)
+   --------------------------------------------------------- */
+.concept-block {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+.concept-block .goute-clock { margin: 0; }
+.concept-text { flex: 1; }
+.concept-text h2 { font-size: clamp(20px, 3vw, 28px); margin-bottom: 14px; }
+
+@media (max-width: 720px) {
+  .concept-block { flex-direction: column; text-align: center; gap: 20px; }
+}
+
+/* ---------------------------------------------------------
+   写真ギャラリー(index パン紹介)
+   --------------------------------------------------------- */
+.photo-feature {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto 32px;
+}
+.photo-feature .rond-frame:nth-child(2) { transform: translateY(18px); }
+.photo-feature figcaption {
+  text-align: center;
+  font-size: 12.5px;
+  margin-top: 10px;
+  color: var(--color-text);
+  opacity: 0.75;
+}
+
+@media (max-width: 760px) {
+  .photo-feature { grid-template-columns: 1fr; max-width: 380px; }
+  .photo-feature .rond-frame:nth-child(2) { transform: none; }
+}
+
+/* ---------------------------------------------------------
+   立地紹介ミニイントロ
+   --------------------------------------------------------- */
+.locale-intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.locale-intro .rond-decor { margin: 0 auto 18px; }
+
+/* ---------------------------------------------------------
+   お客様の声(抜粋/一覧)
+   --------------------------------------------------------- */
+.voice-note {
+  max-width: 720px;
+  margin: 0 auto 32px;
+  text-align: center;
+  background: var(--color-panel);
+  border-radius: var(--radius-soft);
+  padding: 18px 24px;
+  font-size: 14px;
+}
+
+.voice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+@media (max-width: 860px) {
+  .voice-grid { grid-template-columns: 1fr; max-width: 480px; }
+}
+
+.voice-card {
+  position: relative;
+  background: #fff;
+  background: var(--color-cream);
+  border: 1px solid rgba(217,138,76,0.3);
+  border-radius: var(--radius-soft);
+  padding: 26px 22px 22px;
+  box-shadow: var(--shadow-soft);
+}
+.voice-card::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid var(--color-dusk-blue);
+  border-radius: calc(var(--radius-soft) - 6px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+.voice-sample-tag,
+.hp-review-sample-tag {
+  position: absolute;
+  top: -12px;
+  right: 14px;
+  background: var(--color-dusk-blue);
+  color: var(--color-cream);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  z-index: 2;
+}
+.voice-card .goute-clock { --clock-size: 30px; margin-bottom: 14px; }
+.voice-card .voice-label {
+  font-weight: 700;
+  color: var(--color-apricot-deep);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.voice-card .voice-text { font-size: 14.5px; margin-bottom: 0; }
+
+.voice-excerpt {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* ---------------------------------------------------------
+   menu.html カテゴリセクション
+   --------------------------------------------------------- */
+.menu-category {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.menu-category--reverse { flex-direction: row-reverse; }
+.menu-category-text { flex: 1; }
+.menu-category-text h2 { font-size: clamp(20px, 3vw, 26px); margin-bottom: 12px; }
+.menu-category-photos {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.menu-category-photos.single { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+.price-note {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--color-apricot-deep);
+  background: var(--color-panel);
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+@media (max-width: 760px) {
+  .menu-category,
+  .menu-category--reverse {
+    flex-direction: column;
+    text-align: center;
+  }
+  .menu-category-photos { grid-template-columns: 1fr 1fr; max-width: 420px; margin: 0 auto; }
+}
+
+/* ---------------------------------------------------------
+   access.html 情報テーブル・地図
+   --------------------------------------------------------- */
+.access-table {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  border-collapse: collapse;
+  width: 100%;
+}
+.access-table th,
+.access-table td {
+  text-align: left;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(46,38,32,0.12);
+  font-size: 15px;
+}
+.access-table th {
+  width: 140px;
+  color: var(--color-apricot-deep);
+  font-weight: 700;
+  vertical-align: top;
+}
+
+.map-frame {
+  max-width: 820px;
+  margin: 0 auto 40px;
+  border-radius: var(--radius-soft);
+  overflow: hidden;
+  border: 2px solid var(--color-apricot);
+  box-shadow: var(--shadow-soft);
+}
+.map-frame iframe { width: 100%; height: 360px; border: 0; display: block; }
+
+.access-note {
+  max-width: 680px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.final-cta {
+  text-align: center;
+}
+.final-cta .cta-row { margin-top: 20px; }
+
+/* ---------------------------------------------------------
+   こだわりプレースホルダー枠(about)
+   --------------------------------------------------------- */
+.placeholder-note {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--color-panel);
+  border-radius: var(--radius-soft);
+  padding: 28px 30px;
+  text-align: center;
+}
+.placeholder-note p:last-child { margin-bottom: 0; }
+
+/* ---------------------------------------------------------
+   誘導ブロック(各ページ下部)
+   --------------------------------------------------------- */
+.guide-block {
+  text-align: center;
+}
+.guide-block h2 { margin-bottom: 18px; }
+
+/* ---------------------------------------------------------
+   フッター
+   --------------------------------------------------------- */
+.site-footer {
+  background: var(--color-ember);
+  color: var(--color-cream);
+  padding: 48px 0 32px;
+}
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.footer-brand .goute-clock { --clock-size: 34px; border-color: var(--color-apricot); }
+.footer-brand .goute-clock::before,
+.footer-brand .goute-clock::after { background: var(--color-apricot); }
+.footer-brand-en { font-family: var(--font-logo); font-style: italic; font-size: 20px; }
+
+.footer-tagline { font-size: 13.5px; opacity: 0.9; margin-bottom: 22px; }
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  font-size: 13.5px;
+}
+
+.footer-info {
+  font-size: 13px;
+  opacity: 0.92;
+  margin-bottom: 6px;
+}
+.footer-ig-row { margin: 18px 0 24px; }
+.footer-ig-row a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid var(--color-cream);
+  border-radius: 999px;
+  padding: 9px 22px;
+  font-size: 13.5px;
+}
+
+.footer-copyright {
+  font-size: 11.5px;
+  opacity: 0.65;
+  margin-top: 20px;
+}
+
+/* ---------------------------------------------------------
+   アクセシビリティ: reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
