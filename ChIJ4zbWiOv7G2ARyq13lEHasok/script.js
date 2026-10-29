@@ -1,0 +1,1 @@
+(function(){var b=document.querySelector('.menu-btn'),n=document.getElementById('gnav');if(!b||!n)return;b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?'メニューを閉じる':'メニューを開く')})})();
