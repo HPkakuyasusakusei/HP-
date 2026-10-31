@@ -1,0 +1,154 @@
+/* ドッグサロン coco 試作サンプル: ふじ色(紫)基調 / 左サイドバー型レイアウト */
+:root{--bg:#F4F0FB;--paper:#FFFFFF;--ink:#2A2142;--sub:#5E5478;--violet:#5B3FA0;--deep:#3B2A73;--lilac:#E3DAF5;--lilac2:#CFC2EC;--teal:#0F7F79;--teal-soft:#D6F1EE;--line:#D8CFEE}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Meiryo",sans-serif;background:var(--bg);color:var(--ink);line-height:1.85;font-size:16px;-webkit-text-size-adjust:100%}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--violet)}
+.num{font-feature-settings:"palt" 0;letter-spacing:.02em}
+h1,h2,h3{line-height:1.45;margin:0 0 .6em}
+
+/* サイドバー(デスクトップ) */
+.side{position:fixed;left:0;top:0;bottom:0;width:272px;background:var(--deep);color:#fff;padding:22px 22px 28px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;z-index:20}
+.side a{color:#fff}
+.side-top{display:flex;align-items:center;gap:12px}
+.ig-icon{display:inline-flex;width:44px;height:44px;align-items:center;justify-content:center;border:2px solid #fff;border-radius:50%;text-decoration:none;flex:none}
+.ig-icon svg{width:24px;height:24px}
+.ig-icon:hover,.ig-icon:focus-visible{background:#fff;color:var(--deep)}
+.tel-top{font-weight:700;font-size:.98rem;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.5)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:1.2rem;line-height:1.3;margin-top:8px}
+.logo-mark{display:inline-flex;width:42px;height:42px;border-radius:50% 50% 50% 8px;background:var(--lilac);color:var(--deep);align-items:center;justify-content:center;font-size:1.5rem;flex:none}
+.hp-sample-badge{display:block;background:var(--lilac);color:var(--deep);border:1px dashed var(--violet);font-size:.78rem;line-height:1.5;padding:5px 10px;border-radius:6px;margin:0}
+.nav{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.nav a{text-decoration:none;padding:10px 14px;border-radius:999px;font-weight:500;border:1px solid transparent}
+.nav a:hover,.nav a:focus-visible{border-color:rgba(255,255,255,.6)}
+.nav a[aria-current="page"]{background:#fff;color:var(--deep);font-weight:700}
+
+.main-col{margin-left:272px;min-height:100vh;display:flex;flex-direction:column}
+main{flex:1;padding:0 0 24px}
+main>section,main>div{max-width:980px;margin-left:auto;margin-right:auto;padding-left:36px;padding-right:36px}
+
+/* 写真 */
+.ph{margin:0}
+.ph img{width:100%;border-radius:18px;object-fit:cover}
+.ph figcaption{font-size:.76rem;color:var(--sub);margin-top:6px;line-height:1.5}
+.ph.sq img{aspect-ratio:1/1}
+.ph.wide img{aspect-ratio:16/8;border-radius:28px 6px 28px 6px}
+
+/* トップ: 写真に重なる紫の板 */
+.opening{position:relative;max-width:none!important;padding:0!important;margin-bottom:64px}
+.op-photo .ph img{border-radius:0 0 80px 0;aspect-ratio:16/8;max-height:460px;width:100%}
+.op-photo .ph figcaption{padding:0 36px}
+.op-text{position:relative;background:var(--paper);margin:-90px 36px 0 auto;width:min(560px,calc(100% - 72px));padding:28px 30px;border-radius:28px 6px 28px 6px;box-shadow:0 12px 30px rgba(59,42,115,.18);border-top:6px solid var(--violet)}
+.eyebrow{margin:0 0 4px;color:var(--teal);font-weight:700;font-size:.9rem;letter-spacing:.08em}
+.op-text h1{font-size:clamp(1.5rem,3.2vw,2.1rem);color:var(--deep)}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.btn{display:inline-block;background:var(--teal);color:#fff!important;text-decoration:none;font-weight:700;padding:12px 22px;border-radius:999px;border:2px solid var(--teal)}
+.btn.ghost{background:transparent;color:var(--violet)!important;border-color:var(--violet)}
+.btn:hover,.btn:focus-visible{filter:brightness(1.12)}
+
+.concept{background:var(--lilac);border-radius:6px 40px 6px 40px;padding-top:26px!important;padding-bottom:26px!important;margin-bottom:56px;max-width:908px!important}
+.concept.alt{background:var(--paper);border:2px dashed var(--lilac2)}
+.proposal-tag,.voice-sample-tag{display:inline-block;background:var(--deep);color:#fff;font-size:.75rem;font-weight:700;padding:2px 12px;border-radius:999px;margin-bottom:8px}
+.voice-sample-tag{background:var(--teal-soft);color:#0B5C57;border:1px solid var(--teal)}
+
+h2{font-size:1.4rem;color:var(--deep);position:relative;padding-left:18px}
+h2::before{content:"";position:absolute;left:0;top:.35em;width:8px;height:1em;border-radius:4px;background:linear-gradient(var(--violet),var(--teal))}
+.concept h2,.cta h2{padding-left:18px}
+
+/* 横スクロールのアルバム */
+.album{max-width:none!important;padding:0!important;margin-bottom:56px}
+.album h2,.album .lead{padding-left:54px;margin-right:36px}
+.album .lead{margin-top:-.2em;color:var(--sub);font-size:.92rem}
+.strip{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 36px 14px;-webkit-overflow-scrolling:touch}
+.strip .ph{flex:0 0 min(340px,78%);scroll-snap-align:start}
+.strip .ph:nth-child(even){margin-top:28px}
+.strip .ph img{aspect-ratio:4/5}
+
+.facts{margin-bottom:56px}
+.facts dl,.facts-dl{margin:0;background:var(--paper);border-radius:22px;border:1px solid var(--line);overflow:hidden}
+.facts dl>div,.facts-dl>div{display:grid;grid-template-columns:11em 1fr;gap:10px;padding:14px 22px;border-bottom:1px solid var(--line)}
+.facts dl>div:last-child,.facts-dl>div:last-child{border-bottom:0}
+dt{font-weight:700;color:var(--violet)}
+dd{margin:0}
+.pending{color:var(--sub)}
+.links{font-size:.92rem;margin-top:14px}
+
+.cta{background:var(--deep);color:#fff;border-radius:40px 6px 40px 6px;padding-top:30px!important;padding-bottom:32px!important;margin-bottom:40px;max-width:908px!important;text-align:center}
+.cta h2{color:#fff;padding-left:0}
+.cta h2::before{display:none}
+.cta a:not(.btn){color:#fff}
+.cta .btn-row{justify-content:center}
+.cta .btn.ghost{color:#fff!important;border-color:#fff}
+
+.page-head{padding-top:40px!important;padding-bottom:6px!important}
+.page-head h1{font-size:2rem;color:var(--deep);margin:0 0 .3em;display:inline-block;border-bottom:6px solid var(--lilac2)}
+.page-head p{margin:.4em 0 0;color:var(--sub)}
+
+/* メニュー */
+.menu-sheet{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:30px;align-items:center;margin:26px auto 40px}
+.blank-list{list-style:none;margin:0 0 12px;padding:0}
+.blank-list li{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--paper);border:2px dashed var(--lilac2);border-radius:14px;padding:12px 16px;margin-bottom:10px}
+.blank-list b{font-weight:500}
+.small{font-size:.85rem;color:var(--sub)}
+.wide-photo{margin-bottom:48px}
+
+/* 口コミ */
+.notice-voice{background:var(--teal-soft);border-left:6px solid var(--teal);padding:12px 18px;margin:20px auto 30px;border-radius:0 12px 12px 0;font-weight:500;color:#0B4F4A}
+.bubbles{display:flex;flex-direction:column;gap:30px;margin-bottom:30px}
+.bubble{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:24px;align-items:center}
+.bubble.r{grid-template-columns:minmax(0,6fr) minmax(0,4fr)}
+.bubble.r .b-ph{order:2}
+.b-tx{background:var(--paper);border:2px solid var(--lilac2);border-radius:26px 26px 26px 4px;padding:20px 24px;position:relative}
+.bubble.r .b-tx{border-radius:26px 26px 4px 26px}
+.b-tx h3{font-size:1.1rem;color:var(--deep)}
+.b-tx p{margin:0}
+.actual-voice{text-align:center;color:var(--sub);border:2px dashed var(--lilac2);border-radius:14px;padding:12px;margin-bottom:40px!important;max-width:908px}
+
+/* お店について */
+.about-wide{margin:20px auto 30px;padding:0 36px}
+.about-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,4fr);gap:30px;align-items:center;margin-bottom:40px}
+
+/* アクセス */
+.acc{margin:24px auto 40px}
+.map{margin-top:20px;border-radius:24px;overflow:hidden;border:3px solid var(--lilac2)}
+.map iframe{display:block;width:100%;height:400px;border:0}
+
+.hp-photo-note{background:var(--lilac);border-left:6px solid var(--violet);font-size:.82rem;line-height:1.7;padding:10px 16px;margin:12px 36px 0;max-width:908px;border-radius:0 10px 10px 0}
+@media(min-width:1260px){.hp-photo-note{margin-left:auto;margin-right:auto}}
+
+.site-foot{background:#E9E2F7;padding:28px 36px 90px;font-size:.88rem;border-top:1px solid var(--line)}
+.site-foot h2{font-size:1.1rem;padding-left:0}
+.site-foot h2::before{display:none}
+.credits summary{cursor:pointer;font-weight:700}
+.credits ul{columns:2;column-gap:28px;padding-left:1.1em;margin:.6em 0;font-size:.8rem;line-height:1.6}
+.credits li{break-inside:avoid;margin-bottom:3px}
+.tel-bar{display:none}
+
+/* スマホ: サイドバーを上部ヘッダーに、下部に電話バー */
+@media(max-width:860px){
+  .side{position:static;width:auto;padding:12px 16px 10px;gap:8px;flex-direction:row;flex-wrap:wrap;align-items:center}
+  .side-top{order:1}
+  .logo{order:2;margin:0;font-size:1rem;flex:1;min-width:0}
+  .logo-mark{width:34px;height:34px;font-size:1.2rem}
+  .hp-sample-badge{order:3;flex:1 1 100%;font-size:.72rem}
+  .nav{order:4;flex:1 1 100%;flex-direction:row;overflow-x:auto;margin:0;gap:4px;padding-bottom:4px}
+  .nav a{white-space:nowrap;padding:8px 12px;font-size:.92rem}
+  .main-col{margin-left:0}
+  main>section,main>div{padding-left:16px;padding-right:16px}
+  .op-photo .ph img{border-radius:0 0 44px 0;aspect-ratio:4/3}
+  .op-photo .ph figcaption{padding:0 16px}
+  .op-text{margin:-48px 16px 0;width:auto;padding:20px 18px}
+  .album h2,.album .lead{padding-left:34px;margin-right:16px}
+  .strip{padding:6px 16px 14px}
+  .facts dl>div,.facts-dl>div{grid-template-columns:1fr;gap:0;padding:12px 16px}
+  .menu-sheet,.about-grid,.bubble,.bubble.r{grid-template-columns:1fr}
+  .bubble.r .b-ph{order:0}
+  .about-wide{padding:0 16px}
+  .ph.wide img{aspect-ratio:16/10}
+  .hp-photo-note{margin:12px 16px 0}
+  .site-foot{padding:24px 16px 90px}
+  .credits ul{columns:1}
+  .tel-bar{display:block;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--teal);color:#fff;text-align:center;text-decoration:none;font-weight:700;font-size:1.05rem;padding:14px 10px;box-shadow:0 -2px 10px rgba(0,0,0,.25)}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
