@@ -1,0 +1,176 @@
+:root{
+  --moss:#5E6B2F;
+  --mustard:#B8892B;
+  --ink:#2B2A27;
+  --kinari:#F3EEDF;
+  --kinari-deep:#E6DEC6;
+  --moss-soft:#8A9559;
+  --slant:2.6vw;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--kinari);color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  font-weight:400;font-size:16px;line-height:1.9;font-variant-numeric:tabular-nums;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:"Shippori Mincho","Yu Mincho",serif;font-weight:700;line-height:1.5;margin:0}
+p{margin:0 0 .8em}
+.num{font-variant-numeric:tabular-nums;letter-spacing:.04em}
+
+/* header */
+.topbar{background:var(--ink);color:var(--kinari);display:flex;justify-content:space-between;align-items:center;padding:.35rem 1rem}
+.topbar a{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;min-height:36px;font-size:.9rem}
+.topbar svg{width:22px;height:22px;fill:none;stroke:var(--kinari);stroke-width:1.8}
+.topbar svg .dot{fill:var(--kinari);stroke:none}
+.head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem 1.5rem;padding:.8rem 1rem .9rem;border-bottom:2px solid var(--mustard)}
+.head .name{font-family:"Shippori Mincho",serif;font-weight:700;font-size:1.5rem;text-decoration:none;color:var(--moss);letter-spacing:.08em}
+.head nav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.1rem 1.1rem}
+.head nav a{display:inline-block;padding:.35rem .1rem;text-decoration:none;font-weight:500;border-bottom:2px solid transparent}
+.head nav a[aria-current="page"]{border-bottom-color:var(--mustard)}
+.head nav a:hover{border-bottom-color:var(--moss-soft)}
+
+/* notices */
+.hp-sample-badge{background:var(--mustard);color:var(--ink);padding:.7rem 1rem;font-size:.95rem;line-height:1.7}
+.hp-sample-badge strong{display:block;font-size:1rem}
+.hp-photo-note{margin:0;padding:.9rem 1rem;font-size:.92rem;border-left:4px solid var(--mustard);background:var(--kinari-deep);position:relative;z-index:2}
+.hp-photo-note p{max-width:56em;margin:0 0 .3em}
+.hp-photo-note p:last-child{margin:0}
+
+/* bands */
+.band{position:relative;padding:calc(3.2rem + var(--slant)) 1.2rem 3.2rem;margin-top:calc(var(--slant) * -1);clip-path:polygon(0 var(--slant),100% 0,100% 100%,0 100%);animation:fade .8s ease both}
+.band.flip{clip-path:polygon(0 0,100% var(--slant),100% 100%,0 100%)}
+.band--moss{background:var(--moss);color:var(--kinari)}
+.band--ink{background:var(--ink);color:var(--kinari)}
+.band--deep{background:var(--kinari-deep)}
+.band--plain{background:var(--kinari)}
+.band a{text-underline-offset:.2em}
+.band--first{margin-top:0;clip-path:none;padding-top:3rem}
+.band--space{min-height:14vh;padding-top:calc(2rem + var(--slant));padding-bottom:2rem;background:var(--kinari);background-image:linear-gradient(var(--moss-soft),var(--moss-soft));background-size:60% 1px;background-repeat:no-repeat;background-position:10% 55%}
+.band--space.slim{display:flex;align-items:center;padding-top:calc(1.5rem + var(--slant));padding-bottom:1.5rem;background-image:none;background-color:var(--kinari-deep)}
+.band--space.slim figure{width:min(900px,88%);margin-left:auto}
+.band h2{font-size:1.5rem;letter-spacing:.06em;margin-bottom:.8em}
+.tategaki{writing-mode:vertical-rl;letter-spacing:.2em;text-orientation:upright;margin:0}
+h2.tategaki,h1.tategaki{font-size:1.9rem;line-height:1.3;margin:0}
+.row{display:flex;gap:1.4rem;align-items:flex-start}
+.row>.tategaki{flex:none}
+.rule{width:3rem;height:3px;background:var(--mustard);margin:0 0 1rem}
+.cols{display:grid;gap:2rem 2.5rem;align-items:start}
+
+/* photos */
+.ph{margin:0;position:relative}
+.ph img{width:100%;object-fit:cover;border-left:4px solid var(--mustard)}
+.ph.r img{border-left:0;border-right:4px solid var(--mustard)}
+.ph.tall img{aspect-ratio:3/4}
+.ph figcaption{font-size:.78rem;line-height:1.5;color:inherit;opacity:.9;margin-top:.35rem}
+.ph figcaption.v{position:absolute;right:.4rem;bottom:.4rem;margin:0;writing-mode:vertical-rl;background:rgba(43,42,39,.72);color:var(--kinari);padding:.5rem .25rem;opacity:1}
+
+/* buttons */
+.btn{display:inline-block;background:var(--moss);color:var(--kinari);text-decoration:none;font-weight:500;padding:.85rem 1.6rem;min-height:48px;border:2px solid var(--moss);letter-spacing:.06em}
+.btn:hover{background:var(--ink);border-color:var(--ink)}
+.band--moss .btn,.band--ink .btn{background:var(--mustard);border-color:var(--mustard);color:var(--ink)}
+.band--moss .btn:hover,.band--ink .btn:hover{background:var(--kinari);border-color:var(--kinari)}
+.links{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;margin-top:1rem}
+.links a{padding:.3rem 0}
+
+/* info list */
+dl.info{margin:0;display:grid;grid-template-columns:7em 1fr;border-top:1px solid var(--mustard)}
+dl.info dt,dl.info dd{margin:0;padding:.7rem 0;border-bottom:1px solid var(--mustard)}
+dl.info dt{font-weight:500}
+.tel-big{font-family:"Shippori Mincho",serif;font-weight:700;font-size:2rem;letter-spacing:.05em;text-decoration:none;display:inline-block;padding:.2rem 0}
+
+/* index */
+.intro{grid-template-columns:7fr 5fr}
+.intro .ph{margin-left:-1.2rem}
+.hitofushi{font-size:2.4rem !important}
+.byline{font-size:.85rem;border-left:3px solid var(--mustard);padding-left:.7rem;margin-top:1rem}
+.shop{grid-template-columns:5fr 6fr}
+.shop .ph{margin-right:-1.2rem}
+.pair{grid-template-columns:4fr auto 4fr;align-items:start;max-width:960px;margin:0 auto}
+.pair .ph:last-child{margin-top:4rem}
+.pair .navv{display:flex;gap:1.1rem;justify-content:center;margin-top:2rem}
+.pair .navv a{writing-mode:vertical-rl;letter-spacing:.25em;font-family:"Shippori Mincho",serif;font-weight:700;font-size:1.2rem;text-decoration:none;border-right:2px solid var(--mustard);padding:.2rem .3rem;min-height:48px}
+
+/* menu */
+.menuA{grid-template-columns:1fr 6fr}
+.notice-big{border:2px solid var(--moss);padding:1.4rem 1.4rem 1.2rem;background:var(--kinari)}
+.notice-big strong{display:block;font-family:"Shippori Mincho",serif;font-size:1.7rem;line-height:1.5}
+.notice-big span{color:var(--moss);font-weight:500}
+.stag{grid-template-columns:6fr 5fr;align-items:start}
+.stag .ph:last-child{margin-top:4rem}
+.menuC{grid-template-columns:5fr 5fr;max-width:900px;margin:0 auto}
+.menuC .sm{grid-column:1/-1;width:52%;justify-self:center;margin-top:-1rem}
+.menuC .ph:nth-child(2){margin-top:3rem}
+
+/* voice */
+.caution{border:3px double var(--moss);background:var(--kinari);padding:1.2rem 1.4rem;max-width:44em}
+.caution h2{font-size:1.2rem;margin-bottom:.4em}
+.say{max-width:34em;padding:1.2rem 0 1.6rem}
+.say:nth-of-type(even){margin-left:auto}
+.say p.t{font-family:"Shippori Mincho",serif;font-size:1.25rem;line-height:1.9;margin:.6rem 0 0}
+.voice-sample-tag{display:inline-block;background:var(--mustard);color:var(--ink);font-size:.8rem;font-weight:500;padding:.05rem .7rem;letter-spacing:.1em}
+.vphoto{grid-template-columns:1fr 6fr 1fr;align-items:end}
+.vphoto .small{grid-column:1/3;grid-row:2;width:44%;margin-top:-3rem;position:relative}
+.vphoto .big{grid-column:2/4;grid-row:1}
+
+/* about */
+.aboutA{grid-template-columns:4fr 7fr}
+.aboutA .ph img{aspect-ratio:2/3}
+.aboutC{grid-template-columns:5fr 6fr;align-items:center}
+.aboutC .ph{margin-left:-1.2rem}
+
+/* access */
+.accA{grid-template-columns:1fr 6fr}
+.mapband{padding-left:0;padding-right:0}
+.mapband iframe{display:block;width:100%;height:min(60vh,460px);border:0;filter:saturate(.85)}
+.mapband .links{padding:0 1.2rem}
+.accB{grid-template-columns:5fr 3fr;align-items:center;max-width:960px;margin:0 auto}
+
+/* cta */
+.cta{text-align:center}
+.cta .lead{margin:0;font-family:"Shippori Mincho",serif;font-size:1.2rem}
+.cta .tel{display:inline-block;font-family:"Shippori Mincho",serif;font-weight:700;font-size:2.4rem;letter-spacing:.06em;text-decoration:none;margin:.2rem 0 .8rem;color:var(--mustard)}
+.cta .links{justify-content:center}
+.cta .sub{font-size:.95rem;margin:.6rem 0 0}
+
+/* footer */
+.foot{background:var(--ink);color:var(--kinari);padding:2.4rem 1.2rem 2rem;font-size:.9rem}
+.foot a{color:var(--kinari)}
+.foot .fname{font-family:"Shippori Mincho",serif;font-size:1.2rem;font-weight:700;margin:0 0 .3em}
+.foot address{font-style:normal}
+.foot ul{list-style:none;margin:.6rem 0 1rem;padding:0;font-size:.85rem}
+.foot li{margin-bottom:.15rem}
+.foot .small{font-size:.85rem;opacity:.9;margin-bottom:.3em}
+.foot h2{font-size:.95rem;margin:1.2rem 0 .3rem;font-family:inherit;font-weight:500;color:var(--mustard)}
+
+/* phone bar */
+.phonebar{display:none}
+
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.band{animation:none}}
+
+@media (max-width:768px){
+  :root{--slant:5vw}
+  .intro,.shop,.menuA,.stag,.menuC,.vphoto,.aboutA,.aboutC,.accA,.accB{grid-template-columns:1fr}
+  .pair{grid-template-columns:1fr 1fr;gap:.6rem}
+  .pair .navv{grid-column:1/-1;grid-row:2;margin-top:1rem}
+  .pair .navv a{writing-mode:horizontal-tb;letter-spacing:.1em;border-right:0;border-bottom:2px solid var(--mustard);padding:.5rem .2rem;display:inline-flex;align-items:center}
+  .pair .navv{flex-wrap:wrap;gap:.6rem 1.2rem}
+  .pair .ph:last-child{margin-top:2.4rem}
+  .menuC{grid-template-columns:1fr 1fr;gap:1rem}
+  .menuC .sm{width:70%;margin-top:0}
+  .stag .ph:last-child{margin-top:0;margin-left:2.5rem}
+  .vphoto .small,.vphoto .big{grid-column:1;grid-row:auto;width:auto}
+  .vphoto .small{width:60%;margin-top:0}
+  .head .name{font-size:1.3rem}
+  .band h2{font-size:1.3rem}
+  h2.tategaki,h1.tategaki{font-size:1.5rem}
+  .hitofushi{font-size:2rem !important}
+  .cta .tel{font-size:2rem}
+  dl.info{grid-template-columns:5.5em 1fr}
+  .band--space.slim figure{width:100%}
+  .phonebar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;justify-content:center;align-items:center;gap:.6rem;background:var(--ink);color:var(--mustard);border-top:2px solid var(--mustard);min-height:56px;padding:.5rem 1rem calc(.5rem + env(safe-area-inset-bottom));text-decoration:none;font-weight:700;font-size:1.1rem}
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+}
