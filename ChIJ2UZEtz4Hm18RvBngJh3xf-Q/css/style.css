@@ -1,0 +1,164 @@
+/* Bake Lab M - 焼成ノート: 方眼紙の灰白 × 焦栗 × 青竹 × 蛍光黄 */
+:root{
+  --paper:#eef0e7;--paper2:#e2e6d8;--ink:#33241a;--ink2:#6b5648;
+  --bamboo:#4b7f58;--bamboo-d:#2f5a3c;--mark:#ecdf4e;--line:rgba(75,127,88,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;line-height:1.9;font-size:16px;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:28px 28px;padding-bottom:56px}
+img{max-width:100%;display:block}
+a{color:var(--bamboo-d)}
+.mono{font-family:"DotGothic16","Zen Kaku Gothic New",monospace;letter-spacing:.08em}
+h1,h2,h3{font-family:"Shippori Antique B1","Zen Kaku Gothic New",serif;font-weight:400;line-height:1.4;margin:0}
+
+.hp-photo-note{position:fixed;left:0;right:0;bottom:0;z-index:900;background:rgba(30,20,14,.95);color:#fff;font-size:13.5px;font-weight:700;line-height:1.5;text-align:center;padding:10px 14px;border-top:3px solid var(--mark)}
+
+/* header: file tabs */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 24px;padding:18px 24px 0;max-width:1080px;margin:0 auto;border-bottom:3px solid var(--ink)}
+.logo{text-decoration:none;color:var(--ink);display:flex;flex-direction:column;padding-bottom:8px}
+.logo .mono{font-size:11px;color:var(--bamboo-d)}
+.logo b{font-family:"Shippori Antique B1",serif;font-size:26px;font-weight:400;letter-spacing:.04em}
+.tabs{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px;padding-right:96px}
+.tabs a{display:block;padding:7px 14px;font-size:14px;text-decoration:none;color:var(--ink);background:var(--paper2);border:2px solid var(--ink);border-bottom:0;border-radius:8px 8px 0 0}
+.tabs a[aria-current="page"]{background:var(--mark);font-weight:700}
+.tabs a:hover{background:#fff}
+
+main{max-width:1080px;margin:0 auto;padding:28px 24px 8px}
+.sheet{margin:0 0 56px;position:relative}
+.kick{font-size:12px;color:var(--bamboo-d);margin-bottom:6px}
+.kick::before{content:"■ ";color:var(--bamboo)}
+h1{font-size:34px}
+h2{font-size:26px;margin-bottom:10px;display:inline;background:linear-gradient(transparent 62%,var(--mark) 62%);padding:0 4px}
+.sheet h2+p,.sheet h2+.note{margin-top:14px}
+.note{font-size:14px;color:var(--ink2);max-width:42em}
+.sheet h2{display:inline-block}
+.warn{background:#fff;border:2px dashed var(--ink);padding:12px 16px;font-size:14.5px;max-width:42em;margin-top:14px}
+.pending{display:inline-block;font-size:13px;padding:1px 10px;border:1px solid var(--ink2);color:var(--ink2);background:rgba(255,255,255,.7);border-radius:2px}
+.pagehead{padding-top:12px}
+
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-block;padding:11px 22px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:15px;border:2px solid var(--ink);border-radius:3px}
+.btn:hover{background:var(--bamboo-d);border-color:var(--bamboo-d)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--mark);color:var(--ink);border-color:var(--ink)}
+
+/* photos: plates with corner marks */
+.ph{margin:0;position:relative;background:#fff;padding:8px 8px 0;border:2px solid var(--ink)}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph figcaption{font-size:12px;color:var(--ink2);padding:5px 2px 6px;line-height:1.5}
+.ph::before,.ph::after{content:"";position:absolute;width:14px;height:14px;border:3px solid var(--bamboo)}
+.ph::before{left:-8px;top:-8px;border-right:0;border-bottom:0}
+.ph::after{right:-8px;bottom:-8px;border-left:0;border-top:0}
+
+/* index: title label + Fig.1 */
+.title{display:grid;grid-template-columns:minmax(280px,1fr) 1.35fr;gap:32px;align-items:start;margin-top:10px}
+.label{background:#fff;border:3px solid var(--ink);padding:22px 24px 26px;box-shadow:8px 8px 0 var(--bamboo)}
+.label .tag{font-size:12px;background:var(--ink);color:var(--mark);display:inline-block;padding:2px 10px;margin-bottom:12px}
+.label h1{font-size:44px;line-height:1.1;letter-spacing:.02em}
+.lead{font-family:"Shippori Antique B1",serif;font-size:19px;margin:10px 0 14px}
+.label dl{display:grid;grid-template-columns:5.5em 1fr;margin:0;border-top:1px solid var(--ink)}
+.label dt,.label dd{margin:0;padding:7px 0;border-bottom:1px solid var(--ink);font-size:14.5px}
+.label dt{font-weight:700;color:var(--bamboo-d)}
+.fig1{position:relative;padding-right:34px}
+.fig1 .big img{aspect-ratio:4/3}
+.ruler{position:absolute;right:0;top:0;bottom:0;width:22px;background:
+  repeating-linear-gradient(to bottom,var(--ink) 0 2px,transparent 2px 10px),
+  repeating-linear-gradient(to bottom,var(--ink) 0 2px,transparent 2px 50px);
+  background-size:10px 100%,22px 100%;background-repeat:no-repeat;background-position:right top,right top;opacity:.8}
+
+/* procedure */
+.proc{list-style:none;margin:22px 0 0;padding:0;max-width:760px}
+.proc li{display:grid;grid-template-columns:96px 1fr;gap:18px;padding:18px 0;border-top:2px dashed var(--ink2)}
+.proc li:last-child{border-bottom:2px dashed var(--ink2)}
+.num{font-family:"DotGothic16",monospace;font-size:64px;line-height:1;color:var(--bamboo);text-shadow:3px 3px 0 var(--mark)}
+.proc h3{font-size:20px;margin-bottom:4px}
+.proc p{margin:0;font-size:15px}
+
+/* specimens: staggered shelf */
+.shelfrow{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:34px;align-items:end;margin-top:26px;padding:0 6px 14px;border-bottom:6px solid var(--ink)}
+.shelfrow .s1 img{aspect-ratio:3/4}
+.shelfrow .s2 img{aspect-ratio:4/3}
+.shelfrow .s3 img{aspect-ratio:1/1}
+
+/* field */
+.town{display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:start}
+.town p{max-width:34em}
+.townp{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:end}
+.townp .tall img{aspect-ratio:3/4}
+.townp .hand{margin-bottom:30px}
+.townp .hand img{aspect-ratio:1/1;object-position:left}
+
+/* tables */
+.ledger,.recipe{border-collapse:collapse;width:100%;max-width:720px;background:#fff;border:2px solid var(--ink);margin-top:14px}
+.ledger th,.ledger td,.recipe th,.recipe td{border:1px solid var(--ink);padding:10px 14px;text-align:left;vertical-align:top;font-size:15px}
+.ledger th{width:7.5em;background:var(--paper2);font-weight:700}
+.recipe thead th{background:var(--ink);color:#fff}
+
+/* menu plates */
+.plates{display:grid;grid-template-columns:repeat(6,1fr);gap:30px 26px;margin-top:26px}
+.plates .ph:nth-child(1){grid-column:span 3}
+.plates .ph:nth-child(2){grid-column:span 3;margin-top:36px}
+.plates .ph:nth-child(3){grid-column:span 2}
+.plates .ph:nth-child(4){grid-column:span 2;margin-top:24px}
+.plates .ph:nth-child(5){grid-column:span 2}
+.plates img{aspect-ratio:4/3}
+
+/* voice */
+.logs{display:grid;gap:26px;max-width:760px}
+.log{background:#fff;border:2px solid var(--ink);padding:16px 22px 20px;position:relative;box-shadow:6px 6px 0 var(--paper2)}
+.log:nth-child(2){margin-left:36px}
+.logh{display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:10px}
+.logh .mono{font-size:13px;color:var(--bamboo-d)}
+.voice-sample-tag{display:inline-block;font-size:12px;font-weight:700;background:var(--mark);border:1.5px solid var(--ink);padding:0 10px;border-radius:2px}
+.log p{margin:0}
+
+/* about */
+.eq{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:10px 0 20px}
+.eq span{font-family:"Shippori Antique B1",serif;font-size:34px;border:3px solid var(--ink);background:#fff;padding:2px 18px}
+.eq i{font-style:normal;font-size:28px;color:var(--bamboo)}
+.parts{display:grid;grid-template-columns:5em 1fr;max-width:640px;margin:0 0 20px}
+.parts dt{font-family:"DotGothic16",monospace;font-weight:700;padding:8px 0;border-top:1px solid var(--ink2);color:var(--bamboo-d)}
+.parts dd{margin:0;padding:8px 0;border-top:1px solid var(--ink2)}
+.etym p{max-width:40em}
+.trio{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:26px;align-items:start}
+.trio .t1 img{aspect-ratio:4/3}
+.trio .t2{margin-top:30px}
+.trio .t2 img,.trio .t3 img{aspect-ratio:3/4}
+
+/* access */
+.map{margin-top:24px;border:3px solid var(--ink);box-shadow:8px 8px 0 var(--bamboo);background:#fff}
+.map iframe{display:block;width:100%;height:380px;border:0}
+
+/* footer */
+.foot{background:var(--ink);color:#e8e0d6;margin-top:30px;padding:36px 24px 28px;font-size:14px}
+.foot .inner{max-width:1080px;margin:0 auto}
+.foot a{color:var(--mark)}
+.fname{font-family:"Shippori Antique B1",serif;font-size:24px;color:#fff;margin-bottom:6px}
+.links{list-style:none;padding:0;margin:14px 0;display:flex;flex-wrap:wrap;gap:6px 18px}
+.credits{border-top:1px solid rgba(255,255,255,.3);margin-top:16px;padding-top:14px;font-size:12.5px;line-height:1.7}
+.credits ul{padding-left:1.2em;margin:8px 0}
+.design{font-size:12px;opacity:.8;margin-top:14px}
+
+@media (max-width:820px){
+  .top{padding:14px 16px 0}
+  .tabs{padding-right:0}
+  .tabs a{padding:6px 10px;font-size:13px}
+  main{padding:20px 16px 8px}
+  .title,.town{grid-template-columns:1fr;gap:28px}
+  .label h1{font-size:36px}
+  .shelfrow{grid-template-columns:1fr 1fr;gap:22px}
+  .shelfrow .s2{grid-column:span 2;order:-1}
+  .plates{grid-template-columns:1fr 1fr;gap:22px}
+  .plates .ph:nth-child(n){grid-column:auto;margin-top:0}
+  .plates .ph:nth-child(5){grid-column:span 2}
+  .trio{grid-template-columns:1fr 1fr}
+  .trio .t1{grid-column:span 2}
+  .trio .t2{margin-top:0}
+  .proc li{grid-template-columns:64px 1fr}
+  .num{font-size:44px}
+  .log:nth-child(2){margin-left:0}
+  .hp-photo-note{font-size:12px}
+}
