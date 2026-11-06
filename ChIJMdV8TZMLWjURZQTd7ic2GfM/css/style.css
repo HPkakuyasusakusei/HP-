@@ -1,0 +1,122 @@
+:root{--paper:#eceee8;--paper2:#e0e4dc;--ink:#1d2b32;--wire:#4a5a60;--yama:#e2a823;--yamad:#8a6410;--moss:#5d7552;--line:rgba(29,43,50,.28)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.9 "Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;-webkit-text-size-adjust:100%}
+img{max-width:100%;display:block}
+a{color:var(--ink)}
+h1,h2,h3{font-family:"Shippori Mincho B1","Yu Mincho",serif;font-weight:800;line-height:1.4;margin:0 0 .6em}
+h2{font-size:clamp(1.5rem,4.6vw,2.2rem)}
+p{margin:0 0 1em}
+.pending{display:inline-block;padding:0 .8em;border:1px dashed var(--wire);border-radius:99px;font-size:.9em;color:var(--wire)}
+
+/* header: wire with notes as nav */
+.top{position:relative;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 24px;padding:14px 20px 0;padding-right:96px;background:var(--paper)}
+.logo{font:800 1.5rem/1.2 "Shippori Mincho B1",serif;text-decoration:none;letter-spacing:.12em;padding-bottom:8px}
+.logo small{display:block;font:400 .7rem/1.4 "Zen Kaku Gothic New",sans-serif;letter-spacing:.3em;color:var(--wire)}
+.top nav{flex:1 1 100%;order:3;margin:0 -20px;padding:0 20px;background:linear-gradient(var(--wire),var(--wire)) 0 100%/100% 2px no-repeat}
+.top ul{list-style:none;margin:0;padding:0;display:flex;justify-content:space-between;gap:4px;max-width:760px}
+.top li:nth-child(2){transform:translateY(5px)}.top li:nth-child(3){transform:translateY(-3px)}.top li:nth-child(4){transform:translateY(7px)}.top li:nth-child(5){transform:translateY(-1px)}
+.top a{display:flex;flex-direction:column;align-items:center;text-decoration:none;font-size:.78rem;line-height:1.3;padding:6px 2px 0;min-width:52px}
+.top a i{font:normal 800 .8rem/1 "Shippori Mincho B1",serif;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--paper);margin-bottom:3px}
+.top a[aria-current]{font-weight:700}
+.top a[aria-current] i{background:var(--yama);color:var(--ink);box-shadow:0 0 0 3px rgba(226,168,35,.35)}
+.top a:hover i{background:var(--yama);color:var(--ink)}
+.top nav{padding-bottom:12px;background-position:0 calc(100% - 4px)}
+
+/* hero */
+.hero{position:relative;display:grid;grid-template-columns:auto 1fr;gap:0 clamp(12px,4vw,48px);padding:36px 20px 56px;overflow:hidden;max-width:1100px;margin:0 auto}
+.hero::before,.stave{content:"";position:absolute;left:0;right:0;height:64px;background:repeating-linear-gradient(to bottom,var(--line) 0 1px,transparent 1px 16px);pointer-events:none}
+.hero::before{top:60%}
+.vt{grid-row:1/3;margin:0;writing-mode:vertical-rl;font-size:clamp(4.2rem,17vw,9.5rem);line-height:1;letter-spacing:.06em;color:var(--ink);position:relative}
+.vt span{display:inline-block;background:linear-gradient(transparent 62%,rgba(226,168,35,.55) 62% 100%)}
+.heroin{align-self:start;padding-top:8px}
+.k{font:700 .78rem/1.6 "Zen Kaku Gothic New",sans-serif;letter-spacing:.22em;color:var(--yamad);margin:0 0 .6em}
+.sub{font:800 1.1rem/1.4 "Shippori Mincho B1",serif;letter-spacing:.2em;margin:0 0 1em}
+.lead{max-width:34em}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.btn{display:inline-block;padding:.7em 1.6em;background:var(--ink);color:var(--paper);text-decoration:none;border:2px solid var(--ink);border-radius:2px;font-weight:700;letter-spacing:.1em}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:hover{background:var(--yama);color:var(--ink);border-color:var(--yama)}
+.heroph{grid-column:2;margin-top:28px;margin-left:clamp(0px,6vw,80px);position:relative}
+.heroph .ph{transform:rotate(-2deg);max-width:420px}
+.heroph .ph img{aspect-ratio:3/4;object-fit:cover;width:100%}
+
+/* figures */
+.ph{margin:0;background:#fff;padding:8px 8px 0;box-shadow:0 6px 18px rgba(29,43,50,.18)}
+.ph img{width:100%;height:auto}
+.ph figcaption{font-size:.72rem;line-height:1.5;color:var(--wire);padding:6px 2px 8px}
+.ph.tall img{aspect-ratio:4/5;object-fit:cover}
+
+/* bands */
+.band{padding:64px 20px;position:relative}
+.band .in{max-width:1000px;margin:0 auto}
+.band.dark{background:var(--ink);color:var(--paper)}
+.band.dark .k{color:var(--yama)}.band.dark a{color:var(--paper)}
+.band.light{background:var(--paper2)}
+.assoc .in{max-width:720px}
+.assoc h2{border-left:6px solid var(--yama);padding-left:.7em}
+.note,.imagine{font-size:.85rem;color:var(--wire);border-left:3px solid var(--yama);padding:.2em 0 .2em .9em;margin:0 0 1.6em}
+.band.dark .note{color:#c9d2d4}
+
+/* score (staggered notes on a five-line stave) */
+.score{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:28px;padding:30px 0 70px;background:repeating-linear-gradient(to bottom,var(--line) 0 1px,transparent 1px 30px) 0 20px/100% 121px no-repeat}
+.score .n:nth-child(1){margin-top:0}.score .n:nth-child(2){margin-top:44px}.score .n:nth-child(3){margin-top:12px}.score .n:nth-child(4){margin-top:64px}.score .n:nth-child(5){margin-top:28px}
+.score .ph img{aspect-ratio:1/1;object-fit:cover}
+.score .n:nth-child(odd) .ph{transform:rotate(-1.5deg)}.score .n:nth-child(even) .ph{transform:rotate(1.5deg)}
+
+.two{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:start}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px;align-items:start}
+.three .ph:nth-child(2){margin-top:36px}
+.band.dark .ph{background:#f4f4ee}
+.facts{padding-left:1.2em}.facts li{margin-bottom:.6em}
+
+.tt{width:100%;border-collapse:collapse;background:#fff;margin:0 0 1.4em}
+.tt th,.tt td{padding:.8em 1em;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tt th{width:7.5em;font-weight:700;background:rgba(226,168,35,.18);white-space:nowrap}
+
+/* page head with vertical title */
+.pagehead{padding:36px 20px 8px;background:linear-gradient(var(--line) 0 0) 0 100%/100% 1px no-repeat}
+.pagehead .in{max-width:1000px;margin:0 auto;display:flex;gap:clamp(16px,5vw,48px);align-items:flex-start}
+.vt2{writing-mode:vertical-rl;font-size:clamp(2.8rem,10vw,5.2rem);letter-spacing:.14em;margin:0 0 24px;line-height:1.1;border-right:6px solid var(--yama);padding-left:.1em}
+.pagehead .lead{align-self:center;margin:0}
+.pagehead .in{align-items:center}
+
+/* voice */
+.vwrap{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:start}
+.vlist{display:grid;gap:22px}
+.vcard{margin:0;background:#fff;padding:22px 22px 18px;border-top:4px solid var(--ink);position:relative}
+.vcard.c2{margin-left:clamp(0px,5vw,56px);border-top-color:var(--yama)}.vcard.c3{margin-left:clamp(0px,2vw,20px);border-top-color:var(--moss)}
+.vcard blockquote{margin:.6em 0 .6em;font-family:"Shippori Mincho B1",serif;font-weight:500;font-size:1.05rem;line-height:1.9}
+.vcard figcaption{font-size:.8rem;color:var(--wire)}
+.voice-sample-tag{display:inline-block;background:var(--ink);color:var(--paper);font-size:.7rem;letter-spacing:.2em;padding:.1em .8em;border-radius:2px}
+.vph{position:sticky;top:20px}
+
+.map{margin:28px 0 8px}.map iframe{width:100%;height:380px;border:0;background:var(--paper2)}
+
+/* footer */
+.foot{position:relative;background:var(--ink);color:var(--paper);padding:84px 20px 90px;margin-top:40px}
+.foot .stave{top:0;height:48px;background:repeating-linear-gradient(to bottom,rgba(236,238,232,.35) 0 1px,transparent 1px 12px)}
+.foot a{color:var(--paper)}
+.footin{max-width:1000px;margin:0 auto}
+.fn{font:800 1.6rem/1.3 "Shippori Mincho B1",serif;letter-spacing:.14em;margin-bottom:.6em}
+.fn small{font-size:.8rem;letter-spacing:.2em;margin-left:.6em;font-weight:500}
+.credits{font-size:.74rem;line-height:1.7;color:#c9d2d4;border-top:1px solid rgba(236,238,232,.25);margin-top:28px;padding-top:18px}
+.credits ul{padding-left:1.2em}.credits li{margin-bottom:.3em;word-break:break-word}
+.design{font-size:.78rem;color:#c9d2d4}
+
+@media (max-width:760px){
+.top{padding-right:84px}
+.top ul{gap:0}.top a{min-width:46px;font-size:.7rem}
+.hero{padding-top:24px;grid-template-columns:auto 1fr}
+.heroph{grid-column:1/3;margin-left:0}
+.score{grid-template-columns:repeat(2,1fr);padding-bottom:30px;background-size:100% 121px;gap:16px}
+.score .n:nth-child(n){margin-top:0}.score .n:nth-child(even){margin-top:30px}.score .n:nth-child(5){grid-column:1/2}
+.two,.vwrap{grid-template-columns:1fr}
+.three{grid-template-columns:1fr}.three .ph:nth-child(2){margin-top:0}
+.vph{position:static}
+.vcard.c2,.vcard.c3{margin-left:0}
+.band{padding:48px 16px}
+.pagehead .in{gap:16px}
+.tt th{width:5.5em;white-space:normal}
+.map iframe{height:300px}
+}
