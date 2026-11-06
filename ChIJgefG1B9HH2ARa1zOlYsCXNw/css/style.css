@@ -1,0 +1,174 @@
+:root{--paper:#f4f0f7;--paper2:#ebe4f2;--ink:#261a38;--ink2:#4a3a63;--mauve:#8e6bab;--mauve2:#b79ccf;--mist:#d9cbe8;--lime:#c7d95a}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.95 "Zen Kaku Gothic New",system-ui,sans-serif;-webkit-text-size-adjust:100%}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--ink2)}
+a:hover{color:var(--mauve)}
+.shell{display:grid;grid-template-columns:96px minmax(0,1fr);min-height:100vh}
+
+/* rail */
+.rail{position:sticky;top:0;height:100vh;background:var(--ink);color:#fff;display:flex;flex-direction:column;align-items:center;padding:22px 0 20px;gap:22px}
+.rail .logo{color:#fff;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:6px}
+.rail .logo b{writing-mode:vertical-rl;font:italic 700 22px/1 "Cormorant Garamond",serif;letter-spacing:.28em}
+.rail .logo small{font:italic 500 10px/1.2 "Cormorant Garamond",serif;letter-spacing:.08em;color:var(--mauve2);text-align:center}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;align-items:center}
+.rail ol a{display:flex;flex-direction:column;align-items:center;gap:4px;color:#d9cbe8;text-decoration:none;font:500 12px/1.3 "Zen Old Mincho",serif;padding:4px 6px;border-radius:6px}
+.rail ol a i{font-style:normal;font-size:11px;color:var(--mauve2)}
+.rail ol a span{writing-mode:vertical-rl;letter-spacing:.2em}
+.rail ol a[aria-current="page"]{background:var(--mauve);color:#fff}
+.rail ol a[aria-current="page"] i{color:var(--lime)}
+.rail ol a:hover{color:#fff}
+.meter{flex:1;width:8px;min-height:40px;background:rgba(255,255,255,.14);border-radius:4px;position:relative;overflow:hidden}
+.meter i{position:absolute;left:0;right:0;bottom:0;height:var(--lv);background:linear-gradient(0deg,var(--mauve),var(--mauve2));border-radius:4px}
+
+.stage{min-width:0}
+.in{max-width:1000px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
+.k{font:italic 500 15px/1.4 "Cormorant Garamond","Zen Old Mincho",serif;letter-spacing:.12em;color:var(--mauve);margin:0 0 .6em}
+h1,h2{font-family:"Zen Old Mincho",serif;font-weight:900;line-height:1.35;margin:0 0 .6em;color:var(--ink)}
+h2{font-size:clamp(22px,3.2vw,32px)}
+.band{padding:clamp(44px,7vw,88px) 0}
+.tint{background:var(--paper2)}
+.note{font-size:14px;color:var(--ink2)}
+.lead{font-size:16px;max-width:36em}
+.pending{display:inline-block;padding:0 .8em;border:1px dashed var(--mauve);border-radius:99px;color:var(--mauve);font-size:14px;background:#fff}
+.imagine{background:#fff;border-left:5px solid var(--lime);padding:.9em 1.2em;font-size:14px;margin:0 0 2em}
+
+/* hero */
+.hero{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(16px,3vw,40px);align-items:center;padding:clamp(36px,6vw,80px) clamp(18px,4vw,56px) clamp(40px,6vw,72px);overflow:hidden;min-height:92vh}
+.bigv{position:absolute;right:-.06em;top:-.1em;margin:0;writing-mode:vertical-rl;font:italic 700 clamp(120px,22vw,300px)/1 "Cormorant Garamond",serif;color:transparent;-webkit-text-stroke:2px var(--mist);letter-spacing:.02em;z-index:0;pointer-events:none;user-select:none}
+.herol,.herop{position:relative;z-index:1}
+.hero h1{margin:0 0 .5em}
+.hero h1 .en{display:block;font:italic 500 clamp(22px,3.4vw,38px)/1.15 "Cormorant Garamond",serif;color:var(--ink2)}
+.hero h1 .mv{display:block;font:900 clamp(52px,9vw,112px)/1 "Zen Old Mincho",serif;letter-spacing:.04em;color:var(--ink)}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:1.6em}
+.btn{display:inline-block;padding:.7em 1.8em;background:var(--ink);color:#fff;text-decoration:none;border-radius:99px;font-weight:700;border:2px solid var(--ink)}
+.btn:hover{background:var(--mauve);border-color:var(--mauve);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{color:#fff}
+
+/* photos */
+.ph{margin:0}
+.ph img{width:100%;object-fit:cover;background:var(--mist)}
+.ph figcaption{font-size:12px;color:var(--ink2);padding:.4em 0 0;line-height:1.5}
+.ph.blob img{aspect-ratio:1/1.1;border-radius:58% 42% 52% 48% / 46% 54% 46% 54%;box-shadow:12px 14px 0 var(--mauve2)}
+.ph.tall img{aspect-ratio:3/4}
+
+/* smears */
+.smears{list-style:none;margin:0;padding:0}
+.smears li{margin:0 0 8px;background:linear-gradient(90deg,rgba(142,107,171,var(--a)),rgba(142,107,171,calc(var(--a) * .35)) 70%,rgba(142,107,171,0));border-radius:6px 40px 40px 6px}
+.smears a{display:grid;grid-template-columns:3em 1fr auto;gap:12px;align-items:baseline;padding:14px 22px;text-decoration:none;color:var(--ink)}
+.smears li:nth-child(n+4) a{color:#fff}
+.smears .no{font:900 22px/1 "Zen Old Mincho",serif}
+.smears .tt2{font:700 20px/1.4 "Zen Old Mincho",serif}
+.smears .nt{font-size:13px;opacity:.85}
+
+/* mosaic */
+.mosaic{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;align-items:start;margin-top:1.6em}
+.mosaic .m1{grid-column:1/4;margin-top:2em}
+.mosaic .m2{grid-column:4/7}
+.mosaic .m3{grid-column:1/3}
+.mosaic .m4{grid-column:3/7;margin-top:2.4em}
+.mosaic .ph img{aspect-ratio:4/3}
+.mosaic .m3 img{aspect-ratio:1/1;border-radius:50%}
+
+/* tables, facts */
+.tt{width:100%;border-collapse:collapse;background:#fff;font-size:15px}
+.tt th,.tt td{padding:.8em 1em;border-bottom:1px solid var(--mist);text-align:left;vertical-align:top}
+.tt th{width:7.5em;background:var(--paper2);font-weight:700;white-space:nowrap}
+.pagehead{background:linear-gradient(100deg,var(--mist),var(--paper) 70%);padding:clamp(40px,7vw,84px) 0 clamp(28px,4vw,48px)}
+.pagehead h1{font-size:clamp(36px,7vw,76px);margin:0 0 .3em;letter-spacing:.04em}
+.cols{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr);gap:clamp(20px,4vw,56px);align-items:start}
+.ruled{background:repeating-linear-gradient(180deg,transparent 0 35px,var(--mist) 35px 36px);padding:4px 0}
+.facts{margin:0;padding:0;list-style:none}
+.facts li{position:relative;padding:0 0 0 1.8em;line-height:36px}
+.facts li::before{content:"";position:absolute;left:2px;top:12px;width:11px;height:11px;background:var(--mauve);border-radius:50% 0 50% 50%;transform:rotate(45deg)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:1.6em;align-items:start}
+.duo .ph:nth-child(2){margin-top:2.2em}
+.duo .ph img{aspect-ratio:4/3}
+
+/* bottles */
+.bottles{display:flex;flex-wrap:wrap;gap:clamp(18px,4vw,48px);justify-content:center;margin:0 0 2.6em}
+.bottle{text-align:center;width:120px}
+.bottle p{margin:.6em 0 0;font:700 15px/1.4 "Zen Old Mincho",serif}
+.glass{position:relative;height:150px;border:3px solid var(--ink);border-radius:14px 14px 20px 20px;background:#fff;display:flex;align-items:flex-end;justify-content:center;margin-top:22px}
+.glass::before{content:"";position:absolute;left:50%;top:-23px;width:40px;height:20px;margin-left:-20px;border:3px solid var(--ink);border-bottom:0;border-radius:6px 6px 0 0;background:#fff}
+.glass::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:var(--mist)}
+.glass span{position:relative;z-index:1;margin-bottom:46px;font-size:13px;color:var(--mauve);border:1px dashed var(--mauve);border-radius:99px;padding:0 .8em;background:#fff}
+.menugrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;align-items:start}
+.menugrid .g1{grid-column:1/4}
+.menugrid .g2{grid-column:4/6;grid-row:1/3}
+.menugrid .g3{grid-column:1/3;margin-top:1.6em}
+.menugrid .g4{grid-column:3/4;grid-row:2}
+.menugrid .g1 img{aspect-ratio:4/3}
+.menugrid .g3 img{aspect-ratio:1/1}
+.menugrid .g4{margin-top:1.6em}
+.menugrid .g4 img{aspect-ratio:1/1;border-radius:50%}
+
+/* voice */
+.vwrap{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.7fr);gap:clamp(20px,4vw,56px);align-items:start}
+.vlist{display:flex;flex-direction:column;gap:22px}
+.vcard{position:relative;margin:0;padding:2.4em 2.6em 2em;background:var(--mist);border-radius:46% 54% 50% 50% / 38% 40% 60% 62%}
+.vcard.v2{background:var(--mauve2);margin-left:clamp(0px,6vw,64px);border-radius:52% 48% 44% 56% / 44% 56% 44% 56%}
+.vcard.v3{background:#e6dcf0;border-radius:44% 56% 56% 44% / 56% 42% 58% 44%}
+.vcard blockquote{margin:0 0 .8em;font:500 16px/1.9 "Zen Old Mincho",serif}
+.vcard figcaption{font-size:13px;color:var(--ink2)}
+.voice-sample-tag{display:inline-block;background:var(--ink);color:var(--lime);font-size:12px;font-weight:700;padding:.1em .9em;border-radius:99px;margin-bottom:.8em}
+
+/* access */
+.cols2{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.1fr);gap:clamp(20px,4vw,56px);align-items:start}
+.envelope{position:relative;background:#fff;border:1px solid var(--mist);padding:28px 24px 24px;min-height:360px;display:grid;grid-template-columns:1fr auto;gap:8px;box-shadow:10px 12px 0 var(--mist);background-image:linear-gradient(135deg,transparent 0 92%,var(--mauve2) 92% 100%)}
+.envelope .zip{grid-column:1/3;margin:0;font:700 18px/1.4 "Zen Old Mincho",serif;letter-spacing:.2em;color:var(--mauve)}
+.envelope .vaddr{writing-mode:vertical-rl;margin:0;font:900 clamp(24px,3.2vw,34px)/1.5 "Zen Old Mincho",serif;letter-spacing:.14em;justify-self:end}
+.envelope .tcy{text-combine-upright:all}
+.envelope .sig{writing-mode:vertical-rl;margin:0;font:500 14px/1.6 "Zen Old Mincho",serif;letter-spacing:.12em;align-self:end;color:var(--ink2)}
+.map{margin:2.4em 0 .6em;border:3px solid var(--ink);background:#fff}
+.map iframe{display:block;width:100%;height:380px;border:0}
+
+/* footer */
+.foot{background:var(--ink);color:#e6dcf0;padding:48px clamp(18px,4vw,56px) 80px;font-size:14px}
+.foot a{color:var(--lime)}
+.footlabel{max-width:520px;border:1px solid rgba(255,255,255,.3);border-radius:4px 40px 4px 4px;padding:18px 24px;margin-bottom:28px}
+.footlabel .fn{font:italic 700 28px/1.2 "Cormorant Garamond",serif;letter-spacing:.1em;margin:0 0 .4em;color:#fff}
+.footlabel .fn small{display:block;font-size:13px;color:var(--mauve2);letter-spacing:.06em}
+.credits{font-size:12px;line-height:1.7;color:#cbbddc}
+.credits ul{padding-left:1.2em;margin:.6em 0}
+.credits li{margin:0 0 .3em;word-break:break-word}
+.design{font-size:12px;color:#cbbddc}
+.hp-photo-note{background:var(--ink);color:#cbbddc;text-align:center;font-size:12px;padding:10px 14px 14px;border-top:1px solid rgba(255,255,255,.15)}
+
+@media (max-width:820px){
+ .shell{grid-template-columns:minmax(0,1fr)}
+ .rail{position:sticky;height:auto;flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-items:center;padding:10px 14px 0;gap:8px 12px;z-index:20}
+ .rail .logo{flex-direction:row;gap:8px;align-items:baseline}
+ .rail .logo b{writing-mode:horizontal-tb;font-size:18px;letter-spacing:.14em}
+ .rail .logo small{display:none}
+ .rail nav{order:3;width:100%}
+ .rail ol{flex-direction:row;gap:2px;justify-content:space-between;width:100%}
+ .rail ol a{flex-direction:row;gap:4px;padding:6px 7px;font-size:12px}
+ .rail ol a span{writing-mode:horizontal-tb;letter-spacing:.04em}
+ .rail ol a i{display:none}
+ .meter{order:4;flex:none;width:calc(100% + 28px);margin:0 -14px;height:5px;min-height:0;border-radius:0}
+ .meter i{right:auto;top:0;height:auto;width:var(--lv);background:linear-gradient(90deg,var(--mauve),var(--lime))}
+ .hero{grid-template-columns:minmax(0,1fr);min-height:0;padding-top:28px}
+ .bigv{opacity:.7;right:-.2em}
+ .herop{max-width:340px}
+ .cols,.cols2,.vwrap{grid-template-columns:minmax(0,1fr)}
+ .smears a{grid-template-columns:2em 1fr;padding:12px 16px}
+ .smears .nt{grid-column:2}
+ .mosaic{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .mosaic .m1,.mosaic .m2,.mosaic .m3,.mosaic .m4{grid-column:auto;margin-top:0}
+ .mosaic .m4{grid-column:1/3}
+ .menugrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .menugrid .g1,.menugrid .g2,.menugrid .g3,.menugrid .g4{grid-column:auto;grid-row:auto;margin-top:0}
+ .menugrid .g1{grid-column:1/3}
+ .duo{grid-template-columns:minmax(0,1fr)}
+ .duo .ph:nth-child(2){margin-top:0}
+ .vcard{padding:2em 1.6em;border-radius:36px 80px 36px 60px}
+ .vcard.v2{margin-left:0;border-radius:80px 36px 60px 36px}
+ .vcard.v3{border-radius:36px 60px 80px 36px}
+ .vside{max-width:320px}
+ .envelope{min-height:300px}
+ .map iframe{height:300px}
+ .tt th{width:6em}
+}
