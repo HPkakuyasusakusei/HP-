@@ -1,0 +1,110 @@
+:root{--bg:#13161a;--panel:#1b2026;--line:#2c333b;--tx:#e8ecee;--mu:#9aa6b0;--lime:#c9f13b;--pink:#ff4f8b;--bone:#e7eae3;--ink:#161a1d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;line-height:1.85;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--lime)}
+.playhead{position:fixed;top:0;bottom:0;left:10px;width:2px;background:var(--pink);z-index:50;pointer-events:none;opacity:.85}
+.playhead::before{content:"";position:absolute;top:0;left:-6px;border:7px solid transparent;border-top:10px solid var(--pink);border-bottom:0}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 20px;padding:12px 24px 12px 28px;background:#0d1013;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+.logo{font-family:"Bebas Neue",sans-serif;font-size:30px;letter-spacing:.08em;color:var(--tx);text-decoration:none;line-height:1}
+.logo small{font-family:"Zen Kaku Gothic New",sans-serif;font-size:11px;letter-spacing:.2em;color:var(--mu);margin-left:12px}
+.top nav ul{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.top nav a{display:block;padding:6px 12px;border:1px solid var(--line);border-radius:3px;color:var(--tx);text-decoration:none;font-size:13px}
+.top nav i{font:500 11px "DM Mono",monospace;color:var(--pink);margin-right:7px;font-style:normal}
+.top nav a:hover,.top nav a[aria-current]{background:var(--lime);border-color:var(--lime);color:var(--ink)}
+.top nav a[aria-current] i,.top nav a:hover i{color:var(--ink)}
+.ruler{display:flex;justify-content:space-between;overflow:hidden;padding:2px 24px 0 28px;height:26px;background:#0d1013;border-bottom:1px solid var(--line);background-image:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 14px);background-position:bottom;background-size:100% 6px;background-repeat:repeat-x}
+.ruler span{font:400 10px/20px "DM Mono",monospace;color:var(--mu);white-space:nowrap}
+.in{max-width:1080px;margin:0 auto;padding:56px 24px 56px 32px}
+.trk{font:500 12px "DM Mono",monospace;letter-spacing:.14em;color:var(--pink);margin:0 0 14px}
+.trk span{color:var(--mu);margin-left:14px;letter-spacing:.06em}
+.hero{border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.heroin{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;padding-top:64px;padding-bottom:20px}
+.hero h1{margin:0 0 12px;line-height:.9;font-family:"Bebas Neue",sans-serif;font-weight:400}
+.hero .pre{display:block;font-size:clamp(28px,6vw,52px);letter-spacing:.5em;color:var(--mu)}
+.hero .big{display:block;font-size:clamp(84px,21vw,260px);letter-spacing:.02em;color:var(--lime);margin-left:-4px}
+.vert{writing-mode:vertical-rl;margin:0;font-weight:900;font-size:clamp(22px,4vw,40px);letter-spacing:.4em;border-right:3px solid var(--pink);padding-right:12px;align-self:start;color:var(--tx)}
+.lead{max-width:40em;color:#cfd7dc}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn{display:inline-block;padding:11px 22px;background:var(--lime);color:var(--ink);font-weight:700;text-decoration:none;border-radius:3px;border:1px solid var(--lime)}
+.btn.ghost{background:transparent;color:var(--lime)}
+.wave{display:block;width:100%;fill:var(--lime)}
+.herowave{height:150px;margin-top:10px;opacity:.9}
+.strip{height:46px;opacity:.55}
+.band{border-bottom:1px solid var(--line)}
+.band.light{background:var(--bone);color:var(--ink)}
+.band.light a{color:#0b5d49}
+.band.light .trk span{color:#5b6670}
+.band.assoc{background:var(--panel)}
+h2{font-size:clamp(24px,4.4vw,38px);line-height:1.35;margin:0 0 18px;font-weight:900}
+h1{font-size:clamp(34px,7vw,64px);line-height:1.2;margin:0 0 16px;font-weight:900}
+.pagehead{border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--bg))}
+.pagehead .in{padding-bottom:28px}
+.note,.imagine{font-size:14px;color:var(--mu)}
+.band.light .note,.band.light .imagine{color:#4c5760}
+.imagine{border-left:3px solid var(--pink);padding:6px 0 6px 14px;margin:0 0 22px}
+.lanes{margin-top:24px}
+.lane{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;margin-bottom:16px;align-items:start}
+.lbl{font:500 12px "DM Mono",monospace;color:var(--ink);background:var(--lime);padding:4px 0;text-align:center;border-radius:2px;margin-top:2px}
+.clips{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px;align-items:start}
+.clip{margin:0;border:1px solid var(--line);background:var(--panel);border-radius:3px;overflow:hidden}
+.band.light .clip{background:#fff;border-color:#c9cfc6}
+.cliphd{display:flex;justify-content:space-between;background:var(--lime);color:var(--ink);font:500 11px/1 "DM Mono",monospace;padding:6px 8px;letter-spacing:.06em}
+.clip img{width:100%;height:220px;object-fit:cover}
+.clip.tall img{height:360px}
+.clip figcaption{font-size:12px;color:var(--mu);padding:8px 10px;line-height:1.6}
+.band.light .clip figcaption{color:#4c5760}
+.s3{grid-column:span 3}.s4{grid-column:span 4}.s5{grid-column:span 5}.s7{grid-column:span 7}
+.two{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:36px;align-items:start}
+.two.rev{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}
+.tt{border-collapse:collapse;width:100%;max-width:720px;margin:0 0 18px}
+.tt th,.tt td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.band.light .tt th,.band.light .tt td{border-color:#c4cabf}
+.tt th{width:9.5em;font:500 13px "DM Mono","Zen Kaku Gothic New",monospace;color:var(--pink);white-space:nowrap}
+.pending{display:inline-block;padding:1px 10px;border:1px dashed var(--mu);border-radius:20px;font-size:13px;color:var(--mu)}
+.facts{padding-left:1.2em}
+.facts li{margin-bottom:6px}
+.slots{list-style:none;margin:0 0 26px;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.slots li{border:1px dashed var(--mu);padding:14px 10px;border-radius:3px;text-align:center;background:repeating-linear-gradient(135deg,transparent 0 8px,rgba(255,255,255,.03) 8px 16px)}
+.slots span{display:block;font:500 11px "DM Mono",monospace;color:var(--pink);margin-bottom:6px}
+.vlist{display:grid;gap:18px}
+.vcard{margin:0;padding:20px 22px;border:1px solid var(--line);border-left:4px solid var(--lime);background:var(--panel);border-radius:3px}
+.vcard:nth-child(2){margin-left:28px;border-left-color:var(--pink)}
+.vcard blockquote{margin:12px 0 8px;font-size:17px}
+.vcard figcaption{font:400 12px "DM Mono","Zen Kaku Gothic New",monospace;color:var(--mu)}
+.voice-sample-tag{display:inline-block;background:var(--pink);color:#fff;font-size:12px;font-weight:700;padding:2px 10px;border-radius:2px;letter-spacing:.08em}
+.map{margin-top:28px;border:1px solid var(--line)}
+.map iframe{display:block;width:100%;height:380px;border:0}
+.foot{background:#0d1013;border-top:1px solid var(--line)}
+.footin{max-width:1080px;margin:0 auto;padding:40px 24px 90px 32px;font-size:14px;color:#c3ccd2}
+.fn{font:400 34px "Bebas Neue",sans-serif;letter-spacing:.1em;color:var(--lime);margin-bottom:8px}
+.credits{margin-top:24px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--mu);line-height:1.7}
+.credits ul{padding-left:1.2em}
+.credits li{margin-bottom:4px;overflow-wrap:anywhere}
+.design{font-size:12px;color:var(--mu)}
+@media (max-width:820px){
+.clips{grid-template-columns:repeat(2,minmax(0,1fr))}
+.s3,.s4,.s5,.s7{grid-column:span 1}
+.clip img{height:180px}
+.two,.two.rev{grid-template-columns:minmax(0,1fr)}
+.clip.tall img{height:280px}
+.slots{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:520px){
+.in{padding:40px 16px 40px 22px}
+.top{padding:10px 14px 10px 22px}
+.ruler{padding:2px 14px 0 22px}
+.playhead{left:5px}
+.heroin{grid-template-columns:minmax(0,1fr) auto;gap:10px}
+.lane{grid-template-columns:minmax(0,1fr)}
+.lbl{width:44px}
+.clips{grid-template-columns:minmax(0,1fr)}
+.clip img{height:200px}
+.tt th{width:auto;white-space:normal;display:block;border-bottom:0;padding-bottom:0}
+.tt td{display:block}
+.vcard:nth-child(2){margin-left:0}
+.map iframe{height:300px}
+.logo small{display:block;margin:4px 0 0}
+.footin{padding:32px 16px 90px 22px}
+}
