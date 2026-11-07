@@ -1,0 +1,112 @@
+:root{--water:#e6f0ee;--deep:#0e2a33;--ink:#10272f;--leaf:#b5cf4a;--leaf2:#6f8a1c;--crust:#c98a2e;--mist:#f5f9f8;--line:#9db9b6}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--water);color:var(--ink);font:400 16px/1.9 "Zen Kaku Gothic New",system-ui,sans-serif;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--deep)}
+.top{position:sticky;top:0;z-index:50;background:var(--deep);color:#e6f0ee;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 16px 6px;flex-wrap:wrap}
+.logo{color:#fff;text-decoration:none;font:700 22px/1.1 "Kaisei Decol",serif;letter-spacing:.08em}
+.logo small{display:block;font:400 10px/1.4 "Zen Kaku Gothic New",sans-serif;letter-spacing:.12em;color:var(--leaf)}
+.river ul{list-style:none;margin:0;padding:0;display:flex;gap:2px;position:relative}
+.river a{position:relative;display:flex;flex-direction:column;align-items:center;min-width:56px;padding:12px 6px 4px;color:#cfe3e0;text-decoration:none;font-size:11px;line-height:1.3}
+.river a::before{content:"";position:absolute;left:0;right:0;top:9px;height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 6px,transparent 6px 10px);opacity:.7}
+.river i{font:normal 700 14px/1 "Kaisei Decol",serif;color:var(--leaf);position:relative;z-index:1;background:var(--deep);padding:0 4px;margin-top:-10px}
+.river a[aria-current="page"] span{color:#fff;font-weight:700}
+.river .boat{position:absolute;top:-8px;left:50%;width:34px;margin-left:-17px;z-index:2;animation:bob 3.2s ease-in-out infinite}
+.boat path{fill:var(--leaf);stroke:var(--leaf2);stroke-width:1}
+.boat .vein{fill:none;stroke:var(--deep);stroke-width:1.2}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(3px) rotate(2deg)}}
+@media (prefers-reduced-motion:reduce){.river .boat,.stage .boat{animation:none}html{scroll-behavior:auto}}
+.in{max-width:1000px;margin:0 auto;padding:0 20px}
+.k{font:700 12px/1.6 "Zen Kaku Gothic New",sans-serif;letter-spacing:.2em;color:var(--leaf2);margin:0 0 4px}
+h1,h2{font-family:"Kaisei Decol",serif;font-weight:700;line-height:1.35;margin:0 0 .6em}
+h2{font-size:clamp(21px,4.6vw,30px)}
+.hero{display:grid;grid-template-columns:minmax(120px,22%) 1fr;grid-template-areas:"t p" "x x";gap:0 20px;max-width:1100px;margin:0 auto;padding:28px 20px 12px}
+.herotate{grid-area:t;display:flex;justify-content:center}
+.tate{writing-mode:vertical-rl;margin:0;display:flex;align-items:flex-start;gap:.5em;color:var(--deep)}
+.tate .big{font-size:clamp(54px,13vw,128px);line-height:1;letter-spacing:.06em;background:linear-gradient(to left,transparent 70%,var(--leaf) 70%)}
+.tate .sub{font:700 clamp(14px,2.6vw,20px)/1.2 "Kaisei Decol",serif;letter-spacing:.3em;padding-top:.4em}
+.heroph{grid-area:p;border-radius:80px 0 80px 0;overflow:hidden;align-self:start}
+.heroph .ph{margin:0}.heroph img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:0}
+.heroph figcaption{padding:0 12px 4px}
+.herotxt{grid-area:x;padding:20px 0 0;max-width:640px;margin-left:min(22%,200px)}
+.lead{font-size:16px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;background:var(--deep);color:#fff;text-decoration:none;padding:10px 22px;border-radius:99px;font-weight:700}
+.btn.ghost{background:transparent;color:var(--deep);border:2px solid var(--deep)}
+.ph{margin:0}
+.ph img{width:100%;border-radius:4px}
+.ph figcaption{font-size:11px;color:#46646a;margin-top:4px}
+.assoc{background:var(--deep);color:#e6f0ee;padding:56px 0 44px;margin-top:36px;clip-path:polygon(0 0,100% 6%,100% 100%,0 94%)}
+.assoc .in{max-width:760px}
+.bendno{margin:0 0 6px;font-size:13px;letter-spacing:.12em;color:var(--leaf)}
+.bendno b{font:700 40px/1 "Kaisei Decol",serif;margin-right:2px}
+.bendno span{display:inline-block;margin-left:12px;padding:1px 10px;border:1px solid currentColor;border-radius:99px;font-size:12px}
+.pagehead .bendno{color:var(--leaf2)}
+.stage{margin-top:18px;height:54px;position:relative;border-bottom:2px dashed var(--line)}
+.stage .boat{position:absolute;left:18%;bottom:-14px;width:88px;animation:bob 3.2s ease-in-out infinite}
+.courseSec{padding:56px 0 20px}
+.course{list-style:none;margin:24px 0 0;padding:0;border-left:3px dashed var(--line)}
+.course li{margin:0 0 26px;padding-left:22px;position:relative}
+.course li::before{content:"";position:absolute;left:-9px;top:12px;width:15px;height:15px;border-radius:0 100% 0 100%;background:var(--leaf);border:1px solid var(--leaf2)}
+.course li:nth-child(even){margin-left:clamp(0px,8vw,90px)}
+.course a{display:grid;grid-template-columns:44px 1fr minmax(100px,34%);gap:12px;align-items:center;text-decoration:none;color:var(--ink);background:var(--mist);border-radius:2px 28px 2px 28px;padding:12px 16px 12px 12px;box-shadow:0 2px 0 var(--line)}
+.course a:hover{background:#fff}
+.course .cn{font:700 34px/1 "Kaisei Decol",serif;color:var(--leaf2)}
+.course .ct b{display:block;font:700 19px/1.4 "Kaisei Decol",serif}
+.course .ct{font-size:14px;line-height:1.7}
+.cimg img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px 18px 2px 18px}
+.band{padding:36px 0}
+.band.alt{background:var(--mist);clip-path:polygon(0 4%,100% 0,100% 96%,0 100%);padding:54px 0}
+.note{font-size:13px;color:#46646a}
+.imagine{background:#fff;border-left:5px solid var(--crust);padding:10px 14px;font-size:14px;margin:0 0 20px}
+.pagehead{padding:34px 0 8px}
+.pagehead h1{font-size:clamp(28px,7vw,46px);margin-bottom:.3em}
+.two{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start}
+.two.rev{grid-template-columns:1.2fr 1fr}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.three .ph:nth-child(2){margin-top:28px}
+.tall img{aspect-ratio:3/4;object-fit:cover}
+.facts{padding-left:1.2em}
+.tt{border-collapse:collapse;width:100%;background:var(--mist);margin:0 0 18px}
+.tt th,.tt td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;font-size:15px}
+.tt th{width:7em;white-space:nowrap;color:var(--leaf2);font-weight:700}
+.pending{display:inline-block;padding:0 10px;border:1px dashed var(--crust);border-radius:99px;color:#8a5a12;font-size:13px}
+.mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;align-items:start}
+.m1{grid-column:1/3;grid-row:1/3}.m2{grid-column:3/5}.m3{grid-column:5/7;margin-top:30px}.m4{grid-column:3/5}.m5{grid-column:5/7}
+.m1 img{aspect-ratio:2/3;object-fit:cover}
+.vlist{display:grid;gap:18px}
+.vcard{margin:0;background:var(--mist);padding:18px 18px 12px;border-radius:2px 26px 2px 26px}
+.vcard:nth-child(2){margin-left:clamp(0px,6vw,50px)}
+.voice-sample-tag{display:inline-block;background:var(--leaf);color:var(--deep);font-size:11px;font-weight:700;padding:1px 10px;border-radius:99px;margin-bottom:6px}
+.vcard blockquote{margin:0;font:400 16px/1.9 "Kaisei Decol",serif}
+.vcard figcaption{font-size:12px;color:#46646a;margin-top:6px}
+.map{margin-top:26px}
+.map iframe{width:100%;height:360px;border:0;border-radius:2px 28px 2px 28px}
+.foot{background:var(--deep);color:#cfe3e0;margin-top:50px;padding:46px 0 80px;clip-path:polygon(0 4%,100% 0,100% 100%,0 100%)}
+.footin{max-width:1000px;margin:0 auto;padding:0 20px}
+.foot a{color:var(--leaf)}
+.fn{font:700 26px/1.2 "Kaisei Decol",serif;color:#fff}
+.fn small{display:block;font:400 11px/1.5 "Zen Kaku Gothic New",sans-serif;letter-spacing:.14em;color:var(--leaf)}
+.credits{font-size:12px;line-height:1.7;margin-top:18px;color:#a8c4c0}
+.credits ul{padding-left:1.2em}
+.design{font-size:12px;color:#a8c4c0}
+.hp-photo-note{position:fixed;left:0;right:0;bottom:0;z-index:900;background:rgba(14,42,51,.92);color:#fff;font-size:11px;line-height:1.5;text-align:center;padding:5px 10px}
+@media (max-width:720px){
+.top{padding:6px 10px}
+.river a{min-width:48px;font-size:10px;padding-left:3px;padding-right:3px}
+.hero{grid-template-columns:90px 1fr;gap:0 12px;padding:20px 16px 8px}
+.heroph{border-radius:44px 0 44px 0}
+.herotxt{margin-left:0}
+.two,.two.rev{grid-template-columns:1fr}
+.three{grid-template-columns:1fr 1fr}.three .ph:nth-child(2){margin-top:0}.three .ph:nth-child(3){grid-column:1/3}
+.course a{grid-template-columns:34px 1fr}
+.cimg{grid-column:1/3}
+.course li:nth-child(even){margin-left:0}
+.mosaic{grid-template-columns:1fr 1fr}
+.m1,.m2,.m3,.m4,.m5{grid-column:auto;grid-row:auto;margin-top:0}
+.m1{grid-column:1/3}.m1 img{aspect-ratio:4/3}
+.vcard:nth-child(2){margin-left:0}
+.stage .boat{left:8%}
+.map iframe{height:300px}
+}
