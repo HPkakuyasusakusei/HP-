@@ -1,0 +1,160 @@
+/* カントリーロード - テーマ「轍のあいだの草」(制作側の連想。お店の理念・由来とは無関係) */
+:root{
+  --gravel:#cfd3c7;   /* 砂利の灰緑 */
+  --gravel2:#e1e4da;
+  --rut:#2b2f2a;      /* 轍の暗色 */
+  --ink:#1d221e;
+  --grass:#7fa02a;    /* 草の黄緑 */
+  --grass-d:#4f6b17;
+  --sign:#f0c419;     /* 標識の黄 */
+  --green-sign:#1c6a45;
+  --white:#f7f8f3;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--gravel);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;line-height:1.9;font-size:16px;-webkit-text-size-adjust:100%;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--grass-d);text-underline-offset:3px}
+a:hover{color:var(--ink)}
+
+/* 道 = 左右の轍 + 中央の草 */
+.road{position:relative;max-width:1120px;margin:0 auto;padding:0 clamp(26px,6vw,72px);background:var(--gravel2)}
+.road::before,.road::after{content:"";position:absolute;top:0;bottom:0;width:clamp(12px,3vw,34px);background:repeating-linear-gradient(to bottom,var(--rut) 0 18px,#3a3f38 18px 20px)}
+.road::before{left:0}
+.road::after{right:0}
+
+/* ヘッダー */
+.top{padding:26px 0 0}
+.logo{display:inline-flex;flex-direction:column;text-decoration:none;color:var(--ink);font-family:"Kaisei Opti",serif;font-weight:700;font-size:clamp(22px,4.4vw,32px);line-height:1.2;letter-spacing:.06em}
+.logo small{font-family:"Barlow Condensed","Zen Kaku Gothic New",sans-serif;font-size:12px;letter-spacing:.3em;color:var(--grass-d);margin-top:4px}
+.top nav{margin-top:18px;border-top:4px solid var(--sign);border-bottom:2px solid var(--rut)}
+.top ul{list-style:none;display:flex;flex-wrap:wrap}
+.top li{flex:1 1 0;min-width:0}
+.top li a{display:flex;flex-direction:column;align-items:center;padding:8px 2px;text-decoration:none;color:var(--ink);font-size:13px;line-height:1.3;border-left:1px dashed #8a9080}
+.top li:first-child a{border-left:0}
+.top li b{font-family:"Barlow Condensed",sans-serif;font-size:20px;color:var(--grass-d);letter-spacing:.04em}
+.top li a[aria-current="page"]{background:var(--rut);color:var(--white)}
+.top li a[aria-current="page"] b{color:var(--sign)}
+.top li a:hover{background:var(--gravel)}
+.top li a[aria-current="page"]:hover{background:var(--rut)}
+
+/* ヒーロー(縦書きの題字) */
+.hero{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"t p" "x x";gap:20px clamp(14px,4vw,40px);padding:38px 0 12px}
+.vt{grid-area:t;writing-mode:vertical-rl;font-family:"Kaisei Opti",serif;font-weight:700;font-size:clamp(38px,9.6vw,92px);line-height:1.12;letter-spacing:.1em;color:var(--ink);border-right:6px solid var(--grass);padding-right:clamp(8px,2vw,18px)}
+.herophoto{grid-area:p;position:relative;align-self:start}
+.herophoto .ph img{aspect-ratio:3/4;object-fit:cover;width:100%}
+.diamond{position:absolute;left:-16px;bottom:-18px;width:clamp(78px,16vw,112px);aspect-ratio:1;background:var(--sign);transform:rotate(45deg);border:3px solid var(--rut);outline:3px solid var(--sign);outline-offset:-9px;display:grid;place-items:center;box-shadow:0 3px 8px rgba(0,0,0,.25)}
+.diamond span{transform:rotate(-45deg);font-weight:700;font-size:clamp(11px,2.3vw,15px);line-height:1.2;text-align:center;color:var(--rut)}
+.herotxt{grid-area:x;padding-top:24px}
+.k{font-family:"Barlow Condensed","Zen Kaku Gothic New",sans-serif;font-size:13px;letter-spacing:.2em;color:var(--grass-d);font-weight:700;margin-bottom:6px}
+.lead{font-size:clamp(15px,2.4vw,18px);max-width:40em}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.btn{display:inline-block;background:var(--rut);color:var(--white);text-decoration:none;padding:12px 26px;font-weight:700;border:2px solid var(--rut);border-radius:2px;letter-spacing:.06em}
+.btn:hover{background:var(--grass-d);border-color:var(--grass-d);color:var(--white)}
+.btn.ghost{background:transparent;color:var(--rut)}
+.btn.ghost:hover{background:var(--rut);color:var(--white)}
+
+/* 区間 = 距離標 + 本文 */
+.sec,.pagehead{display:grid;grid-template-columns:clamp(54px,9vw,96px) 1fr;gap:0 clamp(8px,2vw,22px);padding:54px 0 10px;position:relative}
+.km{display:flex;flex-direction:column;align-items:center;font-family:"Barlow Condensed",sans-serif;color:var(--rut);line-height:1}
+.km b{font-size:clamp(26px,5.4vw,46px);background:var(--white);border:3px solid var(--rut);border-radius:6px 6px 0 0;padding:6px 8px;min-width:100%;text-align:center}
+.km span{font-size:12px;letter-spacing:.2em;background:var(--rut);color:var(--sign);width:100%;text-align:center;padding:3px 0;border-radius:0 0 4px 4px}
+.km::after{content:"";flex:1;width:0;border-left:4px dashed var(--sign);margin-top:10px;min-height:40px}
+.sec:not(:has(.km)){grid-template-columns:1fr}
+.secin{min-width:0}
+h1,h2,h3{font-family:"Kaisei Opti",serif;font-weight:700;line-height:1.4}
+h1{font-size:clamp(28px,6vw,46px);margin-bottom:10px}
+h2{font-size:clamp(22px,4.2vw,32px);margin-bottom:14px;background:linear-gradient(transparent 72%,rgba(127,160,42,.45) 72%);display:inline-block}
+h3{font-size:16px}
+.secin>p{margin-bottom:14px;max-width:44em}
+.note{font-size:13px;color:#4a5046}
+.imagine{background:var(--white);border-left:6px solid var(--sign);padding:10px 14px;font-size:14px;margin:6px 0 20px;max-width:44em}
+.pending{display:inline-block;background:var(--sign);color:var(--rut);font-weight:700;font-size:13px;padding:0 10px;border-radius:2px;letter-spacing:.1em}
+
+/* 写真 = 轍の枠 */
+.ph{margin:0;background:var(--white)}
+.ph img{width:100%;height:auto;border-left:10px solid var(--rut);border-right:10px solid var(--rut);background:var(--grass)}
+.ph figcaption{font-size:11px;color:#4a5046;padding:4px 10px;letter-spacing:.05em}
+.ph.tall img{aspect-ratio:3/4;object-fit:cover}
+.zig{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px clamp(12px,3vw,32px);margin-top:20px}
+.zig .ph:nth-child(even){margin-top:34px}
+.zig .ph img{aspect-ratio:4/3;object-fit:cover}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:24px}
+.three .ph img{aspect-ratio:1;object-fit:cover}
+.two{display:grid;grid-template-columns:1.2fr 1fr;gap:28px clamp(16px,4vw,44px);align-items:start}
+.two.rev{grid-template-columns:1.2fr 1fr}
+
+/* 轍と草の三帯 */
+.ruts{display:grid;grid-template-columns:1fr 1.3fr 1fr;margin-top:22px;border-top:2px solid var(--rut);border-bottom:2px solid var(--rut)}
+.ruts>div{padding:16px 14px;font-size:14px;line-height:1.7}
+.rut{background:var(--rut);color:var(--white)}
+.rut i{display:block;height:6px;margin-bottom:8px;background:repeating-linear-gradient(90deg,var(--sign) 0 14px,transparent 14px 24px)}
+.rut h3{color:var(--sign)}
+.gr{background:linear-gradient(to top,var(--grass) 0,var(--grass) 18px,var(--gravel2) 18px)}
+.gr h3{color:var(--grass-d)}
+
+/* 案内標識(緑地に白) */
+.sign{background:var(--green-sign);color:var(--white);border:3px solid var(--white);outline:5px solid var(--green-sign);border-radius:12px;padding:18px 20px 12px;margin:8px 5px 10px;max-width:640px}
+.sign a{color:var(--sign)}
+.sign-h{font-weight:700;font-size:14px;letter-spacing:.1em;border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:8px;margin-bottom:4px}
+.tt{width:100%;border-collapse:collapse;font-size:15px}
+.tt th,.tt td{text-align:left;padding:9px 6px;vertical-align:top;border-bottom:1px dashed rgba(255,255,255,.4)}
+.tt th{width:5.5em;white-space:nowrap;font-weight:700;color:#d7e7c9}
+.tt tr:last-child th,.tt tr:last-child td{border-bottom:0}
+.tt.plain{max-width:560px;margin-bottom:10px}
+.tt.plain th,.tt.plain td{border-bottom:1px dashed #8a9080}
+.tt.plain th{color:var(--grass-d)}
+.sign .pending{background:var(--sign)}
+
+/* リスト類 */
+.facts{list-style:none}
+.facts li{padding:9px 0 9px 28px;border-bottom:1px dashed #8a9080;position:relative}
+.facts li::before{content:"";position:absolute;left:4px;top:1.2em;width:12px;height:12px;background:var(--grass);transform:rotate(45deg)}
+.legs{list-style:none;margin:10px 0 4px;max-width:44em}
+.legs li{display:grid;grid-template-columns:8.5em 1fr;gap:4px 14px;padding:10px 0;border-bottom:1px dashed #8a9080}
+.legs b{font-family:"Barlow Condensed",sans-serif;font-size:19px;color:var(--grass-d)}
+
+/* 口コミ */
+.vlist{display:grid;gap:22px}
+.vcard{position:relative;background:var(--white);border:2px solid var(--rut);padding:30px 20px 14px;margin:0}
+.vcard::before{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;background:repeating-linear-gradient(90deg,var(--grass) 0 10px,var(--grass-d) 10px 12px)}
+.voice-sample-tag{position:absolute;top:-2px;left:-2px;background:var(--sign);color:var(--rut);font-size:12px;font-weight:700;padding:2px 12px;letter-spacing:.1em}
+.vcard blockquote{font-family:"Kaisei Opti",serif;font-size:16px;margin-bottom:10px}
+.vcard figcaption{font-size:12px;color:#4a5046;padding-bottom:6px}
+
+/* 地図 */
+.map{margin-top:30px;border-left:10px solid var(--rut);border-right:10px solid var(--rut);background:var(--white)}
+.map iframe{width:100%;height:380px;border:0;display:block}
+
+/* フッター */
+.foot{background:var(--rut);color:#d9dcd2;margin-top:70px;position:relative}
+.grass{display:block;width:100%;height:30px;fill:var(--rut);background:var(--gravel);position:absolute;top:-29px;left:0}
+.footin{max-width:1120px;margin:0 auto;padding:40px clamp(26px,6vw,72px) 80px;font-size:14px}
+.fn{font-family:"Kaisei Opti",serif;font-size:24px;color:var(--white);margin-bottom:10px}
+.fn small{font-family:"Barlow Condensed",sans-serif;font-size:12px;letter-spacing:.3em;color:var(--sign);margin-left:12px}
+.foot a{color:var(--sign)}
+.foot p{margin-bottom:10px}
+.credits{margin-top:26px;padding-top:18px;border-top:1px dashed #6b7165;font-size:11.5px;line-height:1.7;color:#b9bdb0}
+.credits ul{margin:8px 0 8px 1.2em}
+.credits li{margin-bottom:3px;overflow-wrap:anywhere}
+.design{margin-top:18px;font-size:12px;color:#b9bdb0}
+
+.hp-photo-note{background:#111;color:#eee;font-size:12px;text-align:center;padding:8px 12px}
+
+@media(max-width:760px){
+  .two,.two.rev{grid-template-columns:1fr}
+  .ruts{grid-template-columns:1fr}
+  .three{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .legs li{grid-template-columns:1fr}
+  .sec,.pagehead{grid-template-columns:48px 1fr;padding-top:40px}
+  .km b{font-size:22px;padding:4px 2px;border-width:2px}
+  .top li a{font-size:11px}
+  .top li b{font-size:17px}
+  .zig .ph:nth-child(even){margin-top:20px}
+}
+@media(max-width:460px){
+  .zig{grid-template-columns:1fr}
+  .zig .ph:nth-child(even){margin-top:0}
+  .tt th{width:4.6em}
+  .hero{gap:14px 12px}
+}
