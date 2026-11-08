@@ -1,0 +1,133 @@
+/* クロレ 試作HP - 色名カードの五語(制作側の連想) */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#e1a81f;--ink:#2b1d02;--paper:#fffdf8;--pink:#222;--serif:"Shippori Mincho B1","Hiragino Mincho ProN",serif;--sans:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN",sans-serif;--it:"Playfair Display",Georgia,serif}
+.c-m{--bg:#e1a81f;--ink:#2b1d02;--chip:#e1a81f;--chipink:#2b1d02}
+.c-p{--bg:#b7cf8e;--ink:#1d2b10;--chip:#b7cf8e;--chipink:#1d2b10}
+.c-b{--bg:#6a1b2f;--ink:#fbeee9;--chip:#6a1b2f;--chipink:#fbeee9}
+.c-a{--bg:#46525e;--ink:#eef2f5;--chip:#46525e;--chipink:#eef2f5}
+.c-l{--bg:#b8a7da;--ink:#26193f;--chip:#b8a7da;--chipink:#26193f}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.9;font-size:16px;overflow-x:hidden;min-height:100vh}
+a{color:inherit;text-underline-offset:3px}
+img{max-width:100%;display:block}
+.in{width:min(1040px,100% - 32px);margin-inline:auto}
+
+/* header: 五枚のカードがそのままナビ */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 24px;padding:18px 16px 0;width:min(1120px,100%);margin-inline:auto}
+.logo{font-family:var(--serif);font-weight:800;font-size:28px;text-decoration:none;line-height:1;letter-spacing:.08em}
+.logo small{display:block;font:400 11px/1.4 var(--sans);letter-spacing:.3em;margin-top:6px}
+.chips{display:flex;gap:6px;list-style:none;flex-wrap:wrap;align-items:flex-end}
+.chips li a{display:flex;flex-direction:column;justify-content:flex-end;width:88px;min-height:66px;padding:7px 8px;text-decoration:none;border-radius:3px 3px 0 0;box-shadow:0 0 0 2px rgba(255,255,255,.7) inset;background:var(--chip);color:var(--chipink);line-height:1.25;transition:transform .15s}
+.chips li.c-m a{--chip:#e1a81f;--chipink:#2b1d02}
+.chips li.c-p a{--chip:#b7cf8e;--chipink:#1d2b10}
+.chips li.c-b a{--chip:#6a1b2f;--chipink:#fbeee9}
+.chips li.c-a a{--chip:#46525e;--chipink:#eef2f5}
+.chips li.c-l a{--chip:#b8a7da;--chipink:#26193f}
+.chips li a b{font:italic 700 13px/1.2 var(--it);letter-spacing:.02em}
+.chips li a span{font-size:11px}
+.chips li a[aria-current="page"]{min-height:80px;box-shadow:0 0 0 3px #fffdf8 inset}
+.chips li a:hover{transform:translateY(-3px)}
+
+/* hero: 縦書きの一語 + 非対称 */
+.hero{width:min(1120px,100%);margin:20px auto 0;padding:24px 16px 48px;display:grid;grid-template-columns:auto 1fr;gap:12px 28px;align-items:start}
+.hero .word{grid-row:1 / span 2}
+.word .fr{display:block;writing-mode:vertical-rl;font:italic 900 clamp(56px,14vw,150px)/1 var(--it);letter-spacing:.02em;opacity:.92;white-space:nowrap}
+.heroin{padding-top:12px;min-width:0}
+.tagline{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;font-size:13px;letter-spacing:.12em;border-top:2px solid currentColor;border-bottom:2px solid currentColor;padding:6px 0;margin-bottom:18px}
+.tagline .no{font-weight:700}
+.tagline .fw{font:italic 700 17px/1.4 var(--it);letter-spacing:.04em}
+.heroin h1{font-family:var(--serif);font-weight:800;font-size:clamp(40px,9vw,84px);line-height:1.15;letter-spacing:.06em;margin-bottom:16px;overflow-wrap:anywhere}
+.heroin h1 small{display:block;font:400 14px/1.6 var(--sans);letter-spacing:.4em;margin-top:6px}
+.lead{max-width:34em;font-size:17px;margin-bottom:20px}
+.heroph{grid-column:2;max-width:520px}
+.hero2{padding-bottom:20px}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-block;padding:11px 22px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:700;border:2px solid var(--ink);border-radius:2px}
+.btn.ghost{background:transparent;color:var(--ink)}
+
+/* card paper */
+.band{padding:26px 0}
+.paper{background:var(--paper);color:#2a2622;padding:28px 24px 30px;border-radius:4px;position:relative;box-shadow:0 6px 0 rgba(0,0,0,.14)}
+.paper::before{content:"";position:absolute;top:10px;left:50%;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:var(--bg);box-shadow:0 1px 0 rgba(0,0,0,.15) inset}
+.paper h2{font-family:var(--serif);font-weight:800;font-size:clamp(22px,4.4vw,32px);line-height:1.5;margin:12px 0 12px}
+.paper p{margin-bottom:12px}
+.k{font:italic 700 14px/1.4 var(--it);letter-spacing:.1em;margin-top:8px}
+.note,.imagine{font-size:13px;line-height:1.8;opacity:.92;margin-top:10px}
+.paper .note,.paper .imagine{opacity:1;color:#5b524a}
+.paperline{border-left:4px solid currentColor;padding-left:12px;margin:0 0 20px}
+.two{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:start}
+.two.rev{grid-template-columns:1.2fr .8fr}
+.pair{margin-top:20px;grid-template-columns:1fr 1fr}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.strip .ph:nth-child(2){margin-top:28px}
+.ph{background:#fffdf8;padding:8px 8px 6px;border-radius:2px;box-shadow:0 5px 0 rgba(0,0,0,.14)}
+.ph img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.ph.tall img{aspect-ratio:4/5}
+.ph figcaption{font-size:11px;color:#5b524a;line-height:1.5;padding-top:5px}
+
+/* 五枚のデッキ */
+.deck{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:20px}
+.deck li a{display:flex;flex-direction:column;min-height:170px;padding:12px 10px;text-decoration:none;background:var(--chip);color:var(--chipink);border-radius:4px;box-shadow:0 4px 0 rgba(0,0,0,.2)}
+.deck li.c-m a{--chip:#e1a81f;--chipink:#2b1d02}
+.deck li.c-p a{--chip:#b7cf8e;--chipink:#1d2b10}
+.deck li.c-b a{--chip:#6a1b2f;--chipink:#fbeee9}
+.deck li.c-a a{--chip:#46525e;--chipink:#eef2f5}
+.deck li.c-l a{--chip:#b8a7da;--chipink:#26193f}
+.deck .n{font-size:12px;opacity:.85}
+.deck b{margin-top:auto;font:italic 900 22px/1.2 var(--it);overflow-wrap:anywhere}
+.deck i{font-style:normal;font-size:13px;margin-top:4px}
+.deck em{font-style:normal;font-size:12px;margin-top:2px;opacity:.9}
+
+/* table */
+.tt{width:100%;border-collapse:collapse;font-size:15px}
+.tt th,.tt td{text-align:left;padding:9px 8px;border-bottom:1px dashed #b9afa3;vertical-align:top}
+.tt th{width:6.5em;white-space:nowrap;font-weight:700}
+.pending{display:inline-block;padding:0 10px;border:1px solid #8a7f72;border-radius:20px;font-size:13px;color:#5b524a}
+.facts{padding-left:1.2em;margin-bottom:8px}
+.facts li{margin-bottom:6px}
+
+/* voice */
+.vlist{display:grid;gap:18px}
+.vcard{background:var(--paper);color:#2a2622;padding:22px 20px 16px;border-radius:4px;position:relative;box-shadow:0 6px 0 rgba(0,0,0,.18)}
+.vcard:nth-child(2){margin-left:24px}
+.vcard blockquote{font-family:var(--serif);font-weight:500;font-size:18px;line-height:1.9;margin:14px 0 8px}
+.vcard figcaption{font-size:12px;color:#5b524a}
+.voice-sample-tag{display:inline-block;background:var(--bg);color:var(--ink);font-size:12px;font-weight:700;padding:2px 12px;border-radius:2px;letter-spacing:.1em}
+
+/* map */
+.map{margin-top:22px;border:8px solid #fffdf8;border-radius:2px;box-shadow:0 5px 0 rgba(0,0,0,.14)}
+.map iframe{display:block;width:100%;height:340px;border:0}
+
+/* footer */
+.foot{padding:30px 0 70px;margin-top:20px;border-top:2px solid currentColor}
+.fcard{background:var(--paper);color:#2a2622;padding:20px 22px;border-radius:4px;margin-bottom:16px}
+.fcard .fn{font-family:var(--serif);font-weight:800;font-size:22px}
+.fcard .fn small{font:400 12px var(--sans);letter-spacing:.2em}
+.credits{font-size:12px;line-height:1.7}
+.credits h2{font-size:14px;margin-bottom:6px}
+.credits ul{padding-left:1.2em;margin:6px 0}
+.credits li{margin-bottom:2px}
+.design{font-size:12px;margin-top:12px}
+.hp-photo-note{position:fixed;left:0;right:0;bottom:0;z-index:900;background:rgba(30,26,22,.88);color:#fff;font-size:11px;line-height:1.5;text-align:center;padding:5px 40px}
+
+@media (max-width:760px){
+.top{padding-top:14px}
+.chips{width:100%}
+.chips li{flex:1 1 0}
+.chips li a{width:auto;min-height:56px;padding:6px 4px}
+.chips li a[aria-current="page"]{min-height:66px}
+.chips li a span{display:none}
+.hero{grid-template-columns:auto 1fr;gap:8px 14px;padding:16px 16px 28px}
+.heroph{grid-column:1 / -1;max-width:none}
+.two,.two.rev,.pair{grid-template-columns:1fr}
+.grid4{grid-template-columns:repeat(2,1fr)}
+.strip{grid-template-columns:1fr 1fr}
+.strip .ph:nth-child(3){display:none}
+.strip .ph:nth-child(2){margin-top:0}
+.deck{grid-template-columns:1fr 1fr}
+.deck li a{min-height:110px}
+.vcard:nth-child(2){margin-left:0}
+.map iframe{height:280px}
+.hp-photo-note{padding:5px 12px}
+}
