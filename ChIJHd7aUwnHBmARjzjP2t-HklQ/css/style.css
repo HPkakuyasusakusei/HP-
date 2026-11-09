@@ -1,0 +1,180 @@
+/* KR Kaffee 試作サンプル: 約数の収支帖 */
+:root{
+  --paper:#eef2d3;
+  --panel:#f8faea;
+  --ink:#1b2a21;
+  --clover:#2e8b3c;
+  --steel:#4f7399;
+  --line:#c5d09c;
+  --mute:#5b6552;
+  --u:1rem;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;font-size:16px;line-height:1.85;
+  background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 31px,rgba(46,139,60,.13) 31px,rgba(46,139,60,.13) 32px)}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--clover);text-decoration-thickness:2px;text-underline-offset:3px}
+a:hover{color:var(--steel)}
+h1,h2,h3{line-height:1.3;margin:0 0 .6em}
+p{margin:0 0 1em}
+.num{font-family:"Fraunces",Georgia,serif;font-weight:900;font-variant-numeric:lining-nums}
+
+/* header */
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;gap:.6rem 2rem;padding:1.1rem 1.2rem .7rem;background:var(--ink);color:var(--paper);border-bottom:6px solid var(--clover)}
+.logo{font-family:"Fraunces",Georgia,serif;font-weight:900;font-size:1.9rem;letter-spacing:.02em;color:var(--paper);text-decoration:none;line-height:1}
+.logo small{display:block;font:500 .68rem/1.3 "Zen Kaku Gothic New",sans-serif;letter-spacing:.18em;color:#b9c79a;margin-top:.35rem}
+.top nav{margin-left:auto}
+.top ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.3rem}
+.top li a{display:block;padding:.3rem .8rem;border:2px solid #5d6e55;border-radius:3px;color:var(--paper);text-decoration:none;font-weight:700;font-size:.92rem;line-height:1.5}
+.top li a i{font-style:normal;font-family:"Fraunces",Georgia,serif;color:#9fd18a;margin-right:.45em}
+.top li a:hover,.top li a[aria-current="page"]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.top li a[aria-current="page"] i{color:var(--clover)}
+
+/* layout */
+.in{max-width:1040px;margin:0 auto;padding:0 1.2rem}
+.band{padding:3rem 0}
+.band.light{background:var(--panel);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.k{font:700 .78rem/1.4 "Zen Kaku Gothic New",sans-serif;letter-spacing:.2em;color:var(--clover);margin:0 0 .5rem}
+.lead{font-size:1.08rem;max-width:40em}
+.note{font-size:.88rem;color:var(--mute)}
+.imagine{border-left:6px solid var(--steel);background:var(--panel);padding:.7rem 1rem;font-size:.92rem;margin:0 0 1.6rem}
+.two{display:grid;grid-template-columns:1.15fr 1fr;gap:2.2rem;align-items:start}
+.two.rev{grid-template-columns:1fr 1.15fr}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:1.6rem}
+
+/* page head with vertical title */
+.pagehead{padding:2.4rem 0 1.4rem;border-bottom:2px solid var(--ink)}
+.pagehead .in{display:flex;gap:1.6rem;align-items:flex-start}
+.vt{writing-mode:vertical-rl;text-orientation:upright;font:900 2.3rem/1 "Zen Kaku Gothic New",sans-serif;letter-spacing:.14em;color:var(--paper);background:var(--clover);padding:1rem .5rem;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);flex:none}
+.pagehead h1{font-size:clamp(1.7rem,4.4vw,2.7rem);margin-bottom:.4rem}
+
+/* hero */
+.hero{padding:2.6rem 0 2rem;border-bottom:2px solid var(--ink)}
+.hero .in{display:grid;grid-template-columns:1.25fr 1fr;gap:2rem;align-items:center}
+.hero h1{font-size:clamp(2.6rem,9vw,5.6rem);margin:0 0 .3rem;letter-spacing:-.01em}
+.hero h1 .num{display:block}
+.hero h1 small{display:block;font:700 1rem/1.6 "Zen Kaku Gothic New",sans-serif;letter-spacing:.12em;color:var(--clover);margin-top:.4rem}
+.btns{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.2rem}
+.btn{display:inline-block;padding:.6rem 1.3rem;background:var(--clover);color:#fff;font-weight:700;text-decoration:none;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.ghost{background:var(--panel);color:var(--ink)}
+
+/* spelling tiles */
+.tiles{list-style:none;margin:1.4rem 0 0;padding:0;display:grid;grid-template-columns:repeat(8,1fr);gap:.5rem}
+.tile{border:3px solid var(--ink);background:var(--panel);padding:.45rem .2rem .55rem;text-align:center;box-shadow:3px 3px 0 var(--ink);position:relative}
+.tile .l{display:block;font-family:"Fraunces",Georgia,serif;font-weight:900;font-size:clamp(1.5rem,4.6vw,2.6rem);line-height:1.05}
+.tile .n{display:block;font:700 .8rem/1.3 "Fraunces",Georgia,serif}
+.tile .c{display:block;font:700 .62rem/1.3 "Zen Kaku Gothic New",sans-serif;margin-top:.25rem}
+.gauge{display:block;height:.5rem;margin:.35rem .35rem 0;border:2px solid var(--ink);background:#fff;position:relative;overflow:visible}
+.gauge b{display:block;height:100%;background:var(--clover)}
+.t-just{background:var(--steel);color:#fff}
+.t-just .gauge b{background:#fff}
+.t-over{background:var(--ink);color:var(--paper)}
+.t-over .gauge b{background:#9fd18a}
+.t-over .gauge::after{content:"";position:absolute;right:-6px;top:-5px;width:0;height:0;border:5px solid transparent;border-left:8px solid #e8b04a}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:1rem 0 0;padding:0;list-style:none;font-size:.85rem}
+.legend span{display:inline-block;width:1.1rem;height:1.1rem;vertical-align:-.2rem;margin-right:.4rem;border:2px solid var(--ink)}
+.legend .s1{background:var(--panel)}.legend .s2{background:var(--steel)}.legend .s3{background:var(--ink)}
+
+/* three verdict cards */
+.verdict{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:1.4rem}
+.vd{border:3px solid var(--ink);background:var(--panel);padding:1.1rem 1.1rem 1rem;box-shadow:5px 5px 0 var(--ink)}
+.vd h3{font-size:1.15rem;margin-bottom:.2rem}
+.vd .big{display:block;font:900 3rem/1 "Fraunces",Georgia,serif}
+.vd.j{background:var(--steel);color:#fff}
+.vd.o{background:var(--ink);color:var(--paper)}
+.vd p{font-size:.9rem;margin:.4rem 0 0}
+
+/* ledger charts */
+.ledger{border:3px solid var(--ink);background:var(--panel);padding:1rem 1.1rem 1.1rem;margin:0 0 1.4rem;box-shadow:5px 5px 0 var(--ink)}
+.ledger h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .8rem;font-size:1.2rem;margin-bottom:.8rem}
+.ledger h3 .num{font-size:2.2rem;line-height:1}
+.ledger h3 em{font-style:normal;font-size:.8rem;font-weight:700;padding:.05rem .6rem;border:2px solid var(--ink);background:var(--paper)}
+.ledger h3 em.j{background:var(--steel);color:#fff}
+.ledger h3 em.o{background:var(--ink);color:var(--paper)}
+.row{display:flex;align-items:center;gap:.6rem;margin:.35rem 0}
+.row .lab{flex:none;width:6.6em;font-size:.8rem;font-weight:700}
+.bar{display:flex;flex:1;min-width:0;height:1.7rem}
+.bar span{display:flex;align-items:center;justify-content:center;border:2px solid var(--ink);margin-right:-2px;font:700 .72rem/1 "Fraunces",Georgia,serif;overflow:hidden;background:#cfe4b4}
+.bar span:nth-child(even){background:#a8d08f}
+.bar .self{background:var(--panel);justify-content:flex-start;padding-left:.4rem}
+.bar .over{background:#e8b04a}
+.ledger p{font-size:.88rem;margin:.7rem 0 0}
+
+/* alphabet grid */
+.abc{list-style:none;margin:1.2rem 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(3.4rem,1fr));gap:.4rem}
+.abc li{border:2px solid var(--ink);background:var(--panel);text-align:center;padding:.25rem 0;line-height:1.2}
+.abc .a{display:block;font:900 1.3rem/1.1 "Fraunces",Georgia,serif}
+.abc .d{display:block;font-size:.66rem;font-weight:700;opacity:.85}
+.abc .j{background:var(--steel);color:#fff}
+.abc .o{background:var(--ink);color:var(--paper)}
+.abc .me{outline:4px solid var(--clover);outline-offset:1px}
+
+/* tables, facts */
+.tt{width:100%;border-collapse:collapse;background:var(--panel);border:3px solid var(--ink)}
+.tt th,.tt td{padding:.65rem .9rem;border-bottom:2px solid var(--line);text-align:left;vertical-align:top}
+.tt th{width:7.5em;background:#dfe7b8;font-size:.9rem}
+.pending{display:inline-block;padding:0 .7rem;border:2px dashed var(--mute);color:var(--mute);font-weight:700;font-size:.88rem}
+.facts{margin:0 0 1rem;padding-left:1.2em}
+.facts li{margin-bottom:.3rem}
+
+/* photos */
+.ph{margin:0}
+.ph img{width:100%;border:3px solid var(--ink);background:#fff;object-fit:cover;aspect-ratio:4/3}
+.ph.wide img{aspect-ratio:2/1}
+.ph.sq img{aspect-ratio:1/1}
+.ph figcaption{font-size:.78rem;color:var(--mute);margin-top:.35rem;line-height:1.5}
+
+/* voice */
+.vlist{display:grid;gap:1.2rem}
+.vcard{margin:0;border:3px solid var(--ink);background:var(--panel);padding:1rem 1.2rem;box-shadow:5px 5px 0 var(--ink);position:relative}
+.vcard:nth-child(2){margin-left:2rem}
+.vcard blockquote{margin:.6rem 0 .4rem;font-size:1.02rem}
+.vcard figcaption{font-size:.8rem;color:var(--mute)}
+.voice-sample-tag{display:inline-block;background:var(--steel);color:#fff;font-weight:700;font-size:.74rem;padding:.05rem .7rem;letter-spacing:.1em}
+
+/* map */
+.map{margin-top:2rem;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink)}
+.map iframe{display:block;width:100%;height:380px;border:0}
+
+/* footer */
+.foot{background:var(--ink);color:#d6dfbd;padding:2.4rem 0 5rem;border-top:6px solid var(--clover);margin-top:2rem}
+.foot a{color:#9fd18a}
+.foot .in{display:grid;gap:1rem}
+.foot .fn{font:900 1.6rem/1.2 "Fraunces",Georgia,serif;color:var(--paper)}
+.foot p{font-size:.86rem;margin:0}
+.credits{font-size:.76rem;line-height:1.7;border-top:1px solid #5d6e55;padding-top:1rem}
+.credits ul{margin:.4rem 0;padding-left:1.1em}
+.credits p{font-size:.76rem;margin-bottom:.4rem}
+.design{color:#aab792}
+.hp-photo-note{position:fixed;left:0;right:0;bottom:0;z-index:900;background:rgba(27,42,33,.94);color:#eef2d3;font-size:.74rem;line-height:1.5;text-align:center;padding:.4rem .8rem}
+
+@media (max-width:820px){
+  .two,.two.rev,.hero .in{grid-template-columns:1fr}
+  .three,.verdict{grid-template-columns:1fr}
+  .top nav{margin-left:0;width:100%}
+  .vcard:nth-child(2){margin-left:0}
+  .tiles{grid-template-columns:repeat(4,1fr)}
+  .tile .l{font-size:2.2rem}
+  .vt{font-size:1.6rem;padding:.7rem .4rem}
+  .row{flex-wrap:wrap}
+  .row .lab{width:100%}
+  .map iframe{height:300px}
+  .tt th{width:5.5em}
+}
+
+/* glyphs: wall and arms */
+.gl{display:block;width:100%;max-width:76px;height:auto;fill:none;stroke-linecap:square;stroke-linejoin:miter}
+.gl .wall{stroke:var(--clover);stroke-width:9}
+.gl .arm,.gl .arm path{stroke:var(--ink);stroke-width:7}
+.gl.free .ground{stroke:var(--steel);stroke-width:7}
+.gl.free .arm{stroke:var(--steel)}
+.gl.big{max-width:92px;flex:none}
+.tile{display:flex;flex-direction:column;align-items:center}
+.tile.free{background:#dfe9f1;border-color:var(--steel)}
+.tile .c{font-size:.66rem;margin-top:.1rem}
+.ledger h3{align-items:center;flex-wrap:nowrap;gap:1rem}
+.ledger h3 em{font-size:.95rem}
+.ledger.fr{border-color:var(--steel);box-shadow:5px 5px 0 var(--steel)}
+body{border-left:14px solid var(--clover)}
