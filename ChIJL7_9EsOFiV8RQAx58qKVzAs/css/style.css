@@ -1,0 +1,123 @@
+:root{
+  --bg:#ece5d3;
+  --panel:#f8f3e6;
+  --ink:#2a2d1c;
+  --blue:#2740c8;
+  --gold:#e0ad1f;
+  --line:#d9d1bb;
+  --mute:#5c5f4a;
+  --tint:#e8eefb;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.9 "Zen Kaku Gothic New",system-ui,sans-serif;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--blue)}
+h1,h2,.fn,.logo{font-family:"Zen Old Mincho",serif}
+
+/* ヘッダ: 鏡筒の縦線に見立てた五つの部位ナビ */
+.top{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--panel);display:flex;flex-wrap:wrap;align-items:stretch;justify-content:space-between;gap:0 16px;padding:0 16px}
+.logo{display:flex;align-items:center;gap:10px;color:var(--panel);text-decoration:none;font-weight:900;font-size:1.05rem;padding:10px 0}
+.lens{width:22px;height:22px;border-radius:50%;border:3px solid var(--gold);box-shadow:inset 0 0 0 4px var(--ink),inset 0 0 0 6px var(--blue);display:inline-block}
+.top nav ul{display:flex;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.top nav a{display:grid;grid-template-columns:auto 1fr;column-gap:6px;align-items:baseline;padding:8px 12px;color:#cfd2bd;text-decoration:none;font-size:.78rem;line-height:1.3;border-bottom:3px solid transparent}
+.top nav b{font-family:"Zen Old Mincho",serif;color:var(--gold);grid-row:1/3}
+.top nav small{color:#9a9d85;font-size:.68rem}
+.top nav a[aria-current]{color:#fff;border-bottom-color:var(--gold)}
+.top nav a:hover{color:#fff}
+
+/* ヒーロー: 丸い視野と十字線 */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:32px;align-items:center;max-width:1100px;margin:0 auto;padding:48px 20px 56px}
+.fov{position:relative;aspect-ratio:1/1;width:100%;max-width:470px;border-radius:50%;overflow:hidden;background:#fff;border:10px solid var(--ink);box-shadow:0 0 0 3px var(--gold),0 0 0 6px var(--ink);margin:0 auto}
+.fov img{width:100%;height:100%;object-fit:cover}
+.fov .cx,.fov .cy{position:absolute;background:var(--blue);opacity:.55;z-index:2}
+.fov .cx{left:0;right:0;top:50%;height:1px}
+.fov .cy{top:0;bottom:0;left:50%;width:1px}
+.hero-t h1{font-size:clamp(2.6rem,8vw,4.8rem);line-height:1.12;margin:.1em 0 .3em;font-weight:900;letter-spacing:.02em}
+.k{margin:0;font-size:.82rem;letter-spacing:.14em;color:var(--blue);font-weight:700}
+.lead{color:var(--mute);margin:0 0 1.2em}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;padding:10px 22px;border-radius:999px;font-weight:700}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+
+/* 帯 */
+.band{padding:56px 20px}
+.band.alt{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.in{max-width:1000px;margin:0 auto}
+.band h2{font-size:clamp(1.4rem,4vw,2rem);margin:.2em 0 .7em;line-height:1.4}
+.assoc,.note{font-size:.84rem;color:var(--mute)}
+.warn{background:var(--tint);border-left:4px solid var(--blue);padding:10px 14px;font-size:.9rem}
+
+/* 五つの部位リスト: 左に鏡筒の縦線 */
+.parts{list-style:none;margin:0;padding:0 0 0 28px;position:relative}
+.parts::before{content:"";position:absolute;left:11px;top:14px;bottom:14px;width:4px;background:var(--ink);border-radius:2px}
+.parts li{position:relative;margin:0 0 14px}
+.parts li::before{content:"";position:absolute;left:-26px;top:20px;width:16px;height:16px;border-radius:50%;background:var(--panel);border:4px solid var(--blue)}
+.parts a{display:grid;grid-template-columns:2.4em 8em 1fr;gap:6px 10px;align-items:baseline;text-decoration:none;color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:10px 16px;border-radius:8px}
+.parts a:hover{border-color:var(--blue)}
+.parts b{font-family:"Zen Old Mincho",serif;color:var(--blue);font-size:1.3rem}
+.parts strong{font-family:"Zen Old Mincho",serif;font-size:1.1rem}
+.parts span{color:var(--mute);font-size:.92rem}
+
+/* 丸い視野のギャラリー */
+.fovs{display:grid;gap:20px;margin:20px 0 10px}
+.fovs.four{grid-template-columns:repeat(4,1fr)}
+.fovs.three{grid-template-columns:repeat(3,1fr)}
+.fovs.one{grid-template-columns:minmax(0,320px);justify-content:center}
+.ph{margin:0;aspect-ratio:1/1;border-radius:50%;overflow:hidden;border:5px solid var(--ink);box-shadow:0 0 0 2px var(--gold);background:#fff}
+.ph img{width:100%;height:100%;object-fit:cover}
+
+/* 下層ページの見出し */
+.ph-head{max-width:1000px;margin:0 auto;padding:40px 20px 0;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+.step{display:flex;flex-direction:column;align-items:center;gap:4px;border:3px solid var(--ink);border-radius:50%;width:150px;height:150px;justify-content:center;box-shadow:0 0 0 3px var(--gold);background:var(--panel)}
+.step .rn{font:900 2.2rem/1 "Zen Old Mincho",serif;color:var(--blue)}
+.step .pt{font:700 .95rem/1.2 "Zen Old Mincho",serif;writing-mode:horizontal-tb}
+.ph-head .lead{margin:0;font-size:1.02rem}
+
+/* レボルバー */
+.rev{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0 24px}
+.slot{aspect-ratio:1/1;border-radius:50%;border:4px dashed var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);gap:6px}
+.slot i{width:38%;aspect-ratio:1/1;border-radius:50%;background:var(--panel);border:4px solid var(--blue)}
+.slot span{font-size:.85rem;font-weight:700}
+
+/* 口コミ */
+.vc{position:relative;background:var(--panel);border:1px solid var(--line);border-left:6px solid var(--blue);border-radius:0 10px 10px 0;padding:16px 18px;margin:14px 0}
+.vc p{margin:.4em 0 0}
+.voice-sample-tag{display:inline-block;background:var(--gold);color:var(--ink);font-size:.72rem;font-weight:700;padding:1px 10px;border-radius:999px}
+
+.chk{list-style:none;padding:0;margin:1em 0}
+.chk li{padding:10px 0;border-bottom:1px solid var(--line)}
+.chk b{display:inline-block;min-width:7em;color:var(--blue)}
+
+.tt{width:100%;border-collapse:collapse;background:var(--bg)}
+.tt th,.tt td{padding:12px 14px;border:1px solid var(--line);text-align:left;vertical-align:top}
+.tt th{width:7.5em;background:var(--tint);white-space:nowrap}
+.pending{color:var(--mute)}
+.map{margin-top:24px;border-radius:50% / 50%;overflow:hidden}
+.map{border-radius:12px;border:4px solid var(--ink)}
+.map iframe{display:block;width:100%;height:380px;border:0}
+
+/* フッタ */
+.foot{background:var(--ink);color:#d9dac8;padding:44px 20px 70px}
+.footin{max-width:1000px;margin:0 auto}
+.foot a{color:var(--gold)}
+.fn{font-size:1.4rem;font-weight:900;color:#fff}
+.credits{font-size:.78rem;color:#b4b7a0;border-top:1px solid #4a4d38;margin-top:24px;padding-top:16px}
+.credits ul{padding-left:1.2em}
+.design{font-size:.78rem;color:#b4b7a0}
+.hp-photo-note{position:fixed;left:0;right:0;bottom:0;z-index:900;background:rgba(42,45,28,.92);color:#f8f3e6;font-size:.72rem;line-height:1.5;text-align:center;padding:5px 10px}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;padding-top:28px}
+  .fov{max-width:320px}
+  .fovs.four,.rev{grid-template-columns:repeat(2,1fr)}
+  .fovs.three{grid-template-columns:repeat(2,1fr)}
+  .parts a{grid-template-columns:2em 1fr;}
+  .parts span{grid-column:1/3}
+  .ph-head{grid-template-columns:1fr;justify-items:start}
+  .step{width:120px;height:120px}
+  .top nav a{padding:6px 8px;font-size:.72rem}
+  .top nav small{display:none}
+  .tt th{width:6em}
+  .band{padding:40px 16px}
+}
