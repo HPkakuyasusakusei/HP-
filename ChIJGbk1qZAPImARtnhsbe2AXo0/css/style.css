@@ -1,0 +1,78 @@
+:root{--paper:#f2f3e4;--ink:#1c2321;--green:#1f6b4a;--pink:#f0b7c4;--line:#c6ccbf;--sub:#4c5b56}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.9 "Noto Serif JP","Hiragino Mincho ProN",serif;
+background-image:linear-gradient(rgba(31,107,74,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(31,107,74,.07) 1px,transparent 1px);background-size:24px 24px}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--green);text-underline-offset:3px}
+a:hover{background:var(--pink)}
+.mono,.sheetbar,.nav a,.ref,.figno,.cap,th{font-family:"Courier Prime","Courier New",monospace}
+.sheetbar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 18px;padding:10px 20px;border-bottom:2px solid var(--ink);font-size:13px;letter-spacing:.06em;background:var(--paper)}
+.sheetbar b{font-weight:700}
+.nav{border-bottom:1px solid var(--ink);background:var(--paper)}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap}
+.nav li{flex:1 1 0;min-width:120px;border-right:1px solid var(--line)}
+.nav li:last-child{border-right:0}
+.nav a{display:block;padding:10px 14px;text-decoration:none;color:var(--ink);font-size:13px;line-height:1.5}
+.nav a small{display:block;font-family:"Noto Serif JP",serif;font-size:12px;color:var(--sub)}
+.nav a[aria-current=page]{background:var(--green);color:#fff}
+.nav a[aria-current=page] small{color:#e5f1ea}
+.frame{max-width:1080px;margin:28px auto;padding:34px clamp(16px,4vw,48px) 40px;border:2px solid var(--ink);outline:1px solid var(--ink);outline-offset:6px;background:rgba(244,241,232,.94);position:relative}
+.frame::before,.frame::after{content:"";position:absolute;width:14px;height:14px;border:1px solid var(--green)}
+.frame::before{top:-24px;left:-24px;border-width:0 1px 1px 0}
+.frame::after{bottom:-24px;right:-24px;border-width:1px 0 0 1px}
+.figno{font-size:clamp(56px,13vw,132px);line-height:1;font-weight:700;letter-spacing:-.02em;margin:0;color:var(--ink)}
+.figno span{font-size:.28em;letter-spacing:.14em;color:var(--green);margin-right:.4em;vertical-align:.9em}
+h1.t{font-size:clamp(22px,4.6vw,34px);line-height:1.5;margin:6px 0 22px;font-weight:700;border-bottom:3px double var(--ink);padding-bottom:10px}
+h2{font-size:18px;margin:44px 0 14px;font-weight:700;display:flex;gap:12px;align-items:baseline}
+h2::before{content:attr(data-n);font-family:"Courier Prime",monospace;background:var(--green);color:#fff;padding:0 10px;font-size:14px;letter-spacing:.08em}
+.lead{max-width:40em;margin:0 0 18px}
+.figs{display:grid;gap:36px 28px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:30px 0}
+.fig{margin:0;position:relative}
+.fig .pic{border:1px solid var(--ink);background:#fff;padding:12px;position:relative}
+.fig img{width:100%;height:240px;object-fit:contain;background:#fff}
+.fig.dark .pic{background:#111}
+.fig.dark img{background:#111}
+.ref{position:absolute;top:-14px;left:-10px;z-index:2;background:var(--pink);color:var(--ink);font-weight:700;font-size:14px;line-height:1;padding:7px 10px;border:1px solid var(--ink);border-radius:20px}
+.ref::after{content:"";position:absolute;left:100%;top:50%;width:46px;height:1px;background:var(--ink);transform-origin:left center;transform:rotate(28deg)}
+.fig:nth-child(even) .ref{left:auto;right:-10px}
+.fig:nth-child(even) .ref::after{left:auto;right:100%;transform-origin:right center;transform:rotate(-28deg)}
+.cap{font-size:12.5px;line-height:1.7;margin:12px 0 0;color:var(--sub);letter-spacing:.02em}
+.cap b{color:var(--ink)}
+.wide{grid-column:1/-1}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:14px 0}
+th,td{border:1px solid var(--ink);padding:9px 12px;text-align:left;vertical-align:top;background:rgba(255,255,255,.55)}
+th{width:9.5em;background:var(--pink);font-weight:700;font-size:13px;letter-spacing:.05em}
+.numtable td:first-child{width:4.2em;font-family:"Courier Prime",monospace;font-weight:700;color:var(--green);text-align:center}
+.pend{display:inline-block;border:1px dashed var(--ink);padding:0 8px;font-size:13px;background:#fff}
+.voices{display:grid;gap:22px;margin:22px 0}
+.voice{border:1px solid var(--ink);background:#fff;padding:18px 22px 16px;position:relative}
+.voice h3{margin:0 0 6px;font:700 13px/1.6 "Courier Prime",monospace;letter-spacing:.08em;color:var(--green)}
+.voice p{margin:6px 0}
+.voice-sample-tag{display:inline-block;font:700 12px/1 "Noto Serif JP",serif;background:var(--green);color:#fff;padding:4px 8px;margin-left:8px;vertical-align:middle}
+.note{border-left:4px solid var(--green);background:rgba(240,183,196,.35);padding:10px 16px;font-size:14px;margin:18px 0}
+.mapbox{border:1px solid var(--ink);padding:10px;background:#fff;margin:20px 0}
+.mapbox iframe{width:100%;height:340px;border:0;display:block}
+.sheets{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:0;border:1px solid var(--ink)}
+.sheets li{display:grid;grid-template-columns:5.5em 1fr;border-bottom:1px solid var(--line);background:rgba(255,255,255,.55)}
+.sheets li:last-child{border-bottom:0}
+.sheets li b{font-family:"Courier Prime",monospace;padding:8px 12px;background:var(--pink);border-right:1px solid var(--ink)}
+.sheets li span{padding:8px 14px}
+.foot{border-top:2px solid var(--ink);background:var(--ink);color:#e7edd5;padding:30px 20px 90px;font-size:14px}
+.foot a{color:#f6d2da}
+.foot a:hover{background:transparent;color:#fff}
+.footin{max-width:1080px;margin:0 auto}
+.fn{font:700 22px/1.4 "Courier Prime",monospace;letter-spacing:.06em}
+.credits{border-top:1px solid #5c6a63;margin-top:18px;padding-top:14px;font-size:12px;line-height:1.8}
+.credits ul{margin:6px 0;padding-left:1.2em}
+.design{font-size:12px;color:#c2cac4}
+.hp-photo-note{position:fixed;left:0;right:0;bottom:0;z-index:900;background:rgba(28,35,33,.92);color:#fff;font:12px/1.6 sans-serif;padding:8px 14px;text-align:center}
+@media(max-width:640px){
+.sheetbar{padding:8px 14px;font-size:12px}
+.nav li{flex:1 1 33%;min-width:0}
+.frame{margin:20px 14px;outline-offset:4px}
+.frame::before,.frame::after{display:none}
+th{width:7em}
+.sheets li{grid-template-columns:4.6em 1fr}
+.fig img{height:210px}
+}
