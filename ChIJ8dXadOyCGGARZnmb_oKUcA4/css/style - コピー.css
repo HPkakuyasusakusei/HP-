@@ -1,0 +1,835 @@
+/* ==========================================================================
+   田夢 試作HP 共通スタイル
+   コンセプト:「田んぼの奥、週末だけ開く手打ち蕎麦」
+   ========================================================================== */
+
+:root {
+  --color-base: #F4EEDF;
+  --color-base-soft: #ECE3CC;
+  --color-white: #FFFDF8;
+  --color-main: #B98A2E;
+  --color-main-light: #D7AE5C;
+  --color-main-dark: #96701F;
+  --color-dark: #4A3626;
+  --color-indigo: #33495E;
+  --color-green: #7C8B5E;
+  --font-heading: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "游明朝", serif;
+  --font-body: "Yu Gothic", "YuGothic", "Hiragino Kaku Gothic ProN", "游ゴシック体", sans-serif;
+  --shadow-soft: 0 8px 22px rgba(74, 54, 38, 0.14);
+  --max-width: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--color-base);
+  color: var(--color-dark);
+  font-family: var(--font-body);
+  line-height: 1.85;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--color-dark);
+  line-height: 1.5;
+  margin: 0 0 0.75em;
+  font-weight: 700;
+}
+
+p { margin: 0 0 1em; }
+
+a { color: var(--color-indigo); text-decoration-thickness: 1px; }
+
+img, svg { max-width: 100%; display: block; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: 0.6em 1em;
+  z-index: 10000;
+}
+.skip-link:focus { left: 0.5rem; top: 0.5rem; }
+
+/* ==========================================================================
+   SAMPLE 透かし(試作HPである旨の明示)
+   ========================================================================== */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  opacity: 0.9;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='260'%20height='260'%3E%3Ctext%20x='-10'%20y='150'%20font-family='sans-serif'%20font-size='34'%20font-weight='700'%20fill='%234A3626'%20fill-opacity='0.10'%20transform='rotate(-30%20130%20130)'%3ESAMPLE%3C/text%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+body::after {
+  content: "SAMPLE";
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  z-index: 9001;
+  pointer-events: none;
+  background: rgba(74, 54, 38, 0.85);
+  color: var(--color-base);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  padding: 0.5em 1em;
+  border-radius: 999px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* ==========================================================================
+   ヘッダー
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--color-base);
+  border-bottom: 1px solid rgba(74, 54, 38, 0.15);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem 1rem;
+  padding: 0.75rem 1.25rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.logo {
+  order: 1;
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+}
+
+.global-nav {
+  order: 3;
+  width: 100%;
+}
+
+.global-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.4rem;
+}
+
+.global-nav a {
+  display: inline-block;
+  padding: 0.3em 0.2em;
+  color: var(--color-dark);
+  text-decoration: none;
+  font-size: 0.95rem;
+  border-bottom: 2px solid transparent;
+}
+
+.global-nav a:hover,
+.global-nav a:focus-visible {
+  border-bottom-color: var(--color-main);
+}
+
+.phone-badge {
+  order: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  background: var(--color-main);
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.5em 0.9em;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.phone-badge .phone-icon { font-style: normal; }
+
+@media (min-width: 900px) {
+  .header-inner { flex-wrap: nowrap; }
+  .global-nav { order: 2; width: auto; }
+  .phone-badge { order: 3; }
+  .global-nav ul { gap: 0 2rem; }
+}
+
+/* ==========================================================================
+   稲穂ライン(セクション区切り)
+   ========================================================================== */
+
+.section-divider {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0.5rem 1.25rem;
+}
+
+.section-divider svg { width: 100%; height: 32px; }
+
+.section-divider path {
+  fill: none;
+  stroke: var(--color-main);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+
+/* ==========================================================================
+   汎用セクション・ボタン
+   ========================================================================== */
+
+.section { padding: 3rem 0; }
+.section-alt { background: var(--color-base-soft); }
+
+.section-lead {
+  max-width: 720px;
+  margin: 0 auto 2rem;
+  text-align: center;
+  color: var(--color-dark);
+}
+
+.section-heading {
+  text-align: center;
+  font-size: clamp(1.4rem, 3.2vw, 1.9rem);
+}
+
+.section-subheading {
+  text-align: center;
+  color: var(--color-indigo);
+  margin-top: -0.4rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.85em 1.6em;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.98rem;
+  border: 2px solid transparent;
+  transition: transform 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--color-main);
+  color: var(--color-white);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-dark);
+  border-color: var(--color-dark);
+}
+
+.btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  justify-content: center;
+}
+
+.cta-center { text-align: center; margin-top: 2rem; }
+
+/* ==========================================================================
+   土日限定バッジ
+   ========================================================================== */
+
+.weekend-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.badge-circle {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-white);
+  font-size: 0.95rem;
+}
+
+.badge-do { background: var(--color-main); margin-right: -0.5rem; }
+.badge-nichi { background: var(--color-indigo); }
+
+.badge-text {
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--color-indigo);
+  border: 1px solid var(--color-indigo);
+  border-radius: 999px;
+  padding: 0.3em 0.8em;
+}
+
+/* ==========================================================================
+   写真プレースホルダー(手描き食器を想起する不揃いな円・楕円)
+   ========================================================================== */
+
+.photo-placeholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  min-height: 200px;
+  color: var(--color-white);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  border: 2px solid rgba(74, 54, 38, 0.3);
+  box-shadow: inset 0 0 0 6px rgba(244, 238, 223, 0.35), var(--shadow-soft);
+}
+
+.photo-placeholder span {
+  background: rgba(74, 54, 38, 0.35);
+  padding: 0.4em 0.8em;
+  border-radius: 999px;
+}
+
+.ph-large { min-height: 320px; }
+
+.ph-gold {
+  background: radial-gradient(ellipse at 30% 28%, var(--color-main-light) 0%, var(--color-main) 55%, var(--color-dark) 100%);
+  border-radius: 63% 37% 54% 46% / 45% 55% 45% 55%;
+}
+.ph-green {
+  background: radial-gradient(ellipse at 32% 30%, #A6B685 0%, var(--color-green) 55%, var(--color-dark) 100%);
+  border-radius: 42% 58% 63% 37% / 55% 42% 58% 45%;
+}
+.ph-indigo {
+  background: radial-gradient(ellipse at 28% 32%, #56728C 0%, var(--color-indigo) 58%, var(--color-dark) 100%);
+  border-radius: 55% 45% 40% 60% / 60% 35% 65% 40%;
+}
+.ph-dark {
+  background: radial-gradient(ellipse at 30% 30%, #7A5C3E 0%, var(--color-dark) 60%, #2E2015 100%);
+  border-radius: 48% 52% 65% 35% / 40% 60% 40% 60%;
+}
+.ph-gold-alt {
+  background: radial-gradient(ellipse at 34% 26%, var(--color-main-light) 0%, var(--color-main-dark) 60%, var(--color-dark) 100%);
+  border-radius: 58% 42% 46% 54% / 38% 58% 42% 62%;
+}
+
+/* ==========================================================================
+   ヒーロー
+   ========================================================================== */
+
+.hero { padding: 2.5rem 0 3rem; }
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.hero-copy { text-align: center; }
+
+.hero h1 {
+  font-size: clamp(1.7rem, 5.5vw, 2.6rem);
+  margin-top: 0.3rem;
+}
+
+.hero-sub {
+  color: var(--color-indigo);
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 860px) {
+  .hero-inner { flex-direction: row; align-items: center; }
+  .hero-copy { text-align: left; }
+  .hero-copy .weekend-badge { justify-content: flex-start; }
+  .hero-copy .cta-row { justify-content: flex-start; }
+  .hero .photo-placeholder { flex: 1 1 50%; }
+  .hero-copy { flex: 1 1 50%; }
+}
+
+/* ==========================================================================
+   クチコミ・信頼性訴求
+   ========================================================================== */
+
+.rating-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0 auto 2rem;
+  width: fit-content;
+  padding: 0.9rem 1.8rem;
+  border-radius: 50% / 40%;
+  background: var(--color-white);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(74, 54, 38, 0.15);
+}
+
+.rating-badge .rating-number {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  color: var(--color-main);
+  font-weight: 700;
+}
+
+.rating-badge .rating-stars { color: var(--color-main); letter-spacing: 0.1em; }
+.rating-badge .rating-count { font-size: 0.85rem; color: var(--color-indigo); }
+
+.review-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 720px) {
+  .review-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.review-card {
+  background: var(--color-white);
+  border-radius: 12px;
+  padding: 1.4rem 1.4rem 1.2rem;
+  box-shadow: var(--shadow-soft);
+  border-top: 3px solid var(--color-main);
+}
+
+.review-card blockquote {
+  margin: 0 0 0.9rem;
+  font-size: 0.95rem;
+  color: var(--color-dark);
+}
+
+.review-card blockquote p { margin: 0 0 0.5em; }
+
+.review-card cite {
+  display: block;
+  font-style: normal;
+  font-size: 0.82rem;
+  color: var(--color-indigo);
+  text-align: right;
+}
+
+/* ==========================================================================
+   選ばれる理由
+   ========================================================================== */
+
+.reason-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.6rem;
+}
+
+@media (min-width: 600px) {
+  .reason-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 980px) {
+  .reason-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.reason-card {
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 1.6rem 1.3rem;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.reason-icon {
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 0.8rem;
+  color: var(--color-main);
+}
+.reason-icon.icon-green { color: var(--color-green); }
+.reason-icon.icon-indigo { color: var(--color-indigo); }
+.reason-icon path,
+.reason-icon circle,
+.reason-icon rect,
+.reason-icon ellipse,
+.reason-icon line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.reason-card h3 { font-size: 1.05rem; margin-bottom: 0.5em; }
+.reason-card p { font-size: 0.9rem; margin: 0; }
+
+/* ==========================================================================
+   メニュー系(ダイジェスト・お品書きページ共通)
+   ========================================================================== */
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.8rem;
+}
+
+@media (min-width: 640px) {
+  .menu-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 980px) {
+  .menu-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+.menu-card {
+  background: var(--color-white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-card .photo-placeholder { margin: 1.1rem 1.1rem 0; min-height: 180px; }
+
+.menu-card-body { padding: 1.1rem 1.3rem 1.4rem; flex: 1; }
+
+.menu-card h3 {
+  font-size: 1.15rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5em;
+  flex-wrap: wrap;
+}
+
+.menu-card .price { color: var(--color-main-dark); font-size: 1.05rem; white-space: nowrap; }
+
+.menu-card p { font-size: 0.92rem; }
+
+.menu-note {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: var(--color-indigo);
+  border: 1px solid var(--color-indigo);
+  border-radius: 999px;
+  padding: 0.2em 0.7em;
+  margin-top: 0.3em;
+}
+
+.menu-quote {
+  margin: 0.7rem 0 0;
+  padding: 0.6rem 0.9rem;
+  border-left: 3px solid var(--color-main);
+  background: var(--color-base-soft);
+  font-size: 0.85rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.menu-quote cite {
+  display: block;
+  font-style: normal;
+  font-size: 0.78rem;
+  color: var(--color-indigo);
+  margin-top: 0.3em;
+}
+
+.menu-intro {
+  max-width: 720px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.seasonal-box {
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--color-white);
+  border: 2px dashed var(--color-green);
+  border-radius: 20px;
+  padding: 1.6rem 1.6rem;
+  text-align: center;
+}
+
+.seasonal-box h3 { color: var(--color-green); }
+
+.notice-box {
+  max-width: 720px;
+  margin: 2rem auto 0;
+  background: var(--color-base-soft);
+  border-radius: 16px;
+  padding: 1.3rem 1.5rem;
+  font-size: 0.88rem;
+}
+
+.notice-box ul { list-style: none; }
+.notice-box li { position: relative; padding-left: 1.2em; margin-bottom: 0.4em; }
+.notice-box li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-main);
+}
+
+/* ==========================================================================
+   ページヘッダー(下層ページ共通)
+   ========================================================================== */
+
+.page-header {
+  padding: 2.6rem 0 1.5rem;
+  text-align: center;
+}
+
+.page-header h1 { font-size: clamp(1.7rem, 4.5vw, 2.3rem); }
+.page-header p { color: var(--color-indigo); margin: 0; }
+
+/* ==========================================================================
+   concept.html 専用
+   ========================================================================== */
+
+.profile-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  align-items: center;
+}
+
+@media (min-width: 800px) {
+  .profile-block { flex-direction: row; align-items: stretch; }
+  .profile-block .photo-placeholder { flex: 0 0 40%; }
+  .profile-block .profile-text { flex: 1; }
+}
+
+.profile-text h2 { margin-bottom: 0.6em; }
+
+.quote-block {
+  margin: 0.9rem 0;
+  padding: 0.9rem 1.1rem;
+  border-left: 3px solid var(--color-main);
+  background: var(--color-white);
+  border-radius: 0 10px 10px 0;
+  font-size: 0.92rem;
+}
+
+.quote-block cite {
+  display: block;
+  font-style: normal;
+  font-size: 0.8rem;
+  color: var(--color-indigo);
+  margin-top: 0.4em;
+}
+
+.quote-note {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-indigo);
+  margin-top: 0.2em;
+}
+
+.dual-photo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .dual-photo { grid-template-columns: repeat(2, 1fr); }
+}
+
+.concept-section h2 {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.concept-body {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   gallery.html 専用
+   ========================================================================== */
+
+.gallery-category { margin-bottom: 1rem; }
+
+.gallery-category h2 { text-align: center; }
+
+.gallery-lead {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 1.8rem;
+  color: var(--color-indigo);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+}
+
+@media (min-width: 720px) {
+  .gallery-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .gallery-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+.gallery-grid .photo-placeholder { min-height: 160px; }
+
+/* ==========================================================================
+   access.html 専用
+   ========================================================================== */
+
+.info-table {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: var(--color-white);
+  box-shadow: var(--shadow-soft);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.info-table th, .info-table td {
+  text-align: left;
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid var(--color-base-soft);
+  font-size: 0.92rem;
+  vertical-align: top;
+}
+
+.info-table th {
+  width: 30%;
+  background: var(--color-base-soft);
+  color: var(--color-dark);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.info-table tr:last-child th, .info-table tr:last-child td { border-bottom: none; }
+
+@media (max-width: 480px) {
+  .info-table, .info-table tbody, .info-table tr, .info-table th, .info-table td { display: block; width: 100%; }
+  .info-table th { border-bottom: none; padding-bottom: 0.2rem; }
+  .info-table td { padding-top: 0.2rem; border-bottom: 1px solid var(--color-base-soft); padding-bottom: 0.9rem; }
+}
+
+.attention-block {
+  max-width: 760px;
+  margin: 2.2rem auto 0;
+}
+
+.attention-item { margin-bottom: 1.6rem; }
+.attention-item h3 { font-size: 1.02rem; color: var(--color-indigo); }
+
+.map-wrapper {
+  max-width: 760px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  border: 4px solid var(--color-white);
+}
+
+.map-wrapper iframe {
+  width: 100%;
+  height: 320px;
+  border: 0;
+  display: block;
+}
+
+.tel-cta {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.tel-cta .tel-number {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  color: var(--color-main-dark);
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   フッター
+   ========================================================================== */
+
+.site-footer {
+  background: var(--color-dark);
+  color: var(--color-base);
+  margin-top: 3rem;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2.4rem 1.25rem 1.6rem;
+  text-align: center;
+}
+
+.footer-shop-name {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.footer-inner p { margin: 0.25rem 0; font-size: 0.9rem; color: var(--color-base-soft); }
+
+.footer-inner a { color: var(--color-main-light); }
+
+.footer-phone a { font-weight: 700; font-size: 1.05rem; }
+
+.footer-note {
+  display: inline-block;
+  margin-top: 0.6rem !important;
+  border: 1px solid var(--color-main-light);
+  border-radius: 999px;
+  padding: 0.25em 0.9em;
+  font-size: 0.8rem !important;
+}
+
+.footer-map-link {
+  display: inline-block;
+  margin-top: 0.9rem;
+}
+
+.footer-copy {
+  margin-top: 1.6rem !important;
+  font-size: 0.72rem !important;
+  color: rgba(244, 238, 223, 0.6) !important;
+}
