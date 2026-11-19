@@ -1,0 +1,442 @@
+/* 越後屋 昭和琺瑯食堂 - style.css
+   配色: 紺#1F3A56 / 生成り#F1E7D3 / くすんだ朱#B5482F / からし色#C8912B / 墨色#2B2620
+   赤×金の中華定番配色は使用しない(他中華料理店案件との差別化) */
+
+:root{
+  --navy:#1F3A56;
+  --navy-deep:#152537;
+  --cream:#F1E7D3;
+  --cream-deep:#E8D9B8;
+  --vermilion:#B5482F;
+  --vermilion-deep:#8F3722;
+  --mustard:#C8912B;
+  --ink:#2B2620;
+  --wood-1:#8a5a34;
+  --wood-2:#6e4526;
+  --wood-3:#a06f42;
+  --max-w:1120px;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  font-family:"Noto Sans JP",-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+ul{margin:0;padding:0;list-style:none;}
+h1,h2,h3,h4{font-family:"Noto Serif JP",serif;font-weight:700;margin:0;line-height:1.5;}
+p{margin:0 0 1em;}
+.visually-hidden{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+
+/* ===== SAMPLE 透かし(全ページ共通・操作を妨げない) ===== */
+body::before{
+  content:"";
+  position:fixed;
+  inset:-10% -10% -10% -10%;
+  width:120vw;
+  height:120vh;
+  pointer-events:none;
+  z-index:9998;
+  opacity:.9;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='200'%3E%3Ctext x='-10' y='120' font-family='sans-serif' font-size='38' font-weight='700' letter-spacing='6' fill='rgba(43,38,32,0.10)' transform='rotate(-30 160 100)'%3ESAMPLE%3C/text%3E%3C/svg%3E");
+  background-repeat:repeat;
+}
+body::after{
+  content:"SAMPLE";
+  position:fixed;
+  bottom:14px;
+  right:14px;
+  pointer-events:none;
+  z-index:9999;
+  background:var(--navy-deep);
+  color:var(--cream);
+  font-family:"Noto Sans JP",sans-serif;
+  font-weight:700;
+  letter-spacing:.18em;
+  font-size:.7rem;
+  padding:.5em 1em;
+  border:1px solid var(--cream);
+  box-shadow:2px 2px 6px rgba(0,0,0,.35);
+}
+
+/* ===== レイアウト共通 ===== */
+.container{max-width:var(--max-w);margin:0 auto;padding:0 1.25rem;}
+.skip-link{
+  position:absolute;left:-9999px;top:0;background:var(--navy);color:var(--cream);
+  padding:.75em 1.25em;z-index:10000;
+}
+.skip-link:focus{left:0;}
+
+.section{padding:3.25rem 0;}
+.section--tight{padding:2.25rem 0;}
+.bg-cream-deep{background:var(--cream-deep);}
+.bg-navy{background:var(--navy);color:var(--cream);}
+
+/* 木目調セクション区切り */
+.wood-divider{
+  height:12px;
+  background-image:repeating-linear-gradient(95deg,
+    var(--wood-1) 0 8px, var(--wood-2) 8px 14px, var(--wood-3) 14px 22px);
+  opacity:.6;
+}
+
+/* ===== 見出し(琺瑯看板風・二重ボーダー) ===== */
+.sign-heading{
+  display:inline-block;
+  position:relative;
+  font-size:1.5rem;
+  letter-spacing:.12em;
+  padding:.65em 1.5em;
+  border:3px solid var(--cream);
+  outline:2px solid var(--cream);
+  outline-offset:5px;
+  background:var(--navy);
+  color:var(--cream);
+  box-shadow:5px 5px 0 rgba(43,38,32,.28);
+  margin:0 0 .3em;
+}
+.sign-heading--cream{
+  background:var(--cream);
+  color:var(--navy);
+  border-color:var(--navy);
+  outline-color:var(--navy);
+}
+.sign-wrap{margin-bottom:1.75rem;}
+.sign-wrap.center{text-align:center;}
+.sign-lead{max-width:56ch;margin-top:1.4rem;color:var(--ink);}
+.sign-wrap.center .sign-lead{margin-left:auto;margin-right:auto;}
+.page-heading-block{padding:3rem 0 2.5rem;text-align:center;}
+
+/* ===== ボタン / CTA ===== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+  padding:.9em 1.8em;
+  font-weight:700;
+  border:2px solid transparent;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.btn-tel{
+  background:var(--vermilion);
+  color:var(--cream);
+  border-color:var(--cream);
+}
+.btn-tel:hover{background:var(--vermilion-deep);}
+.btn-outline{
+  background:transparent;
+  color:var(--navy);
+  border-color:var(--navy);
+}
+.btn-outline:hover{background:var(--navy);color:var(--cream);}
+.btn-outline--onnavy{color:var(--cream);border-color:var(--cream);}
+.btn-outline--onnavy:hover{background:var(--cream);color:var(--navy);}
+.btn-large{font-size:1.15rem;padding:1.05em 2.2em;}
+.btn-row{display:flex;flex-wrap:wrap;gap:.9rem;}
+.btn-row.center{justify-content:center;}
+
+.tel-huge{
+  font-family:"Noto Serif JP",serif;
+  font-size:2rem;
+  font-weight:700;
+  letter-spacing:.04em;
+}
+@media(min-width:600px){.tel-huge{font-size:2.5rem;}}
+
+.cta-block{
+  background:var(--navy);
+  color:var(--cream);
+  text-align:center;
+  padding:3rem 1.25rem;
+}
+.cta-block .sign-heading{margin-bottom:1rem;}
+.cta-block p{margin-bottom:1.25rem;}
+.cta-block .btn-outline{color:var(--cream);border-color:var(--cream);}
+.cta-block .btn-outline:hover{background:var(--cream);color:var(--navy);}
+
+/* ===== ヘッダー(暖簾+琺瑯ナビ) ===== */
+.site-header{position:relative;z-index:500;}
+.noren-band{background:var(--vermilion);}
+.noren-inner{
+  max-width:var(--max-w);margin:0 auto;padding:.9rem 1.25rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+}
+.brand{display:flex;flex-direction:column;color:var(--cream);}
+.brand-name{
+  font-family:"Noto Serif JP",serif;font-weight:700;font-size:1.6rem;
+  letter-spacing:.14em;
+}
+.brand-sub{font-size:.68rem;letter-spacing:.08em;opacity:.9;margin-top:.1em;}
+.header-actions{display:flex;align-items:center;gap:.75rem;}
+.tel-cta-header{
+  display:flex;align-items:center;gap:.4em;
+  background:var(--cream);color:var(--vermilion-deep);
+  font-weight:700;padding:.55em 1em;border:2px solid var(--cream);
+  font-size:.92rem;
+}
+.tel-cta-header .tel-icon{font-size:1.1em;}
+.tel-cta-header .tel-num{display:none;}
+@media(min-width:480px){.tel-cta-header .tel-num{display:inline;}}
+
+.nav-toggle{
+  display:flex;flex-direction:column;justify-content:center;gap:5px;
+  width:40px;height:36px;background:transparent;border:2px solid var(--cream);
+  padding:6px;cursor:pointer;
+}
+.nav-toggle span{display:block;height:2px;background:var(--cream);}
+@media(min-width:900px){.nav-toggle{display:none;}}
+
+.enamel-nav{background:var(--navy);}
+.enamel-nav ul{
+  max-width:var(--max-w);margin:0 auto;padding:0 1.25rem;
+  display:none;flex-direction:column;
+}
+.enamel-nav.is-open ul{display:flex;}
+.enamel-nav li{border-top:1px solid rgba(241,231,211,.15);}
+.enamel-nav li:first-child{border-top:none;}
+.enamel-nav a{
+  display:block;padding:.9em .25em;color:var(--cream);
+  font-weight:700;letter-spacing:.08em;font-size:.95rem;
+}
+.enamel-nav a[aria-current="page"]{color:var(--mustard);}
+@media(min-width:900px){
+  .enamel-nav ul{display:flex !important;flex-direction:row;justify-content:center;gap:2.4rem;padding:.2rem 1.25rem;}
+  .enamel-nav li{border-top:none;}
+  .enamel-nav a{padding:.85em .2em;position:relative;}
+  .enamel-nav a[aria-current="page"]::after{
+    content:"";position:absolute;left:0;right:0;bottom:.4em;height:2px;background:var(--mustard);
+  }
+}
+
+/* 暖簾の裾(ギザギザの切れ込み) */
+.noren-hem{
+  height:16px;
+  background-color:var(--navy);
+  background-image:
+    linear-gradient(-45deg, var(--cream) 8px, transparent 0),
+    linear-gradient(45deg, var(--cream) 8px, transparent 0);
+  background-size:16px 16px;
+  background-position:left bottom;
+  background-repeat:repeat-x;
+}
+
+/* ===== フッター ===== */
+.site-footer{background:var(--navy-deep);color:var(--cream);padding:2.75rem 0 1.5rem;}
+.footer-grid{
+  display:grid;gap:2rem;
+  grid-template-columns:1fr;
+}
+@media(min-width:760px){
+  .footer-grid{grid-template-columns:1.2fr 1fr 1fr;}
+}
+.footer-brand{font-family:"Noto Serif JP",serif;font-size:1.3rem;font-weight:700;letter-spacing:.1em;margin-bottom:.6rem;}
+.footer-block p{margin:0 0 .5em;font-size:.92rem;}
+.footer-block a{text-decoration:underline;}
+.rating-badge{
+  display:inline-flex;align-items:center;gap:.5em;
+  background:var(--mustard);color:var(--ink);
+  padding:.4em 1em;font-weight:700;font-size:.85rem;margin-top:.4em;
+}
+.footer-nav ul{display:flex;flex-wrap:wrap;gap:.6em 1.2em;}
+.footer-nav a{font-weight:700;font-size:.92rem;}
+.footer-bottom{
+  border-top:1px solid rgba(241,231,211,.2);
+  margin-top:2rem;padding-top:1.25rem;
+  text-align:center;font-size:.8rem;opacity:.85;
+}
+
+/* ===== 品書き短冊カード(tanzaku) ===== */
+.tanzaku-grid{
+  display:grid;gap:1.5rem;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+}
+.tanzaku{
+  position:relative;
+  background:var(--cream);
+  border:2px solid var(--navy);
+  box-shadow:4px 4px 0 rgba(43,38,32,.2);
+  padding:1.6rem 1.2rem 1.5rem;
+  display:flex;flex-direction:column;
+}
+.tanzaku::before{
+  content:"";
+  position:absolute;top:0;left:0;right:0;height:6px;
+  background:var(--mustard);
+}
+.tanzaku h3{
+  font-size:1.15rem;margin-bottom:.55em;padding-top:.3em;
+  border-bottom:2px dotted var(--navy);padding-bottom:.5em;
+}
+.tanzaku p{font-size:.94rem;margin-bottom:0;color:var(--ink);}
+.tanzaku-badge{
+  position:absolute;top:-14px;right:-10px;
+  width:56px;height:56px;border-radius:50%;
+  background:var(--mustard);color:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;font-weight:700;font-size:.72rem;line-height:1.2;
+  border:2px solid var(--cream);
+  box-shadow:2px 2px 5px rgba(0,0,0,.25);
+}
+
+/* 名物メニュー: 最大サイズ短冊 */
+.tanzaku--feature{
+  border-width:3px;
+  padding:1.8rem 1.6rem 1.8rem;
+  display:grid;gap:1.4rem;
+  grid-template-columns:1fr;
+}
+@media(min-width:760px){
+  .tanzaku--feature{grid-template-columns:280px 1fr;align-items:start;}
+}
+.tanzaku--feature h3{font-size:1.6rem;border-bottom:none;padding-bottom:0;}
+.tanzaku--feature .tanzaku-note{
+  margin-top:.75rem;font-size:.85rem;color:var(--vermilion-deep);
+  border-left:3px solid var(--mustard);padding-left:.75em;
+}
+.tanzaku-label{
+  display:inline-block;background:var(--vermilion);color:var(--cream);
+  font-size:.75rem;font-weight:700;letter-spacing:.1em;
+  padding:.3em .9em;margin-bottom:.6rem;
+}
+
+/* ===== 写真プレースホルダー(木目調フレーム) ===== */
+.frame{
+  padding:10px;
+  background-image:repeating-linear-gradient(100deg,
+    var(--wood-1) 0 6px, var(--wood-2) 6px 10px, var(--wood-3) 10px 16px);
+  box-shadow:0 4px 10px rgba(0,0,0,.28);
+}
+.photo-placeholder{
+  background:var(--cream-deep);
+  border:2px dashed var(--navy);
+  min-height:190px;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:1.25rem;
+}
+.photo-placeholder span{
+  font-size:.82rem;color:var(--ink);font-weight:700;
+  letter-spacing:.03em;
+}
+.frame--tall .photo-placeholder{min-height:260px;}
+.frame--wide .photo-placeholder{min-height:230px;}
+
+.photo-grid{
+  display:grid;gap:1.25rem;
+  grid-template-columns:repeat(2,1fr);
+}
+@media(min-width:640px){
+  .photo-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(min-width:960px){
+  .photo-grid{grid-template-columns:repeat(4,1fr);}
+}
+.photo-grid .photo-placeholder{min-height:130px;}
+@media(min-width:640px){.photo-grid .photo-placeholder{min-height:160px;}}
+
+/* ===== ファーストビュー ===== */
+.hero{
+  padding:2.5rem 0 3rem;
+  background:var(--cream);
+}
+.hero-grid{
+  display:grid;gap:1.75rem;
+}
+@media(min-width:860px){
+  .hero-grid{grid-template-columns:1fr 1fr;align-items:center;}
+}
+.hero-copy .catch{
+  font-size:1.9rem;line-height:1.4;margin-bottom:.5rem;
+}
+@media(min-width:600px){.hero-copy .catch{font-size:2.4rem;}}
+.hero-copy .sub{font-size:1.05rem;font-weight:700;margin-bottom:.4rem;color:var(--vermilion-deep);}
+.hero-copy .note{font-size:.9rem;color:var(--ink);margin-bottom:1.5rem;}
+
+/* ===== お客様の声 ===== */
+.review-grid{display:grid;gap:1.5rem;}
+@media(min-width:760px){.review-grid{grid-template-columns:repeat(2,1fr);}}
+.review-list{display:flex;flex-direction:column;gap:1.75rem;}
+.review-card{
+  background:var(--cream);
+  border:2px solid var(--navy);
+  padding:1.5rem 1.3rem;
+  box-shadow:3px 3px 0 rgba(43,38,32,.15);
+}
+.review-card.review-card--full{grid-column:1/-1;}
+.review-head{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5em;
+  margin-bottom:.9rem;border-bottom:2px dotted var(--navy);padding-bottom:.7rem;
+}
+.review-stars{color:var(--mustard);font-size:1.1rem;letter-spacing:.05em;}
+.review-time{font-size:.82rem;color:var(--ink);}
+.review-text{
+  white-space:pre-line;
+  font-size:.95rem;
+  max-height:none;
+}
+.review-text-scroll{
+  max-height:420px;overflow-y:auto;padding-right:.5em;
+}
+.review-author{
+  margin-top:1rem;text-align:right;font-size:.85rem;font-weight:700;color:var(--navy);
+}
+.rating-badge-inline{
+  display:inline-flex;align-items:center;gap:.5em;
+  background:var(--mustard);color:var(--ink);font-weight:700;
+  padding:.5em 1.1em;margin-bottom:1.5rem;
+}
+
+/* ===== アクセス ===== */
+.info-list{margin-bottom:1.5rem;}
+.info-list li{display:flex;gap:.75em;padding:.5em 0;border-bottom:1px dotted var(--navy);font-size:.98rem;}
+.info-list li:last-child{border-bottom:none;}
+.info-list .label{
+  flex:0 0 5.5em;font-weight:700;color:var(--vermilion-deep);
+}
+.map-wrap{
+  border:4px solid var(--navy);
+  padding:6px;background:var(--cream);
+  box-shadow:4px 4px 0 rgba(43,38,32,.2);
+}
+.map-wrap iframe{width:100%;height:320px;border:0;display:block;}
+@media(min-width:760px){.map-wrap iframe{height:400px;}}
+
+.note-box{
+  background:var(--cream-deep);
+  border-left:4px solid var(--vermilion);
+  padding:1rem 1.25rem;font-size:.88rem;margin-top:1rem;color:var(--ink);
+}
+
+.access-block{margin-bottom:2.25rem;}
+.access-block h3{font-size:1.15rem;margin-bottom:.6rem;color:var(--navy);}
+
+/* ===== 2カラム(テキスト+プレースホルダー) ===== */
+.split{display:grid;gap:2rem;align-items:center;}
+@media(min-width:860px){
+  .split{grid-template-columns:1fr 1fr;}
+  .split--reverse{direction:rtl;}
+  .split--reverse > *{direction:ltr;}
+}
+
+/* こだわりページ */
+.concept-item{padding:2.5rem 0;}
+.concept-item .sub-heading{
+  font-size:1.05rem;color:var(--vermilion-deep);font-weight:700;
+  margin-bottom:.3rem;letter-spacing:.04em;
+}
+.concept-item h2.sign-heading{margin-bottom:1.2rem;}
+
+/* お知らせ的注記(メニュー価格注記など) */
+.notice-panel{
+  background:var(--navy);color:var(--cream);
+  padding:2rem 1.5rem;text-align:center;
+}
+.notice-panel .btn-tel{margin-top:1rem;}
