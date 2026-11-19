@@ -1,0 +1,759 @@
+/* 鮮魚 中村 - style.css
+   配色: 氷白 #EEF3F4 / 鯖紺 #2C4650 / 山吹金 #E0A215 / 鱗銀 #B7C3C5
+   比率目安: 氷白7:鯖紺2:山吹金1 */
+
+:root {
+  --ice-white: #EEF3F4;
+  --saba-navy: #2C4650;
+  --saba-navy-deep: #1D2F37;
+  --yamabuki-gold: #E0A215;
+  --yamabuki-gold-deep: #B87F0F;
+  --uroko-silver: #B7C3C5;
+  --text-main: #24373f;
+  --white: #ffffff;
+  --header-height: 64px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+  background-color: var(--ice-white);
+  color: var(--text-main);
+  line-height: 1.8;
+  padding-top: var(--header-height);
+}
+
+h1, h2, h3 {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--saba-navy);
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+ul, ol, dl {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+section {
+  scroll-margin-top: var(--header-height);
+  padding: 56px 20px;
+}
+
+section h2 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 32px;
+  position: relative;
+  padding-bottom: 14px;
+}
+
+section h2::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 3px;
+  background: var(--yamabuki-gold);
+}
+
+/* ===== SAMPLE バッジ ===== */
+.hp-sample-badge {
+  position: fixed;
+  top: 14px;
+  right: -46px;
+  z-index: 2000;
+  background: #d92c2c;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  padding: 6px 52px;
+  transform: rotate(40deg);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  pointer-events: none;
+}
+
+/* ===== ヘッダー ===== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--saba-navy);
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.header-inner {
+  height: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.site-logo {
+  color: var(--white);
+  font-size: 1.05rem;
+  font-weight: bold;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.site-nav {
+  display: none;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.site-nav a {
+  color: var(--ice-white);
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.site-nav a:hover {
+  color: var(--yamabuki-gold);
+}
+
+.header-tel-btn {
+  background: var(--yamabuki-gold);
+  color: var(--saba-navy-deep);
+  font-weight: bold;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ===== 共通ボタン ===== */
+.btn {
+  display: inline-block;
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--yamabuki-gold);
+  color: var(--saba-navy-deep);
+  box-shadow: 0 4px 10px rgba(224,162,21,0.4);
+}
+
+.btn-primary:hover {
+  background: var(--yamabuki-gold-deep);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid var(--white);
+}
+
+.btn-outline:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* ===== ヒーロー ===== */
+.hero {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 40px 20px 56px;
+  overflow: hidden;
+  scroll-margin-top: 0;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 30%;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(29,47,55,0.55) 0%, rgba(29,47,55,0.75) 55%, rgba(29,47,55,0.92) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+  color: var(--white);
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(238,243,244,0.92);
+  color: var(--saba-navy);
+  font-size: 0.85rem;
+  font-weight: bold;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.hero-content h1 {
+  color: var(--white);
+  font-size: 1.9rem;
+  margin-bottom: 16px;
+}
+
+.hero-sub {
+  color: var(--ice-white);
+  font-size: 1rem;
+  margin-bottom: 24px;
+}
+
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ===== 二枚看板 ===== */
+.twin-signboards {
+  background: var(--white);
+}
+
+.signboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.signboard-card {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(44,70,80,0.12);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-media img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 22px 20px 26px;
+  flex: 1;
+}
+
+.card-fish .card-body {
+  background: var(--saba-navy);
+  color: var(--ice-white);
+}
+
+.card-fish .card-body h3 {
+  color: var(--white);
+}
+
+.card-side .card-body {
+  background: #FFF7E6;
+}
+
+.card-side .card-body h3 {
+  color: var(--saba-navy);
+}
+
+.card-body h3 {
+  font-size: 1.15rem;
+  margin-bottom: 12px;
+}
+
+.card-lead {
+  margin-bottom: 14px;
+}
+
+.card-body ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-body li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 0.92rem;
+}
+
+.card-body li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--yamabuki-gold);
+}
+
+/* ===== 選べる楽しさ ===== */
+.choose-fun {
+  background: var(--ice-white);
+}
+
+.steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  max-width: 1080px;
+  margin: 0 auto 40px;
+}
+
+.step {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 26px 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(44,70,80,0.08);
+}
+
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--saba-navy);
+  color: var(--white);
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.step h3 {
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+}
+
+.step p {
+  font-size: 0.92rem;
+  margin-bottom: 0;
+}
+
+.price-range {
+  max-width: 1080px;
+  margin: 0 auto;
+  background: var(--saba-navy);
+  border-radius: 16px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.price-text {
+  padding: 28px 22px;
+  color: var(--ice-white);
+}
+
+.price-lead {
+  font-size: 1rem;
+  margin-bottom: 18px;
+}
+
+.price-bar {
+  display: flex;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  font-size: 0.78rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.price-bar span {
+  flex: 1;
+  padding: 10px 4px;
+  color: var(--saba-navy-deep);
+}
+
+.price-bar span:nth-child(1) { background: #F3D98B; }
+.price-bar span:nth-child(2) { background: var(--yamabuki-gold); }
+.price-bar span:nth-child(3) { background: var(--yamabuki-gold-deep); color: var(--white); }
+
+.price-note {
+  font-size: 0.88rem;
+  margin-bottom: 0;
+  color: var(--uroko-silver);
+}
+
+.price-media img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* ===== 品揃え ===== */
+.lineup {
+  background: var(--white);
+}
+
+.lineup-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  max-width: 1080px;
+  margin: 0 auto 28px;
+}
+
+.lineup-item {
+  background: var(--ice-white);
+  border: 1px solid var(--uroko-silver);
+  border-radius: 12px;
+  padding: 20px 18px;
+}
+
+.lineup-icon {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+}
+
+.lineup-item h3 {
+  font-size: 1.02rem;
+  margin-bottom: 8px;
+}
+
+.lineup-item p {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+  color: var(--text-main);
+}
+
+.lineup-note {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--saba-navy);
+}
+
+/* ===== お客様の声 ===== */
+.voices {
+  background: var(--ice-white);
+}
+
+.voice-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  max-width: 1080px;
+  margin: 0 auto 32px;
+}
+
+.voice-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 20px 20px 18px;
+  margin: 0;
+  box-shadow: 0 4px 12px rgba(44,70,80,0.08);
+  border-left: 4px solid var(--yamabuki-gold);
+}
+
+.stars {
+  color: var(--yamabuki-gold-deep);
+  font-size: 1rem;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.voice-text {
+  font-size: 0.92rem;
+  margin-bottom: 12px;
+}
+
+.voice-card footer {
+  font-size: 0.85rem;
+  color: var(--saba-navy);
+  font-weight: bold;
+}
+
+.voice-summary {
+  text-align: center;
+}
+
+.voice-badge {
+  display: inline-block;
+  background: var(--saba-navy);
+  color: var(--white);
+  font-weight: bold;
+  padding: 8px 18px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+.voice-link {
+  display: inline-block;
+  text-decoration: underline;
+  color: var(--saba-navy);
+  font-size: 0.92rem;
+}
+
+/* ===== アクセス ===== */
+.access {
+  background: var(--white);
+}
+
+.access-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.access-lead {
+  margin-bottom: 20px;
+}
+
+.access-row {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--uroko-silver);
+}
+
+.access-row dt {
+  font-size: 0.8rem;
+  color: var(--yamabuki-gold-deep);
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.access-row dd {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.access-row a {
+  color: var(--saba-navy);
+  font-weight: bold;
+}
+
+.access-info .btn {
+  margin-top: 22px;
+  width: 100%;
+}
+
+.map-frame {
+  position: relative;
+  width: 100%;
+  padding-top: 75%;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.map-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.map-link {
+  display: inline-block;
+  text-decoration: underline;
+  color: var(--saba-navy);
+  font-size: 0.92rem;
+}
+
+/* ===== フッター ===== */
+.site-footer {
+  background: var(--saba-navy-deep);
+  color: var(--ice-white);
+  text-align: center;
+  padding: 44px 20px 32px;
+}
+
+.footer-shop {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.footer-address {
+  margin-bottom: 6px;
+}
+
+.footer-tel a {
+  color: var(--yamabuki-gold);
+  font-weight: bold;
+}
+
+.footer-instagram {
+  margin-top: 18px;
+  font-size: 0.88rem;
+  color: var(--uroko-silver);
+}
+
+.footer-message {
+  margin-top: 18px;
+  font-size: 0.95rem;
+}
+
+.footer-copyright {
+  margin-top: 20px;
+  font-size: 0.78rem;
+  color: var(--uroko-silver);
+}
+
+/* ===== 写真注記バナー ===== */
+.hp-photo-note {
+  background: var(--uroko-silver);
+  color: var(--saba-navy-deep);
+  text-align: center;
+  font-size: 0.78rem;
+  padding: 10px 16px;
+  margin: 0;
+}
+
+/* ===== レスポンシブ (タブレット・PC) ===== */
+@media (min-width: 768px) {
+  :root {
+    --header-height: 76px;
+  }
+
+  .site-nav {
+    display: block;
+  }
+
+  .header-tel-btn {
+    font-size: 0.95rem;
+    padding: 11px 20px;
+  }
+
+  section {
+    padding: 88px 24px;
+  }
+
+  section h2 {
+    font-size: 1.9rem;
+    margin-bottom: 48px;
+  }
+
+  .hero {
+    min-height: 92vh;
+    padding: 40px 40px 80px;
+  }
+
+  .hero-content h1 {
+    font-size: 2.8rem;
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+  }
+
+  .hero-cta {
+    flex-direction: row;
+  }
+
+  .signboard-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  .card-media img {
+    height: 280px;
+  }
+
+  .card-body {
+    padding: 32px 30px 36px;
+  }
+
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .price-range {
+    grid-template-columns: 1.3fr 1fr;
+  }
+
+  .price-text {
+    padding: 40px;
+  }
+
+  .price-media img {
+    height: 100%;
+    min-height: 260px;
+  }
+
+  .lineup-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .voice-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .access-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .access-info .btn {
+    width: auto;
+  }
+
+  .map-frame {
+    padding-top: 66%;
+  }
+}
+
+@media (min-width: 1100px) {
+  .voice-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
