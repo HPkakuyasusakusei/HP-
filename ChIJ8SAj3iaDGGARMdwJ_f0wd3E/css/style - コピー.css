@@ -1,0 +1,912 @@
+/* ==========================================================================
+   有限会社 湖北フラワーセンター ― 営業提案用試作HP
+   コンセプト: 「植木鉢と苗木タグの、町の花センター」
+   ========================================================================== */
+
+:root {
+  --color-bg: #F4EDDF;
+  --color-card-bg: #FBF7EF;
+  --color-main: #33503F;
+  --color-sub: #BC6A3E;
+  --color-accent: #C79A44;
+  --color-text: #2B2420;
+  --color-border: #8FA189;
+  --font-heading: "Hiragino Mincho ProN", "Yu Mincho", "游明朝", serif;
+  --font-body: "Hiragino Sans", "Yu Gothic", "游ゴシック", sans-serif;
+  --max-width: 1100px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.8;
+  position: relative;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  color: var(--color-main);
+  line-height: 1.5;
+  margin: 0;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--color-sub);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* ==========================================================================
+   SAMPLE 透かし（全ページ共通・操作を妨げない）
+   ========================================================================== */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Ctext x='0' y='150' font-size='34' font-family='sans-serif' font-weight='700' fill='%232B2420' fill-opacity='0.05' transform='rotate(-28 130 130)'%3ESAMPLE%3C/text%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+body::after {
+  content: "SAMPLE";
+  position: fixed;
+  right: -2.6rem;
+  bottom: 1.6rem;
+  z-index: 9999;
+  pointer-events: none;
+  display: block;
+  padding: 0.35em 3rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: rgba(188, 106, 62, 0.75);
+  background: rgba(251, 247, 239, 0.85);
+  border-top: 1px solid rgba(188, 106, 62, 0.5);
+  border-bottom: 1px solid rgba(188, 106, 62, 0.5);
+  transform: rotate(-8deg);
+}
+
+/* ==========================================================================
+   苗木タグ／園芸ラベル風パーツ
+   ========================================================================== */
+
+.tag-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  position: relative;
+  background: var(--color-main);
+  color: var(--color-bg);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.45em 1em 0.45em 2em;
+  border-radius: 4px 12px 12px 4px;
+}
+
+.tag-label::before {
+  content: "";
+  position: absolute;
+  left: 0.8em;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 2px solid rgba(244, 237, 223, 0.8);
+}
+
+.section-title {
+  display: inline-block;
+  position: relative;
+  background: var(--color-card-bg);
+  border: 2px solid var(--color-main);
+  border-radius: 4px 16px 16px 4px;
+  padding: 0.55em 1.3em 0.55em 2.6em;
+  color: var(--color-main);
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  font-weight: 700;
+}
+
+.section-title::before {
+  content: "";
+  position: absolute;
+  left: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 2px solid var(--color-main);
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.section-lead {
+  max-width: 640px;
+  margin: 1rem auto 0;
+  text-align: center;
+  color: var(--color-text);
+}
+
+/* ==========================================================================
+   水彩ブロブ装飾
+   ========================================================================== */
+
+.blob-decor {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.22;
+}
+
+.blob.is-green { background: var(--color-main); }
+.blob.is-terracotta { background: var(--color-sub); }
+.blob.is-gold { background: var(--color-accent); }
+
+.has-blobs {
+  position: relative;
+  overflow: hidden;
+}
+
+.has-blobs > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   ボタン
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.9em 1.7em;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--color-sub);
+  border-color: var(--color-sub);
+  color: #FBF7EF;
+}
+
+.btn-secondary {
+  background: transparent;
+  border-color: var(--color-main);
+  color: var(--color-main);
+}
+
+.btn-on-dark {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.btn-outline-on-dark {
+  background: transparent;
+  border-color: var(--color-bg);
+  color: var(--color-bg);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  justify-content: center;
+}
+
+.cta-group.has-spacing {
+  margin-top: 2rem;
+}
+
+/* ==========================================================================
+   写真プレースホルダー
+   ========================================================================== */
+
+.photo-placeholder {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  color: #FBF7EF;
+  background:
+    radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.14), transparent 45%),
+    linear-gradient(135deg, var(--color-main) 0%, var(--color-sub) 100%);
+}
+
+.photo-placeholder .ph-icon {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 0.9rem;
+}
+
+.photo-placeholder .ph-icon::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 42px;
+  height: 26px;
+  background: rgba(255, 255, 255, 0.28);
+  clip-path: polygon(12% 0, 88% 0, 100% 100%, 0 100%);
+  border-radius: 0 0 6px 6px;
+}
+
+.photo-placeholder .ph-icon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 0 70% 0 70%;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.photo-placeholder .ph-caption {
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  max-width: 22em;
+}
+
+.photo-placeholder .ph-note {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   ヘッダー
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--color-bg);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.header-top {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.logo {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1rem, 3.6vw, 1.3rem);
+  color: var(--color-main);
+}
+
+.logo a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.phone-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--color-sub);
+  color: #FBF7EF;
+  text-decoration: none;
+  padding: 0.45em 1em;
+  border-radius: 10px;
+  line-height: 1.3;
+}
+
+.phone-cta .phone-cta-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+}
+
+.phone-cta .phone-cta-number {
+  font-size: 1.05rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.site-nav {
+  border-top: 1px solid var(--color-border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.site-nav ul {
+  display: flex;
+  min-width: max-content;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.site-nav a {
+  display: block;
+  padding: 0.75em 1em;
+  color: var(--color-main);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+}
+
+.site-nav a[aria-current="page"] {
+  border-bottom-color: var(--color-sub);
+  color: var(--color-sub);
+}
+
+/* ==========================================================================
+   フッター
+   ========================================================================== */
+
+.site-footer {
+  background: var(--color-main);
+  color: var(--color-bg);
+  margin-top: 4rem;
+  padding: 3rem 0 1.5rem;
+}
+
+.footer-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+}
+
+.footer-store p {
+  margin: 0 0 0.4em;
+}
+
+.footer-store .footer-store-name {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #FBF7EF;
+}
+
+.footer-store a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.2rem;
+}
+
+.footer-nav a {
+  color: var(--color-bg);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-cta {
+  margin-top: 0.5rem;
+}
+
+.footer-note {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(244, 237, 223, 0.3);
+  font-size: 0.78rem;
+  color: rgba(244, 237, 223, 0.75);
+}
+
+.footer-note p {
+  margin: 0 0 0.3em;
+}
+
+/* ==========================================================================
+   ページ共通ヘッダー（各ページ冒頭）
+   ========================================================================== */
+
+.page-header {
+  padding: 3rem 0 2.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.page-header .section-lead {
+  margin-top: 1.2rem;
+}
+
+/* ==========================================================================
+   トップ：ヒーロー
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  padding: 2.5rem 0 3.5rem;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+.hero-copy .tag-label {
+  margin-bottom: 1.2rem;
+}
+
+.hero-copy h1 {
+  font-size: clamp(1.7rem, 5.5vw, 2.6rem);
+  margin-bottom: 1rem;
+}
+
+.hero-copy .hero-sub {
+  color: var(--color-text);
+  margin-bottom: 1.6rem;
+}
+
+.hero-photo .photo-placeholder {
+  min-height: 260px;
+}
+
+/* ==========================================================================
+   カードグリッド（選ばれる理由・商品ラインアップ 等）
+   ========================================================================== */
+
+.card-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+.reason-card,
+.menu-card,
+.concept-card {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.6rem;
+}
+
+.reason-card h3,
+.menu-card h3 {
+  font-size: 1.1rem;
+  margin: 0.8rem 0 0.6rem;
+}
+
+.icon-shape {
+  width: 52px;
+  height: 52px;
+  position: relative;
+}
+
+.icon-shape.is-leaf {
+  background: var(--color-main);
+  border-radius: 0 70% 0 70%;
+}
+
+.icon-shape.is-pot {
+  background: var(--color-sub);
+  clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+  border-radius: 0 0 8px 8px;
+}
+
+.icon-shape.is-drop {
+  background: var(--color-accent);
+  border-radius: 0 50% 50% 50%;
+  transform: rotate(45deg);
+}
+
+.icon-shape.is-tag {
+  background: var(--color-main);
+  border-radius: 6px;
+}
+
+.icon-shape.is-tag::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-bg);
+}
+
+.price-note {
+  margin-top: 0.8rem;
+  font-size: 0.82rem;
+  color: var(--color-sub);
+}
+
+.menu-card-label {
+  margin-bottom: 0.8rem;
+}
+
+/* トップ：商品カテゴリ簡易カード */
+
+.category-chip-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.category-chip {
+  background: var(--color-card-bg);
+  border: 1px dashed var(--color-border);
+  border-radius: 10px;
+  padding: 1.1rem 0.8rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--color-main);
+}
+
+/* ==========================================================================
+   お客様の声（クラフト紙の伝票風カード）
+   ========================================================================== */
+
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.5em 1.2em;
+  font-weight: 700;
+  color: var(--color-main);
+  margin-bottom: 2rem;
+}
+
+.rating-badge .stars {
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+}
+
+.review-grid {
+  display: grid;
+  gap: 1.6rem;
+  grid-template-columns: 1fr;
+}
+
+.review-card {
+  position: relative;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  padding: 1.5rem 1.5rem 1.3rem;
+  box-shadow: 0 2px 0 rgba(43, 36, 32, 0.06);
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%);
+}
+
+.review-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 24px 24px 0;
+  border-color: transparent var(--color-bg) transparent transparent;
+  filter: drop-shadow(-1px 1px 1px rgba(43, 36, 32, 0.18));
+}
+
+.review-card .review-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5em;
+  border-bottom: 1px dashed var(--color-border);
+  padding-bottom: 0.6em;
+  margin-bottom: 0.8em;
+  font-size: 0.85rem;
+  color: var(--color-main);
+}
+
+.review-card .stars {
+  color: var(--color-accent);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+}
+
+.review-card .review-text {
+  white-space: pre-line;
+  font-size: 0.95rem;
+}
+
+.review-card.is-low .review-meta {
+  color: var(--color-sub);
+}
+
+/* ==========================================================================
+   ギャラリー
+   ========================================================================== */
+
+.gallery-grid {
+  display: grid;
+  gap: 1.4rem;
+  grid-template-columns: 1fr;
+}
+
+.gallery-grid .photo-placeholder {
+  min-height: 200px;
+}
+
+/* ==========================================================================
+   こだわり（concept.html）本文ブロック
+   ========================================================================== */
+
+.concept-block {
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: 1fr;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.concept-block:last-of-type {
+  border-bottom: none;
+}
+
+.concept-block .icon-shape {
+  margin-bottom: 0.5rem;
+}
+
+.concept-block h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.6rem;
+}
+
+/* ==========================================================================
+   アクセス
+   ========================================================================== */
+
+.access-info {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.access-info.is-summary {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.access-info .store-name {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.access-info a {
+  color: var(--color-sub);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.map-lead {
+  margin-bottom: 1rem;
+}
+
+.map-frame {
+  position: relative;
+  width: 100%;
+  padding-top: 66%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.map-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.access-note {
+  margin-top: 1.2rem;
+  color: var(--color-text);
+}
+
+/* ==========================================================================
+   セクション共通の余白
+   ========================================================================== */
+
+section {
+  padding: 3.5rem 0;
+}
+
+section.is-tight {
+  padding: 2.5rem 0;
+}
+
+.section-bg-dark {
+  background: var(--color-main);
+  color: var(--color-bg);
+}
+
+.section-bg-dark .section-title {
+  background: var(--color-main);
+  border-color: var(--color-bg);
+  color: var(--color-bg);
+}
+
+.section-bg-dark .section-title::before {
+  background: var(--color-main);
+  border-color: var(--color-bg);
+}
+
+.section-bg-dark p {
+  color: var(--color-bg);
+}
+
+.section-bg-card {
+  background: var(--color-card-bg);
+}
+
+.cta-section {
+  text-align: center;
+}
+
+.cta-section h2 {
+  margin-bottom: 1rem;
+}
+
+.cta-section .section-lead {
+  margin-bottom: 1.6rem;
+}
+
+/* ==========================================================================
+   レスポンシブ
+   ========================================================================== */
+
+@media (min-width: 560px) {
+  .card-grid.cols-2,
+  .card-grid.cols-4,
+  .card-grid.cols-5 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-chip-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 700px) {
+  .hero .container {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  .concept-block {
+    grid-template-columns: 90px 1fr;
+    align-items: start;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+}
+
+@media (min-width: 820px) {
+  .card-grid.cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .card-grid.cols-5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .category-chip-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .review-grid.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .header-top {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 359px) {
+  .phone-cta .phone-cta-label {
+    display: none;
+  }
+}
