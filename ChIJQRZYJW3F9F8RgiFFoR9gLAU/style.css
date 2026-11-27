@@ -1,0 +1,884 @@
+/* ============================================================
+   Le Tablier(ル・タブリエ) 共通スタイル
+   コンセプト: 「友だちの台所におじゃまする、小さな洋菓子店」
+   配色・フォントは design.md 4章に準拠(他案件との重複なし)
+   ============================================================ */
+
+:root {
+  --bg-cream: #FBF5EA;
+  --wall-lavender: #DCCEE3;
+  --wall-lavender-deep: #B79FC4;
+  --dried-rose: #DDA9AC;
+  --dried-rose-deep: #C07C82;
+  --sage-mist: #B9C9BE;
+  --caramel: #C99A5B;
+  --ink-mocha: #4A3B35;
+  --line-soft: #E9DED0;
+  --surface-card: #FFFCF6;
+
+  --font-heading: "Kaisei Decol", serif;
+  --font-body: "Kosugi Maru", sans-serif;
+  --font-hand: "Hachi Maru Pop", cursive;
+  --font-en-accent: "EB Garamond", serif;
+
+  --max-width: 1080px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-cream);
+  color: var(--ink-mocha);
+  font-family: var(--font-body);
+  line-height: 1.9;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.5;
+  margin: 0 0 0.6em;
+  font-weight: 400;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--dried-rose-deep);
+}
+
+img {
+  max-width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ------------------------------------------------------------
+   塗り壁テクスチャ(セクション背景)
+   大きく柔らかい"にじみ"のムラで表現する
+   ------------------------------------------------------------ */
+.section {
+  padding: 4.5rem 0;
+}
+
+.bg-cream {
+  background-color: var(--bg-cream);
+}
+
+.bg-lavender-wall {
+  background-color: var(--wall-lavender);
+  background-image:
+    radial-gradient(ellipse 55% 50% at 18% 25%, rgba(255, 255, 255, 0.4), transparent 62%),
+    radial-gradient(ellipse 50% 60% at 82% 78%, rgba(183, 159, 196, 0.45), transparent 65%),
+    radial-gradient(ellipse 70% 40% at 50% 105%, rgba(255, 255, 255, 0.22), transparent 70%);
+}
+
+.bg-sage-wall {
+  background-color: var(--sage-mist);
+  background-image:
+    radial-gradient(ellipse 55% 50% at 22% 20%, rgba(255, 255, 255, 0.35), transparent 60%),
+    radial-gradient(ellipse 55% 60% at 78% 75%, rgba(74, 59, 53, 0.08), transparent 65%),
+    radial-gradient(ellipse 70% 45% at 45% 105%, rgba(255, 255, 255, 0.25), transparent 70%);
+}
+
+.bg-rose-wall {
+  background-color: var(--dried-rose);
+  background-image:
+    radial-gradient(ellipse 55% 50% at 20% 25%, rgba(255, 255, 255, 0.35), transparent 62%),
+    radial-gradient(ellipse 55% 60% at 80% 75%, rgba(192, 124, 130, 0.35), transparent 65%),
+    radial-gradient(ellipse 70% 40% at 50% 105%, rgba(255, 255, 255, 0.2), transparent 70%);
+}
+
+/* ------------------------------------------------------------
+   見出し共通
+   ------------------------------------------------------------ */
+.section-heading {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.section-heading h2 {
+  font-size: 1.7rem;
+  letter-spacing: 0.04em;
+}
+
+.section-heading .lead {
+  margin-top: 0.75rem;
+  color: var(--ink-mocha);
+  opacity: 0.85;
+}
+
+.section-heading .flower-deco {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.section-heading .flower-deco svg {
+  width: 46px;
+  height: 46px;
+}
+
+.hand-note {
+  font-family: var(--font-hand);
+  color: var(--dried-rose-deep);
+  font-size: 1.05rem;
+}
+
+/* 波線区切り */
+.wave-divider {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  height: 16px;
+  margin: 1.5rem auto;
+  color: var(--dried-rose-deep);
+}
+
+.wave-divider svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ------------------------------------------------------------
+   ヘッダー
+   ------------------------------------------------------------ */
+.site-header {
+  position: sticky;
+  background: var(--bg-cream);
+  border-bottom: 1px solid var(--line-soft);
+  top: 0;
+  z-index: 100;
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  text-decoration: none;
+  color: var(--ink-mocha);
+}
+
+.logo .logo-en {
+  font-family: var(--font-en-accent);
+  font-style: italic;
+  font-size: 1.55rem;
+  letter-spacing: 0.03em;
+}
+
+.logo .logo-ja {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--dried-rose-deep);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.site-nav a {
+  color: var(--ink-mocha);
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 0.4rem 0.1rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  border-color: var(--dried-rose-deep);
+  color: var(--dried-rose-deep);
+}
+
+.icon-instagram-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--ink-mocha);
+  background: var(--surface-card);
+  border: 1px solid var(--line-soft);
+  transition: background 0.2s, color 0.2s;
+}
+
+.icon-instagram-link:hover {
+  background: var(--dried-rose-deep);
+  color: var(--surface-card);
+}
+
+.icon-instagram-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+.nav-toggle-checkbox {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.nav-toggle-label span {
+  width: 26px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--ink-mocha);
+}
+
+@media (max-width: 820px) {
+  .nav-toggle-label {
+    display: flex;
+  }
+
+  .site-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--bg-cream);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .nav-toggle-checkbox:checked ~ .site-nav {
+    max-height: 420px;
+  }
+
+  .site-nav a {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: none;
+    width: 100%;
+  }
+}
+
+/* ------------------------------------------------------------
+   ボタン
+   ------------------------------------------------------------ */
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.9em 1.9em;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+  cursor: pointer;
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--dried-rose-deep);
+  color: var(--surface-card);
+}
+
+.btn-primary:hover {
+  background: var(--caramel);
+  color: var(--surface-card);
+}
+
+.btn-secondary {
+  background: transparent;
+  border-color: var(--wall-lavender-deep);
+  color: var(--ink-mocha);
+}
+
+.btn-secondary:hover {
+  background: var(--wall-lavender);
+  border-color: var(--wall-lavender-deep);
+}
+
+.btn-instagram {
+  background: var(--surface-card);
+  border-color: var(--dried-rose-deep);
+  color: var(--ink-mocha);
+}
+
+.btn-instagram:hover {
+  background: var(--dried-rose-deep);
+  color: var(--surface-card);
+}
+
+/* ------------------------------------------------------------
+   ヒーロー(ショーケース)
+   ------------------------------------------------------------ */
+.hero {
+  padding: 3.5rem 0 4rem;
+  overflow: hidden;
+}
+
+.hero .wrap {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.hero-copy .hand-note {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+}
+
+.hero-copy h1 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+}
+
+.hero-copy .lead {
+  white-space: pre-line;
+  margin-bottom: 1.75rem;
+}
+
+.showcase {
+  display: flex;
+  gap: 1.1rem;
+  justify-content: center;
+}
+
+.showcase-window {
+  position: relative;
+  width: 32%;
+  aspect-ratio: 3 / 4;
+  border-radius: 32px;
+  border: 6px solid var(--surface-card);
+  background: var(--wall-lavender);
+  background-image:
+    radial-gradient(ellipse 60% 50% at 25% 20%, rgba(255, 255, 255, 0.4), transparent 60%),
+    radial-gradient(ellipse 55% 60% at 80% 80%, rgba(183, 159, 196, 0.4), transparent 65%);
+  box-shadow: 0 14px 26px rgba(74, 59, 53, 0.12);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.showcase-window:nth-child(2) {
+  background-color: var(--sage-mist);
+}
+
+.showcase-window:nth-child(3) {
+  background-color: var(--dried-rose);
+}
+
+.showcase-window svg.motif {
+  width: 70%;
+  height: 70%;
+}
+
+.showcase-window::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.05) 35%, transparent 55%);
+  pointer-events: none;
+}
+
+
+.header-right{display:flex;align-items:center;gap:10px;}
+.ig-icon-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;flex-shrink:0;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}
+
+@media (max-width: 860px) {
+  .hero .wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-copy {
+    text-align: center;
+  }
+
+  .btn-group {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .showcase {
+    gap: 0.6rem;
+  }
+
+  .showcase-window {
+    border-width: 4px;
+    border-radius: 22px;
+  }
+}
+
+/* ------------------------------------------------------------
+   お店紹介(ドライフラワー装飾つき)
+   ------------------------------------------------------------ */
+.intro-flex {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.intro-flex .deco {
+  flex: 0 0 auto;
+  width: 90px;
+  height: 220px;
+  color: var(--dried-rose-deep);
+}
+
+.intro-flex .deco svg {
+  width: 100%;
+  height: 100%;
+}
+
+.intro-flex .deco.deco-right {
+  transform: scaleX(-1);
+}
+
+.intro-flex .intro-text {
+  flex: 1;
+}
+
+@media (max-width: 760px) {
+  .intro-flex {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .intro-flex .deco {
+    width: 110px;
+    height: 130px;
+  }
+
+  .intro-flex .deco.deco-right {
+    order: 3;
+  }
+}
+
+/* ------------------------------------------------------------
+   カード共通(ラインナップ・ショーケース)
+   ------------------------------------------------------------ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.75rem;
+}
+
+.card {
+  background: var(--surface-card);
+  border: 1px solid var(--line-soft);
+  border-radius: 28px;
+  padding: 1.9rem 1.6rem;
+  box-shadow: 0 10px 22px rgba(74, 59, 53, 0.06);
+  text-align: center;
+}
+
+.card .motif-wrap {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1rem;
+}
+
+.card .motif-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+.card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.6em;
+}
+
+.card p {
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+.note-box {
+  margin-top: 2.25rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--ink-mocha);
+  opacity: 0.8;
+}
+
+/* ------------------------------------------------------------
+   お客様の声(吹き出し)
+   ------------------------------------------------------------ */
+.voice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.5rem 1.75rem;
+}
+
+.voice-bubble {
+  position: relative;
+  background: var(--surface-card);
+  border: 1px solid var(--line-soft);
+  border-radius: 26px;
+  padding: 1.75rem 1.6rem;
+  box-shadow: 0 10px 20px rgba(74, 59, 53, 0.07);
+}
+
+.voice-bubble::after {
+  content: "";
+  position: absolute;
+  left: 2.4rem;
+  bottom: -14px;
+  width: 0;
+  height: 0;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-top: 15px solid var(--surface-card);
+  filter: drop-shadow(0 3px 1px rgba(74, 59, 53, 0.05));
+}
+
+.voice-bubble p {
+  white-space: pre-line;
+  font-size: 0.96rem;
+  margin-bottom: 0.9em;
+}
+
+.voice-bubble .signature {
+  display: block;
+  text-align: right;
+  font-family: var(--font-hand);
+  color: var(--dried-rose-deep);
+  font-size: 1rem;
+}
+
+/* 星評価 */
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-bottom: 0.4rem;
+}
+
+.rating svg {
+  width: 26px;
+  height: 26px;
+}
+
+.rating .rating-number {
+  margin-left: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+}
+
+/* ------------------------------------------------------------
+   アクセス箇条書き・情報ブロック
+   ------------------------------------------------------------ */
+.access-list li {
+  position: relative;
+  padding-left: 1.3em;
+  margin-bottom: 0.6em;
+}
+
+.access-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--dried-rose-deep);
+}
+
+.info-block {
+  background: var(--surface-card);
+  border: 1px solid var(--line-soft);
+  border-radius: 24px;
+  padding: 1.75rem 2rem;
+  margin-bottom: 1.75rem;
+}
+
+.info-block h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.6em;
+}
+
+.map-frame {
+  border: 8px solid var(--surface-card);
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 14px 28px rgba(74, 59, 53, 0.12);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.map-frame iframe {
+  display: block;
+  width: 100%;
+  height: 360px;
+  border: 0;
+}
+
+.phone-block {
+  background: var(--surface-card);
+  border: 1px dashed var(--wall-lavender-deep);
+  border-radius: 24px;
+  padding: 1.75rem 2rem;
+  text-align: center;
+  color: var(--ink-mocha);
+  opacity: 0.85;
+}
+
+/* ------------------------------------------------------------
+   紙袋+花 装飾ブロック
+   ------------------------------------------------------------ */
+.bag-deco {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.bag-deco svg {
+  width: 84px;
+  height: 84px;
+  color: var(--dried-rose-deep);
+}
+
+/* ------------------------------------------------------------
+   汎用 CTA セクション
+   ------------------------------------------------------------ */
+.cta-block {
+  text-align: center;
+}
+
+.cta-block h2 {
+  margin-bottom: 1rem;
+}
+
+/* ------------------------------------------------------------
+   フッター
+   ------------------------------------------------------------ */
+.site-footer {
+  background: var(--wall-lavender-deep);
+  color: var(--surface-card);
+  padding: 3rem 0 2rem;
+}
+
+.site-footer .footer-logo {
+  font-family: var(--font-en-accent);
+  font-style: italic;
+  font-size: 1.4rem;
+  margin-bottom: 0.3em;
+}
+
+.site-footer p {
+  font-size: 0.9rem;
+  opacity: 0.95;
+}
+
+.footer-insta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  color: var(--surface-card);
+  text-decoration: none;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(255, 252, 246, 0.5);
+  padding-bottom: 0.2em;
+}
+
+.footer-insta svg {
+  width: 20px;
+  height: 20px;
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  font-size: 0.88rem;
+  border-top: 1px solid rgba(255, 252, 246, 0.3);
+  padding-top: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.footer-nav a {
+  color: var(--surface-card);
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------
+   ページ共通見出しバナー(店の想い・ラインナップ等)
+   ------------------------------------------------------------ */
+.page-banner {
+  padding: 3.25rem 0 2.75rem;
+  text-align: center;
+}
+
+.page-banner .flower-deco {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.page-banner .flower-deco svg {
+  width: 52px;
+  height: 52px;
+}
+
+.page-banner h1 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+}
+
+.page-banner .hand-note {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+/* 導入テキスト(story.html 用) */
+.lead-block {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.lead-block h2 {
+  font-size: 1.5rem;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.two-col .deco-side {
+  color: var(--sage-mist);
+}
+
+.two-col .deco-side svg {
+  width: 100%;
+  height: auto;
+  max-height: 260px;
+}
+
+@media (max-width: 760px) {
+  .two-col {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+.menu-section-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.menu-section-title h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.5rem;
+}
+
+.menu-section-title h2 svg {
+  width: 34px;
+  height: 34px;
+}
+
+.price-note {
+  max-width: 640px;
+  margin: 3rem auto 0;
+  text-align: center;
+  background: var(--surface-card);
+  border: 1px solid var(--line-soft);
+  border-radius: 20px;
+  padding: 1.5rem 1.75rem;
+  font-size: 0.92rem;
+}
+
+.price-example {
+  max-width: 720px;
+  margin: 2.5rem auto 0;
+  background: var(--surface-card);
+  border: 1px dashed var(--dried-rose-deep);
+  border-radius: 20px;
+  padding: 1.5rem 1.75rem;
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}

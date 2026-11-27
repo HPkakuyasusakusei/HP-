@@ -1,0 +1,1068 @@
+@charset "UTF-8";
+/* ==========================================================================
+   ラボ麻辣湯 取手店 — 共通スタイルシート
+   コンセプト: 食券・注文伝票(チケットスタブ)モチーフ / Build Your Own Bowl
+   ========================================================================== */
+
+:root {
+  --color-bg: #FAF3E6;
+  --color-accent-red: #C1442D;
+  --color-accent-yellow: #E8A33D;
+  --color-accent-green: #6B8F5C;
+  --color-text: #2B2523;
+  --color-border: #E4D3B4;
+  --color-white: #FFFFFF;
+
+  --font-heading: "Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+  --font-body: "Noto Sans JP", sans-serif;
+
+  --max-width: 1080px;
+  --radius-s: 6px;
+  --radius-m: 14px;
+}
+
+/* ---------- reset / base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  line-height: 1.4;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+section {
+  padding: 56px 0;
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  text-align: center;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  background: var(--color-accent-red);
+  margin: 14px auto 0;
+  border-radius: 2px;
+}
+
+.section-lead {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 36px;
+  color: var(--color-text);
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   SAMPLE 透かし(全ページ共通・提案用サンプル明示)
+   ========================================================================== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(193, 68, 45, 0.05),
+    rgba(193, 68, 45, 0.05) 2px,
+    transparent 2px,
+    transparent 90px
+  );
+}
+
+body::after {
+  content: "SAMPLE";
+  position: fixed;
+  right: -60px;
+  bottom: 28px;
+  pointer-events: none;
+  z-index: 9999;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  color: rgba(193, 68, 45, 0.16);
+  letter-spacing: 0.1em;
+  transform: rotate(-14deg);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   ヘッダー
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.site-logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.site-logo .logo-main {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.3rem;
+  color: var(--color-accent-red);
+  letter-spacing: 0.02em;
+}
+
+.site-logo .logo-sub {
+  font-size: 0.7rem;
+  color: var(--color-text);
+  letter-spacing: 0.15em;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.instagram-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  color: var(--color-accent-red);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.instagram-icon-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+.hamburger-btn {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-s);
+  cursor: pointer;
+  padding: 0;
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-text);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hamburger-btn[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.global-nav {
+  position: fixed;
+  top: 65px;
+  left: 0;
+  right: 0;
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+  z-index: 400;
+}
+
+.global-nav.is-open {
+  max-height: 400px;
+}
+
+.global-nav ul {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 20px 20px;
+}
+
+.global-nav a {
+  display: block;
+  padding: 12px 4px;
+  text-decoration: none;
+  font-weight: 700;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.global-nav a[aria-current="page"] {
+  color: var(--color-accent-red);
+}
+
+/* ==========================================================================
+   ボタン
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--color-accent-red);
+  color: var(--color-white);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-accent-red);
+  border-color: var(--color-accent-red);
+}
+
+.btn-instagram {
+  background: var(--color-white);
+  color: var(--color-accent-red);
+  border-color: var(--color-accent-red);
+}
+
+.btn-instagram svg {
+  width: 18px;
+  height: 18px;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   ヒーロー
+   ========================================================================== */
+.hero {
+  padding: 40px 0 48px;
+  text-align: center;
+}
+
+.hero-copy {
+  font-size: clamp(1.6rem, 5vw, 2.5rem);
+  margin-bottom: 16px;
+}
+
+.hero-copy .accent {
+  color: var(--color-accent-red);
+}
+
+.hero-sub {
+  max-width: 560px;
+  margin: 0 auto 20px;
+  color: var(--color-text);
+}
+
+.badge-google {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-white);
+  border: 1px dashed var(--color-accent-yellow);
+  color: var(--color-text);
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 999px;
+  margin-bottom: 26px;
+  font-size: 0.9rem;
+}
+
+.badge-google .stars {
+  color: var(--color-accent-yellow);
+  letter-spacing: 1px;
+}
+
+.badge-google-wrap {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.hero .photo-placeholder {
+  margin: 0 auto 28px;
+  max-width: 720px;
+  aspect-ratio: 16 / 10;
+}
+
+/* ==========================================================================
+   写真プレースホルダー(実写不使用・CSSのみ)
+   ========================================================================== */
+.photo-placeholder {
+  position: relative;
+  width: 100%;
+  min-height: 160px;
+  border-radius: var(--radius-m);
+  border: 1px dashed #b99a63;
+  background: repeating-linear-gradient(
+      135deg,
+      #efe0c2,
+      #efe0c2 14px,
+      #e4d3b4 14px,
+      #e4d3b4 28px
+    );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  padding: 18px;
+  overflow: hidden;
+}
+
+.photo-placeholder .ph-icon {
+  width: 40px;
+  height: 40px;
+  color: #8a6a3a;
+  opacity: 0.75;
+}
+
+.photo-placeholder span {
+  font-size: 0.85rem;
+  color: #5c4a2c;
+  background: rgba(255, 255, 255, 0.65);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.photo-placeholder .ph-label {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #5c4a2c;
+  background: none;
+  padding: 0;
+}
+
+/* ==========================================================================
+   ステップ(食券・伝票モチーフ)
+   ========================================================================== */
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+.step-card {
+  position: relative;
+  background: var(--color-white);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-m);
+  padding: 28px 22px 24px;
+  text-align: center;
+}
+
+.step-card::before,
+.step-card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: var(--color-bg);
+  border-radius: 50%;
+}
+
+.step-card::before {
+  left: -11px;
+}
+
+.step-card::after {
+  right: -11px;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+  border: 2px dashed var(--color-accent-yellow);
+  border-radius: 50%;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.6rem;
+  color: var(--color-accent-yellow);
+  background: #fff9ee;
+}
+
+.step-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+
+.step-card p {
+  font-size: 0.92rem;
+  color: var(--color-text);
+  opacity: 0.9;
+}
+
+.section-cta {
+  margin-top: 34px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   こだわり抜粋 / ギャラリー抜粋
+   ========================================================================== */
+.excerpt-section {
+  background: var(--color-white);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.excerpt-body {
+  max-width: 640px;
+  margin: 0 auto 26px;
+  text-align: center;
+}
+
+.gallery-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.gallery-preview-grid .photo-placeholder {
+  aspect-ratio: 1 / 1;
+  min-height: 100px;
+}
+
+.gallery-preview-grid .photo-placeholder span {
+  font-size: 0.7rem;
+}
+
+/* ==========================================================================
+   お客様の声
+   ========================================================================== */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.review-card {
+  position: relative;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent-yellow);
+  border-radius: var(--radius-s);
+  padding: 20px 20px 18px;
+}
+
+.review-card.rating-3 {
+  border-left-color: var(--color-accent-green);
+}
+
+.review-stars {
+  color: var(--color-accent-yellow);
+  letter-spacing: 2px;
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+}
+
+.review-author {
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+  color: var(--color-text);
+  opacity: 0.75;
+}
+
+.review-text {
+  font-size: 0.92rem;
+  line-height: 1.85;
+}
+
+.reviews-note {
+  max-width: 640px;
+  margin: 30px auto 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   アクセス概要(トップページ)
+   ========================================================================== */
+.access-excerpt {
+  text-align: center;
+}
+
+.access-excerpt address {
+  font-style: normal;
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+}
+
+/* ==========================================================================
+   フッター
+   ========================================================================== */
+.site-footer {
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: 44px 0 26px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  margin-bottom: 28px;
+}
+
+.footer-logo {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: var(--color-accent-yellow);
+  margin-bottom: 10px;
+}
+
+.footer-address {
+  font-style: normal;
+  font-size: 0.9rem;
+  line-height: 1.9;
+  opacity: 0.9;
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+}
+
+.footer-nav a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.footer-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: var(--color-accent-yellow);
+}
+
+.footer-instagram svg {
+  width: 18px;
+  height: 18px;
+}
+
+.footer-sample-note {
+  border-top: 1px dashed rgba(250, 243, 230, 0.3);
+  padding-top: 18px;
+  font-size: 0.78rem;
+  opacity: 0.75;
+  text-align: center;
+  line-height: 1.8;
+}
+
+/* ==========================================================================
+   MENUページ: STEP詳細
+   ========================================================================== */
+.page-title-section {
+  text-align: center;
+  padding: 44px 0 8px;
+}
+
+.page-title-section h1 {
+  font-size: clamp(1.7rem, 5vw, 2.4rem);
+  margin-bottom: 16px;
+}
+
+.page-title-section .lead {
+  max-width: 620px;
+  margin: 0 auto;
+  color: var(--color-text);
+  opacity: 0.85;
+}
+
+.step-detail {
+  padding: 40px 0;
+  border-top: 1px dashed var(--color-border);
+}
+
+.step-detail-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+.step-detail-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.step-detail-head .step-number {
+  width: 64px;
+  height: 64px;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.step-detail-head h2 {
+  font-size: 1.4rem;
+}
+
+.step-detail-text p + p {
+  margin-top: 12px;
+}
+
+.step-detail-text .note {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--color-accent-red);
+  opacity: 0.85;
+}
+
+.mini-guide {
+  margin-top: 22px;
+  background: var(--color-white);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-m);
+  padding: 20px;
+}
+
+.mini-guide h3 {
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+  color: var(--color-accent-green);
+}
+
+/* 辛さゲージ */
+.spice-gauge {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.spice-gauge .spice-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.spice-gauge .dot {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.95rem;
+}
+
+.spice-gauge .spice-dot:nth-child(1) .dot { background: #6B8F5C; }
+.spice-gauge .spice-dot:nth-child(2) .dot { background: #7C8053; }
+.spice-gauge .spice-dot:nth-child(3) .dot { background: #8D7149; }
+.spice-gauge .spice-dot:nth-child(4) .dot { background: #9F6240; }
+.spice-gauge .spice-dot:nth-child(5) .dot { background: #B05336; }
+.spice-gauge .spice-dot:nth-child(6) .dot { background: #C1442D; }
+
+.spice-gauge .spice-dot .dot-label {
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+
+/* お会計の流れ */
+.flow-section {
+  background: var(--color-white);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.flow-section h2 {
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.flow-section .flow-body {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.flow-section .flow-body p + p {
+  margin-top: 14px;
+}
+
+/* ==========================================================================
+   CONCEPTページ
+   ========================================================================== */
+.concept-block {
+  padding: 36px 0;
+  border-top: 1px dashed var(--color-border);
+}
+
+.concept-block-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.concept-block h2 {
+  font-size: 1.3rem;
+  margin-bottom: 14px;
+  position: relative;
+  padding-left: 18px;
+}
+
+.concept-block h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 5px;
+  border-radius: 3px;
+  background: var(--color-accent-red);
+}
+
+.concept-block:nth-of-type(2) h2::before { background: var(--color-accent-red); }
+.concept-block:nth-of-type(3) h2::before { background: var(--color-accent-yellow); }
+.concept-block:nth-of-type(4) h2::before { background: var(--color-accent-green); }
+.concept-block:nth-of-type(5) h2::before { background: var(--color-accent-red); }
+
+.concept-sincere {
+  background: var(--color-white);
+}
+
+.concept-sincere .concept-block-inner {
+  text-align: center;
+}
+
+.concept-sincere .photo-placeholder {
+  margin: 22px auto 0;
+  max-width: 480px;
+  aspect-ratio: 4 / 3;
+}
+
+/* ==========================================================================
+   GALLERYページ
+   ========================================================================== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.gallery-grid .photo-placeholder {
+  aspect-ratio: 4 / 3;
+}
+
+.gallery-item-label {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #5c4a2c;
+  background: rgba(255, 255, 255, 0.75);
+  padding: 3px 10px;
+  border-radius: 999px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.instagram-cta-section {
+  text-align: center;
+  background: var(--color-white);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.instagram-cta-section p {
+  max-width: 560px;
+  margin: 0 auto 24px;
+}
+
+/* ==========================================================================
+   ACCESSページ
+   ========================================================================== */
+.info-table-wrap {
+  background: var(--color-white);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.info-table th,
+.info-table td {
+  text-align: left;
+  padding: 16px 18px;
+  font-size: 0.92rem;
+  border-bottom: 1px dashed var(--color-border);
+  vertical-align: top;
+}
+
+.info-table tr:last-child th,
+.info-table tr:last-child td {
+  border-bottom: none;
+}
+
+.info-table th {
+  width: 38%;
+  color: var(--color-accent-red);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  background: #fdf8ee;
+}
+
+.map-section {
+  padding-top: 8px;
+}
+
+.map-frame-wrap {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+}
+
+.map-frame-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.map-caption {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.contact-guide-section {
+  text-align: center;
+  background: var(--color-white);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.contact-guide-section h2 {
+  font-size: 1.25rem;
+  margin-bottom: 14px;
+}
+
+.contact-guide-section p {
+  max-width: 560px;
+  margin: 0 auto 22px;
+}
+
+.google-review-recap {
+  text-align: center;
+}
+
+.google-review-recap .badge-google {
+  display: inline-flex;
+  margin-bottom: 16px;
+}
+
+.google-review-recap a {
+  text-decoration: underline;
+  font-weight: 700;
+  color: var(--color-accent-red);
+}
+
+/* ==========================================================================
+   レスポンシブ(タブレット・PC)
+   ========================================================================== */
+@media (min-width: 700px) {
+  .site-header .container {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .global-nav {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    border-bottom: none;
+    background: none;
+  }
+
+  .global-nav ul {
+    flex-direction: row;
+    padding: 0;
+  }
+
+  .global-nav a {
+    padding: 8px 14px;
+    border-bottom: none;
+  }
+
+  .hamburger-btn {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 24px;
+  }
+
+  .steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-preview-grid {
+    gap: 16px;
+  }
+
+  .reviews-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: 1.2fr 1fr 1fr;
+    align-items: start;
+  }
+
+  .step-detail-inner {
+    grid-template-columns: 1.3fr 1fr;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .steps-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .info-table th {
+    width: 26%;
+  }
+}
+
+
+.ig-icon-float{position:fixed;top:12px;left:12px;z-index:650;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;}
+.ig-icon-float svg{display:block;}
+@media (max-width:420px){.ig-icon-float{top:8px;left:8px;width:34px;height:34px;}}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}

@@ -1,0 +1,960 @@
+/* ============================================================
+   洋食堂やましげ 試作HP 共通スタイルシート
+   コンセプト: 「深夜のジャズバー、そこにあるのはカレーじゃなくハヤシ」
+   配色: ディープネイビー × ワインバーガンディ × 真鍮ゴールド × ミストホワイト
+   写真は一切使用せず、CSSのみのプレースホルダーで表現する。
+   ============================================================ */
+
+/* ---------- 0. デザイントークン ---------- */
+:root {
+  --color-navy-deep: #1b1f2b;
+  --color-navy: #23283a;
+  --color-navy-soft: #2c3247;
+  --color-mist: #eeece6;
+  --color-mist-soft: #f5f4ef;
+  --color-burgundy: #7a2438;
+  --color-burgundy-light: #9c3350;
+  --color-burgundy-dark: #57192a;
+  --color-gold: #b8935a;
+  --color-gold-soft: #d7b98c;
+  --color-text-dark: #23222a;
+  --color-text-light: #f2f0ea;
+  --color-text-muted-light: #c7cad4;
+  --color-text-muted-dark: #5c5a54;
+
+  --font-heading: "Shippori Mincho", "Noto Serif JP", "Hiragino Mincho ProN", serif;
+  --font-body: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+
+  --container-width: 1120px;
+  --gap-section: clamp(3rem, 6vw, 6rem);
+  --radius-sm: 2px;
+  --shadow-panel: 0 12px 30px rgba(10, 12, 20, 0.35);
+}
+
+/* ---------- 1. リセット / 基礎 ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text-dark);
+  background-color: var(--color-mist);
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-inline: 2rem;
+  }
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-heading);
+  letter-spacing: 0.28em;
+  font-size: 0.78rem;
+  color: var(--color-gold);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+  line-height: 1.55;
+  letter-spacing: 0.03em;
+}
+
+.section-sub {
+  margin-top: 0.75rem;
+  font-size: 0.98rem;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.section-lead {
+  max-width: 760px;
+  margin-top: 1.5rem;
+}
+
+.on-navy {
+  color: var(--color-text-light);
+}
+
+.on-navy .section-sub {
+  color: var(--color-text-muted-light);
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ---------- 2. SAMPLE 透かし(全ページ共通・操作を妨げない) ---------- */
+/* 斜め繰り返しパターン: body::before に "SAMPLE" 文字列を大量生成し回転させて敷き詰める */
+body::before {
+  content: "SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE\A SAMPLE   SAMPLE   SAMPLE   SAMPLE";
+  position: fixed;
+  inset: -60% -20%;
+  white-space: pre;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 5.6vw;
+  color: rgba(184, 147, 90, 0.1);
+  transform: rotate(-28deg);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ページ隅の SAMPLE ラベル: body::after */
+body::after {
+  content: "SAMPLE";
+  position: fixed;
+  top: 0.9rem;
+  right: -2.6rem;
+  width: 11rem;
+  padding: 0.35rem 0;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--color-text-light);
+  background: var(--color-burgundy);
+  border: 1px solid var(--color-gold);
+  transform: rotate(35deg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@media (max-width: 640px) {
+  body::after {
+    top: 0.6rem;
+    right: -3rem;
+    width: 9.5rem;
+    font-size: 0.68rem;
+  }
+}
+
+/* ---------- 3. サウンドウェーブ装飾 / 波形区切り線 ---------- */
+.sound-wave {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 22px;
+  pointer-events: none;
+}
+
+.sound-wave span {
+  display: block;
+  width: 3px;
+  background: var(--color-gold);
+  opacity: 0.85;
+  border-radius: 1px;
+}
+
+.sound-wave span:nth-child(1) { height: 35%; }
+.sound-wave span:nth-child(2) { height: 70%; }
+.sound-wave span:nth-child(3) { height: 45%; }
+.sound-wave span:nth-child(4) { height: 100%; }
+.sound-wave span:nth-child(5) { height: 55%; }
+.sound-wave span:nth-child(6) { height: 80%; }
+.sound-wave span:nth-child(7) { height: 40%; }
+.sound-wave span:nth-child(8) { height: 60%; }
+
+.wave-divider {
+  height: 30px;
+  width: 100%;
+  background-repeat: repeat-x;
+  background-size: 52px 52px;
+  margin: 0;
+}
+
+.wave-divider--to-mist {
+  background-color: var(--color-mist);
+  background-image: radial-gradient(circle at 26px 0, var(--color-navy-deep) 24px, transparent 25px);
+}
+
+.wave-divider--to-navy {
+  background-color: var(--color-navy-deep);
+  background-image: radial-gradient(circle at 26px 0, var(--color-mist) 24px, transparent 25px);
+}
+
+.wave-divider--to-mist-soft {
+  background-color: var(--color-mist-soft);
+  background-image: radial-gradient(circle at 26px 0, var(--color-burgundy) 24px, transparent 25px);
+}
+
+/* ---------- 4. ヘッダー ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 400;
+  background: var(--color-navy-deep);
+  border-bottom: 1px solid rgba(184, 147, 90, 0.35);
+}
+
+.header-inner {
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.site-logo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--color-text-light);
+  letter-spacing: 0.08em;
+  border-left: 3px solid var(--color-gold);
+  padding-left: 0.65rem;
+  white-space: nowrap;
+}
+
+.global-nav {
+  margin-left: auto;
+}
+
+.nav-list {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.nav-list a {
+  font-size: 0.86rem;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted-light);
+  padding: 0.3rem 0.1rem;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-list a:hover,
+.nav-list a[aria-current="page"] {
+  color: var(--color-gold-soft);
+  border-color: var(--color-gold);
+}
+
+.tel-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.2;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--color-gold);
+  color: var(--color-text-light);
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.tel-badge:hover {
+  background: rgba(184, 147, 90, 0.12);
+}
+
+.tel-badge .tel-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: var(--color-gold);
+}
+
+.tel-badge .tel-number {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+.nav-toggle-checkbox {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 30px;
+  height: 30px;
+}
+
+.nav-toggle-label span {
+  display: block;
+  height: 2px;
+  background: var(--color-gold);
+}
+
+@media (max-width: 860px) {
+  .nav-toggle-label {
+    display: flex;
+  }
+
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  .tel-badge {
+    display: none;
+  }
+
+  .global-nav {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: min(78%, 300px);
+    height: 100vh;
+    background: var(--color-navy-deep);
+    border-left: 1px solid rgba(184, 147, 90, 0.35);
+    padding: 5.5rem 1.75rem 2rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 450;
+  }
+
+  .nav-toggle-checkbox:checked ~ .global-nav {
+    transform: translateX(0);
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+/* モバイル固定の電話CTA(フロート型) */
+.floating-call {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .floating-call {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--color-burgundy);
+    color: var(--color-text-light);
+    border: 1px solid var(--color-gold);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    z-index: 480;
+    font-family: var(--font-heading);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+    line-height: 1.2;
+  }
+}
+
+/* ---------- 5. ボタン ---------- */
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.9rem;
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  letter-spacing: 0.08em;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--color-burgundy);
+  color: var(--color-text-light);
+  border-color: var(--color-burgundy);
+}
+
+.btn-primary:hover {
+  background: var(--color-burgundy-light);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-gold-soft);
+  border-color: var(--color-gold);
+}
+
+.btn-outline:hover {
+  background: rgba(184, 147, 90, 0.12);
+  transform: translateY(-2px);
+}
+
+.btn-outline-dark {
+  background: transparent;
+  color: var(--color-burgundy);
+  border-color: var(--color-burgundy);
+}
+
+.btn-outline-dark:hover {
+  background: rgba(122, 36, 56, 0.08);
+  transform: translateY(-2px);
+}
+
+/* ---------- 6. ヒーロー ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-navy-deep);
+  background-image:
+    radial-gradient(circle at 50% 22%, rgba(184, 147, 90, 0.22), transparent 42%),
+    radial-gradient(circle at 50% 22%, rgba(122, 36, 56, 0.4), transparent 62%),
+    repeating-radial-gradient(circle at 50% 22%, transparent 0 34px, rgba(184, 147, 90, 0.05) 35px 36px);
+  padding: clamp(4rem, 10vw, 7rem) 0 clamp(3.5rem, 8vw, 5rem);
+  color: var(--color-text-light);
+  text-align: center;
+}
+
+.hero-inner {
+  max-width: 780px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+.hero .sound-wave {
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+.hero .hero-sub {
+  margin-top: 1.1rem;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--color-gold-soft);
+  letter-spacing: 0.04em;
+}
+
+.hero .photo-placeholder {
+  margin: 2.5rem auto 0;
+  max-width: 640px;
+}
+
+.hero .btn-row {
+  justify-content: center;
+  margin-top: 2.25rem;
+}
+
+/* ---------- 7. 汎用セクション ---------- */
+.section {
+  padding: var(--gap-section) 0;
+}
+
+.section--navy {
+  background: var(--color-navy-deep);
+  color: var(--color-text-light);
+}
+
+.section--mist {
+  background: var(--color-mist);
+}
+
+.section--mist-soft {
+  background: var(--color-mist-soft);
+}
+
+.section-head {
+  max-width: 640px;
+  margin-bottom: 2.5rem;
+}
+
+.section-head.text-center {
+  margin-inline: auto;
+}
+
+/* ---------- 8. 写真プレースホルダー(実写真は不使用) ---------- */
+.photo-placeholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 1.5rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(184, 147, 90, 0.18), transparent 60%),
+    linear-gradient(150deg, var(--color-navy) 0%, var(--color-navy-deep) 55%, var(--color-burgundy-dark) 140%);
+  border: 1px solid var(--color-gold);
+  overflow: hidden;
+}
+
+.photo-placeholder::before {
+  content: "";
+  position: absolute;
+  width: 74px;
+  height: 74px;
+  border: 1px solid rgba(184, 147, 90, 0.55);
+  border-radius: 50%;
+  top: calc(50% - 37px);
+  left: calc(50% - 37px);
+}
+
+.photo-placeholder::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(184, 147, 90, 0.55);
+  border-radius: 50%;
+  top: calc(50% - 9px);
+  left: calc(50% - 9px);
+}
+
+.photo-placeholder span {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--color-gold-soft);
+  line-height: 1.7;
+}
+
+.photo-placeholder--tall {
+  min-height: 300px;
+}
+
+.photo-placeholder--large {
+  min-height: 340px;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.75rem;
+}
+
+/* ---------- 9. パネル(一枚板フレーム) ---------- */
+.panel {
+  border: 1px solid var(--color-gold);
+  background: var(--color-navy);
+  padding: 1.75rem;
+}
+
+.panel--light {
+  background: var(--color-mist-soft);
+  border-color: var(--color-burgundy);
+  color: var(--color-text-dark);
+}
+
+/* ---------- 10. メニューカード ---------- */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.75rem;
+  margin-top: 2rem;
+}
+
+.menu-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid var(--color-gold);
+  background: var(--color-navy);
+  padding: 1.5rem;
+}
+
+.menu-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: var(--color-text-light);
+  letter-spacing: 0.02em;
+}
+
+.menu-card p {
+  font-size: 0.92rem;
+  color: var(--color-text-muted-light);
+}
+
+.badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.75rem;
+  color: var(--color-navy-deep);
+  background: var(--color-gold);
+  border-radius: 999px;
+}
+
+.menu-card--light {
+  background: var(--color-mist-soft);
+  border-color: var(--color-burgundy);
+}
+
+.menu-card--light h3 {
+  color: var(--color-burgundy);
+}
+
+.menu-card--light p {
+  color: var(--color-text-muted-dark);
+}
+
+.price-tag {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  color: var(--color-gold);
+}
+
+.menu-card--light .price-tag {
+  color: var(--color-burgundy);
+}
+
+.note-block {
+  margin-top: 2.5rem;
+  padding: 1.5rem 1.75rem;
+  border-left: 3px solid var(--color-gold);
+  background: rgba(184, 147, 90, 0.08);
+  font-size: 0.92rem;
+}
+
+/* ---------- 11. クチコミ ---------- */
+.rating-badge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.6rem 1.25rem;
+  border: 1px solid var(--color-gold);
+  margin-top: 1rem;
+}
+
+.rating-badge .rating-score {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: var(--color-gold);
+}
+
+.rating-badge .rating-count {
+  font-size: 0.85rem;
+  color: var(--color-text-muted-light);
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.review-card {
+  padding: 1.6rem;
+  background: var(--color-mist-soft);
+  border-top: 3px solid var(--color-burgundy);
+  box-shadow: var(--shadow-panel);
+}
+
+.review-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
+  font-size: 0.82rem;
+  color: var(--color-text-muted-dark);
+}
+
+.review-card__author {
+  font-weight: 700;
+}
+
+.review-card__stars {
+  color: var(--color-burgundy);
+  letter-spacing: 0.08em;
+}
+
+.review-card__text {
+  font-size: 0.92rem;
+  white-space: pre-line;
+  color: var(--color-text-dark);
+}
+
+/* ---------- 12. 混雑案内・注記ブロック ---------- */
+.notice-block {
+  border-left: 3px solid var(--color-burgundy);
+  padding: 1.1rem 1.5rem;
+  background: rgba(122, 36, 56, 0.06);
+  font-size: 0.9rem;
+  max-width: 760px;
+}
+
+/* ---------- 13. アクセス・店舗情報 ---------- */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+.info-table th,
+.info-table td {
+  text-align: left;
+  padding: 1rem 0.5rem;
+  border-bottom: 1px solid rgba(184, 147, 90, 0.35);
+  font-size: 0.95rem;
+  vertical-align: top;
+}
+
+.info-table th {
+  width: 30%;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-gold);
+  white-space: nowrap;
+}
+
+.info-table td {
+  color: var(--color-text-light);
+}
+
+.map-frame {
+  border: 1px solid var(--color-gold);
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.map-frame iframe {
+  width: 100%;
+  height: 340px;
+  border: 0;
+  display: block;
+}
+
+.cta-banner {
+  text-align: center;
+  padding: var(--gap-section) 0;
+  background: linear-gradient(135deg, var(--color-burgundy-dark), var(--color-burgundy));
+  color: var(--color-text-light);
+}
+
+.cta-banner .tel-number-large {
+  display: block;
+  margin-top: 1.25rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  letter-spacing: 0.04em;
+  color: var(--color-gold-soft);
+}
+
+/* ---------- 14. フッター ---------- */
+.site-footer {
+  background: var(--color-navy-deep);
+  color: var(--color-text-muted-light);
+  border-top: 1px solid rgba(184, 147, 90, 0.35);
+  padding: 3rem 0 2rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: var(--color-text-light);
+  letter-spacing: 0.08em;
+}
+
+.footer-inner address {
+  font-style: normal;
+  font-size: 0.9rem;
+}
+
+.footer-tel a {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-gold-soft);
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+}
+
+.footer-nav a:hover {
+  color: var(--color-gold-soft);
+}
+
+.footer-sns {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid var(--color-gold);
+  font-size: 0.82rem;
+  letter-spacing: 0.05em;
+}
+
+.footer-sns:hover {
+  background: rgba(184, 147, 90, 0.12);
+}
+
+.icon-ig {
+  width: 20px;
+  height: 20px;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  position: relative;
+  display: inline-block;
+}
+
+.icon-ig::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.icon-ig::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 2px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 50%;
+}
+
+.copyright {
+  margin-top: 1rem;
+  font-size: 0.74rem;
+  color: var(--color-text-muted-light);
+  opacity: 0.7;
+}
+
+/* ---------- 15. ギャラリー用 ---------- */
+.gallery-note {
+  max-width: 640px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.75rem;
+  margin-top: 2rem;
+}
+
+.gallery-caption {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+}
+
+/* ---------- 16. レスポンシブ調整 ---------- */
+@media (max-width: 640px) {
+  .info-table th {
+    width: 38%;
+    font-size: 0.85rem;
+  }
+
+  .info-table td {
+    font-size: 0.85rem;
+  }
+
+  .hero .btn-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-row .btn {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .review-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+.ig-icon-float{position:fixed;top:12px;left:12px;z-index:650;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;}
+.ig-icon-float svg{display:block;}
+@media (max-width:420px){.ig-icon-float{top:8px;left:8px;width:34px;height:34px;}}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}

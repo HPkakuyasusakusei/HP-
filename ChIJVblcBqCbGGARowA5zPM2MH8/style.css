@@ -1,0 +1,413 @@
+/* キミとティラミス You&Tiramisu 流山 — 「一杯の断面 / 平和台ダイヤグラム」 */
+
+:root {
+  --deep-roast: #221712;
+  --mascarpone: #F5EEE1;
+  --cappuccino: #A97A54;
+  --yellow: #F2C230;
+  --body-text: #4A3B32;
+  --font-serif: "Noto Serif JP", serif;
+  --font-sans: "Noto Sans JP", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "JetBrains Mono", "Courier New", monospace;
+  --header-h: 68px;
+  --line-nav-w: 64px;
+  --line-nav-h: 0px;
+  --max-w: 1100px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + var(--line-nav-h) + 12px); }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--body-text);
+  background: var(--mascarpone);
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--font-serif); line-height: 1.5; margin: 0 0 .6em; }
+p { margin: 0 0 1em; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+.mono { font-family: var(--font-mono); letter-spacing: .04em; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0; padding: 0; margin: -1px;
+}
+
+/* ===== SAMPLE 透かし ===== */
+.sample-watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-28deg);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(3.5rem, 18vw, 9rem);
+  letter-spacing: .1em;
+  color: var(--deep-roast);
+  opacity: .06;
+  pointer-events: none;
+  z-index: 999;
+  white-space: nowrap;
+}
+@media print {
+  .sample-watermark { position: fixed !important; display: block !important; opacity: .12 !important; }
+}
+
+/* ===== ヘッダー ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--mascarpone);
+  border-bottom: 1px solid var(--cappuccino);
+}
+.site-header__inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  min-height: var(--header-h);
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 20px;
+}
+.logo {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--deep-roast);
+  line-height: 1.2;
+}
+.logo__main { font-family: var(--font-serif); font-weight: 700; font-size: 1.25rem; }
+.logo__sub { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .1em; color: var(--cappuccino); }
+
+.global-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+  justify-content: center;
+}
+.global-nav a {
+  text-decoration: none;
+  font-size: .92rem;
+  color: var(--body-text);
+  padding: 6px 2px;
+  border-bottom: 2px solid transparent;
+}
+.global-nav a[aria-current="page"] { color: var(--deep-roast); border-bottom-color: var(--yellow); font-weight: 700; }
+.global-nav a:hover { border-bottom-color: var(--cappuccino); }
+
+@media (max-width: 640px) {
+  .site-header__inner { justify-content: center; text-align: center; }
+  .logo { align-items: center; }
+}
+
+/* ===== 改札スタンプバッジ(Ticket Stamp Badge) ===== */
+.ticket-badge {
+  --notch: 6px;
+  --notch-color: var(--mascarpone);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  color: var(--deep-roast);
+  background-color: var(--cappuccino);
+  border: 2px solid var(--cappuccino);
+  padding: 12px 20px;
+  background-image:
+    radial-gradient(circle var(--notch) at 8px 0, var(--notch-color) 0 var(--notch), transparent calc(var(--notch) + .5px)),
+    radial-gradient(circle var(--notch) at 8px 100%, var(--notch-color) 0 var(--notch), transparent calc(var(--notch) + .5px));
+  background-repeat: repeat-x, repeat-x;
+  background-size: 16px 100%, 16px 100%;
+  background-position: top left, bottom left;
+}
+.ticket-badge__star { color: var(--yellow); }
+.ticket-badge--on-light { --notch-color: var(--mascarpone); background-color: #fff; color: var(--deep-roast); }
+.ticket-badge--on-dark { --notch-color: var(--deep-roast); background-color: var(--mascarpone); color: var(--deep-roast); }
+.ticket-badge--nav { padding: 8px 16px; font-size: .78rem; border-color: var(--deep-roast); background-color: var(--mascarpone); }
+.ticket-badge:hover { filter: brightness(.96); }
+.ticket-badge--lg { font-size: 1.05rem; padding: 18px 30px; }
+
+/* ===== CTA ボタン ===== */
+.cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin: 24px 0; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 14px 28px;
+  border: 2px solid transparent;
+  font-size: .96rem;
+}
+.btn--primary { background: var(--yellow); color: var(--deep-roast); }
+.btn--primary:hover { background: #e0af1f; }
+.btn--outline-light { background: transparent; color: var(--mascarpone); border-color: var(--mascarpone); }
+.btn--outline-light:hover { background: rgba(245,238,225,.12); }
+.btn--outline-dark { background: transparent; color: var(--deep-roast); border-color: var(--deep-roast); }
+.btn--outline-dark:hover { background: rgba(34,23,18,.06); }
+
+/* ===== ゴーストナンバー ===== */
+.ghost-num {
+  position: absolute;
+  top: -.15em;
+  left: 0;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(4.5rem, 14vw, 8.5rem);
+  line-height: 1;
+  color: var(--cappuccino);
+  opacity: .15;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+.layer--dark .ghost-num { color: var(--mascarpone); opacity: .12; }
+
+/* ===== 断面セクション(Layer Section) ===== */
+.layer {
+  position: relative;
+  padding: 90px 20px 110px;
+}
+.layer__inner { max-width: var(--max-w); margin: 0 auto; position: relative; z-index: 1; }
+.layer--light { background: var(--mascarpone); color: var(--body-text); }
+.layer--dark { background: var(--deep-roast); color: var(--mascarpone); }
+.layer--dark h2, .layer--dark h3 { color: var(--mascarpone); }
+.layer + .layer { margin-top: -56px; padding-top: 146px; }
+.layer.curve-a { clip-path: polygon(0 44px, 12% 14px, 27% 58px, 46% 10px, 63% 50px, 80% 8px, 100% 40px, 100% 100%, 0 100%); }
+.layer.curve-b { clip-path: polygon(0 20px, 18% 52px, 36% 6px, 55% 46px, 74% 12px, 90% 44px, 100% 16px, 100% 100%, 0 100%); }
+.layer.curve-c { clip-path: polygon(0 48px, 15% 10px, 33% 40px, 50% 4px, 68% 44px, 84% 14px, 100% 36px, 100% 100%, 0 100%); }
+
+.eyebrow { font-family: var(--font-mono); font-size: .78rem; letter-spacing: .12em; color: var(--cappuccino); display: block; margin-bottom: 14px; }
+.layer--dark .eyebrow { color: var(--yellow); }
+.layer h1 { font-size: clamp(1.9rem, 5vw, 3rem); }
+.layer h2 { font-size: clamp(1.55rem, 4vw, 2.3rem); }
+.section-lede { max-width: 620px; }
+
+/* ===== 路線図インジケーター(Line Diagram Nav) ===== */
+.line-nav { position: fixed; z-index: 400; }
+.line-nav ol { display: flex; }
+.line-nav a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--body-text);
+  position: relative;
+}
+.line-nav__dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid var(--cappuccino);
+  background: var(--mascarpone);
+  flex-shrink: 0;
+  transition: background .2s, border-color .2s;
+}
+.line-nav a.is-active .line-nav__dot { background: var(--yellow); border-color: var(--yellow); }
+.line-nav__label { font-family: var(--font-mono); font-size: .68rem; white-space: nowrap; }
+
+@media (min-width: 900px) {
+  .line-nav { left: 14px; top: 50%; transform: translateY(-50%); }
+  .line-nav ol {
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+    padding-left: 6px;
+  }
+  .line-nav ol::before {
+    content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 2px;
+    background: var(--cappuccino);
+  }
+  .line-nav a { flex-direction: row; gap: 10px; }
+  .line-nav__label { opacity: 0; transform: translateX(-6px); transition: opacity .15s, transform .15s; }
+  .line-nav a:hover .line-nav__label, .line-nav a.is-active .line-nav__label { opacity: 1; transform: translateX(0); color: var(--deep-roast); font-weight: 700; }
+}
+@media (max-width: 899px) {
+  /* JS未実行時のフォールバック値(実測値はscript.jsが上書きする) */
+  :root { --line-nav-h: 56px; }
+  .line-nav { top: var(--header-h); left: 0; right: 0; background: var(--mascarpone); border-bottom: 1px solid var(--cappuccino); overflow-x: auto; }
+  .line-nav ol { padding: 10px 16px; gap: 22px; position: relative; width: max-content; min-width: 100%; justify-content: space-between; }
+  .line-nav ol::before { content: ""; position: absolute; left: 16px; right: 16px; top: 50%; height: 2px; background: var(--cappuccino); z-index: -1; }
+  .line-nav a { flex-direction: column; gap: 4px; }
+  .line-nav__label { font-size: .6rem; }
+  /* .line-navはヘッダー直下にfixed表示されるため、本文が隠れないよう実測高さ分の余白を確保する */
+  body.has-line-nav main { padding-top: var(--line-nav-h); }
+}
+
+/* ===== 発車標パネル(Departure Board Panel) ===== */
+.photo-panel {
+  position: relative;
+  background: rgba(255,255,255,.5);
+  padding: 20px 16px 18px;
+  text-align: center;
+}
+.layer--dark .photo-panel { background: rgba(245,238,225,.05); }
+.photo-panel__ribbon {
+  position: absolute;
+  top: 14px;
+  right: -34px;
+  transform: rotate(40deg);
+  background: var(--deep-roast);
+  color: var(--mascarpone);
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  letter-spacing: .06em;
+  padding: 3px 38px;
+}
+.layer--dark .photo-panel__ribbon { background: var(--mascarpone); color: var(--deep-roast); }
+.photo-panel__frame {
+  position: relative;
+  width: 132px;
+  height: 200px;
+  margin: 8px auto 16px;
+  border: 3px solid var(--cappuccino);
+  border-radius: 999px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.photo-panel__frame.is-round { border-radius: 50%; width: 168px; height: 168px; }
+.photo-panel__band { flex-shrink: 0; flex-grow: 0; }
+.photo-panel__wave {
+  position: absolute;
+  left: -4px; right: -4px;
+  height: 14px;
+  z-index: 2;
+}
+.photo-panel__steam {
+  position: absolute;
+  top: -22px; left: 50%;
+  width: 20px; height: 26px;
+  transform: translateX(-50%);
+}
+.photo-panel__title { font-size: 1.05rem; margin-bottom: 6px; }
+.photo-panel__desc { font-size: .86rem; margin-bottom: 10px; }
+.layer--dark .photo-panel__desc { color: var(--mascarpone); opacity: .85; }
+.photo-panel__caption {
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  color: var(--cappuccino);
+  margin: 0;
+}
+.photo-panel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 28px;
+  margin-top: 34px;
+}
+
+/* ===== 路線図モチーフ(駅前ものがたり用ミニマル図) ===== */
+.rail-diagram { position: relative; margin-top: 40px; padding: 46px 10px 10px; }
+.rail-diagram__track {
+  position: relative;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--cappuccino) 0 6px, transparent 6px 18px);
+}
+.rail-diagram__station {
+  position: absolute;
+  top: -34px;
+  left: var(--pos, 50%);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.rail-diagram__dot { width: 14px; height: 14px; border-radius: 50%; background: var(--yellow); border: 2px solid var(--mascarpone); }
+.rail-diagram__sign {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  border: 1px solid var(--cappuccino);
+  padding: 4px 10px;
+  color: var(--mascarpone);
+  white-space: nowrap;
+}
+.rail-diagram__tick { position: absolute; top: -6px; width: 2px; height: 12px; background: var(--cappuccino); opacity: .6; }
+
+/* ===== 発着ボード風一覧(Board List) ===== */
+.board-list { border-top: 2px solid var(--cappuccino); margin-top: 30px; }
+.board-list__row {
+  border-bottom: 1px solid rgba(169,122,84,.4);
+  padding: 26px 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 18px;
+}
+.board-list__num {
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  color: var(--cappuccino);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.board-list__num .rail-diagram__dot { position: static; width: 9px; height: 9px; border-color: var(--cappuccino); }
+.board-list__meta {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 16px;
+}
+.board-list__author { font-weight: 700; font-family: var(--font-serif); font-size: 1.05rem; }
+.board-list__stars { color: var(--yellow); letter-spacing: .05em; }
+.board-list__time { font-family: var(--font-mono); font-size: .75rem; color: var(--cappuccino); }
+.board-list__text { grid-column: 2; white-space: pre-wrap; margin: 4px 0 0; }
+
+@media (max-width: 640px) {
+  .board-list__row { grid-template-columns: 1fr; }
+  .board-list__meta, .board-list__text { grid-column: 1; }
+}
+
+/* ===== フッター ===== */
+.site-footer {
+  background: var(--deep-roast);
+  color: var(--mascarpone);
+  padding: 56px 20px 30px;
+  position: relative;
+}
+.site-footer__inner { max-width: var(--max-w); margin: 0 auto; }
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+.site-footer h2 { font-size: 1.2rem; }
+.site-footer a { text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+.site-footer__note { font-size: .8rem; opacity: .75; border-top: 1px solid rgba(245,238,225,.2); padding-top: 20px; }
+.site-footer__sample { font-family: var(--font-mono); font-size: .68rem; opacity: .45; margin-top: 10px; }
+
+/* ===== 汎用 ===== */
+.dl-info { display: grid; grid-template-columns: 8em 1fr; gap: 14px 20px; margin: 30px 0; }
+.dl-info dt { font-family: var(--font-mono); font-size: .78rem; color: var(--cappuccino); }
+.dl-info dd { margin: 0; }
+@media (max-width: 560px) {
+  .dl-info { grid-template-columns: 1fr; }
+  .dl-info dt { margin-top: 10px; }
+}
+.map-embed { width: 100%; aspect-ratio: 16 / 10; border: 0; margin: 24px 0; }
+.honesty-note { font-size: .92rem; color: var(--cappuccino); border-left: 3px solid var(--cappuccino); padding-left: 14px; }
+
+@media (min-width: 900px) {
+  body.has-line-nav .layer__inner,
+  body.has-line-nav .site-header__inner {
+    padding-left: calc(var(--line-nav-w) - 20px);
+  }
+}
+
+
+.ig-icon-float{position:fixed;top:12px;left:12px;z-index:650;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;}
+.ig-icon-float svg{display:block;}
+@media (max-width:420px){.ig-icon-float{top:8px;left:8px;width:34px;height:34px;}}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}

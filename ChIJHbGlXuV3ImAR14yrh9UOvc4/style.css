@@ -1,0 +1,683 @@
+/* おこめカフェ Sun&［サンと］ 営業提案用サイト 共通スタイル(v2・全面刷新版) */
+
+/* ===== 1. デザイントークン ===== */
+:root {
+  /* ベース(米・紙) */
+  --color-bg:        #F7F3EA;
+  --color-bg-soft:   #FCFAF4;
+  --color-bg-deep:   #EFE7D6;
+
+  /* テキスト */
+  --color-text:      #3B2E22;
+  --color-text-sub:  #6B5D4B;
+
+  /* アクセント1: 稲穂ゴールド */
+  --color-gold:      #C9A227;
+  --color-gold-pale: #E8D9A8;
+  --color-gold-deep: #9C7C18;
+
+  /* アクセント2: 土色 */
+  --color-soil:      #7C5A3B;
+  --color-soil-deep: #5B3F27;
+
+  /* アクセント3: 若苗緑 */
+  --color-green:      #6B8542;
+  --color-green-pale: #E3E9D2;
+
+  /* 海苔 */
+  --color-nori:       #2B2621;
+
+  /* 湯気 */
+  --color-steam:       rgba(255,255,255,0.55);
+  --color-steam-soft:  rgba(255,255,255,0.28);
+
+  /* 状態色 */
+  --color-border:     #D9CBAD;
+  --shadow-soft:       0 6px 20px rgba(59,46,34,0.10);
+  --shadow-card:       0 4px 14px rgba(59,46,34,0.08);
+
+  /* 角丸・形状 */
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-tawara: 999px;
+
+  /* レイアウト */
+  --container-w: 1120px;
+}
+
+/* ===== 2. リセット・基本 ===== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Noto Sans JP", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.85;
+  position: relative;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Zen Maru Gothic", sans-serif;
+  color: var(--color-text);
+  margin: 0 0 0.6em;
+  line-height: 1.5;
+}
+h1 { font-size: clamp(1.6rem, 5vw, 2.4rem); font-weight: 700; }
+h2 { font-size: clamp(1.3rem, 3.6vw, 1.8rem); font-weight: 700; }
+h3 { font-size: 1.08rem; font-weight: 600; }
+
+p { margin: 0 0 1em; }
+p:last-child { margin-bottom: 0; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; margin: 0; padding: 0; }
+button { font-family: inherit; }
+
+[id] { scroll-margin-top: 96px; }
+
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-gold-deep);
+  outline-offset: 2px;
+}
+
+.container {
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.section { padding: 56px 0; }
+.section--deep { background: var(--color-bg-deep); }
+.narrow { max-width: 720px; margin: 0 auto; }
+.text-center { text-align: center; }
+.lead-text { color: var(--color-text-sub); }
+.small-note { font-size: 0.8rem; color: var(--color-text-sub); }
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 28px;
+}
+.section-head h2 { margin-bottom: 0; }
+.link-more { font-weight: 600; color: var(--color-gold-deep); white-space: nowrap; }
+.link-more:hover { text-decoration: underline; }
+
+/* ===== 3. SAMPLE 透かし(全ページ共通) ===== */
+body::after {
+  content: "SAMPLE";
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-size: 13vw;
+  font-weight: 700;
+  color: var(--color-soil);
+  opacity: 0.05;
+  transform: rotate(-28deg);
+  pointer-events: none;
+  z-index: 999;
+  white-space: nowrap;
+}
+
+/* ===== 4. ヘッダー・グローバルナビ ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--color-bg-soft);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  padding: 12px 20px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--color-text);
+  margin-right: auto;
+}
+
+.nav-toggle-input { display: none; }
+.nav-toggle-label {
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 26px;
+  cursor: pointer;
+}
+.nav-toggle-label span {
+  display: block;
+  height: 2px;
+  background: var(--color-soil-deep);
+  border-radius: 2px;
+}
+
+.site-nav {
+  order: 4;
+  flex-basis: 100%;
+  display: none;
+}
+.nav-toggle-input:checked ~ .site-nav { display: block; }
+.site-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 10px;
+  margin-top: 4px;
+  border-top: 1px solid var(--color-border);
+}
+.site-nav a {
+  display: block;
+  padding: 10px 4px;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.site-nav a.active {
+  color: var(--color-gold-deep);
+  font-weight: 700;
+}
+
+.header-cta {
+  order: 3;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.header-cta .btn {
+  padding: 8px 14px;
+  font-size: 0.78rem;
+}
+
+@media (min-width: 768px) {
+  .header-inner { flex-wrap: nowrap; }
+  .nav-toggle-label { display: none; }
+  .site-nav {
+    display: block !important;
+    order: 2;
+    flex-basis: auto;
+  }
+  .site-nav ul {
+    flex-direction: row;
+    gap: 22px;
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+  .site-nav a { padding: 4px 2px; }
+  .site-nav a.active { border-bottom: 2px solid var(--color-gold); }
+  .header-cta { order: 3; }
+  .header-cta .btn { font-size: 0.85rem; padding: 10px 18px; }
+}
+
+/* ===== 5. フッター ===== */
+.site-footer {
+  background: var(--color-soil-deep);
+  color: var(--color-bg-soft);
+  padding: 48px 0 24px;
+}
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Zen Maru Gothic", sans-serif;
+  font-weight: 700;
+}
+.footer-address { margin: 0; }
+.footer-rating { display: flex; align-items: center; gap: 8px; margin: 0; flex-wrap: wrap; }
+.footer-instagram a { text-decoration: underline; }
+.footer-instagram a:hover { opacity: 0.85; }
+.footer-nav ul { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.footer-nav a { opacity: 0.9; font-size: 0.92rem; }
+.footer-nav a:hover { text-decoration: underline; }
+.footer-note {
+  font-size: 0.76rem;
+  opacity: 0.75;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 16px;
+  margin: 8px 0 0;
+  width: 100%;
+}
+
+/* ===== 6. CTAボタン ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 26px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-family: "Zen Maru Gothic", sans-serif;
+  cursor: pointer;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+  border-radius: 4px 20px 4px 4px;
+}
+.btn-primary {
+  background: var(--color-soil-deep);
+  color: var(--color-bg-soft);
+  border: none;
+}
+.btn-primary:hover { opacity: 0.88; }
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--color-soil);
+  color: var(--color-soil-deep);
+}
+.btn-outline:hover { background: var(--color-bg-deep); }
+.btn-large { padding: 17px 38px; font-size: 1.05rem; }
+.cta-group { display: flex; flex-wrap: wrap; gap: 12px; }
+.cta-band {
+  text-align: center;
+}
+.cta-band .cta-group { justify-content: center; margin-top: 20px; }
+.cta-band p { margin: 0 auto 4px; max-width: 640px; }
+
+/* ===== 7. グラフィックモチーフ ===== */
+.onigiri-shape {
+  clip-path: polygon(50% 3%, 92% 82%, 78% 97%, 22% 97%, 8% 82%);
+}
+
+.logo-mark {
+  width: 30px;
+  height: 28px;
+  clip-path: polygon(50% 3%, 92% 82%, 78% 97%, 22% 97%, 8% 82%);
+  background: linear-gradient(var(--color-bg-soft) 0 62%, var(--color-nori) 62% 100%);
+  flex-shrink: 0;
+}
+.logo-mark--invert {
+  background: linear-gradient(var(--color-gold-pale) 0 62%, var(--color-bg-soft) 62% 100%);
+}
+
+.inaho-divider {
+  height: 28px;
+  background-image:
+    repeating-linear-gradient(70deg, var(--color-gold) 0 2px, transparent 2px 16px),
+    repeating-radial-gradient(circle, var(--color-gold-deep) 0 1.5px, transparent 1.5px 18px);
+  background-position: 0 0, 8px 6px;
+  opacity: 0.45;
+}
+
+.inaho-spine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 26px;
+  transform: translateX(-50%);
+  background-image:
+    repeating-linear-gradient(15deg, var(--color-gold) 0 2px, transparent 2px 16px),
+    repeating-radial-gradient(circle, var(--color-gold-deep) 0 1.5px, transparent 1.5px 18px);
+  opacity: 0.4;
+}
+@media (max-width: 767px) {
+  .inaho-spine { left: 0; transform: none; }
+}
+
+.tawara-card {
+  position: relative;
+  border-radius: var(--radius-tawara);
+  padding: 28px 44px;
+  background: var(--color-bg-soft);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+}
+.tawara-card::before,
+.tawara-card::after {
+  content: "";
+  position: absolute;
+  top: 8px; bottom: 8px;
+  width: 3px;
+  background: repeating-linear-gradient(180deg, var(--color-gold) 0 6px, transparent 6px 10px);
+  opacity: 0.5;
+}
+.tawara-card::before { left: 18px; }
+.tawara-card::after  { right: 18px; }
+
+.tawara-chip {
+  padding: 20px 30px;
+  text-align: center;
+}
+.tawara-chip h3 { margin-bottom: 6px; font-size: 1.02rem; }
+.tawara-chip p { margin: 0; font-size: 0.88rem; color: var(--color-text-sub); }
+
+.rating-onigiri {
+  width: 14px; height: 13px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  display: inline-block;
+  margin-right: 3px;
+}
+.rating-onigiri.filled { background: var(--color-gold); }
+.rating-onigiri.empty  { background: var(--color-gold-pale); }
+.rating-onigiri.partial-40 {
+  background: linear-gradient(90deg, var(--color-gold) 40%, var(--color-gold-pale) 40%);
+}
+.rating-onigiri-group { display: inline-flex; align-items: center; }
+.rating-text { font-weight: 600; color: var(--color-text-sub); margin-left: 6px; }
+.rating-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin: 14px 0;
+}
+.rating-display.align-start { justify-content: flex-start; }
+
+/* ===== 8. 写真プレースホルダー ===== */
+.photo-placeholder {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: var(--radius-md);
+  min-height: 220px;
+  padding: 20px;
+}
+.photo-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-radial-gradient(
+    ellipse 3px 5px at center,
+    rgba(255,255,255,0.5) 0 2px,
+    transparent 2px 16px
+  );
+  background-size: 18px 22px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.photo-placeholder .label {
+  position: relative;
+  z-index: 1;
+  color: var(--color-bg-soft);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.28);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+.photo-placeholder .label .ph-en {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.photo-placeholder .label .ph-note {
+  display: block;
+  font-size: 0.66rem;
+  opacity: 0.9;
+  margin-top: 6px;
+}
+
+.photo-placeholder--interior { background: linear-gradient(135deg, var(--color-gold-pale) 0%, var(--color-soil) 100%); }
+.photo-placeholder--onigiri  { background: linear-gradient(180deg, var(--color-bg-soft) 0 62%, var(--color-nori) 62% 100%); }
+.photo-placeholder--curry    { background: linear-gradient(160deg, var(--color-gold-deep) 0%, var(--color-soil-deep) 70%); }
+.photo-placeholder--exterior { background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg) 55%, var(--color-soil) 55%, var(--color-soil-deep) 100%); }
+.photo-placeholder--dessert  { background: linear-gradient(135deg, var(--color-green-pale) 0%, var(--color-gold-pale) 60%, var(--color-bg-soft) 100%); }
+.photo-placeholder--drink    { background: linear-gradient(160deg, var(--color-soil) 0%, var(--color-nori) 100%); }
+.photo-placeholder--drink::after {
+  content: "";
+  position: absolute;
+  left: 30%; right: 30%; top: -10%; bottom: 40%;
+  background: radial-gradient(ellipse at 50% 100%, var(--color-steam) 0%, var(--color-steam-soft) 40%, transparent 70%);
+  filter: blur(6px);
+  opacity: 0.8;
+}
+.photo-placeholder--wide { min-height: 260px; }
+.photo-placeholder--sm { min-height: 160px; }
+
+/* ===== 9. ヒーロー(index.html) ===== */
+.hero { position: relative; overflow: hidden; padding: 48px 0 40px; }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(60deg, var(--color-gold) 0 2px, transparent 2px 40px),
+    repeating-linear-gradient(-60deg, var(--color-soil) 0 2px, transparent 2px 40px);
+}
+.hero-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  align-items: center;
+}
+.hero-text { text-align: center; }
+.hero-sub { color: var(--color-text-sub); }
+.hero .cta-group { justify-content: center; margin-top: 20px; }
+
+.hero-cluster {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  height: 220px;
+}
+.cluster-item {
+  position: absolute;
+  background: linear-gradient(180deg, var(--color-bg-soft) 0 62%, var(--color-nori) 62% 100%);
+  box-shadow: var(--shadow-card);
+}
+.cluster-item--1 { width: 118px; height: 110px; left: 4%;  top: 40%; }
+.cluster-item--2 { width: 150px; height: 140px; left: 30%; top: 4%; }
+.cluster-item--3 { width: 98px;  height: 92px;  right: 4%; top: 46%; }
+.cluster-item--4 { width: 76px;  height: 72px;  left: 48%; top: 58%; transform: translateX(-50%) rotate(-8deg); }
+.cluster-item--5 { width: 64px;  height: 60px;  right: 18%; top: 0%; transform: rotate(10deg); }
+
+@media (min-width: 900px) {
+  .hero-inner { flex-direction: row; justify-content: space-between; text-align: left; }
+  .hero-text { text-align: left; max-width: 480px; }
+  .hero .cta-group { justify-content: flex-start; }
+  .hero-cluster { max-width: 420px; height: 320px; }
+}
+
+/* ===== 10. お米への想い(俵チップ・index.html) ===== */
+.rice-thoughts .lead-text { max-width: 760px; margin: 0 auto 32px; text-align: center; }
+.tawara-chip-row { display: flex; flex-direction: column; gap: 16px; }
+@media (min-width: 768px) {
+  .tawara-chip-row { flex-direction: row; }
+  .tawara-chip-row .tawara-chip { flex: 1; }
+}
+
+/* ===== 11. メニューの入口(index.html) ===== */
+.menu-entry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px 16px;
+}
+.menu-entry-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.menu-entry-shape { width: 84px; height: 78px; }
+.menu-entry-name { font-size: 0.85rem; font-weight: 600; }
+.menu-entry-item:hover .menu-entry-shape { opacity: 0.85; }
+@media (min-width: 600px) {
+  .menu-entry-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ===== 12. アクセス簡易(index.html) ===== */
+.access-simple-chip {
+  max-width: 420px;
+  margin: 0 auto 24px;
+}
+
+/* ===== 13. 二枚看板(about.html) ===== */
+.banner-row-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: center;
+}
+.banner-text, .banner-photo { width: 100%; }
+@media (min-width: 768px) {
+  .banner-row-inner { flex-direction: row; gap: 52px; align-items: center; }
+  .banner-row-inner.reverse { flex-direction: row-reverse; }
+  .banner-text, .banner-photo { flex: 1 1 0; }
+}
+
+/* ===== 14. 田んぼチェッカーグリッド(menu.html) ===== */
+.checker-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.checker-cell {
+  padding: 36px 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+.checker-cell .onigiri-shape { width: 128px; height: 118px; }
+.checker-cell:nth-child(1), .checker-cell:nth-child(4) { background: var(--color-bg-soft); }
+.checker-cell:nth-child(2), .checker-cell:nth-child(3) { background: var(--color-bg-deep); }
+@media (max-width: 767px) {
+  /* 1列表示では(2)(3)が同色で連続するため奇数偶数で交互配色に上書き */
+  .checker-cell:nth-child(odd) { background: var(--color-bg-soft); }
+  .checker-cell:nth-child(even) { background: var(--color-bg-deep); }
+}
+@media (min-width: 768px) {
+  .checker-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ===== 15. おにぎりモザイクギャラリー(voice.html) ===== */
+.gallery-mosaic {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+.gallery-shape { width: 100%; aspect-ratio: 1 / 0.95; min-height: 0; }
+.gallery-tile:nth-child(even) .gallery-shape { transform: rotate(180deg); }
+.gallery-tile:nth-child(even) .gallery-shape .label { display: inline-block; transform: rotate(180deg); }
+@media (min-width: 620px) {
+  .gallery-mosaic { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ===== 16. 稲穂スパイン+俵カード(voice.html) ===== */
+.voice-list { position: relative; padding-left: 0; }
+.voice-list-inner { position: relative; display: flex; flex-direction: column; gap: 28px; }
+.voice-item { position: relative; width: 100%; }
+.voice-item .tawara-card { max-width: 100%; }
+.voice-item .rating-display { justify-content: flex-start; margin: 0 0 10px; }
+.voice-author { font-weight: 700; margin-bottom: 10px; display: block; }
+.voice-text p { margin: 0 0 1em; }
+.voice-text p:last-child { margin-bottom: 0; }
+
+@media (min-width: 768px) {
+  .voice-list { position: relative; }
+  .voice-list::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 26px;
+    transform: translateX(-50%);
+    background-image:
+      repeating-linear-gradient(15deg, var(--color-gold) 0 2px, transparent 2px 16px),
+      repeating-radial-gradient(circle, var(--color-gold-deep) 0 1.5px, transparent 1.5px 18px);
+    opacity: 0.4;
+  }
+  .voice-list-inner { gap: 40px; }
+  .voice-item { width: 46%; }
+  .voice-item:nth-child(odd)  { margin-left: auto; }
+  .voice-item:nth-child(even) { margin-right: auto; }
+}
+
+/* ===== 17. 店舗情報カード・地図(access.html) ===== */
+.info-card { margin: 0 auto; max-width: 640px; }
+.info-card dl {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 0;
+}
+.info-card dt {
+  font-weight: 600;
+  color: var(--color-text-sub);
+  font-size: 0.85rem;
+  margin-bottom: 2px;
+}
+.info-card dd { margin: 0; }
+@media (min-width: 600px) {
+  .info-card dl { grid-template-columns: 132px 1fr; row-gap: 20px; column-gap: 16px; }
+  .info-card dt { margin-bottom: 0; }
+}
+
+.map-frame-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 58%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  margin-bottom: 20px;
+}
+.map-frame-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.main-cta {
+  text-align: center;
+  background: var(--color-bg-deep);
+  border-radius: var(--radius-md);
+  padding: 48px 24px;
+}
+.main-cta .cta-group { justify-content: center; margin-top: 22px; }
+
+.exterior-recap { max-width: 480px; margin: 0 auto; }
+
+/* ===== 18. レスポンシブ全体調整 ===== */
+@media (max-width: 767px) {
+  .section { padding: 44px 0; }
+}
+
+
+.ig-icon-float{position:fixed;top:12px;left:12px;z-index:650;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;}
+.ig-icon-float svg{display:block;}
+@media (max-width:420px){.ig-icon-float{top:8px;left:8px;width:34px;height:34px;}}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}

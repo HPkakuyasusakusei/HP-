@@ -1,0 +1,815 @@
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+/* ==========================================================================
+   食堂果樹 試作HP 共通スタイル
+   配色: 生成り(#F3ECE0) / 墨(#2B2622) / 弁柄色(#9B4227) / 苔色(#5F6F52)
+   ========================================================================== */
+
+:root {
+  --color-bg: #F3ECE0;
+  --color-bg-soft: #EAE1D2;
+  --color-text: #2B2622;
+  --color-accent1: #9B4227; /* 弁柄色 */
+  --color-accent1-dark: #7A331D;
+  --color-accent2: #5F6F52; /* 苔色 */
+  --color-accent2-light: #8A9A7C;
+  --font-serif: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  --max-width: 1080px;
+}
+
+* { box-sizing: border-box; }
+
+/* スティッキーヘッダー(実高さ約70px)にアンカー遷移先の見出しが隠れないための余白 */
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+img, iframe { max-width: 100%; }
+
+a { color: var(--color-accent1); }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0 0 0.75em;
+  color: var(--color-text);
+}
+
+p { margin: 0 0 1em; }
+
+ul, ol { margin: 0; padding: 0; list-style: none; }
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ==========================================================================
+   SAMPLE 透かし(試作HP全ページ共通・操作の邪魔をしないため pointer-events: none)
+   ========================================================================== */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(155, 66, 39, 0.05) 0px,
+    rgba(155, 66, 39, 0.05) 2px,
+    transparent 2px,
+    transparent 64px
+  );
+}
+
+body::after {
+  content: "SAMPLE";
+  position: fixed;
+  top: 18px;
+  right: -46px;
+  z-index: 9999;
+  pointer-events: none;
+  transform: rotate(45deg);
+  transform-origin: center;
+  background: rgba(155, 66, 39, 0.88);
+  color: var(--color-bg);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  padding: 0.35em 3.2em;
+  box-shadow: 0 1px 4px rgba(43, 38, 34, 0.3);
+}
+
+/* ==========================================================================
+   引き戸ライン(セクション区切り)/ 格子モチーフ罫線
+   ========================================================================== */
+
+.tobira-divider {
+  position: relative;
+  height: 1px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(43, 38, 34, 0.28) 12%,
+    rgba(43, 38, 34, 0.28) 88%,
+    transparent
+  );
+}
+
+.tobira-divider::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  background: var(--color-accent1);
+  transform: translateX(-50%) rotate(45deg);
+  opacity: 0.6;
+}
+
+.lattice-rule {
+  border: none;
+  border-top: 1px solid rgba(95, 111, 82, 0.4);
+  border-bottom: 3px solid transparent;
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(95, 111, 82, 0.5) 0,
+    rgba(95, 111, 82, 0.5) 1px,
+    transparent 1px,
+    transparent 22px
+  );
+  background-position: bottom;
+  background-size: 100% 3px;
+  background-repeat: no-repeat;
+  height: 4px;
+  margin: 0 0 1.5rem;
+}
+
+/* ==========================================================================
+   ヘッダー / グローバルナビ(チェックボックスのみでハンバーガー開閉、JS不使用)
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--color-bg);
+  border-bottom: 1px solid rgba(43, 38, 34, 0.15);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-logo {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.nav-toggle-checkbox { display: none; }
+
+.nav-toggle-label {
+  display: none;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  border: 1px solid var(--color-text);
+  padding: 0.4em 0.9em;
+  cursor: pointer;
+  background: transparent;
+  color: var(--color-text);
+}
+
+.global-nav ul {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.global-nav a {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  color: var(--color-text);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.global-nav a:hover,
+.global-nav a[aria-current="page"] {
+  color: var(--color-accent1);
+  border-bottom-color: var(--color-accent1);
+}
+
+/* ==========================================================================
+   ボタン / CTA
+   ========================================================================== */
+
+.cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  padding: 0.9em 1.8em;
+  border: 1px solid var(--color-accent1);
+  transition: background-color 0.2s, color 0.2s;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--color-accent1);
+  color: var(--color-bg);
+}
+
+.btn-primary:hover { background: var(--color-accent1-dark); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-accent1);
+}
+
+.btn-secondary:hover {
+  background: rgba(155, 66, 39, 0.08);
+}
+
+.btn-outline-moss {
+  border-color: var(--color-accent2);
+  color: var(--color-accent2);
+  background: transparent;
+}
+
+.btn-outline-moss:hover {
+  background: rgba(95, 111, 82, 0.1);
+}
+
+/* ==========================================================================
+   ヒーロー
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  min-height: 62vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg span {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  left: auto;
+  top: auto;
+  max-width: 220px;
+  font-size: 0.68rem;
+  background: rgba(243, 236, 224, 0.75);
+  color: var(--color-text);
+  padding: 0.3em 0.6em;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(243, 236, 224, 0.72) 0%,
+    rgba(243, 236, 224, 0.88) 60%,
+    rgba(243, 236, 224, 0.96) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem;
+}
+
+.hero-shopname {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  letter-spacing: 0.3em;
+  color: var(--color-accent2);
+  margin-bottom: 1rem;
+}
+
+.hero-content h1 {
+  font-size: clamp(1.6rem, 4.5vw, 2.5rem);
+  border-bottom: 3px solid var(--color-accent1);
+  display: inline-block;
+  padding-bottom: 0.4em;
+}
+
+.hero-sub {
+  max-width: 40em;
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   セクション共通
+   ========================================================================== */
+
+section {
+  padding: 3.5rem 0;
+}
+
+.section-heading {
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+  border-bottom: 2px solid var(--color-accent1);
+  display: inline-block;
+  padding-bottom: 0.3em;
+  margin-bottom: 1.2em;
+}
+
+.section-heading--sub {
+  font-size: 1.15rem;
+  color: var(--color-accent2);
+  border-bottom: none;
+  position: relative;
+  padding-left: 1em;
+}
+
+.section-heading--sub::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  width: 4px;
+  height: 1em;
+  background: var(--color-accent2);
+}
+
+.lead-text {
+  max-width: 42em;
+}
+
+/* ==========================================================================
+   バッジ / タグ
+   ========================================================================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  border: 1px solid var(--color-accent2);
+  color: var(--color-accent2);
+  font-size: 0.85rem;
+  padding: 0.4em 0.9em;
+  margin-bottom: 1.2em;
+}
+
+.tbd {
+  color: var(--color-text);
+  opacity: 0.75;
+  border-bottom: 1px dashed var(--color-accent2);
+  font-size: 0.95em;
+  padding-bottom: 1px;
+}
+
+/* ==========================================================================
+   3カラム特徴セクション
+   ========================================================================== */
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.feature-card {
+  padding: 1.75rem 1.5rem;
+  background: var(--color-bg-soft);
+  border-top: 3px solid var(--color-accent1);
+}
+
+.feature-card h3 {
+  font-size: 1.05rem;
+  color: var(--color-accent1);
+}
+
+.feature-card .feature-number {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  color: var(--color-accent2);
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5em;
+}
+
+/* ==========================================================================
+   カード群(メニュー例・空間紹介)
+   ========================================================================== */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.75rem;
+}
+
+.dish-card, .space-card {
+  background: var(--color-bg-soft);
+  display: flex;
+  flex-direction: column;
+}
+
+.dish-card h3, .space-card h3 {
+  font-size: 1rem;
+  margin: 1em 1em 0.4em;
+}
+
+.dish-card p, .space-card p {
+  margin: 0 1em 1em;
+  font-size: 0.92rem;
+}
+
+.note-text {
+  font-size: 0.88rem;
+  color: var(--color-text);
+  opacity: 0.75;
+  border-left: 3px solid var(--color-accent2);
+  padding-left: 0.9em;
+  margin-top: 1.5rem;
+}
+
+/* ==========================================================================
+   写真プレースホルダー(実写は使用しない。CSSのみ3種)
+   ========================================================================== */
+
+.photo-placeholder {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.photo-placeholder span {
+  max-width: 80%;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-text);
+  background: rgba(243, 236, 224, 0.82);
+  padding: 0.6em 0.9em;
+  line-height: 1.6;
+}
+
+/* 1. 木目調グラデーション */
+.photo-placeholder--wood {
+  background-color: #7a4a30;
+  background-image:
+    repeating-linear-gradient(
+      95deg,
+      #8a5a3a 0px,
+      #7a4a30 6px,
+      #6b3d24 9px,
+      #93643e 14px,
+      #7a4a30 20px
+    ),
+    linear-gradient(180deg, rgba(43,38,34,0.15), rgba(43,38,34,0));
+}
+
+/* 2. 畳目の斜めクロスハッチパターン */
+.photo-placeholder--tatami {
+  background-color: #C9B896;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(95, 111, 82, 0.35) 0px,
+      rgba(95, 111, 82, 0.35) 2px,
+      transparent 2px,
+      transparent 18px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(95, 111, 82, 0.25) 0px,
+      rgba(95, 111, 82, 0.25) 2px,
+      transparent 2px,
+      transparent 18px
+    );
+}
+
+/* 3. 格子柄 */
+.photo-placeholder--lattice {
+  background-color: #E7DCC6;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(43, 38, 34, 0.32) 0px,
+      rgba(43, 38, 34, 0.32) 2px,
+      transparent 2px,
+      transparent 38px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(43, 38, 34, 0.32) 0px,
+      rgba(43, 38, 34, 0.32) 2px,
+      transparent 2px,
+      transparent 38px
+    );
+}
+
+/* ==========================================================================
+   お客様の声(レビュー)
+   ========================================================================== */
+
+#reviews { scroll-margin-top: 90px; }
+
+.review {
+  background: var(--color-bg-soft);
+  border-left: 4px solid var(--color-accent1);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.review-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75em;
+  margin-bottom: 0.9em;
+  font-family: var(--font-serif);
+}
+
+.review-stars {
+  color: var(--color-accent1);
+  letter-spacing: 0.05em;
+  font-size: 1.05rem;
+}
+
+.review-time {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--color-accent2);
+  border: 1px solid var(--color-accent2);
+  padding: 0.15em 0.7em;
+}
+
+.review-author {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+.review-text {
+  white-space: pre-line;
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   ランチの流れ(STEP)
+   ========================================================================== */
+
+.step-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.step {
+  position: relative;
+  padding: 1.75rem 1.5rem;
+  background: var(--color-bg-soft);
+}
+
+.step-number {
+  display: inline-block;
+  width: 2.2em;
+  height: 2.2em;
+  line-height: 2.2em;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--color-accent1);
+  color: var(--color-bg);
+  font-family: var(--font-serif);
+  margin-bottom: 0.75em;
+}
+
+.step h3 {
+  font-size: 1rem;
+  color: var(--color-accent1);
+}
+
+/* ==========================================================================
+   駐車場・簡易道順図(access.html、CSSのみの模式図)
+   ========================================================================== */
+
+.route-diagram {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.route-step {
+  flex: 1 1 0;
+  min-width: 140px;
+  background: var(--color-bg-soft);
+  border: 1px solid rgba(95, 111, 82, 0.4);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  font-size: 0.88rem;
+}
+
+.route-step strong {
+  display: block;
+  font-family: var(--font-serif);
+  color: var(--color-accent1);
+  margin-bottom: 0.4em;
+  font-size: 1rem;
+}
+
+.route-arrow {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  color: var(--color-accent2);
+  font-size: 1.3rem;
+}
+
+/* ==========================================================================
+   地図埋め込み
+   ========================================================================== */
+
+.map-embed {
+  position: relative;
+  border: 1px solid rgba(43, 38, 34, 0.2);
+}
+
+.map-embed iframe {
+  display: block;
+  width: 100%;
+  height: 340px;
+  border: 0;
+}
+
+/* ==========================================================================
+   フッター
+   ========================================================================== */
+
+.site-footer {
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: 3rem 0 1.5rem;
+  margin-top: 2rem;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1fr;
+  gap: 2rem;
+}
+
+.footer-logo {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5em;
+}
+
+.site-footer dl { display: block; }
+.site-footer dl > div {
+  display: flex;
+  gap: 0.75em;
+  font-size: 0.9rem;
+  margin-bottom: 0.4em;
+}
+
+.site-footer dt {
+  color: var(--color-accent2-light);
+  min-width: 5.5em;
+}
+
+.site-footer .tbd {
+  color: var(--color-bg);
+  border-bottom-color: var(--color-accent2-light);
+  opacity: 0.85;
+}
+
+.footer-note {
+  font-size: 0.82rem;
+  opacity: 0.75;
+  margin-top: 1em;
+  line-height: 1.8;
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
+}
+
+.footer-nav a {
+  color: var(--color-bg);
+  opacity: 0.85;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-nav a:hover { opacity: 1; text-decoration: underline; }
+
+.footer-copy {
+  max-width: var(--max-width);
+  margin: 2rem auto 0;
+  padding: 1.25rem 1.5rem 0;
+  border-top: 1px solid rgba(243, 236, 224, 0.2);
+  font-size: 0.75rem;
+  opacity: 0.65;
+}
+
+/* ==========================================================================
+   下部ページCTAブロック(共通)
+   ========================================================================== */
+
+.page-end-cta {
+  text-align: center;
+  padding: 3rem 0;
+  background: var(--color-bg-soft);
+}
+
+.page-end-cta .cta-group { justify-content: center; }
+
+/* ==========================================================================
+   レスポンシブ
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .footer-nav { grid-column: 1 / -1; }
+  .feature-grid { grid-template-columns: 1fr 1fr; }
+  .step-list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px) {
+  .global-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-bg);
+    border-bottom: 1px solid rgba(43, 38, 34, 0.15);
+    padding: 1rem 1.5rem 1.5rem;
+  }
+
+  .global-nav ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav-toggle-label { display: inline-block; }
+
+  .nav-toggle-checkbox:checked ~ .global-nav {
+    display: block;
+  }
+
+  .feature-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .site-footer dt { min-width: 5em; }
+  .route-diagram { flex-direction: column; }
+  .route-arrow { width: 100%; height: 1.8rem; transform: rotate(90deg); }
+  .hero { min-height: 72vh; }
+  section { padding: 2.5rem 0; }
+}
+
+@media (max-width: 480px) {
+  .header-inner { padding: 0.75rem 1rem; }
+  .hero-content { padding: 2.5rem 1rem; }
+}
+
+
+.ig-icon-float{position:fixed;top:12px;left:12px;z-index:650;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;}
+.ig-icon-float svg{display:block;}
+@media (max-width:420px){.ig-icon-float{top:8px;left:8px;width:34px;height:34px;}}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}

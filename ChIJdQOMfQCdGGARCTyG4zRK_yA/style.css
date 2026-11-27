@@ -1,0 +1,664 @@
+/* SaLVAge Bakery 試作HP 共通スタイル */
+
+:root {
+  --paper: #e6ddc4;
+  --ink: #2b2416;
+  --verdigris: #406355;
+  --rescue: #c14a2b;
+  --rivet: #6b5d40;
+  --panel: #f3ecd9;
+  --max: 1120px;
+}
+
+* { box-sizing: border-box; min-width: 0; }
+
+html { scroll-behavior: smooth; }
+html, body { overflow-x: hidden; max-width: 100%; }
+
+body {
+  margin: 0;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(circle at 15% 25%, rgba(43,36,22,.05) 0, transparent 1.2px),
+    radial-gradient(circle at 65% 65%, rgba(43,36,22,.045) 0, transparent 1.2px),
+    radial-gradient(circle at 85% 15%, rgba(43,36,22,.04) 0, transparent 1.2px),
+    radial-gradient(circle at 35% 85%, rgba(43,36,22,.04) 0, transparent 1.2px);
+  background-size: 6px 6px, 8px 8px, 10px 10px, 7px 7px;
+  line-height: 1.85;
+  font-size: 16px;
+  position: relative;
+}
+
+/* SAMPLE透かし: 全ページ共通・操作を妨げない */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: repeating-linear-gradient(45deg, rgba(43,36,22,.055) 0 40px, rgba(43,36,22,0) 40px 90px);
+  pointer-events: none;
+  z-index: 9998;
+}
+body::after {
+  content: "SAMPLE";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-28deg);
+  font-family: 'Shippori Antique B1', sans-serif;
+  font-size: clamp(3.5rem, 14vw, 11rem);
+  letter-spacing: .18em;
+  color: rgba(43,36,22,.09);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Shippori Antique B1', sans-serif;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.4;
+  margin: 0 0 .6em;
+}
+
+p { margin: 0 0 1em; }
+
+a { color: var(--verdigris); }
+a:hover { color: var(--rescue); }
+
+img, svg { max-width: 100%; display: block; }
+
+ul { margin: 0; padding: 0; }
+
+.container {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--rescue);
+  color: var(--paper);
+  padding: .6em 1em;
+  z-index: 10000;
+}
+.skip-link:focus { left: 1rem; top: 1rem; }
+
+/* ---------- ステッチ/ミシン目区切り ---------- */
+.stitch {
+  height: 2px;
+  border: none;
+  margin: 2.5rem 0;
+  background-image: repeating-linear-gradient(to right, var(--rivet) 0 8px, transparent 8px 16px);
+  opacity: .8;
+}
+
+/* ---------- ボタン(スタンプ風・角欠き) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  padding: .85em 1.6em;
+  font-family: 'Shippori Antique B1', sans-serif;
+  font-size: .95rem;
+  text-decoration: none;
+  border: 2px solid transparent;
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  cursor: pointer;
+  line-height: 1.3;
+  text-align: center;
+  max-width: 100%;
+}
+.btn-primary {
+  background: var(--rescue);
+  color: var(--paper);
+  border-color: var(--rescue);
+}
+.btn-primary:hover { background: #a53c22; color: var(--paper); }
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--verdigris);
+}
+.btn-outline:hover { background: var(--verdigris); color: var(--paper); }
+.btn-ghost {
+  background: var(--panel);
+  color: var(--ink);
+  border-color: var(--rivet);
+}
+.btn-ghost:hover { background: var(--rivet); color: var(--paper); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 1rem; }
+.btn-small { padding: .5em 1.1em; font-size: .8rem; }
+
+/* ---------- 荷札ラベル(タグ) ---------- */
+.tag-label {
+  position: relative;
+  display: inline-block;
+  padding: .5em 1.1em .5em 1.7em;
+  background: var(--panel);
+  border: 1px solid var(--rivet);
+  color: var(--ink);
+  font-family: 'Shippori Antique B1', sans-serif;
+  font-size: .9rem;
+  letter-spacing: .04em;
+  clip-path: polygon(16px 0, 100% 0, 100% 100%, 16px 100%, 0 50%);
+  transform: rotate(-3deg);
+}
+.tag-label::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid var(--rivet);
+  transform: translateY(-50%);
+}
+
+.section { padding-block: 3.5rem; }
+.section-head { margin-bottom: 2rem; }
+.section-head .tag-label { margin-bottom: .75rem; }
+.lead { font-size: 1.05rem; max-width: 60ch; }
+
+/* ---------- 写真プレースホルダー ---------- */
+.photo-placeholder {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.25em;
+  background:
+    repeating-linear-gradient(135deg, var(--panel) 0 12px, #eae1c9 12px 24px);
+  border: 1px solid var(--rivet);
+  box-shadow: 3px 4px 0 rgba(43,36,22,.08);
+  color: var(--rivet);
+  font-size: .85rem;
+}
+.photo-placeholder span { max-width: 22ch; }
+.photo-placeholder::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 34px;
+  height: 16px;
+  background: var(--rivet);
+  clip-path: polygon(0 30%, 100% 0, 100% 70%, 0 100%);
+  opacity: .85;
+}
+.photo-placeholder::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 18px 18px 0;
+  border-color: transparent var(--paper) transparent transparent;
+  filter: drop-shadow(-1px 1px 0 rgba(43,36,22,.15));
+}
+.ph-3x4 { aspect-ratio: 3 / 4; }
+.ph-1x1 { aspect-ratio: 1 / 1; }
+.ph-16x9 { aspect-ratio: 16 / 9; }
+
+/* ============ ヘッダー ============ */
+.announce-bar {
+  background: var(--ink);
+  color: var(--paper);
+  font-size: .82rem;
+  position: relative;
+  z-index: 600;
+}
+.announce-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: .6rem 1rem;
+  padding: .55rem 1.25rem;
+  text-align: center;
+}
+.announce-bar .btn { padding: .4em 1em; font-size: .78rem; }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--panel);
+  border-bottom: 2px dashed var(--rivet);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .8rem 1.25rem;
+  max-width: var(--max);
+  margin-inline: auto;
+}
+.logo {
+  font-family: 'Shippori Antique B1', sans-serif;
+  font-size: 1.35rem;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: .02em;
+  margin-right: auto;
+}
+.logo:hover { color: var(--rescue); }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2.4rem;
+  height: 2.4rem;
+  background: transparent;
+  border: 1px solid var(--rivet);
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  background: var(--ink);
+  margin-inline: auto;
+  width: 60%;
+}
+
+.nav-menu ul {
+  display: flex;
+  list-style: none;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+}
+.nav-menu a {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: .95rem;
+  padding: .3em 0;
+  border-bottom: 2px solid transparent;
+}
+.nav-menu a:hover,
+.nav-menu a[aria-current="page"] {
+  color: var(--rescue);
+  border-bottom-color: var(--rescue);
+}
+.nav-ig { flex-shrink: 0; }
+
+@media (max-width: 860px) {
+  .nav-inner { flex-wrap: wrap; row-gap: .6rem; }
+  .logo { flex: 1 1 auto; }
+  .nav-toggle { display: flex; order: 2; }
+  .nav-ig { order: 3; flex: 1 1 100%; justify-content: center; }
+  .nav-menu {
+    order: 4;
+    display: none;
+    flex-basis: 100%;
+    background: var(--panel);
+    border-top: 2px dashed var(--rivet);
+    padding: 1rem 0 0;
+  }
+  .nav-menu.is-open { display: block; }
+  .nav-menu ul { flex-direction: column; gap: .9rem; }
+}
+
+/* ============ フッター(配送ラベル風) ============ */
+.site-footer {
+  margin-top: 4rem;
+  padding: 3rem 0 2.5rem;
+  background: var(--panel);
+  border-top: 3px dashed var(--rivet);
+}
+.footer-label {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto 1.5rem;
+  padding: 1.75rem 1.5rem 1.5rem;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+}
+.footer-label::before {
+  content: "FROM: SaLVAge Bakery";
+  position: absolute;
+  top: -12px;
+  left: 16px;
+  background: var(--rescue);
+  color: var(--paper);
+  font-family: 'Shippori Antique B1', sans-serif;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  padding: .2em .6em;
+}
+.footer-label p { margin: 0 0 .5em; font-size: .95rem; }
+.footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.footer-note {
+  text-align: center;
+  font-size: .78rem;
+  color: var(--rivet);
+  max-width: 40ch;
+  margin: 0 auto;
+}
+
+/* ============ 千鳥配置の帯リスト ============ */
+.zigzag-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+.zigzag-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+.zigzag-row .zigzag-text { order: 1; }
+.zigzag-row .zigzag-photo { order: 2; }
+.zigzag-row.reverse .zigzag-text { order: 2; }
+.zigzag-row.reverse .zigzag-photo { order: 1; }
+.zigzag-number {
+  font-family: 'Shippori Antique B1', sans-serif;
+  font-size: 2.2rem;
+  color: var(--verdigris);
+  opacity: .55;
+  display: block;
+  margin-bottom: .2em;
+}
+@media (max-width: 720px) {
+  .zigzag-row, .zigzag-row.reverse { grid-template-columns: 1fr; }
+  .zigzag-row .zigzag-text, .zigzag-row.reverse .zigzag-text { order: 1; }
+  .zigzag-row .zigzag-photo, .zigzag-row.reverse .zigzag-photo { order: 2; }
+}
+
+/* ============ 非対称2カラム(45:55) ============ */
+.hero {
+  display: grid;
+  grid-template-columns: 45fr 55fr;
+  gap: 2.5rem;
+  align-items: center;
+  padding-block: 3rem 2.5rem;
+}
+.hero h1 { font-size: clamp(1.9rem, 4.4vw, 2.9rem); margin: .6em 0 .5em; }
+.hero-lead { font-size: 1.05rem; max-width: 46ch; }
+@media (max-width: 800px) {
+  .hero { grid-template-columns: 1fr; }
+}
+
+/* ============ 木札風パネル ============ */
+.notice-panel {
+  background: var(--panel);
+  border: 2px solid var(--rivet);
+  clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+  padding: 2.25rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.notice-list { list-style: none; display: grid; gap: 1.4rem; margin-top: 1.5rem; }
+.notice-list li { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; }
+.stamp-num {
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+  border: 2px solid var(--rescue);
+  color: var(--rescue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Shippori Antique B1', sans-serif;
+  font-weight: 400;
+  transform: rotate(-6deg);
+  flex-shrink: 0;
+}
+
+/* ============ ピン留めメモ(クチコミ) ============ */
+.rating-stamp {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  border: 2px solid var(--verdigris);
+  color: var(--verdigris);
+  transform: rotate(-8deg);
+  font-family: 'Shippori Antique B1', sans-serif;
+  text-align: center;
+  line-height: 1.25;
+  padding: .4rem;
+}
+.rating-stamp strong { font-size: 1.15rem; }
+.rating-stamp span { font-size: .62rem; letter-spacing: .03em; }
+
+.review-board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+.review-card {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--rivet);
+  padding: 1.4rem 1.3rem 1.2rem;
+  width: min(320px, 100%);
+  box-shadow: 3px 4px 0 rgba(43,36,22,.1);
+}
+.review-card::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--rescue);
+  box-shadow: 0 1px 2px rgba(0,0,0,.35);
+}
+.review-card:nth-child(5n+1) { transform: rotate(-2deg); }
+.review-card:nth-child(5n+2) { transform: rotate(1.5deg); }
+.review-card:nth-child(5n+3) { transform: rotate(-1deg); }
+.review-card:nth-child(5n+4) { transform: rotate(2deg); }
+.review-card:nth-child(5n+5) { transform: rotate(-1.5deg); }
+.review-stars { color: var(--rescue); font-size: .95rem; letter-spacing: .05em; margin-bottom: .3em; }
+.review-meta { font-size: .78rem; color: var(--rivet); margin-bottom: .6em; }
+.review-text { font-size: .88rem; white-space: pre-line; margin-bottom: 0; }
+.review-source { text-align: center; font-size: .8rem; color: var(--rivet); margin-top: 1.5rem; }
+
+/* ============ 簡易アクセス(index) ============ */
+.mini-access {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  background: var(--panel);
+  border: 1px solid var(--rivet);
+  padding: 2rem;
+}
+@media (max-width: 760px) { .mini-access { grid-template-columns: 1fr; } }
+.mini-map {
+  border: 1px solid var(--rivet);
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+/* ============ 台帳リスト(menu.html) ============ */
+.price-note {
+  display: inline-block;
+  background: var(--rescue);
+  color: var(--paper);
+  padding: .5em 1em;
+  font-size: .85rem;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  margin: .5rem 0 2rem;
+}
+.ledger-category { margin: 3rem 0; }
+.category-intro { color: var(--rivet); margin: .6rem 0 1.5rem; }
+.ledger-list { list-style: none; }
+.ledger-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 1.4rem;
+  padding: 1.5rem 0;
+  align-items: start;
+}
+.ledger-row:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background-image: repeating-linear-gradient(to right, var(--rivet) 0 8px, transparent 8px 16px);
+}
+.ledger-row .photo-placeholder { min-height: 96px; font-size: .62rem; }
+.ledger-row .photo-placeholder span { max-width: 10ch; }
+.item-name { margin-bottom: .3em; font-size: 1.05rem; }
+.item-desc { font-size: .9rem; margin-bottom: .5em; }
+.chip-list { display: flex; flex-wrap: wrap; gap: .4rem; }
+.chip {
+  font-size: .72rem;
+  padding: .25em .8em;
+  border: 1px solid var(--rivet);
+  background: var(--paper);
+  color: var(--ink);
+  clip-path: polygon(6px 0, 100% 0, 100% 100%, 6px 100%, 0 50%);
+}
+@media (max-width: 480px) {
+  .ledger-row { grid-template-columns: 72px 1fr; gap: 1rem; }
+}
+
+/* ============ こだわりページ(エッセイ+傍注) ============ */
+.essay-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  margin: 4rem 0;
+}
+.essay-block .essay-text { order: 1; }
+.essay-block .essay-photo { order: 2; }
+.essay-block.reverse .essay-text { order: 2; }
+.essay-block.reverse .essay-photo { order: 1; }
+@media (max-width: 760px) {
+  .essay-block, .essay-block.reverse { grid-template-columns: 1fr; }
+  .essay-block .essay-text, .essay-block.reverse .essay-text { order: 1; }
+  .essay-block .essay-photo, .essay-block.reverse .essay-photo { order: 2; }
+}
+.margin-note {
+  display: inline-block;
+  background: var(--panel);
+  border: 1px dashed var(--rivet);
+  padding: .6rem 1.1rem;
+  font-size: .82rem;
+  color: var(--rivet);
+  transform: rotate(-2deg);
+  margin-top: 1.2rem;
+  max-width: 280px;
+}
+
+/* ============ 不規則メーソンリー(gallery.html) ============ */
+.masonry {
+  column-count: 1;
+  column-gap: 1.1rem;
+}
+@media (min-width: 620px) { .masonry { column-count: 2; } }
+@media (min-width: 980px) { .masonry { column-count: 3; } }
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1.1rem;
+}
+.masonry-item .photo-placeholder { min-height: 140px; }
+
+/* ============ 配送ラベル/宛名票(access.html) ============ */
+.shipping-label {
+  position: relative;
+  border: 2px solid var(--ink);
+  clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
+  background: var(--panel);
+  padding: 2.25rem;
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+}
+.shipping-label::before {
+  content: "TO";
+  position: absolute;
+  top: -13px;
+  left: 20px;
+  background: var(--verdigris);
+  color: var(--paper);
+  font-family: 'Shippori Antique B1', sans-serif;
+  font-size: .75rem;
+  letter-spacing: .1em;
+  padding: .2em .7em;
+}
+.label-row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  position: relative;
+}
+.label-row:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background-image: repeating-linear-gradient(to right, var(--rivet) 0 8px, transparent 8px 16px);
+}
+.label-key {
+  font-family: 'Shippori Antique B1', sans-serif;
+  color: var(--verdigris);
+  font-size: .9rem;
+}
+.label-value { font-size: .95rem; }
+@media (max-width: 480px) {
+  .label-row { grid-template-columns: 1fr; gap: .3rem; }
+}
+.map-frame {
+  border: 2px solid var(--rivet);
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-width: 900px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* ============ ページ見出し帯(共通・下層ページ) ============ */
+.page-head {
+  padding-block: 3rem 1rem;
+  text-align: center;
+}
+.page-head h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); }
+.page-head .tag-label { margin-bottom: 1rem; }
+
+.cta-band {
+  text-align: center;
+  padding-block: 3rem;
+}
+.cta-band .btn-row { justify-content: center; }
+.cta-band p { margin-bottom: 1.25rem; }
+
+
+.ig-icon-float{position:fixed;top:12px;left:12px;z-index:650;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;}
+.ig-icon-float svg{display:block;}
+@media (max-width:420px){.ig-icon-float{top:8px;left:8px;width:34px;height:34px;}}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}

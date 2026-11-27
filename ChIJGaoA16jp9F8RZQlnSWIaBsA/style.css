@@ -1,0 +1,1131 @@
+/* ============================================================
+   マキエキマエ 試作HP 共通スタイル
+   コンセプト: 「巻駅前の、時間で乗り込む小さな空港。」
+   写真は一切使用せず、出発案内板・搭乗券・滑走路ラインなど
+   空港のサインシステムをCSS/SVGのみで表現する。
+   ============================================================ */
+
+:root {
+  --color-base: #EEF0F1;
+  --color-main: #12213C;
+  --color-main-light: #1B3055;
+  --color-accent: #FFB100;
+  --color-sub: #1F7A6C;
+  --color-text: #1B1F24;
+  --color-warn: #C4462E;
+  --color-white: #FFFFFF;
+
+  --font-mono: 'Roboto Mono', 'JetBrains Mono', 'Courier New', monospace;
+  --font-sans: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+
+  --max-width: 1080px;
+  --radius-card: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-base);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-mono);
+  color: var(--color-main);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  margin: 0 0 0.6em;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+.section {
+  padding: 64px 20px;
+}
+
+.section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-heading {
+  font-size: 1.6rem;
+  text-align: center;
+  margin-bottom: 0.4em;
+}
+
+.section-lead {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 2.4em;
+  color: var(--color-text);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: var(--color-sub);
+  background: rgba(31, 122, 106, 0.1);
+  border: 1px solid var(--color-sub);
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 1em;
+}
+
+/* ============================================================
+   ヘッダー
+   ============================================================ */
+
+.site-header {
+  background-color: var(--color-main);
+  color: var(--color-white);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 3px solid var(--color-accent);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  gap: 16px;
+  position: relative;
+}
+
+.logo {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+  color: var(--color-white);
+  white-space: nowrap;
+}
+
+.logo span {
+  color: var(--color-accent);
+}
+
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  width: 32px;
+  height: 26px;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label::before,
+.nav-toggle-label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--color-white);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-toggle-label::before {
+  top: 0;
+}
+
+.nav-toggle-label span {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nav-toggle-label::after {
+  bottom: 0;
+}
+
+.site-nav {
+  display: flex;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 24px;
+}
+
+.site-nav a {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  padding: 8px 2px;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  border-bottom-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.header-phone {
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   ボタン
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
+  padding: 13px 22px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-main);
+  box-shadow: 0 3px 0 #b87d00;
+}
+
+.btn-secondary {
+  background-color: var(--color-sub);
+  color: var(--color-white);
+  box-shadow: 0 3px 0 #144f42;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: var(--color-main);
+  color: var(--color-main);
+}
+
+.btn-outline-light {
+  background-color: transparent;
+  border-color: var(--color-white);
+  color: var(--color-white);
+}
+
+.btn-large {
+  padding: 18px 32px;
+  font-size: 1.05rem;
+  width: 100%;
+  max-width: 420px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+/* ============================================================
+   ヒーロー(出発案内板風)
+   ============================================================ */
+
+.hero {
+  background: linear-gradient(180deg, var(--color-main) 0%, #0B1526 100%);
+  color: var(--color-white);
+  padding: 72px 20px 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 4px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--color-accent) 0 24px,
+    transparent 24px 48px
+  );
+}
+
+.hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-small {
+  padding: 56px 20px 44px;
+}
+
+.hero-title {
+  color: var(--color-white);
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  margin-bottom: 0.5em;
+}
+
+.hero-lead {
+  max-width: 620px;
+  margin: 0 auto 2em;
+  color: #DCE2EA;
+  font-size: 1rem;
+}
+
+/* 出発案内板(フリップボード) */
+.board {
+  background-color: #081020;
+  border: 1px solid #2A3B5C;
+  border-radius: 8px;
+  max-width: 420px;
+  margin: 0 auto 2em;
+  padding: 6px 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.board-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px 16px;
+  font-family: var(--font-mono);
+  padding: 10px 20px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+}
+
+.board-row .board-value {
+  text-align: right;
+  flex: 1 1 auto;
+}
+
+.board-row:last-child {
+  border-bottom: none;
+}
+
+.board-label {
+  color: #8FA0C4;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.board-value {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.board-row.is-status .board-value {
+  color: var(--color-sub);
+  background: rgba(31, 122, 106, 0.18);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+/* ============================================================
+   滑走路ライン区切り線
+   ============================================================ */
+
+.divider-runway {
+  height: 0;
+  border-top: 2px dashed #C6CCD3;
+  position: relative;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.divider-runway::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: -60px 0 0 var(--color-accent), 60px 0 0 var(--color-accent),
+    -120px 0 0 var(--color-accent), 120px 0 0 var(--color-accent);
+}
+
+/* ============================================================
+   搭乗券(ボーディングパス)カード
+   ============================================================ */
+
+.boarding-pass {
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: 0 10px 24px rgba(18, 33, 60, 0.12);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.pass-top {
+  background-color: var(--color-main);
+  color: var(--color-white);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+}
+
+.pass-top .pass-code {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.pass-body {
+  padding: 22px 20px;
+  flex: 1;
+}
+
+.pass-divider {
+  position: relative;
+  border-top: 2px dashed #C6CCD3;
+  margin: 0 20px;
+}
+
+.pass-divider::before,
+.pass-divider::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-base);
+}
+
+.pass-divider::before {
+  left: -30px;
+}
+
+.pass-divider::after {
+  right: -30px;
+}
+
+.pass-footer {
+  padding: 14px 20px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-sub);
+  letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   料金カード(lounge.html)
+   ============================================================ */
+
+.price-card-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.price-card {
+  max-width: 420px;
+  width: 100%;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+}
+
+.price-row .board-label {
+  color: var(--color-sub);
+}
+
+.price-row .board-value {
+  color: var(--color-main);
+  font-size: 1.1rem;
+}
+
+/* ============================================================
+   フィーチャーカード
+   ============================================================ */
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 28px 22px;
+  box-shadow: 0 8px 20px rgba(18, 33, 60, 0.08);
+  border-top: 4px solid var(--color-accent);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature-card .icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(18, 33, 60, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-main);
+}
+
+.feature-card .icon-wrap svg {
+  width: 28px;
+  height: 28px;
+}
+
+.feature-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.2em;
+}
+
+.feature-card p {
+  flex: 1;
+  font-size: 0.92rem;
+}
+
+/* ============================================================
+   クチコミ(搭乗券グリッド)
+   ============================================================ */
+
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 2em;
+}
+
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--color-white);
+  border: 2px solid var(--color-main);
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-family: var(--font-mono);
+  margin: 0 auto 2.4em;
+  color: var(--color-main);
+}
+
+.rating-badge svg {
+  width: 20px;
+  height: 20px;
+  color: var(--color-accent);
+}
+
+.rating-badge-wrap {
+  text-align: center;
+}
+
+/* ============================================================
+   タグ一覧(DESTINATION)
+   ============================================================ */
+
+.tag-group {
+  margin-bottom: 1.6em;
+}
+
+.tag-group h3 {
+  font-size: 0.95rem;
+  color: var(--color-sub);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.8em;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  background-color: var(--color-main);
+  color: var(--color-white);
+  padding: 8px 16px;
+  border-radius: 4px;
+  border-left: 3px solid var(--color-accent);
+}
+
+.tag-note {
+  font-size: 0.85rem;
+  color: var(--color-text);
+  opacity: 0.75;
+  margin-top: 0.6em;
+}
+
+/* ============================================================
+   出店実例カード
+   ============================================================ */
+
+.vendor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.vendor-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(18, 33, 60, 0.08);
+  border-left: 4px solid var(--color-sub);
+}
+
+.vendor-card h3 {
+  font-size: 1.1rem;
+  color: var(--color-main);
+}
+
+.vendor-note {
+  font-size: 0.82rem;
+  color: var(--color-warn);
+  border-top: 1px dashed rgba(196, 70, 46, 0.4);
+  padding-top: 10px;
+  margin-top: 12px;
+}
+
+/* ============================================================
+   注記ボックス(ソフトレッド)
+   ============================================================ */
+
+.notice-box {
+  border: 2px dashed var(--color-warn);
+  background-color: rgba(196, 70, 46, 0.06);
+  color: var(--color-warn);
+  border-radius: var(--radius-card);
+  padding: 20px 22px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.notice-box svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.notice-box p {
+  margin: 0;
+  color: var(--color-warn);
+}
+
+/* ============================================================
+   Instagram誘導
+   ============================================================ */
+
+.instagram-section {
+  background: linear-gradient(135deg, var(--color-main) 0%, var(--color-main-light) 100%);
+  color: var(--color-white);
+  text-align: center;
+}
+
+.instagram-section .section-heading,
+.instagram-section h2 {
+  color: var(--color-white);
+}
+
+.instagram-section .section-lead {
+  color: #DCE2EA;
+}
+
+/* ============================================================
+   管制塔/展望フロア(グラデーション帯)
+   ============================================================ */
+
+.tower-band {
+  background: linear-gradient(180deg, var(--color-main) 0%, #3A6EA5 55%, #AFCBE0 100%);
+  color: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 44px 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.tower-band::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30%;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.15) 0 2px,
+    transparent 2px 60px
+  );
+}
+
+.tower-band h2 {
+  color: var(--color-white);
+}
+
+.tower-band p {
+  max-width: 560px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   チェックインリスト(設備SVGアイコン)
+   ============================================================ */
+
+.checklist {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.checklist-item {
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 22px 16px;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(18, 33, 60, 0.08);
+}
+
+.checklist-item .icon-wrap {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  background: rgba(31, 122, 106, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-sub);
+}
+
+.checklist-item .icon-wrap svg {
+  width: 26px;
+  height: 26px;
+}
+
+.checklist-item .status {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-sub);
+  margin-top: 4px;
+}
+
+/* ============================================================
+   利用シーン
+   ============================================================ */
+
+.scene-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.scene {
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 22px;
+  border: 1px solid #D8DCE0;
+  position: relative;
+  padding-left: 26px;
+}
+
+.scene::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--color-accent) 0 8px,
+    transparent 8px 16px
+  );
+  border-radius: 4px 0 0 4px;
+}
+
+.scene h3 {
+  font-size: 1rem;
+  margin-bottom: 0.3em;
+}
+
+.scene p {
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+/* ============================================================
+   店舗情報テーブル
+   ============================================================ */
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(18, 33, 60, 0.08);
+}
+
+.info-table th,
+.info-table td {
+  text-align: left;
+  padding: 16px 20px;
+  border-bottom: 1px dashed #D8DCE0;
+  font-size: 0.95rem;
+}
+
+.info-table tr:last-child th,
+.info-table tr:last-child td {
+  border-bottom: none;
+}
+
+.info-table th {
+  font-family: var(--font-mono);
+  color: var(--color-sub);
+  width: 34%;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background-color: rgba(31, 122, 106, 0.05);
+}
+
+.info-table td {
+  word-break: break-word;
+}
+
+.table-footnote {
+  text-align: center;
+  margin-top: 1.4em;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  opacity: 0.8;
+}
+
+/* ============================================================
+   地図
+   ============================================================ */
+
+.map-wrapper {
+  border: 4px solid var(--color-white);
+  box-shadow: 0 8px 24px rgba(18, 33, 60, 0.15);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.map-wrapper iframe {
+  width: 100%;
+  height: 380px;
+  border: 0;
+  display: block;
+}
+
+.map-caption {
+  text-align: center;
+  font-size: 0.88rem;
+  margin-top: 1em;
+  color: var(--color-text);
+  opacity: 0.75;
+}
+
+/* ============================================================
+   アクセスティーザー(index末尾)
+   ============================================================ */
+
+.access-teaser {
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(18, 33, 60, 0.08);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.access-teaser address {
+  font-style: normal;
+  font-family: var(--font-mono);
+  margin-bottom: 1.4em;
+  line-height: 2;
+}
+
+/* ============================================================
+   フッター
+   ============================================================ */
+
+.site-footer {
+  background-color: var(--color-main);
+  color: #C6CFDD;
+  padding: 48px 20px 24px;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+}
+
+.footer-brand .logo {
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.footer-brand address {
+  font-style: normal;
+  font-size: 0.9rem;
+  line-height: 2;
+}
+
+.footer-brand address a {
+  color: var(--color-accent);
+}
+
+.footer-links h4 {
+  color: var(--color-white);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.8em;
+}
+
+.footer-links ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: var(--color-accent);
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.footer-social svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-accent);
+}
+
+.footer-bottom {
+  max-width: var(--max-width);
+  margin: 32px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.78rem;
+  text-align: center;
+  color: #8FA0C4;
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   レスポンシブ
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .feature-grid,
+  .review-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vendor-grid,
+  .checklist,
+  .scene-list {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-toggle-label {
+    display: block;
+  }
+
+  .site-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-main);
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+    border-bottom: 3px solid var(--color-accent);
+  }
+
+  .site-nav ul {
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 20px 16px;
+  }
+
+  .site-nav a {
+    display: block;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-toggle:checked ~ .site-nav {
+    max-height: 320px;
+  }
+
+  .nav-toggle:checked ~ .nav-toggle-label span {
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .nav-toggle:checked ~ .nav-toggle-label::before {
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+  }
+
+  .nav-toggle:checked ~ .nav-toggle-label::after {
+    opacity: 0;
+  }
+
+  .header-phone .btn-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .header-phone {
+    position: relative;
+    padding: 12px;
+  }
+
+  .divider-runway::before {
+    box-shadow: -30px 0 0 var(--color-accent), 30px 0 0 var(--color-accent);
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: 48px 16px;
+  }
+
+  .hero {
+    padding: 56px 16px 40px;
+  }
+
+  .pass-divider::before {
+    left: -14px;
+  }
+
+  .pass-divider::after {
+    right: -14px;
+  }
+
+  .info-table th,
+  .info-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .info-table th {
+    padding-bottom: 4px;
+    border-bottom: none;
+  }
+
+  .info-table td {
+    padding-top: 0;
+  }
+}
+
+
+.ig-icon-float{position:fixed;top:12px;left:12px;z-index:650;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;}
+.ig-icon-float svg{display:block;}
+@media (max-width:420px){.ig-icon-float{top:8px;left:8px;width:34px;height:34px;}}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}

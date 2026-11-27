@@ -1,0 +1,999 @@
+/* ==========================================================================
+   Bar Plat 営業提案用サイト
+   コンセプト: 「真鍮のプレートを辿る夜(SUMI × BRASS)」
+   実写真は一切使用せず、CSSのみでビジュアルを構築する。
+   ========================================================================== */
+
+:root {
+  --sumi: #1B1613;
+  --sumi-panel: #241D19;
+  --bordeaux: #4A121F;
+  --bordeaux-light: #6E1B2E;
+  --brass: #B8925A;
+  --brass-light: #D9B978;
+  --amber: #9C5B23;
+  --cream: #EDE6DA;
+  --beige: #B8AFA2;
+
+  --font-mincho: 'Shippori Mincho', serif;
+  --font-en: 'Cormorant Garamond', serif;
+  --font-sans: 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
+
+  --container-w: 1120px;
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background-color: var(--sumi);
+  color: var(--cream);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(ellipse 900px 620px at 82% -8%, rgba(156, 91, 35, 0.22), transparent 62%),
+    radial-gradient(ellipse 700px 500px at -10% 60%, rgba(74, 18, 31, 0.35), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, no-repeat, repeat;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+ul, ol { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3, h4 { margin: 0; font-weight: 700; }
+p { margin: 0 0 1em; }
+p:last-child { margin-bottom: 0; }
+button { font: inherit; cursor: pointer; }
+
+.container {
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- SAMPLE watermark (全ページ共通) ---------- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='260'%3E%3Ctext x='-20' y='150' font-family='Cormorant Garamond, serif' font-size='46' letter-spacing='8' fill='%23D9B978' fill-opacity='0.05' transform='rotate(-28 150 130)'%3ESAMPLE%3C/text%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* ---------- Reveal (scroll fade-in) ---------- */
+.has-js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.has-js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .has-js .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------- 真鍮の罫線 / コーナー飾り 共通ユーティリティ ---------- */
+.brass-rule {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--brass) 20%, var(--brass) 80%, transparent);
+  margin: 3rem 0;
+}
+
+.vertical-accent {
+  writing-mode: vertical-rl;
+  font-family: var(--font-mincho);
+  letter-spacing: 0.3em;
+  color: var(--brass);
+  opacity: 0.55;
+  font-size: 0.95rem;
+  position: absolute;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   ヘッダー
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: rgba(27, 22, 19, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--brass);
+}
+.header-inner {
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: 0.9rem 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  position: relative;
+}
+.logo {
+  font-family: var(--font-en);
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  color: var(--cream);
+  text-decoration: none;
+}
+.logo:hover { color: var(--brass-light); }
+
+.nav-toggle {
+  background: none;
+  border: 1px solid var(--brass);
+  width: 44px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+}
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--brass-light);
+}
+@media (min-width: 900px) {
+  .nav-toggle { display: none; }
+}
+
+.global-nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--sumi-panel);
+  border-bottom: 1px solid var(--brass);
+  display: none;
+  flex-direction: column;
+  padding: 1rem 20px 1.5rem;
+}
+.global-nav.is-open { display: flex; }
+.global-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.global-nav a {
+  display: block;
+  padding: 0.7rem 0.2rem;
+  text-decoration: none;
+  color: var(--cream);
+  font-family: var(--font-mincho);
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid rgba(184, 146, 90, 0.2);
+}
+.global-nav a:hover,
+.global-nav a[aria-current="page"] { color: var(--brass-light); }
+
+.header-phone {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  border: 1px solid var(--brass);
+  padding: 0.7em 1em;
+  text-decoration: none;
+  color: var(--brass-light);
+  font-family: var(--font-en);
+  letter-spacing: 0.05em;
+  font-size: 1.05rem;
+}
+.header-phone:hover { background: var(--brass); color: var(--sumi); }
+
+@media (min-width: 900px) {
+  .global-nav {
+    position: static;
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 0;
+    gap: 2rem;
+  }
+  .global-nav ul { flex-direction: row; gap: 1.8rem; }
+  .global-nav a { border-bottom: none; padding: 0.2rem 0; position: relative; }
+  .global-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 100%;
+    bottom: -4px;
+    height: 1px;
+    background: var(--brass-light);
+    transition: right 0.3s ease;
+  }
+  .global-nav a:hover::after,
+  .global-nav a[aria-current="page"]::after { right: 0; }
+  .header-phone { margin-top: 0; font-size: 0.95rem; padding: 0.55em 0.9em; }
+}
+
+/* ==========================================================================
+   ボタン
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding: 0.95em 1.9em;
+  border: 1px solid var(--brass);
+  color: var(--brass-light);
+  background: transparent;
+  text-decoration: none;
+  font-family: var(--font-en);
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.btn:hover, .btn:focus-visible { background: var(--brass); color: var(--sumi); }
+.btn--solid {
+  background: rgba(184, 146, 90, 0.12);
+}
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+
+/* ==========================================================================
+   汎用セクション
+   ========================================================================== */
+main { display: block; position: relative; z-index: 1; }
+section { position: relative; padding: 4.5rem 0; }
+.section--tight { padding: 3rem 0; }
+
+.page-heading {
+  font-family: var(--font-mincho);
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+  color: var(--cream);
+  margin-bottom: 1.2rem;
+}
+.page-heading .en {
+  display: block;
+  font-family: var(--font-en);
+  font-style: italic;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  color: var(--brass);
+  margin-bottom: 0.6rem;
+}
+.lead {
+  color: var(--beige);
+  max-width: 42em;
+  font-size: 1.02rem;
+}
+@media (min-width: 768px) {
+  .page-heading { font-size: 2.6rem; }
+}
+
+/* ==========================================================================
+   写真プレースホルダー
+   ========================================================================== */
+.photo-placeholder {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--brass);
+  background: var(--sumi-panel);
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 1.5rem;
+}
+.photo-placeholder__label {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-en);
+  letter-spacing: 0.25em;
+  font-size: 0.85rem;
+  color: var(--brass-light);
+}
+.photo-placeholder__note {
+  position: relative;
+  z-index: 2;
+  font-size: 0.75rem;
+  color: var(--beige);
+  margin-top: 0.4rem;
+  letter-spacing: 0.04em;
+}
+
+/* --- 装飾モチーフ: 琥珀のグラデーション光 --- */
+.motif-amber::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(circle at 50% 40%, rgba(156, 91, 35, 0.65), transparent 68%);
+  z-index: 0;
+}
+.motif-amber--strong::before {
+  background: radial-gradient(circle at 50% 45%, rgba(156, 91, 35, 0.85), rgba(74, 18, 31, 0.3) 55%, transparent 75%);
+}
+
+/* --- 装飾モチーフ: 氷のきらめき --- */
+.ice-chip {
+  position: absolute;
+  width: 34px; height: 34px;
+  border-radius: 6px;
+  border: 1px solid rgba(217, 185, 120, 0.45);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(217, 185, 120, 0.12) 55%, transparent 80%);
+  transform: rotate(45deg);
+  opacity: 0.55;
+  z-index: 1;
+}
+.ice-chip--sm { width: 20px; height: 20px; opacity: 0.4; }
+.ice-chip--lg { width: 50px; height: 50px; opacity: 0.5; }
+
+/* --- 装飾モチーフ: グラスの輪郭線(杯影) --- */
+.glass-outline {
+  position: absolute;
+  z-index: 1;
+  opacity: 0.5;
+}
+.glass-outline::before,
+.glass-outline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(18% 0%, 82% 0%, 72% 100%, 28% 100%);
+}
+.glass-outline::before { background: var(--brass); }
+.glass-outline::after {
+  inset: 2px;
+  clip-path: polygon(19% 3%, 81% 3%, 71% 97%, 29% 97%);
+  background: var(--sumi);
+}
+.glass-outline--bg {
+  width: 220px;
+  height: 300px;
+  right: -40px;
+  top: -30px;
+  opacity: 0.25;
+}
+
+/* --- 装飾モチーフ: 静かな色面(装飾最小) --- */
+.motif-quiet {
+  background: linear-gradient(165deg, var(--sumi-panel), var(--sumi) 70%);
+}
+
+/* --- 装飾モチーフ: ネオン的アクセント線(彩度控えめ) --- */
+.motif-neon-line {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184, 146, 90, 0.5), transparent);
+  z-index: 1;
+}
+
+/* ==========================================================================
+   フッター
+   ========================================================================== */
+.site-footer {
+  background: var(--sumi-panel);
+  border-top: 1px solid var(--brass);
+  padding: 3.5rem 0 2rem;
+  margin-top: 4rem;
+}
+.footer-inner { text-align: center; }
+.footer-logo {
+  font-family: var(--font-en);
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--brass-light);
+  margin-bottom: 0.3rem;
+}
+.footer-logo-sub {
+  display: block;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: var(--beige);
+}
+.site-footer address {
+  font-style: normal;
+  color: var(--cream);
+  margin: 1.2rem 0;
+  line-height: 1.9;
+}
+.site-footer address a { text-decoration: underline; text-decoration-color: var(--brass); }
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.6rem;
+}
+.footer-links a {
+  text-decoration: none;
+  color: var(--brass-light);
+  border-bottom: 1px solid transparent;
+}
+.footer-links a:hover { border-bottom-color: var(--brass-light); }
+.footer-sample-note {
+  font-size: 0.78rem;
+  color: var(--beige);
+  max-width: 32em;
+  margin: 0 auto 0.8rem;
+  letter-spacing: 0.02em;
+}
+.footer-copyright {
+  font-size: 0.78rem;
+  color: var(--beige);
+  font-family: var(--font-en);
+  letter-spacing: 0.08em;
+}
+@media (min-width: 768px) {
+  .footer-links { flex-direction: row; justify-content: center; gap: 2rem; }
+}
+
+/* ==========================================================================
+   P1 トップページ ― 四つの刻
+   ========================================================================== */
+.hero {
+  position: relative;
+  padding: 4.5rem 0 5rem;
+  overflow: hidden;
+}
+.hero__badge {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-en);
+  font-style: italic;
+  letter-spacing: 0.15em;
+  color: var(--brass);
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+}
+.hero__title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mincho);
+  font-size: 2.1rem;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+  margin-bottom: 1.6rem;
+}
+.hero__lead {
+  position: relative;
+  z-index: 1;
+  color: var(--beige);
+  max-width: 34em;
+  margin-bottom: 2.2rem;
+}
+.hero__stats {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2rem;
+  color: var(--cream);
+  font-size: 0.98rem;
+}
+.hero__stats strong {
+  font-family: var(--font-en);
+  color: var(--brass-light);
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0 0.15em;
+}
+.hero__glass {
+  width: 260px;
+  height: 360px;
+  right: -60px;
+  top: -20px;
+}
+.hero__vertical {
+  right: 6px;
+  top: 3rem;
+}
+@media (min-width: 768px) {
+  .hero__title { font-size: 3.2rem; }
+  .hero { padding: 6rem 0 6.5rem; }
+}
+
+.tokis { padding-top: 2rem; }
+.tokis-intro {
+  font-family: var(--font-mincho);
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 3rem;
+  color: var(--brass-light);
+}
+.toki {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+}
+.toki-plate {
+  position: relative;
+  background: var(--sumi-panel);
+  border: 1px solid var(--brass);
+  padding: 2rem 1.6rem;
+  flex: 1 1 55%;
+}
+.toki-num {
+  display: block;
+  font-family: var(--font-en);
+  font-size: 2.4rem;
+  color: var(--brass);
+  opacity: 0.7;
+  line-height: 1;
+  margin-bottom: 0.8rem;
+}
+.toki-plate h3 {
+  font-family: var(--font-mincho);
+  font-size: 1.35rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.9rem;
+  color: var(--cream);
+}
+.toki-plate p { color: var(--beige); }
+.toki-visual {
+  position: relative;
+  flex: 1 1 45%;
+  min-height: 180px;
+  overflow: hidden;
+  border: 1px solid rgba(184, 146, 90, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 1.5rem;
+}
+.toki-visual .photo-placeholder__label,
+.toki-visual .photo-placeholder__note {
+  position: relative;
+  z-index: 2;
+}
+.toki:nth-child(1) .toki-plate { transform: rotate(-0.6deg); }
+.toki:nth-child(2) .toki-plate { transform: rotate(0.5deg); }
+.toki:nth-child(3) .toki-plate { transform: rotate(-0.4deg); }
+.toki:nth-child(4) .toki-plate { transform: rotate(0.7deg); }
+
+@media (min-width: 860px) {
+  .toki { flex-direction: row; align-items: stretch; gap: 2.5rem; }
+  .toki:nth-child(even) { flex-direction: row-reverse; }
+}
+
+.bridge {
+  text-align: center;
+  max-width: 34em;
+  margin: 0 auto;
+}
+.bridge p {
+  font-family: var(--font-mincho);
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: var(--cream);
+  margin-bottom: 1.8rem;
+}
+.bridge .btn-row { justify-content: center; }
+
+.voice-preview { background: var(--sumi-panel); }
+.voice-preview__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin: 2.5rem 0;
+}
+.voice-preview__list .voice-plate:nth-child(1) { transform: rotate(-0.5deg); }
+.voice-preview__list .voice-plate:nth-child(2) { transform: rotate(0.4deg); }
+
+.access-preview {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2.2rem;
+}
+.access-preview__info p { margin-bottom: 0.4rem; color: var(--cream); }
+.access-card {
+  display: block;
+  border: 1px solid var(--brass);
+  padding: 1.6rem;
+  text-decoration: none;
+  background: linear-gradient(145deg, rgba(156, 91, 35, 0.18), transparent 70%);
+}
+.access-card__title {
+  font-family: var(--font-mincho);
+  color: var(--brass-light);
+  font-size: 1.05rem;
+  margin-bottom: 0.4rem;
+}
+.access-card__sub { color: var(--beige); font-size: 0.9rem; }
+.instagram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 1.2rem;
+  color: var(--brass-light);
+  text-decoration: none;
+  border-bottom: 1px solid var(--brass);
+  padding-bottom: 2px;
+}
+@media (min-width: 860px) {
+  .access-preview { grid-template-columns: 1.1fr 0.9fr; align-items: start; }
+}
+
+/* ==========================================================================
+   P2 お店のこだわり ― 対比の間
+   ========================================================================== */
+.awai {
+  display: grid;
+  gap: 0;
+  border: 1px solid rgba(184, 146, 90, 0.4);
+  margin-top: 2.5rem;
+}
+.awai-panel {
+  position: relative;
+  padding: 2.8rem 1.8rem;
+  overflow: hidden;
+}
+.awai-panel--left {
+  background: linear-gradient(160deg, var(--sumi) 30%, var(--sumi-panel));
+}
+.awai-panel--right {
+  background: linear-gradient(200deg, var(--sumi-panel), var(--sumi) 75%);
+}
+.awai-panel h3 {
+  font-family: var(--font-mincho);
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  color: var(--brass-light);
+  margin-bottom: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+.awai-panel p {
+  position: relative;
+  z-index: 1;
+  color: var(--beige);
+}
+.awai-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--brass), transparent);
+}
+@media (min-width: 860px) {
+  .awai {
+    grid-template-columns: 1fr 1px 1fr;
+    align-items: stretch;
+  }
+  .awai-divider { width: 1px; height: auto; background: linear-gradient(180deg, transparent, var(--brass), transparent); }
+  .awai-panel { padding: 3.5rem 3rem; }
+}
+
+.bartender-block {
+  margin-top: 3.5rem;
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+.bartender-block h3 {
+  font-family: var(--font-mincho);
+  font-size: 1.4rem;
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+.bartender-block p { color: var(--beige); }
+@media (min-width: 860px) {
+  .bartender-block { grid-template-columns: 1fr 1fr; }
+}
+
+.manifesto {
+  margin-top: 3.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.manifesto li {
+  border-top: 1px solid rgba(184, 146, 90, 0.35);
+  padding: 1.5rem 0;
+}
+.manifesto li:last-child { border-bottom: 1px solid rgba(184, 146, 90, 0.35); }
+.manifesto-lead {
+  display: block;
+  font-family: var(--font-mincho);
+  font-size: 1.3rem;
+  color: var(--brass-light);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.05em;
+}
+.manifesto-body { color: var(--beige); }
+@media (min-width: 860px) {
+  .manifesto { flex-direction: row; flex-wrap: wrap; }
+  .manifesto li {
+    flex: 1 1 40%;
+    border-top: none;
+    border-left: 1px solid rgba(184, 146, 90, 0.35);
+    padding: 0.3rem 1.8rem;
+  }
+  .manifesto li:last-child { border-bottom: none; }
+}
+
+/* ==========================================================================
+   P3 ドリンク&フード ― 棚の物語
+   ========================================================================== */
+.shelf-hero { position: relative; overflow: hidden; padding-bottom: 2rem; }
+.shelf-bg {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
+  height: 220px;
+  opacity: 0.14;
+  z-index: 0;
+  padding: 0 10px;
+}
+.shelf-bg span {
+  display: block;
+  width: 16px;
+  border-radius: 8px 8px 3px 3px;
+  background: linear-gradient(180deg, var(--brass-light), var(--amber));
+}
+.shelf-bg span:nth-child(1) { height: 60%; }
+.shelf-bg span:nth-child(2) { height: 85%; }
+.shelf-bg span:nth-child(3) { height: 45%; }
+.shelf-bg span:nth-child(4) { height: 95%; }
+.shelf-bg span:nth-child(5) { height: 65%; }
+.shelf-bg span:nth-child(6) { height: 75%; }
+.shelf-bg span:nth-child(7) { height: 50%; }
+.shelf-bg span:nth-child(8) { height: 88%; }
+.shelf-bg span:nth-child(9) { height: 40%; }
+.shelf-bg span:nth-child(10) { height: 70%; }
+.shelf-bg span:nth-child(11) { height: 55%; }
+.shelf-bg span:nth-child(12) { height: 80%; }
+
+.tasting {
+  position: relative;
+  z-index: 1;
+  margin-top: 3rem;
+  max-width: 40em;
+}
+.tasting h3 {
+  font-family: var(--font-mincho);
+  font-size: 1.4rem;
+  margin-bottom: 1.8rem;
+  color: var(--cream);
+}
+.tasting-timeline {
+  border-left: 1px solid var(--brass);
+  padding-left: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+.tasting-timeline li { position: relative; }
+.tasting-timeline li::before {
+  content: "";
+  position: absolute;
+  left: -1.85rem;
+  top: 0.35rem;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--brass);
+}
+.tt-label {
+  display: block;
+  font-family: var(--font-mincho);
+  color: var(--brass-light);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+}
+.tasting-timeline p { color: var(--beige); margin: 0; }
+
+.spirits-block {
+  position: relative;
+  margin-top: 4rem;
+  padding: 3rem 1.6rem;
+  border: 1px solid rgba(184, 146, 90, 0.35);
+  background: linear-gradient(180deg, rgba(36, 29, 25, 0.6), rgba(27, 22, 19, 0.9));
+  overflow: hidden;
+}
+.spirits-block h3 {
+  font-family: var(--font-mincho);
+  font-size: 1.3rem;
+  color: var(--brass-light);
+  margin-bottom: 1rem;
+  position: relative; z-index: 1;
+}
+.spirits-block p { position: relative; z-index: 1; color: var(--beige); max-width: 36em; }
+
+.quiet-block {
+  margin: 4rem auto;
+  max-width: 30em;
+  text-align: center;
+  padding: 3rem 1.5rem;
+}
+.quiet-block h3 {
+  font-family: var(--font-mincho);
+  font-size: 1.3rem;
+  color: var(--cream);
+  margin-bottom: 1.2rem;
+}
+.quiet-block p { color: var(--beige); }
+
+.food-block { max-width: 40em; margin-top: 3rem; }
+.food-block h3 {
+  font-family: var(--font-mincho);
+  font-size: 1.3rem;
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+.food-block p { color: var(--beige); }
+
+.menu-note {
+  margin-top: 3rem;
+  font-size: 0.85rem;
+  color: var(--beige);
+  border-top: 1px solid rgba(184, 146, 90, 0.3);
+  padding-top: 1.2rem;
+}
+
+/* ==========================================================================
+   P4 お客様の声 ― 声のプレート
+   ========================================================================== */
+.voice-plates {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  margin-top: 3rem;
+}
+.voice-plate {
+  position: relative;
+  background: var(--sumi-panel);
+  padding: 2.3rem 1.6rem 1.8rem;
+  clip-path: polygon(
+    0% 4%, 4% 0%, 8% 4%, 12% 0%, 16% 4%, 20% 0%, 24% 4%, 28% 0%, 32% 4%, 36% 0%,
+    40% 4%, 44% 0%, 48% 4%, 52% 0%, 56% 4%, 60% 0%, 64% 4%, 68% 0%, 72% 4%, 76% 0%,
+    80% 4%, 84% 0%, 88% 4%, 92% 0%, 96% 4%, 100% 0%,
+    100% 100%, 0% 100%
+  );
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.45));
+}
+.voice-plate:nth-child(odd) { transform: rotate(-0.5deg); }
+.voice-plate:nth-child(even) { transform: rotate(0.45deg); }
+.voice-plate__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.8em;
+  margin-bottom: 1rem;
+  font-family: var(--font-en);
+}
+.voice-plate__author { font-weight: 600; color: var(--cream); font-size: 1.05rem; }
+.voice-plate__rating { color: var(--brass); letter-spacing: 0.05em; }
+.voice-plate__time { color: var(--beige); font-size: 0.85rem; font-style: italic; }
+.voice-plate__text { color: var(--beige); white-space: pre-line; }
+
+.gmap-more {
+  margin-top: 2.5rem;
+  display: inline-block;
+  color: var(--brass-light);
+  text-decoration: underline;
+  text-decoration-color: var(--brass);
+}
+
+/* ==========================================================================
+   P5 店舗情報・アクセス ― 真鍮プレート帳
+   ========================================================================== */
+.plate-book {
+  display: grid;
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+}
+.info-plate {
+  border: 1px solid var(--brass);
+  background: var(--sumi-panel);
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.info-plate:nth-child(3n+1) { transform: rotate(-0.4deg); }
+.info-plate:nth-child(3n+2) { transform: rotate(0.35deg); }
+.info-plate:nth-child(3n+3) { transform: rotate(-0.3deg); }
+.info-plate dt {
+  font-family: var(--font-mincho);
+  letter-spacing: 0.08em;
+  color: var(--brass-light);
+  font-size: 0.85rem;
+}
+.info-plate dd {
+  margin: 0;
+  color: var(--cream);
+}
+.info-plate dd a { color: var(--cream); text-decoration: underline; text-decoration-color: var(--brass); }
+@media (min-width: 700px) {
+  .plate-book { grid-template-columns: 1fr 1fr; }
+}
+
+.map-block { margin-top: 3rem; }
+.map-card {
+  border: 1px solid var(--brass);
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(160deg, rgba(156, 91, 35, 0.15), transparent 70%);
+  margin-bottom: 1.5rem;
+}
+.map-card p { color: var(--beige); margin-bottom: 1rem; }
+
+.warning-plate {
+  margin-top: 4rem;
+  background: var(--bordeaux);
+  border: 3px solid var(--brass);
+  padding: 2.4rem 1.8rem;
+}
+.warning-plate h3 {
+  font-family: var(--font-mincho);
+  font-size: 1.5rem;
+  color: var(--brass-light);
+  margin-bottom: 1.4rem;
+  letter-spacing: 0.06em;
+}
+.warning-plate p {
+  color: var(--cream);
+  margin-bottom: 1.1rem;
+}
+.warning-plate p:last-child { margin-bottom: 0; }
+
+.final-cta {
+  margin-top: 4rem;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  border-top: 1px solid rgba(184, 146, 90, 0.4);
+  border-bottom: 1px solid rgba(184, 146, 90, 0.4);
+}
+.final-cta .btn-row { justify-content: center; }
+.final-cta .btn { font-size: 1.15rem; padding: 1.1em 2.2em; }
+
+/* ==========================================================================
+   共通: スキップリンク
+   ========================================================================== */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--brass);
+  color: var(--sumi);
+  padding: 0.6em 1em;
+  z-index: 2000;
+}
+.skip-link:focus { left: 10px; top: 10px; }
+
+
+.ig-icon-float{position:fixed;top:12px;left:12px;z-index:650;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;}
+.ig-icon-float svg{display:block;}
+@media (max-width:420px){.ig-icon-float{top:8px;left:8px;width:34px;height:34px;}}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}

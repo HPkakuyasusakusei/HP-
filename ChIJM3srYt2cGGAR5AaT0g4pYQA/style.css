@@ -1,0 +1,480 @@
+/* ==========================================================================
+   Boulangerie fève(ベーカリーフェーブ) 試作HP 共通スタイル
+   コンセプト: 粉と光の小さな仕立て屋 — Petite Boulangerie, Grand Soin
+   ========================================================================== */
+
+:root {
+  --color-bg: #F7F3EA;
+  --color-primary: #E5A93C;
+  --color-primary-deep: #cf9530;
+  --color-ink: #3A2718;
+  --color-accent: #5C6B72;
+  --color-line: #DCD3C3;
+  --color-surface: #FFFDF8;
+  --color-kraft: #F2EADA;
+
+  --font-serif-en: "Cormorant Garamond", serif;
+  --font-serif-jp: "Shippori Mincho", serif;
+  --font-sans-jp: "Noto Sans JP", sans-serif;
+
+  --wrap-width: 1120px;
+}
+
+/* --- Reset --------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans-jp);
+  font-size: 16px;
+  line-height: 1.9;
+  overflow-x: hidden;
+}
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; }
+ul, ol { margin: 0; padding: 0; }
+h1, h2, h3, p { margin: 0; }
+button { font: inherit; }
+
+.wrap {
+  max-width: var(--wrap-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.section { padding: 3.5rem 0; }
+@media (min-width: 768px) { .section { padding: 5.5rem 0; } }
+
+.bg-flour {
+  background-color: var(--color-bg);
+  background-image: radial-gradient(rgba(58, 39, 24, 0.045) 1px, transparent 1px);
+  background-size: 15px 15px;
+}
+.bg-kraft {
+  background-color: var(--color-kraft);
+  background-image: repeating-linear-gradient(135deg, rgba(58, 39, 24, 0.045) 0 1px, transparent 1px 11px);
+}
+
+/* --- Typography ------------------------------------------------------------ */
+h1, h2, h3 { font-family: var(--font-serif-jp); color: var(--color-ink); font-weight: 600; line-height: 1.5; }
+h1 { font-size: 1.9rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.1rem; }
+@media (min-width: 768px) {
+  h1 { font-size: 2.4rem; }
+  h2 { font-size: 1.9rem; }
+  h3 { font-size: 1.25rem; }
+}
+
+.kicker {
+  display: block;
+  font-family: var(--font-serif-en);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--color-accent);
+  letter-spacing: 0.12em;
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.lead { margin-top: 1.25rem; font-size: 1.02rem; }
+
+/* --- Buttons ---------------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  padding: 0.85rem 1.85rem;
+  border-radius: 2px;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+.btn-primary { background: var(--color-primary); color: var(--color-bg); border-color: var(--color-primary); }
+.btn-primary:hover { background: var(--color-primary-deep); border-color: var(--color-primary-deep); }
+.btn-outline { background: transparent; color: var(--color-ink); border-color: var(--color-ink); }
+.btn-outline:hover { background: var(--color-ink); color: var(--color-bg); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+/* --- Header ------------------------------------------------------------------ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: rgba(247, 243, 234, 0.94);
+  border-bottom: 1px solid var(--color-line);
+  backdrop-filter: saturate(140%) blur(2px);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+}
+.wordmark { text-decoration: none; position: relative; padding-bottom: 0.4rem; display: inline-block; }
+.wordmark-en { display: block; font-family: var(--font-serif-en); font-style: italic; font-weight: 600; font-size: 1.35rem; color: var(--color-ink); }
+.wordmark-jp { display: block; font-family: var(--font-serif-jp); font-size: 0.7rem; letter-spacing: 0.15em; color: var(--color-accent); }
+.site-header .wordmark::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 78%;
+  height: 6px;
+  border-bottom: 2px solid var(--color-primary);
+  border-radius: 0 0 60% 60%;
+}
+.site-nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.35rem 1.15rem; justify-content: center; }
+.site-nav a {
+  text-decoration: none;
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  color: var(--color-ink);
+  padding: 0.35rem 0.15rem;
+  border-bottom: 1px solid transparent;
+}
+.site-nav a:hover, .site-nav a[aria-current="page"] { border-bottom-color: var(--color-primary); }
+
+/* --- Arch motif(アーチ窓 La Vitrine) ------------------------------------------ */
+.arch-frame {
+  position: relative;
+  border: 1px solid var(--color-line);
+  border-top: 2px solid var(--color-primary);
+  border-radius: 180px 180px 10px 10px;
+  padding: 3rem 1.5rem 2.25rem;
+  text-align: center;
+  background-image: radial-gradient(ellipse at 50% 22%, rgba(229, 169, 60, 0.22), transparent 65%);
+}
+@media (min-width: 768px) {
+  .arch-frame { border-radius: 260px 260px 12px 12px; padding: 4rem 3rem 2.75rem; }
+}
+
+/* --- Placeholders(写真プレースホルダー・実写真は不使用) -------------------------- */
+.ph-arch, .ph-circle {
+  position: relative;
+  border: 1px solid var(--color-line);
+  overflow: hidden;
+}
+.ph-arch { border-radius: 130px 130px 8px 8px; aspect-ratio: 3 / 4; }
+.ph-circle { border-radius: 50%; aspect-ratio: 1 / 1; max-width: 220px; margin: 0 auto; }
+.ph-diagonal { background: linear-gradient(135deg, var(--color-primary), var(--color-ink)); }
+.ph-stripe { background: repeating-linear-gradient(45deg, var(--color-bg) 0 9px, var(--color-primary) 9px 12px); }
+.ph-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  text-align: center;
+  padding: 1rem;
+}
+.ph-diagonal .ph-inner { color: var(--color-bg); }
+.ph-stripe .ph-inner { color: var(--color-ink); }
+.ph-inner .icon { width: 42px; height: 42px; }
+.ph-label { font-size: 0.68rem; letter-spacing: 0.24em; text-transform: uppercase; opacity: 0.85; }
+
+/* --- Icons -------------------------------------------------------------------- */
+.icon { stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.icon-sm { width: 28px; height: 28px; }
+.icon-md { width: 38px; height: 38px; }
+
+/* --- Inline strip(三行で分かる店) ---------------------------------------------- */
+.strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  text-align: center;
+  font-family: var(--font-serif-jp);
+  font-size: 1rem;
+  list-style: none;
+}
+.strip span { padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-line); width: 100%; max-width: 320px; }
+.strip span:last-child { border-bottom: none; padding-bottom: 0; }
+@media (min-width: 700px) {
+  .strip { flex-direction: row; justify-content: center; gap: 0; flex-wrap: wrap; }
+  .strip span { border-bottom: none; width: auto; max-width: none; padding: 0 1.5rem; border-right: 1px solid var(--color-line); }
+  .strip span:last-child { border-right: none; }
+}
+
+/* --- Asymmetric split layout(お店の物語・店内の様子) ----------------------------- */
+.split-grid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+@media (min-width: 860px) {
+  .split-grid { grid-template-columns: 1.15fr 0.85fr; gap: 3.5rem; }
+  .split-grid .split-media { max-width: 320px; margin-left: auto; }
+}
+
+/* --- Badge(Google評価) --------------------------------------------------------- */
+.badge {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  background: var(--color-surface);
+  text-decoration: none;
+  color: var(--color-ink);
+  font-size: 0.9rem;
+}
+.badge-star { color: var(--color-primary); }
+.badge-link { text-decoration: underline; color: var(--color-accent); }
+.badge-inline { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 1rem; }
+
+/* --- Tag / 紐付き値札モチーフ --------------------------------------------------- */
+.tag {
+  position: relative;
+  display: block;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  padding: 2.1rem 1.25rem 1.4rem;
+  text-align: center;
+  text-decoration: none;
+  color: var(--color-ink);
+  box-shadow: 3px 4px 0 rgba(58, 39, 24, 0.06);
+}
+.tag::before {
+  content: "";
+  position: absolute;
+  top: 0.65rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 1px solid var(--color-accent);
+  z-index: 2;
+}
+.tag::after {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--color-accent);
+  border-bottom: none;
+  border-radius: 50% 50% 0 0 / 65% 65% 0 0;
+}
+.tag .icon { margin: 0 auto 0.6rem; color: var(--color-accent); }
+.tag-title { display: block; font-family: var(--font-serif-jp); font-size: 1rem; }
+.tag-sub { display: block; margin-top: 0.35rem; font-size: 0.8rem; color: var(--color-accent); }
+.tag-note { margin-top: 0.5rem; font-size: 0.88rem; color: var(--color-accent); }
+.tag-priority { border-color: var(--color-primary); }
+.tag-priority .icon { color: var(--color-primary-deep); }
+.tag-wide { max-width: 480px; margin: 0 auto; }
+
+.tag-row {
+  display: grid;
+  gap: 2rem 1.25rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 700px) {
+  .tag-row { grid-template-columns: repeat(3, 1fr); }
+  .tag-row .tag:nth-child(1) { transform: rotate(-1.3deg); }
+  .tag-row .tag:nth-child(2) { transform: rotate(0.9deg); }
+  .tag-row .tag:nth-child(3) { transform: rotate(-0.7deg); }
+}
+.contact-address { text-align: center; margin-top: 2rem; color: var(--color-accent); font-size: 0.9rem; }
+
+/* --- Steps: staircase(index ティーザー) ------------------------------------------ */
+.steps { list-style: none; margin-top: 2rem; }
+.steps .step { display: flex; align-items: baseline; gap: 0.85rem; padding: 0.6rem 0; border-bottom: 1px dashed var(--color-line); }
+.steps .step:last-child { border-bottom: none; }
+.step-num { font-family: var(--font-serif-en); font-style: italic; color: var(--color-primary-deep); font-size: 1.05rem; flex-shrink: 0; }
+
+.steps--staircase .step:nth-child(1) { margin-left: 0; }
+.steps--staircase .step:nth-child(2) { margin-left: 1.1rem; }
+.steps--staircase .step:nth-child(3) { margin-left: 2.2rem; }
+@media (min-width: 640px) {
+  .steps--staircase .step:nth-child(1) { margin-left: 0; }
+  .steps--staircase .step:nth-child(2) { margin-left: 2.25rem; }
+  .steps--staircase .step:nth-child(3) { margin-left: 4.5rem; }
+}
+
+/* --- Steps: plain vertical(about.html こだわりポイント) -------------------------- */
+.steps--plain { border-left: 1px solid var(--color-line); margin-top: 2.25rem; }
+.steps--plain .step { display: block; padding: 1.25rem 0 1.25rem 1.5rem; border-bottom: none; position: relative; }
+.steps--plain .step::before {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: 1.55rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+.steps--plain .step-num { display: block; margin-bottom: 0.4rem; font-size: 1.15rem; }
+.steps--plain .step-body p { margin-top: 0.5rem; }
+
+/* --- Steps: timeline with icon(shop.html 買い方の流れ) --------------------------- */
+.steps--timeline { border-left: 1px solid var(--color-line); margin-top: 2.5rem; }
+.steps--timeline .step {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1.5rem 0 1.5rem 1.25rem;
+  border-bottom: none;
+  position: relative;
+}
+.steps--timeline .step::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 2rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 2px solid var(--color-bg);
+}
+.step-icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary-deep);
+}
+.steps--timeline .step-num { display: block; font-size: 1rem; margin-bottom: 0.35rem; }
+.steps--timeline .step-body p { margin-top: 0.5rem; }
+
+/* --- Review cards(voice.html) -------------------------------------------------- */
+.review-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 2rem; }
+.review-card {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  padding: 1.75rem 1.5rem 1.5rem;
+  box-shadow: 3px 4px 0 rgba(58, 39, 24, 0.06);
+}
+.review-card::before {
+  content: "";
+  position: absolute;
+  top: 0.7rem;
+  left: 1.5rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 1px solid var(--color-accent);
+}
+@media (min-width: 700px) {
+  .review-card:nth-child(1) { transform: rotate(-0.6deg); }
+  .review-card:nth-child(2) { transform: rotate(0.5deg); margin-left: 1.75rem; }
+  .review-card:nth-child(3) { transform: rotate(-0.4deg); }
+  .review-card:nth-child(4) { transform: rotate(0.6deg); margin-left: 1.75rem; }
+  .review-card:nth-child(5) { transform: rotate(-0.5deg); }
+}
+.review-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.15rem 0.75rem; margin-bottom: 0.75rem; }
+.stars { color: var(--color-primary); letter-spacing: 0.15em; font-size: 1rem; }
+.review-name { font-family: var(--font-serif-jp); font-weight: 600; }
+.review-time { font-size: 0.82rem; color: var(--color-accent); }
+.review-body { white-space: pre-line; font-size: 0.95rem; line-height: 1.85; }
+.policy-note {
+  margin-top: 1.75rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--color-line);
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-surface);
+  font-size: 0.88rem;
+  color: var(--color-accent);
+}
+
+/* --- Map(access.html) ----------------------------------------------------------- */
+.map-frame { border: 1px solid var(--color-line); border-radius: 4px; overflow: hidden; margin-top: 2rem; }
+.map-frame iframe { width: 100%; height: 320px; border: 0; display: block; }
+@media (min-width: 768px) { .map-frame iframe { height: 420px; } }
+.info-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.85rem; }
+.info-list .info-row { display: flex; gap: 0.75rem; flex-wrap: wrap; border-bottom: 1px solid var(--color-line); padding-bottom: 0.85rem; }
+.info-list dt { font-family: var(--font-serif-jp); color: var(--color-accent); width: 8.5em; flex-shrink: 0; }
+.info-list dd { margin: 0; }
+.info-list dd a { text-decoration: underline; }
+
+/* --- Footer ---------------------------------------------------------------------- */
+.site-footer { background: var(--color-ink); color: var(--color-bg); padding: 3rem 0 1.5rem; }
+.footer-inner { display: flex; flex-wrap: wrap; gap: 2.25rem; justify-content: space-between; }
+.footer-brand .wordmark-en { font-family: var(--font-serif-en); font-style: italic; font-size: 1.25rem; }
+.footer-brand .wordmark-jp { font-family: var(--font-serif-jp); font-size: 0.75rem; letter-spacing: 0.15em; color: var(--color-primary); margin-top: 0.25rem; }
+.footer-info p { margin: 0.35rem 0; font-size: 0.9rem; }
+.footer-info a { text-decoration: underline; }
+.footer-nav ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-nav a { text-decoration: none; font-size: 0.9rem; }
+.footer-nav a:hover { text-decoration: underline; }
+.copyright { text-align: center; font-size: 0.75rem; opacity: 0.7; margin-top: 2.5rem; }
+
+/* --- CTA row spacing --------------------------------------------------------------- */
+.cta-row { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.5rem; }
+
+/* --- SAMPLE watermark(全ページ・操作を妨げない低不透明度) ---------------------------- */
+.sample-watermark {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+.sample-watermark::before {
+  content: "SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE   SAMPLE";
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  width: 220%;
+  height: 220%;
+  display: block;
+  font-family: var(--font-serif-en);
+  font-weight: 600;
+  font-size: 2.4rem;
+  line-height: 4.2;
+  letter-spacing: 0.25em;
+  color: var(--color-ink);
+  opacity: 0.045;
+  transform: rotate(-28deg);
+  text-align: center;
+}
+
+/* --- Utility ------------------------------------------------------------------------ */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+.ig-icon-float{position:fixed;top:12px;left:12px;z-index:650;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;}
+.ig-icon-float svg{display:block;}
+@media (max-width:420px){.ig-icon-float{top:8px;left:8px;width:34px;height:34px;}}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}

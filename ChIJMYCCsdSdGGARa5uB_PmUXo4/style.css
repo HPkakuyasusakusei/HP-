@@ -1,0 +1,822 @@
+/* 珈琲茶屋 nano — 営業提案用サイト style.css
+   コンセプト: サイフォンの火が消えるまでの数分間。宵紫檀の地に、琥珀と真鍮の光。 */
+
+@import url("https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap");
+
+:root {
+  --yoi-shitan: #241C27;
+  --ibushi-plum: #352A3B;
+  --haimurasaki: #9C7A8C;
+  --usu-haimurasaki: #C6A6B4;
+  --kohaku: #C98A3E;
+  --mei-kohaku: #E0A857;
+  --shinchu: #AD9058;
+  --shinchu-light: #D9C08A;
+  --nyuhaku: #EDE3D8;
+  --hai-gray: #B8A9AF;
+  --kunshi-silver: #8C8890;
+
+  --font-serif: "Shippori Mincho", "Noto Serif JP", "游明朝", "Yu Mincho", serif;
+  --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+
+  --container-w: 960px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--yoi-shitan);
+  color: var(--nyuhaku);
+  font-family: var(--font-sans);
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--mei-kohaku);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--usu-haimurasaki);
+}
+
+.container {
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==================== SAMPLE 透かし ==================== */
+.sample-watermark {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sample-watermark::before {
+  content: "SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE SAMPLE";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  line-height: 6.5em;
+  color: rgba(237, 227, 216, 0.055);
+  transform: rotate(-28deg);
+  word-break: break-all;
+}
+
+/* ==================== 同心円モチーフ ==================== */
+.concentric-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.concentric-bg svg {
+  position: absolute;
+}
+
+/* ==================== ヘッダー ==================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(36, 28, 39, 0.92);
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid rgba(173, 144, 88, 0.35);
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.site-logo {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  letter-spacing: 0.18em;
+  color: var(--nyuhaku);
+  white-space: nowrap;
+}
+
+.site-logo span {
+  color: var(--mei-kohaku);
+}
+
+.global-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.global-nav a:not(.btn) {
+  color: var(--nyuhaku);
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+}
+
+.global-nav a:not(.btn):hover {
+  color: var(--mei-kohaku);
+}
+
+/* ==================== ボタン ==================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--kohaku), var(--mei-kohaku));
+  color: var(--yoi-shitan);
+  border: 1px solid var(--mei-kohaku);
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.08);
+  color: var(--yoi-shitan);
+  box-shadow: 0 4px 14px rgba(201, 138, 62, 0.35);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--shinchu-light);
+  border: 1px solid var(--shinchu);
+}
+
+.btn-outline:hover {
+  background: rgba(173, 144, 88, 0.12);
+  color: var(--shinchu-light);
+  border-color: var(--shinchu-light);
+}
+
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.btn-group.center {
+  justify-content: center;
+}
+
+/* ==================== セクション共通 ==================== */
+section {
+  position: relative;
+  padding: 88px 0;
+  overflow: hidden;
+}
+
+.bg-plum {
+  background-color: var(--ibushi-plum);
+}
+
+.chapter-label {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.4em;
+  color: var(--shinchu-light);
+  margin-bottom: 18px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  color: var(--nyuhaku);
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
+h1 {
+  font-size: clamp(1.9rem, 5vw, 2.9rem);
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+}
+
+p {
+  color: var(--nyuhaku);
+  max-width: 640px;
+}
+
+.lead {
+  color: var(--hai-gray);
+  font-size: 1rem;
+}
+
+/* 振り子の弧線区切り */
+.pendulum-divider {
+  width: 100%;
+  height: 48px;
+  display: block;
+  margin: 0 auto;
+}
+
+.pendulum-divider path {
+  fill: none;
+  stroke: url(#shinchuGradient);
+  stroke-width: 1.4;
+  opacity: 0.55;
+}
+
+/* 湯気モチーフ */
+.steam-motif {
+  width: 28px;
+  height: 46px;
+  display: inline-block;
+  opacity: 0.7;
+}
+
+.steam-motif path {
+  fill: none;
+  stroke: var(--usu-haimurasaki);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+/* ==================== ヒーロー ==================== */
+.hero {
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-copy {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 40px;
+}
+
+.hero-copy .site-logo-hero {
+  font-family: var(--font-serif);
+  letter-spacing: 0.3em;
+  color: var(--shinchu-light);
+  font-size: 1rem;
+  margin-bottom: 14px;
+}
+
+.hero-copy p {
+  margin: 0 auto;
+  color: var(--nyuhaku);
+}
+
+.hero .btn-group {
+  justify-content: center;
+  margin-top: 32px;
+}
+
+/* ==================== 写真プレースホルダー ==================== */
+.photo-placeholder {
+  position: relative;
+  border: 1.5px solid var(--shinchu);
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--ibushi-plum), var(--yoi-shitan));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(217, 192, 138, 0.15);
+}
+
+.photo-placeholder.ratio-wide {
+  aspect-ratio: 16 / 9;
+}
+
+.photo-placeholder.ratio-square {
+  aspect-ratio: 4 / 3;
+}
+
+.photo-placeholder.ratio-tall {
+  aspect-ratio: 3 / 4;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.photo-placeholder .rings {
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+}
+
+.photo-placeholder .ph-label {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: var(--shinchu-light);
+}
+
+.photo-placeholder .ph-label .ph-main {
+  display: block;
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  font-weight: 700;
+}
+
+.photo-placeholder .ph-label .ph-sub {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--hai-gray);
+  margin-top: 6px;
+}
+
+.photo-caption {
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: var(--hai-gray);
+  margin-top: 12px;
+}
+
+/* ==================== chapter layouts ==================== */
+.chapter-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.chapter-inner.reverse {
+  grid-template-columns: 0.85fr 1.15fr;
+}
+
+.chapter-inner.reverse .chapter-text {
+  order: 2;
+}
+
+.chapter-inner.reverse .chapter-photo {
+  order: 1;
+}
+
+.chapter-text .divider-svg-wrap {
+  margin: 24px 0 26px;
+}
+
+.chapter-single {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+}
+
+/* 参: 喫煙章 */
+.smoking-note {
+  margin-top: 28px;
+  padding: 20px 24px;
+  border-left: 2px solid var(--haimurasaki);
+  background: rgba(156, 122, 140, 0.08);
+  border-radius: 0 6px 6px 0;
+}
+
+.smoking-note p {
+  margin: 0;
+  color: var(--usu-haimurasaki);
+  font-size: 0.92rem;
+}
+
+/* 四: クチコミティーザー */
+.voice-teaser {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.review-quote-card {
+  margin: 32px auto;
+  padding: 32px;
+  border: 1.5px solid var(--shinchu);
+  border-radius: 10px;
+  background: var(--yoi-shitan);
+  text-align: left;
+  max-width: 560px;
+}
+
+.review-quote-card .stars {
+  margin-bottom: 12px;
+}
+
+.review-quote-card .reviewer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.review-quote-card .reviewer-name {
+  font-weight: 700;
+  color: var(--nyuhaku);
+}
+
+.review-quote-card .review-time {
+  font-size: 0.82rem;
+  color: var(--hai-gray);
+}
+
+.review-quote-card .review-text {
+  color: var(--nyuhaku);
+  font-size: 0.95rem;
+  margin: 0;
+  max-width: none;
+}
+
+.overall-note {
+  margin-top: 28px;
+  color: var(--hai-gray);
+  font-size: 0.92rem;
+}
+
+.overall-note strong {
+  color: var(--mei-kohaku);
+}
+
+/* 五: クロージング */
+.closing {
+  text-align: center;
+}
+
+.closing .container {
+  position: relative;
+  z-index: 1;
+}
+
+.closing address {
+  font-style: normal;
+  color: var(--hai-gray);
+  margin: 14px 0 30px;
+}
+
+/* ==================== 星評価 ==================== */
+.stars {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.star {
+  width: 18px;
+  height: 18px;
+}
+
+.star.filled path {
+  fill: var(--mei-kohaku);
+  stroke: var(--mei-kohaku);
+}
+
+.star.empty path {
+  fill: none;
+  stroke: var(--kunshi-silver);
+  stroke-width: 1.4;
+}
+
+/* ==================== 総合評価ブロック ==================== */
+.rating-block {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.rating-block .score {
+  font-family: var(--font-serif);
+  font-size: clamp(2.6rem, 8vw, 4rem);
+  color: var(--mei-kohaku);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.rating-block .score-sub {
+  color: var(--hai-gray);
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+
+.rating-block .btn-group {
+  justify-content: center;
+  margin-top: 24px;
+}
+
+/* ==================== クチコミカード一覧 ==================== */
+.review-list {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.review-card {
+  border: 1.5px solid var(--shinchu);
+  border-radius: 10px;
+  background: var(--ibushi-plum);
+  padding: 28px 30px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+}
+
+.review-card .reviewer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.review-card .reviewer-name {
+  font-weight: 700;
+  color: var(--nyuhaku);
+  font-size: 1.02rem;
+}
+
+.review-card .review-time {
+  font-size: 0.82rem;
+  color: var(--hai-gray);
+}
+
+.review-card .stars {
+  margin-bottom: 14px;
+}
+
+.review-card .review-text {
+  color: var(--nyuhaku);
+  white-space: pre-line;
+  margin: 0;
+  max-width: none;
+  font-size: 0.96rem;
+}
+
+.low-rating-note {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 32px auto 0;
+  padding: 18px 22px;
+  border-left: 2px solid var(--haimurasaki);
+  background: rgba(156, 122, 140, 0.08);
+  border-radius: 0 6px 6px 0;
+}
+
+.low-rating-note p {
+  margin: 0;
+  color: var(--usu-haimurasaki);
+  font-size: 0.9rem;
+  max-width: none;
+}
+
+/* ==================== 店舗情報テーブル ==================== */
+.info-table {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 32px;
+}
+
+.info-table th,
+.info-table td {
+  text-align: left;
+  padding: 18px 16px;
+  border-bottom: 1px solid rgba(173, 144, 88, 0.3);
+  vertical-align: top;
+}
+
+.info-table th {
+  color: var(--shinchu-light);
+  font-weight: 600;
+  width: 30%;
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+}
+
+.info-table td {
+  color: var(--nyuhaku);
+}
+
+/* ==================== 地図 ==================== */
+.map-wrap {
+  position: relative;
+  z-index: 1;
+  border: 1.5px solid var(--shinchu);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 32px;
+}
+
+.map-wrap iframe {
+  width: 100%;
+  height: 360px;
+  border: 0;
+  display: block;
+}
+
+.map-cta {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* ==================== 最終CTA(強調) ==================== */
+.final-cta {
+  text-align: center;
+  background: linear-gradient(180deg, var(--ibushi-plum), var(--yoi-shitan));
+}
+
+.final-cta .container {
+  position: relative;
+  z-index: 1;
+}
+
+.final-cta .btn-group {
+  justify-content: center;
+  margin-top: 28px;
+}
+
+/* ==================== フッター ==================== */
+.site-footer {
+  background: var(--ibushi-plum);
+  border-top: 1px solid rgba(173, 144, 88, 0.35);
+  padding: 56px 0 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.footer-brand .site-logo {
+  margin-bottom: 10px;
+}
+
+.footer-brand address {
+  font-style: normal;
+  color: var(--hai-gray);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+.footer-cta .btn-group {
+  margin-bottom: 24px;
+}
+
+.footer-sitemap {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-sitemap a {
+  color: var(--nyuhaku);
+  font-size: 0.9rem;
+}
+
+.footer-note {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(173, 144, 88, 0.2);
+  color: var(--hai-gray);
+  font-size: 0.78rem;
+  line-height: 1.8;
+}
+
+.footer-note .disclaimer {
+  color: var(--usu-haimurasaki);
+  margin-bottom: 8px;
+}
+
+/* ==================== レスポンシブ ==================== */
+@media (max-width: 860px) {
+  .chapter-inner,
+  .chapter-inner.reverse {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .chapter-inner.reverse .chapter-text,
+  .chapter-inner.reverse .chapter-photo,
+  .chapter-inner .chapter-text,
+  .chapter-inner .chapter-photo {
+    order: initial;
+  }
+
+  section {
+    padding: 64px 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header .container {
+    flex-wrap: wrap;
+    row-gap: 12px;
+  }
+
+  .global-nav {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 16px;
+  }
+
+  .btn-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .review-card {
+    padding: 22px 20px;
+  }
+
+  .info-table th,
+  .info-table td {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .info-table th {
+    border-bottom: none;
+    padding-bottom: 4px;
+  }
+
+  .info-table tr {
+    display: block;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(173, 144, 88, 0.3);
+  }
+
+  .info-table td {
+    border-bottom: none;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    gap: 28px;
+  }
+}
+
+
+.ig-icon-float{position:fixed;top:12px;left:12px;z-index:650;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;}
+.ig-icon-float svg{display:block;}
+@media (max-width:420px){.ig-icon-float{top:8px;left:8px;width:34px;height:34px;}}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}

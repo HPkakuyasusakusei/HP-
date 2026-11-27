@@ -1,0 +1,623 @@
+/* ==========================================================================
+   パティスリーポムルージュ 試作HP 共通スタイル
+   配色: ボルドー #6E1E2C / アイボリー #F7F1E6 / アンティークゴールド #B8935A
+         ディープグリーン #2F4A3C(少量) / テキスト #2B1E1A
+   このクライアント専用に新規作成。他案件CSSの流用なし。
+   ========================================================================== */
+
+:root {
+  --color-bordeaux: #6E1E2C;
+  --color-bordeaux-deep: #4E1520;
+  --color-ivory: #F7F1E6;
+  --color-ivory-soft: #EFE6D6;
+  --color-gold: #B8935A;
+  --color-gold-light: #D8BD8E;
+  --color-green: #2F4A3C;
+  --color-text: #2B1E1A;
+  --color-offwhite: #FFFDF9;
+
+  --font-heading-jp: "Shippori Mincho", "Noto Serif JP", serif;
+  --font-heading-en: "Cormorant Garamond", "Times New Roman", serif;
+  --font-body: "Noto Sans JP", "Hiragino Sans", sans-serif;
+
+  --header-height: 68px;
+  --container-w: 1180px;
+}
+
+/* ---------- reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-height) + 12px); }
+body {
+  margin: 0;
+  background: var(--color-ivory);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.85;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3, h4 { font-family: var(--font-heading-jp); font-weight: 600; margin: 0; color: var(--color-bordeaux); letter-spacing: .06em; }
+p { margin: 0 0 1em; }
+button { font: inherit; }
+
+.container {
+  max-width: var(--container-w);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--color-bordeaux);
+  color: var(--color-offwhite);
+  padding: .6em 1em;
+  z-index: 10000;
+}
+.skip-link:focus { left: 1rem; top: 1rem; }
+
+/* ==========================================================================
+   SAMPLE 透かし(全ページ共通・pointer-events: none)
+   ========================================================================== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Ctext x='-10' y='150' font-size='30' font-family='sans-serif' font-weight='700' fill='%236E1E2C' fill-opacity='0.05' transform='rotate(-30 130 130)'%3ESAMPLE%3C/text%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+.sample-badge {
+  position: fixed;
+  right: -46px;
+  bottom: 34px;
+  z-index: 9995;
+  pointer-events: none;
+  background: var(--color-bordeaux);
+  color: var(--color-offwhite);
+  font-family: var(--font-heading-en);
+  font-weight: 700;
+  font-size: .85rem;
+  letter-spacing: .25em;
+  padding: .5em 3.4em;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 10px rgba(0,0,0,.25);
+  border: 1px solid var(--color-gold-light);
+}
+
+/* ==========================================================================
+   ヘッダー(非対称: 左ロゴ / 右ナビ+CTA)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--color-ivory);
+  border-bottom: 1px solid var(--color-gold);
+  min-height: var(--header-height);
+}
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-height);
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.brand-en {
+  font-family: var(--font-heading-en);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--color-bordeaux);
+  letter-spacing: .04em;
+}
+.brand-jp {
+  font-family: var(--font-heading-jp);
+  font-size: .68rem;
+  color: var(--color-text);
+  letter-spacing: .18em;
+}
+
+.header-right { display: flex; align-items: center; gap: 1.1rem; }
+
+.global-nav { display: none; }
+.global-nav ul { display: flex; gap: 1.6rem; }
+.global-nav a {
+  position: relative;
+  font-family: var(--font-heading-jp);
+  font-size: .92rem;
+  letter-spacing: .1em;
+  padding-bottom: .35rem;
+}
+.global-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 100%;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-gold);
+  transition: right .25s ease;
+}
+.global-nav a:hover::after { right: 0; }
+.global-nav a.is-current { color: var(--color-bordeaux); }
+.global-nav a.is-current::after { right: 0; }
+
+.header-cta { display: none; align-items: center; gap: .8rem; }
+.phone-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: var(--color-bordeaux);
+  color: var(--color-offwhite);
+  font-size: .82rem;
+  padding: .5em .9em;
+  white-space: nowrap;
+}
+.phone-chip:hover { background: var(--color-bordeaux-deep); }
+.icon-ig {
+  display: inline-flex;
+  width: 30px; height: 30px;
+  align-items: center; justify-content: center;
+  border: 1px solid var(--color-gold);
+  color: var(--color-bordeaux);
+}
+.icon-ig:hover { background: var(--color-gold); color: var(--color-offwhite); }
+.icon-ig svg { width: 16px; height: 16px; }
+
+/* ハンバーガー */
+.hamburger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 42px; height: 36px;
+  border: 1px solid var(--color-gold);
+  background: transparent;
+  cursor: pointer;
+  padding: 0 9px;
+}
+.hamburger span { display: block; height: 2px; width: 100%; background: var(--color-bordeaux); }
+.hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-nav {
+  position: fixed;
+  inset: var(--header-height) 0 0 0;
+  background: var(--color-ivory);
+  z-index: 400;
+  padding: 2rem 1.5rem;
+  transform: translateX(100%);
+  transition: transform .3s ease;
+  overflow-y: auto;
+}
+.mobile-nav.is-open { transform: translateX(0); }
+.mobile-nav ul { display: flex; flex-direction: column; gap: 1.3rem; margin-bottom: 2rem; }
+.mobile-nav a { font-family: var(--font-heading-jp); font-size: 1.15rem; letter-spacing: .1em; }
+.mobile-nav a.is-current { color: var(--color-bordeaux); border-bottom: 2px solid var(--color-gold); padding-bottom: .2em; }
+.mobile-nav .header-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+.mobile-nav .phone-chip { font-size: 1rem; padding: .8em 1.2em; width: 100%; justify-content: center; }
+.mobile-nav .ig-link-text { display: inline-flex; align-items: center; gap: .5rem; font-size: .92rem; }
+
+body.nav-open { overflow: hidden; }
+
+@media (min-width: 1024px) {
+  .global-nav { display: block; }
+  .header-cta { display: flex; }
+  .hamburger, .mobile-nav { display: none; }
+}
+
+/* ==========================================================================
+   ボタン
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5em;
+  padding: .95em 1.8em;
+  font-family: var(--font-heading-jp);
+  font-size: .95rem;
+  letter-spacing: .08em;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.btn--primary { background: var(--color-bordeaux); color: var(--color-offwhite); }
+.btn--primary:hover { background: var(--color-bordeaux-deep); }
+.btn--outline { background: transparent; color: var(--color-bordeaux); border-color: var(--color-bordeaux); }
+.btn--outline:hover { background: var(--color-bordeaux); color: var(--color-offwhite); }
+.btn--gold { background: var(--color-gold); color: var(--color-offwhite); }
+.btn--gold:hover { background: var(--color-bordeaux); }
+.btn--ghost-light { background: transparent; color: var(--color-offwhite); border-color: var(--color-offwhite); }
+.btn--ghost-light:hover { background: var(--color-offwhite); color: var(--color-bordeaux); }
+.btn-row { display: flex; flex-wrap: wrap; gap: .9rem; }
+
+/* ==========================================================================
+   セクション共通
+   ========================================================================== */
+.section { padding-block: clamp(3rem, 7vw, 5.5rem); }
+.section--ivory-soft { background: var(--color-ivory-soft); }
+.section-head { max-width: 640px; margin-bottom: 2.4rem; }
+.section-head h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-heading-en);
+  font-style: italic;
+  color: var(--color-gold);
+  font-size: 1rem;
+  letter-spacing: .1em;
+  margin-bottom: .5rem;
+}
+.rule-gold { width: 52px; height: 2px; background: var(--color-gold); margin: .9rem 0 1.2rem; }
+
+.diagonal-band {
+  background: var(--color-bordeaux);
+  color: var(--color-offwhite);
+  clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%);
+  padding-block: clamp(3.5rem, 8vw, 6rem);
+}
+.diagonal-band h2, .diagonal-band h3 { color: var(--color-offwhite); }
+
+/* ==========================================================================
+   フォトプレースホルダー(実写真不使用/CSSのみ)
+   ========================================================================== */
+.photo-placeholder {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 220px;
+  border: 2px solid var(--color-gold);
+  overflow: hidden;
+  isolation: isolate;
+}
+.photo-placeholder__caption {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: rgba(43, 30, 26, .58);
+  color: var(--color-offwhite);
+  font-size: .78rem;
+  letter-spacing: .04em;
+  padding: .65em .9em;
+}
+
+/* 外観 */
+.ph--exterior {
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 46px),
+    linear-gradient(165deg, var(--color-bordeaux) 0%, var(--color-bordeaux-deep) 65%, #2c0d14 100%);
+}
+.ph--exterior::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 15%; right: 15%;
+  height: 42%;
+  background: var(--color-gold);
+  opacity: .85;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+/* 店内 */
+.ph--interior {
+  background:
+    repeating-linear-gradient(0deg, rgba(184,147,90,.28) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(90deg, rgba(184,147,90,.28) 0 1px, transparent 1px 34px),
+    var(--color-ivory-soft);
+}
+.ph--interior::before {
+  content: "";
+  position: absolute;
+  bottom: 12%; left: 10%;
+  width: 34%; height: 30%;
+  border: 2px solid var(--color-bordeaux);
+  opacity: .5;
+}
+
+/* スペシャリテ(円形・渦巻) */
+.ph--specialite {
+  min-height: 280px;
+  border-radius: 50%;
+  border-width: 3px;
+  background:
+    conic-gradient(from 200deg, var(--color-gold) 0deg, var(--color-ivory-soft) 70deg, var(--color-bordeaux) 160deg, var(--color-gold-light) 230deg, var(--color-gold) 360deg);
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+}
+.ph--specialite .photo-placeholder__caption {
+  width: auto;
+  border-radius: 0;
+  text-align: center;
+  margin-bottom: 8%;
+}
+
+/* カテゴリカード用バリエーション */
+.ph--v1 { background: repeating-linear-gradient(135deg, var(--color-bordeaux) 0 18px, var(--color-bordeaux-deep) 18px 36px); }
+.ph--v2 { background: radial-gradient(circle at 30% 30%, var(--color-gold-light), var(--color-gold) 60%, var(--color-bordeaux) 130%); }
+.ph--v3 { background: repeating-linear-gradient(45deg, var(--color-green) 0 14px, #23392e 14px 28px); }
+.ph--v4 {
+  background:
+    radial-gradient(circle, var(--color-bordeaux) 32%, transparent 33%) 0 0/38px 38px,
+    var(--color-ivory-soft);
+}
+.ph--v5 { background: linear-gradient(120deg, var(--color-gold) 0%, var(--color-ivory-soft) 45%, var(--color-bordeaux) 100%); }
+.ph--v6 { background: repeating-linear-gradient(-45deg, var(--color-ivory-soft) 0 16px, var(--color-gold) 16px 20px); }
+.ph--v7 { background: linear-gradient(200deg, var(--color-green) 0%, var(--color-bordeaux) 100%); }
+.ph--v8 { background: repeating-radial-gradient(circle at 50% 50%, var(--color-gold-light) 0 10px, var(--color-bordeaux) 10px 20px); }
+
+/* Instagramアイコン(CSS図形) */
+.ig-mark {
+  width: 46px; height: 46px;
+  border: 2px solid var(--color-offwhite);
+  border-radius: 30%;
+  position: relative;
+}
+.ig-mark::before {
+  content: "";
+  position: absolute;
+  inset: 30%;
+  border: 2px solid var(--color-offwhite);
+  border-radius: 50%;
+}
+.ig-mark::after {
+  content: "";
+  position: absolute;
+  top: 16%; right: 16%;
+  width: 5px; height: 5px;
+  background: var(--color-offwhite);
+  border-radius: 50%;
+}
+
+/* ==========================================================================
+   カード類
+   ========================================================================== */
+.card-grid { display: grid; gap: 1.6rem; }
+.category-card {
+  background: var(--color-offwhite);
+  border: 1px solid var(--color-gold-light);
+  display: flex;
+  flex-direction: column;
+}
+.category-card__body { padding: 1.3rem 1.4rem 1.6rem; }
+.category-card__body h3 { font-size: 1.1rem; margin-bottom: .5rem; }
+.category-card__body p { font-size: .9rem; margin-bottom: 1rem; }
+.category-card__link {
+  position: relative;
+  display: inline-block;
+  font-size: .85rem;
+  color: var(--color-bordeaux);
+  padding-bottom: .3em;
+  font-family: var(--font-heading-jp);
+}
+.category-card__link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 2px; width: 0;
+  background: var(--color-gold);
+  transition: width .25s ease;
+}
+.category-card:hover .category-card__link::after { width: 100%; }
+
+.menu-item-card {
+  background: var(--color-offwhite);
+  border: 1px solid var(--color-gold-light);
+  border-left: 4px solid var(--color-bordeaux);
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.menu-item-card__body { padding: 1.4rem 1.5rem; }
+.menu-item-card__body h3 { font-size: 1.15rem; margin-bottom: .6rem; }
+.menu-item-card__body p { font-size: .92rem; }
+.credit {
+  display: block;
+  font-size: .74rem;
+  color: var(--color-gold);
+  margin-top: .6rem;
+  letter-spacing: .05em;
+}
+.note-small { display: block; font-size: .74rem; color: var(--color-text); opacity: .7; margin-top: .3rem; }
+
+@media (min-width: 640px) {
+  .menu-item-card { grid-template-columns: 200px 1fr; }
+}
+
+/* ==========================================================================
+   お客様の声
+   ========================================================================== */
+.review-card {
+  background: var(--color-offwhite);
+  border-top: 3px solid var(--color-gold);
+  padding: 1.5rem 1.4rem;
+}
+.review-card__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .6rem; flex-wrap: wrap; gap: .4rem; }
+.review-card__stars { color: var(--color-gold); letter-spacing: .1em; }
+.review-card__meta { font-size: .78rem; opacity: .75; }
+.review-card__body { font-size: .9rem; white-space: pre-line; }
+.review-card__name { font-family: var(--font-heading-jp); font-size: .85rem; }
+
+.google-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  background: var(--color-offwhite);
+  border: 1px solid var(--color-gold);
+  padding: .8em 1.3em;
+  font-family: var(--font-heading-jp);
+  letter-spacing: .04em;
+}
+.google-badge strong { color: var(--color-bordeaux); font-size: 1.15rem; }
+
+/* ==========================================================================
+   Instagramグリッド
+   ========================================================================== */
+.ig-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .5rem;
+}
+.ig-cell {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.ig-cell:nth-child(1) { background: linear-gradient(135deg, var(--color-gold-light), var(--color-bordeaux)); }
+.ig-cell:nth-child(2) { background: linear-gradient(135deg, var(--color-bordeaux), var(--color-green)); }
+.ig-cell:nth-child(3) { background: linear-gradient(135deg, var(--color-gold), var(--color-ivory-soft)); }
+.ig-cell:nth-child(4) { background: linear-gradient(135deg, var(--color-green), var(--color-gold)); }
+.ig-cell:nth-child(5) { background: linear-gradient(135deg, var(--color-bordeaux-deep), var(--color-gold-light)); }
+.ig-cell:nth-child(6) { background: linear-gradient(135deg, var(--color-ivory-soft), var(--color-bordeaux)); }
+
+/* ==========================================================================
+   フッター
+   ========================================================================== */
+.site-footer {
+  background: var(--color-bordeaux-deep);
+  color: var(--color-offwhite);
+  padding-block: 3rem 1.5rem;
+}
+.footer-grid {
+  display: grid;
+  gap: 2.2rem;
+  margin-bottom: 2rem;
+}
+.footer-brand .brand-en { color: var(--color-offwhite); }
+.footer-brand .brand-jp { color: var(--color-gold-light); }
+.footer-block h3 {
+  color: var(--color-gold-light);
+  font-size: .85rem;
+  letter-spacing: .12em;
+  margin-bottom: .9rem;
+}
+.footer-block ul { display: flex; flex-direction: column; gap: .55rem; font-size: .88rem; }
+.footer-address { font-size: .88rem; line-height: 1.9; }
+.footer-tel { font-family: var(--font-heading-en); font-size: 1.15rem; }
+.footer-ig { display: inline-flex; align-items: center; gap: .5rem; font-size: .88rem; margin-top: .6rem; }
+.footer-note {
+  font-size: .76rem;
+  opacity: .8;
+  border-top: 1px solid rgba(255,255,255,.18);
+  padding-top: 1.2rem;
+  margin-bottom: 1rem;
+}
+.footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .6rem; font-size: .74rem; opacity: .65; }
+
+@media (min-width: 720px) {
+  .footer-grid { grid-template-columns: 1.2fr 1fr 1fr; }
+}
+
+/* ==========================================================================
+   トップページ MV(非対称2カラム)
+   ========================================================================== */
+.hero {
+  display: grid;
+  gap: 2rem;
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+.hero-copy .eyebrow { display: block; }
+.hero-copy h1 {
+  font-size: clamp(1.9rem, 5vw, 2.7rem);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+.hero-copy p { font-size: .98rem; }
+.hero-panel .photo-placeholder { min-height: 320px; }
+
+@media (min-width: 900px) {
+  .hero { grid-template-columns: 1.05fr .95fr; align-items: center; }
+  .hero-panel .photo-placeholder { min-height: 440px; }
+}
+
+/* ==========================================================================
+   汎用グリッド
+   ========================================================================== */
+@media (min-width: 620px) { .card-grid--2 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .card-grid--4 { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 900px) { .card-grid--3 { grid-template-columns: repeat(3, 1fr); } }
+/* menu.htmlの横長カード(.menu-item-card)は900pxの2列だと文章列が狭くなるため、より広い1024px以降でのみ2列化する */
+@media (min-width: 1024px) { .card-grid--menu { grid-template-columns: repeat(2, 1fr); gap: 1.8rem 2.4rem; } }
+
+.gallery-grid { display: grid; gap: 1rem; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 720px) { .gallery-grid--wide { grid-template-columns: repeat(3, 1fr); } }
+
+/* ==========================================================================
+   店舗情報テーブル(access)
+   ========================================================================== */
+.info-table { width: 100%; border-collapse: collapse; background: var(--color-offwhite); }
+.info-table th, .info-table td {
+  text-align: left;
+  padding: .95rem 1.1rem;
+  border-bottom: 1px solid var(--color-ivory-soft);
+  font-size: .92rem;
+  vertical-align: top;
+}
+.info-table th {
+  width: 30%;
+  font-family: var(--font-heading-jp);
+  color: var(--color-bordeaux);
+  background: var(--color-ivory-soft);
+  white-space: nowrap;
+}
+.info-table a { color: var(--color-bordeaux); text-decoration: underline; }
+
+.map-wrap { border: 3px solid var(--color-gold); line-height: 0; }
+
+.notice-box {
+  background: var(--color-ivory-soft);
+  border-left: 4px solid var(--color-bordeaux);
+  padding: 1.2rem 1.4rem;
+  font-size: .88rem;
+}
+
+.page-title-section { padding-block: 2.6rem 1rem; }
+.page-title-section h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); }
+.page-title-section .lead { max-width: 640px; font-size: .96rem; }
+
+/* ==========================================================================
+   追加ユーティリティ(hp-developer実装時に既存命名規則に沿って追加)
+   ========================================================================== */
+/* ヘッダー/フッターの小型Instagramアイコン用(.ig-markを縮小して使い回す) */
+.ig-mark--sm { width: 18px; height: 18px; }
+.ig-mark--sm::after { width: 3px; height: 3px; }
+
+/* index/menuのスペシャリテ円形パネルの幅を制約し、円形を保つ */
+.specialite-frame { max-width: 300px; margin-inline: auto; }
+
+/* ブロック要素間の縦スペース調整用 */
+.mt-lg { margin-top: 1.5rem; }
+
+.tag-limited {
+  display: inline-block;
+  background: var(--color-green);
+  color: var(--color-offwhite);
+  font-size: .68rem;
+  letter-spacing: .08em;
+  padding: .25em .6em;
+  margin-left: .5em;
+  vertical-align: middle;
+}
+
+
+.header-right{display:flex;align-items:center;gap:10px;}
+.ig-icon-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;flex-shrink:0;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}

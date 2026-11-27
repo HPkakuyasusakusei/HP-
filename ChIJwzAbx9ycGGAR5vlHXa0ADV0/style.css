@@ -1,0 +1,749 @@
+/* MERC HAIR 試作サイト共通スタイル
+   世界観「凪」: くすみセージ×生成りベージュ×墨茶×テラコッタ一点差し。
+   直線罫線を避け、波形・曲線でくせ毛のうねりを抽象化する。 */
+
+:root {
+  --color-bg: #f6f1e6;         /* 生成り〜ミルクベージュ */
+  --color-bg-soft: #efe6d4;    /* カード背景など少し濃いベージュ */
+  --color-card: #fbf8f0;       /* 純白ではないオフホワイトのカード面 */
+  --color-sage: #7f9179;       /* くすみセージグリーン(メイン) */
+  --color-sage-deep: #5c6e57;  /* 濃いセージ(見出し帯・グラデーション用) */
+  --color-ink: #4a3a2c;        /* 墨がかったダークブラウン(見出し・濃色テキスト) */
+  --color-ink-soft: #6b5a49;   /* 本文用のやわらかい墨茶 */
+  --color-accent: #d98f66;     /* 淡いテラコッタ(CTAのみに使用) */
+  --color-accent-deep: #c07849;
+  --color-line: #ddd0b8;       /* 罫線・境界に使う淡色 */
+
+  --font-heading: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", "Georgia", serif;
+  --font-body: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans JP", "Meiryo", sans-serif;
+
+  --container: 1080px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-ink-soft);
+  font-family: var(--font-body);
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-ink);
+  line-height: 1.6;
+  margin: 0 0 0.8em;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ===== SAMPLE 透かし(全ページ共通・操作を妨げない) ===== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><text x='-20' y='160' transform='rotate(-28 140 140)' font-family='Helvetica, Arial, sans-serif' font-size='34' letter-spacing='6' fill='%234a3a2c' fill-opacity='0.55'>SAMPLE</text></svg>");
+  background-repeat: repeat;
+  opacity: 0.35;
+}
+
+.sample-badge {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+  pointer-events: none;
+  background: rgba(74, 58, 44, 0.82);
+  color: var(--color-bg);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  padding: 0.35em 0.7em;
+  border-radius: 4px 4px 4px 12px;
+}
+
+/* ===== ヘッダー ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.header-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  letter-spacing: 0.06em;
+  color: var(--color-ink);
+  margin-right: auto;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.site-nav a {
+  font-size: 0.92rem;
+  color: var(--color-ink-soft);
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--color-sage-deep);
+}
+
+.header-tel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.3;
+  background: var(--color-accent);
+  color: #fffdf7;
+  padding: 0.5em 1em;
+  border-radius: 999px 999px 999px 6px;
+  white-space: nowrap;
+}
+
+.header-tel:hover,
+.header-tel:focus-visible {
+  background: var(--color-accent-deep);
+}
+
+.header-tel-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+}
+
+.header-tel-number {
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  width: 34px;
+  height: 26px;
+  position: relative;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.nav-toggle-label span {
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-ink);
+}
+
+/* ===== 波形ディバイダー(scallop) ===== */
+.wave-divider {
+  height: 42px;
+  background-image: radial-gradient(circle at 10px 0, transparent 12px, var(--color-sage) 13px);
+  background-size: 24px 24px;
+  background-repeat: repeat-x;
+  background-position: center top;
+}
+
+.wave-divider--soft {
+  background-image: radial-gradient(circle at 10px 0, transparent 12px, var(--color-bg-soft) 13px);
+}
+
+.wave-divider--flip {
+  transform: scaleY(-1);
+}
+
+/* ===== ヒーロー ===== */
+.hero {
+  position: relative;
+  padding: 4.5rem 0 3rem;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 10%, rgba(217, 143, 102, 0.18), transparent 60%),
+    linear-gradient(155deg, var(--color-sage) 0%, var(--color-bg-soft) 55%, var(--color-bg) 100%);
+}
+
+.hero-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+@media (min-width: 860px) {
+  .hero-inner {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+
+.hero-copy .eyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+  color: var(--color-sage-deep);
+  margin-bottom: 1rem;
+}
+
+.hero-copy h1 {
+  font-size: clamp(1.7rem, 4.2vw, 2.6rem);
+  margin-bottom: 0.9rem;
+}
+
+.hero-copy p {
+  color: var(--color-ink-soft);
+  max-width: 34em;
+}
+
+.hero-visual .photo-placeholder {
+  min-height: 260px;
+  border-radius: 48% 52% 58% 42% / 42% 46% 54% 58%;
+}
+
+/* ===== ボタン ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.9em 1.8em;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: bold;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: #fffdf7;
+}
+
+.btn-accent:hover,
+.btn-accent:focus-visible {
+  background: var(--color-accent-deep);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--color-sage-deep);
+  color: var(--color-sage-deep);
+}
+
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  background: var(--color-sage);
+  color: #fffdf7;
+  border-color: var(--color-sage);
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+
+/* ===== セクション共通 ===== */
+.section {
+  padding: 3.5rem 0;
+}
+
+.section-alt {
+  background: var(--color-bg-soft);
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 0.6rem;
+}
+
+.section-lead {
+  text-align: center;
+  max-width: 42em;
+  margin: 0 auto 2.4rem;
+  color: var(--color-ink-soft);
+}
+
+/* ===== 3本柱カード ===== */
+.pillars {
+  display: grid;
+  gap: 1.8rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 760px) {
+  .pillars {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pillar-card {
+  background: var(--color-card);
+  padding: 2.2rem 1.6rem;
+  border: 1px solid var(--color-line);
+}
+
+.pillar-card:nth-child(1) {
+  border-radius: 30px 30px 30px 6px;
+}
+
+.pillar-card:nth-child(2) {
+  border-radius: 6px 30px 30px 30px;
+}
+
+.pillar-card:nth-child(3) {
+  border-radius: 30px 6px 30px 30px;
+}
+
+.pillar-card h3 {
+  font-size: 1.15rem;
+  color: var(--color-sage-deep);
+}
+
+/* ===== 写真プレースホルダー ===== */
+.photo-placeholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 200px;
+  padding: 1.5rem;
+  color: #fffdf7;
+  background:
+    repeating-linear-gradient(115deg, rgba(255, 253, 247, 0.10) 0 14px, transparent 14px 28px),
+    linear-gradient(140deg, var(--color-sage) 0%, var(--color-accent) 100%);
+  overflow: hidden;
+}
+
+.photo-placeholder span {
+  background: rgba(74, 58, 44, 0.4);
+  padding: 0.6em 1em;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.photo-placeholder--alt {
+  background:
+    repeating-linear-gradient(65deg, rgba(255, 253, 247, 0.10) 0 14px, transparent 14px 28px),
+    linear-gradient(200deg, var(--color-sage-deep) 0%, var(--color-bg-soft) 100%);
+}
+
+/* ===== Googleクチコミバッジ ===== */
+.badge-google {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 168px;
+  height: 168px;
+  margin: 0 auto 1.4rem;
+  border-radius: 46% 54% 58% 42% / 50% 46% 54% 50%;
+  background: linear-gradient(150deg, var(--color-sage) 0%, var(--color-sage-deep) 100%);
+  color: #fffdf7;
+}
+
+.badge-google strong {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.badge-google span {
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+}
+
+.badge-google-note {
+  text-align: center;
+  max-width: 32em;
+  margin: 0 auto;
+}
+
+.badge-mini {
+  display: inline-block;
+  background: var(--color-sage-deep);
+  color: #fffdf7;
+  padding: 0.3em 0.9em;
+  border-radius: 999px;
+  font-size: 0.78rem;
+}
+
+/* ===== クチコミ引用 ===== */
+.reviews {
+  display: grid;
+  gap: 1.6rem;
+}
+
+@media (min-width: 760px) {
+  .reviews {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.review-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 6px 28px 6px 28px;
+  padding: 1.8rem 1.6rem;
+}
+
+.review-card .stars {
+  color: var(--color-accent-deep);
+  letter-spacing: 0.1em;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.review-card .review-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  color: var(--color-ink-soft);
+  border-top: 1px dashed var(--color-line);
+  padding-top: 0.8rem;
+}
+
+.review-card p.review-text {
+  color: var(--color-ink-soft);
+  white-space: pre-line;
+}
+
+/* ===== メニューカード ===== */
+.menu-grid {
+  display: grid;
+  gap: 1.8rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 760px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.menu-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 26px 26px 6px 26px;
+  overflow: hidden;
+}
+
+.menu-card .photo-placeholder {
+  min-height: 150px;
+}
+
+.menu-card-body {
+  padding: 1.6rem;
+}
+
+.menu-card-body h3 {
+  font-size: 1.1rem;
+  color: var(--color-sage-deep);
+}
+
+.menu-note {
+  text-align: center;
+  color: var(--color-ink-soft);
+  margin-top: 1.6rem;
+  font-size: 0.9rem;
+}
+
+/* ===== ギャラリー(スタイル紹介) ===== */
+.style-grid {
+  display: grid;
+  gap: 1.6rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .style-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.style-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 26px 6px 26px 6px;
+  overflow: hidden;
+}
+
+.style-card .photo-placeholder {
+  min-height: 200px;
+}
+
+.style-caption {
+  padding: 1.2rem 1.4rem;
+  font-size: 0.92rem;
+  color: var(--color-ink-soft);
+}
+
+.notice-box {
+  background: var(--color-bg-soft);
+  border: 1px dashed var(--color-line);
+  border-radius: 18px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* ===== アクセスページ ===== */
+.info-list {
+  max-width: 620px;
+  margin: 0 auto 2.4rem;
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.info-list dl {
+  display: grid;
+  grid-template-columns: 8em 1fr;
+  margin: 0;
+}
+
+.info-list div {
+  display: contents;
+}
+
+.info-list dt {
+  padding: 1rem 1.2rem;
+  background: var(--color-bg-soft);
+  color: var(--color-sage-deep);
+  font-weight: bold;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.info-list dd {
+  margin: 0;
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--color-line);
+  font-size: 0.95rem;
+}
+
+.info-list div:last-child dt,
+.info-list div:last-child dd {
+  border-bottom: none;
+}
+
+.map-wrap {
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.map-wrap iframe {
+  width: 100%;
+  height: 380px;
+  border: 0;
+  display: block;
+}
+
+.tel-cta-block {
+  text-align: center;
+  padding: 2.6rem 1.5rem;
+  background: var(--color-sage);
+  color: #fffdf7;
+  border-radius: 40px 40px 0 0;
+}
+
+.tel-cta-block h2,
+.tel-cta-block p {
+  color: #fffdf7;
+}
+
+.tel-cta-block .btn-accent {
+  font-size: 1.05rem;
+}
+
+/* ===== 店内紹介(共通レイアウト) ===== */
+.interior {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 760px) {
+  .interior {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ===== アクセス簡易案内(トップ) ===== */
+.access-teaser {
+  text-align: center;
+  max-width: 40em;
+  margin: 0 auto;
+}
+
+/* ===== フッター ===== */
+.site-footer {
+  background: var(--color-ink);
+  color: #ece3d2;
+  padding: 3rem 0 2rem;
+  text-align: center;
+  margin-top: 0;
+}
+
+.site-footer a {
+  color: #ece3d2;
+}
+
+.footer-brand {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
+  color: #fffdf7;
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  margin: 1.4rem 0;
+  font-size: 0.85rem;
+}
+
+.footer-tagline {
+  font-family: var(--font-heading);
+  margin-top: 1.4rem;
+  color: #d9c8ab;
+  font-size: 1rem;
+}
+
+.footer-rating {
+  margin: 0.8rem 0;
+}
+
+/* ===== レスポンシブ: ハンバーガーメニュー ===== */
+@media (max-width: 780px) {
+  .nav-toggle-label {
+    display: flex;
+    order: 2;
+  }
+
+  .header-tel {
+    order: 3;
+    padding: 0.4em 0.8em;
+  }
+
+  .site-nav {
+    order: 4;
+    flex-basis: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+
+  .site-nav ul {
+    flex-direction: column;
+    gap: 0;
+    padding-top: 0.5rem;
+  }
+
+  .site-nav a {
+    display: block;
+    padding: 0.9rem 0.2rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .nav-toggle:checked ~ .site-nav {
+    max-height: 400px;
+  }
+
+  .info-list dl {
+    grid-template-columns: 1fr;
+  }
+
+  .info-list dt {
+    border-bottom: none;
+    padding-bottom: 0.3rem;
+  }
+
+  .info-list dd {
+    padding-top: 0;
+  }
+}
+
+
+.ig-icon-float{position:fixed;top:12px;left:12px;z-index:650;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;}
+.ig-icon-float svg{display:block;}
+@media (max-width:420px){.ig-icon-float{top:8px;left:8px;width:34px;height:34px;}}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}

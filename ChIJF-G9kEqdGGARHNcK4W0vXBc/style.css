@@ -1,0 +1,656 @@
+/* ==========================================================================
+   Sunset Nail — 「黄昏から宵へ、指先の物語」
+   site_plan.md準拠。モバイルファースト。
+   ========================================================================== */
+
+:root {
+  --color-base: #F7F1EF;
+  --color-madder: #C8481F;
+  --color-orange: #E5843A;
+  --color-gold: #D6A94F;
+  --color-wine: #6B2334;
+  --color-plum-black: #3A1622;
+  --color-glitter-pink: #E8B9BE;
+  --color-lavender-gray: #B9AEC0;
+  --text-dark: #2A1A1F;
+  --text-light: #E8CB8C;
+
+  --font-heading: 'Shippori Mincho', serif;
+  --font-body: 'Noto Sans JP', sans-serif;
+  --font-display: 'Cormorant', serif;
+
+  --content-width: 1080px;
+}
+
+/* ---- Reset / base ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--color-base);
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.95;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+ul, ol { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3 { font-family: var(--font-heading); font-weight: 600; line-height: 1.5; margin: 0 0 0.8em; }
+p { margin: 0 0 1.4em; }
+address { font-style: normal; }
+main { display: block; overflow-x: hidden; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ---- SAMPLE watermark(全ページ共通・控えめ) ---- */
+.sample-watermark {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='260'%20height='260'%3E%3Ctext%20x='4'%20y='150'%20font-family='sans-serif'%20font-size='34'%20letter-spacing='4'%20fill='%236B2334'%20transform='rotate(-28%20130%20130)'%3ESAMPLE%3C/text%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* ---- 地平線ライン(セクション境界) ---- */
+.horizon-line {
+  border: 0;
+  height: 2px;
+  margin: 3rem auto;
+  max-width: var(--content-width);
+  width: calc(100% - 2.5rem);
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  opacity: 0.55;
+}
+/* ---- アーモンド型アーチフレーム(共通コンポーネント) ---- */
+.almond-frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--color-plum-black);
+  aspect-ratio: 3 / 4.2;
+  /* 楕円の角丸を上下非対称にし、矩形/円形ではなくネイルのアーモンドシェイプに近い縦長アーチを表現 */
+  border-radius: 50% 50% 45% 45% / 68% 68% 32% 32%;
+  box-shadow: 0 18px 34px -18px rgba(58, 22, 34, 0.55);
+}
+.almond-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.almond-frame figcaption {
+  margin-top: 0.9rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--color-wine);
+}
+.almond-frame--large { max-width: 380px; margin-inline: auto; }
+.almond-frame--solo { max-width: 460px; margin-inline: auto; }
+
+/* ---- 写真プレースホルダー(実写真の代替。黄昏→宵のグラデーションで統一) ---- */
+.photo-placeholder {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.6rem;
+  color: var(--text-light);
+  background: linear-gradient(155deg,
+    var(--color-madder) 0%,
+    var(--color-orange) 26%,
+    var(--color-gold) 48%,
+    var(--color-wine) 74%,
+    var(--color-plum-black) 100%);
+  background-size: 220% 220%;
+}
+.photo-placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(135deg, rgba(247,241,239,0.07) 0 2px, transparent 2px 14px);
+  pointer-events: none;
+}
+.photo-placeholder__icon {
+  position: relative;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-bottom: 0.9rem;
+  border: 1.5px solid var(--text-light);
+  border-radius: 50%;
+  opacity: 0.85;
+}
+.photo-placeholder__icon::before {
+  content: "";
+  position: absolute;
+  inset: 30%;
+  border: 1.5px solid var(--text-light);
+  border-radius: 50%;
+}
+.photo-placeholder__label {
+  position: relative;
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+.photo-placeholder__sub {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  opacity: 0.9;
+}
+.photo-placeholder--mini {
+  padding: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--color-base), 0 0 0 4px var(--color-gold);
+}
+.photo-placeholder--mini .photo-placeholder__icon { width: 1.3rem; height: 1.3rem; margin-bottom: 0.2rem; }
+.photo-placeholder--mini .photo-placeholder__label { font-size: 0.42rem; letter-spacing: 0.05em; line-height: 1.3; }
+
+/* ---- CTAリンク(下線+矢印。ボタン乱立を避ける控えめな導線) ---- */
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
+  font-size: 0.98rem;
+  letter-spacing: 0.02em;
+}
+.cta-link span { display: inline-block; transition: transform 0.2s ease; }
+.cta-link:hover span { transform: translateX(3px); }
+.cta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.6rem;
+}
+@media (min-width: 600px) {
+  .cta-row { flex-direction: row; gap: 2.2rem; }
+}
+.cta-row--center { justify-content: center; }
+
+/* 唯一「最優先」表現として使う、細い枠線ボタン(access.htmlの電話CTAのみ) */
+.cta-outline {
+  display: inline-block;
+  padding: 0.95em 2.1em;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  font-size: 1.05rem;
+}
+
+/* ==========================================================================
+   ヘッダー / フッター(全ページ共通・夜の帳でページを挟む)
+   ========================================================================== */
+.site-header {
+  background: var(--color-plum-black);
+  color: var(--text-light);
+  position: sticky;
+  top: 0;
+  z-index: 500;
+}
+.header-inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0.9rem 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem 1.2rem;
+}
+.logo {
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.4rem;
+  background: linear-gradient(90deg, var(--color-madder), var(--color-orange), var(--color-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.site-nav {
+  order: 3;
+  width: 100%;
+}
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.1rem;
+}
+.site-nav a {
+  display: inline-block;
+  padding: 0.3rem 0.1rem;
+  text-decoration: none;
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  color: var(--text-light);
+  border-bottom: 1px solid transparent;
+}
+.site-nav a[aria-current="page"] {
+  border-bottom-color: var(--color-gold);
+}
+.header-tel {
+  text-decoration: none;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--color-gold);
+  border-radius: 2px;
+  padding: 0.4em 0.8em;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+@media (min-width: 820px) {
+  .header-inner { flex-wrap: nowrap; padding: 1.1rem 2rem; }
+  .site-nav { order: 2; width: auto; }
+  .site-nav ul { justify-content: flex-start; gap: 1.6rem; }
+  .site-nav a { font-size: 0.92rem; }
+  .header-tel { order: 3; }
+}
+
+.site-footer {
+  background: linear-gradient(180deg, var(--color-wine), var(--color-plum-black));
+  color: var(--text-light);
+  padding: 3rem 1.25rem 2.2rem;
+}
+.footer-inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  text-align: center;
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--color-gold);
+  margin-bottom: 1rem;
+}
+.site-footer address {
+  font-size: 0.92rem;
+  line-height: 2.1;
+  margin-bottom: 1rem;
+}
+.site-footer address a { text-decoration: underline; text-underline-offset: 0.25em; }
+.footer-hours { font-size: 0.85rem; opacity: 0.85; margin-bottom: 1.6rem; }
+.footer-copyright { font-size: 0.78rem; opacity: 0.7; margin: 0; letter-spacing: 0.04em; }
+
+/* ==========================================================================
+   共通セクション幅
+   ========================================================================== */
+.section-inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 4.5rem 1.25rem;
+}
+.section-heading {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 2.2rem;
+}
+.section-link { text-align: center; margin-top: 2.6rem; }
+
+/* ==========================================================================
+   index.html — 黄昏の入口(セクションA〜Eで縦にグラデーションが沈む)
+   ========================================================================== */
+.twilight-section { color: var(--text-light); position: relative; }
+.twilight-section .section-inner { padding-top: 5.5rem; padding-bottom: 5.5rem; }
+
+.section-a {
+  background: linear-gradient(180deg, var(--color-madder), var(--color-orange));
+  text-align: center;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+}
+.section-a .section-inner { padding-top: 4rem; padding-bottom: 4rem; }
+.hero-heading {
+  font-size: clamp(1.6rem, 5.4vw, 2.6rem);
+  color: var(--color-base);
+  text-shadow: 0 2px 18px rgba(58, 22, 34, 0.35);
+  margin-bottom: 1.1rem;
+}
+.hero-logo-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: var(--text-light);
+  margin-bottom: 0.3rem;
+}
+.hero-subtext {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  color: var(--color-base);
+  opacity: 0.85;
+  margin-bottom: 2.2rem;
+}
+.hero-lead {
+  max-width: 34em;
+  margin: 0 auto;
+  font-size: 1rem;
+  color: var(--color-base);
+}
+.hero-cta { justify-content: center; }
+
+.section-b {
+  background: linear-gradient(180deg, var(--color-orange), var(--color-gold));
+}
+.story-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.6rem;
+}
+.story-text h2 { text-align: center; color: var(--color-plum-black); }
+.story-text p { color: var(--color-plum-black); font-size: 0.98rem; }
+@media (min-width: 860px) {
+  .story-grid { flex-direction: row; align-items: center; gap: 4rem; }
+  .story-grid .almond-frame--large { flex: 0 0 42%; margin-inline: 0; }
+  .story-text { flex: 1; }
+  .story-text h2, .story-text p { text-align: left; }
+}
+
+.section-c {
+  background: linear-gradient(180deg, var(--color-gold), var(--color-wine) 130%);
+  color: var(--color-base);
+}
+.section-c .section-heading { color: var(--color-base); }
+.stagger-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+.stagger-item { width: min(78%, 260px); }
+.stagger-item figcaption { color: var(--text-light); }
+.stagger-grid .stagger-item:nth-child(1) { align-self: flex-start; margin-left: 4%; }
+.stagger-grid .stagger-item:nth-child(2) { align-self: flex-end; margin-right: 4%; }
+.stagger-grid .stagger-item:nth-child(3) { align-self: center; }
+@media (min-width: 900px) {
+  .stagger-grid { flex-direction: row; justify-content: center; align-items: flex-start; gap: 2.4rem; }
+  .stagger-item { width: 240px; margin: 0 !important; }
+  .stagger-grid .stagger-item:nth-child(2) { margin-top: 4rem !important; }
+  .stagger-grid .stagger-item:nth-child(3) { margin-top: 1.4rem !important; }
+}
+
+.section-d {
+  background: linear-gradient(180deg, var(--color-wine), var(--color-plum-black) 140%);
+}
+.lead-sm { text-align: center; max-width: 30em; margin: 0 auto 2.4rem; font-size: 0.96rem; }
+.voice-teaser {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.voice-teaser blockquote {
+  margin: 0;
+  padding-left: 1.2rem;
+  border-left: 2px solid var(--color-gold);
+}
+.voice-teaser p { margin-bottom: 0.5rem; font-size: 1rem; }
+.voice-teaser cite {
+  display: block;
+  font-style: normal;
+  font-size: 0.82rem;
+  opacity: 0.8;
+}
+
+.section-e {
+  background: var(--color-plum-black);
+}
+.section-e .lead-sm { color: var(--color-base); }
+.info-list {
+  max-width: 480px;
+  margin: 0 auto 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  font-size: 0.98rem;
+}
+.info-list li { display: flex; flex-wrap: wrap; gap: 0.6em; }
+.info-label {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--color-gold);
+  min-width: 5.4em;
+}
+.info-list a { text-decoration: underline; text-underline-offset: 0.25em; }
+.hours-note { text-align: center; font-size: 0.85rem; opacity: 0.8; margin-bottom: 0.4rem; }
+
+/* ==========================================================================
+   gallery.html — 指先の記録(色のムード別クラスタ)
+   ========================================================================== */
+.page-intro {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+.page-intro h1 { font-size: 1.8rem; }
+.page-intro p { font-size: 0.98rem; color: var(--text-dark); }
+
+.gallery-chapter { padding: 4rem 1.25rem; }
+.gallery-chapter .section-inner { padding: 0; max-width: var(--content-width); }
+.chapter-heading { text-align: center; font-size: 1.3rem; }
+.chapter-text {
+  text-align: center;
+  max-width: 34em;
+  margin: 0 auto 2.6rem;
+  font-size: 0.96rem;
+}
+.chapter--pink { background: linear-gradient(180deg, rgba(232,185,190,0.16), transparent); }
+.chapter--lavender { background: linear-gradient(180deg, rgba(185,174,192,0.22), transparent); }
+.chapter--foot { background: linear-gradient(180deg, rgba(214,169,79,0.12), transparent); }
+
+.chapter1-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+}
+.chapter1-grid .almond-frame { width: min(78%, 280px); }
+@media (min-width: 700px) {
+  .chapter1-grid { flex-direction: row; justify-content: center; align-items: flex-start; gap: 3rem; }
+  .chapter1-grid .almond-frame { width: 260px; }
+  .chapter1-grid .almond-frame:nth-child(2) { margin-top: 3.4rem; }
+}
+
+.gallery-outro { text-align: center; padding: 4rem 1.25rem; }
+
+/* ==========================================================================
+   voice.html — 声が届く時間(縦のタイムライン)
+   ========================================================================== */
+.voice-intro {
+  max-width: 640px;
+  margin: 0 auto 1rem;
+  text-align: center;
+}
+.voice-timeline {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  border-left: 3px solid var(--color-gold);
+  border-image: linear-gradient(180deg, var(--color-orange), var(--color-gold), var(--color-wine), var(--color-plum-black)) 1 100%;
+}
+.voice-entry {
+  position: relative;
+  margin-bottom: 3.2rem;
+  padding: 0.2rem 0 0.2rem 1.2rem;
+}
+.voice-entry:last-child { margin-bottom: 0; }
+.voice-entry::before {
+  content: "";
+  position: absolute;
+  left: -2.58rem;
+  top: 0.5rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 0 4px var(--color-base);
+}
+.voice-meta {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  margin-bottom: 0.7rem;
+  color: var(--color-wine);
+}
+.voice-body p { font-size: 0.97rem; margin-bottom: 1em; }
+.voice-body p:last-child { margin-bottom: 0.6em; }
+.voice-source { font-size: 0.8rem; opacity: 0.7; }
+
+@media (min-width: 860px) {
+  /* 縦線は左端固定ではなくコンテナ中央(50%)に置き、左右カードの接続ドットもそこへ合わせる */
+  .voice-timeline { padding-left: 0; margin: 0 auto; border-left: none; border-image: none; }
+  .voice-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 3px;
+    transform: translateX(-50%);
+    background: linear-gradient(180deg, var(--color-orange), var(--color-gold), var(--color-wine), var(--color-plum-black));
+  }
+  .voice-entry { width: calc(50% - 2.7rem); padding: 0; }
+  .voice-entry::before { left: auto; }
+  .voice-entry:nth-child(odd) { margin-right: calc(50% + 2.7rem); text-align: right; }
+  .voice-entry:nth-child(odd)::before { right: -3.05rem; }
+  .voice-entry:nth-child(even) { margin-left: calc(50% + 2.7rem); }
+  .voice-entry:nth-child(even)::before { left: -3.05rem; }
+}
+
+.voice-outro { text-align: center; padding: 4rem 1.25rem; }
+
+/* ==========================================================================
+   about.html — サロンについて
+   ========================================================================== */
+.about-lead { max-width: 640px; margin: 0 auto; text-align: center; }
+.about-lead h1 { font-size: 1.8rem; }
+
+.brand-seal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 2.2rem auto 0;
+}
+.brand-seal .photo-placeholder--mini {
+  width: 72px;
+  height: 72px;
+}
+.brand-seal span {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--color-wine);
+  letter-spacing: 0.05em;
+}
+
+.about-block { max-width: 700px; margin: 0 auto; }
+.about-block h2 { text-align: center; font-size: 1.3rem; }
+.about-block p { font-size: 0.98rem; }
+
+.about-photo { margin: 3rem auto 0; }
+.about-outro { text-align: center; padding: 4rem 1.25rem; }
+
+/* ==========================================================================
+   access.html — たどりつくまで(視認性優先・夜側トーンで統一)
+   ========================================================================== */
+.access-main {
+  background: linear-gradient(180deg, var(--color-wine), var(--color-plum-black) 60%);
+  color: var(--text-light);
+}
+.access-main .section-inner { padding-top: 4rem; }
+.access-intro { max-width: 640px; margin: 0 auto 2.6rem; text-align: center; }
+.access-intro h1 { font-size: 1.8rem; color: var(--color-base); }
+.access-intro p { font-size: 0.98rem; }
+
+.access-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.access-info-card {
+  background: rgba(247, 241, 239, 0.06);
+  border: 1px solid rgba(232, 203, 140, 0.3);
+  border-radius: 4px;
+  padding: 1.8rem 1.6rem;
+}
+.access-info-card dl {
+  display: grid;
+  grid-template-columns: 5.5em 1fr;
+  row-gap: 0.9rem;
+  column-gap: 0.8rem;
+  margin: 0 0 1.4rem;
+  font-size: 0.96rem;
+}
+.access-info-card dt {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--color-gold);
+}
+.access-info-card dd { margin: 0; }
+.access-info-card dd a { text-decoration: underline; text-underline-offset: 0.25em; }
+.station-note { font-size: 0.9rem; opacity: 0.9; margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid rgba(232,203,140,0.25); }
+
+.map-panel { text-align: center; }
+.map-panel p { font-size: 0.94rem; margin-bottom: 1.4rem; }
+
+.access-cta {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+@media (min-width: 760px) {
+  .access-grid { flex-direction: row; align-items: flex-start; }
+  .access-info-card { flex: 1.1; }
+  .map-panel { flex: 1; }
+}
+
+
+.ig-icon-float{position:fixed;top:12px;left:12px;z-index:650;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);box-shadow:0 2px 8px rgba(0,0,0,0.25);text-decoration:none;}
+.ig-icon-float svg{display:block;}
+@media (max-width:420px){.ig-icon-float{top:8px;left:8px;width:34px;height:34px;}}
+
+/* hp-mobile-img */
+@media (max-width:600px){
+  img:not([class*="icon"]):not([class*="logo"]):not([class*="ig"]){max-width:300px;height:auto;margin-left:auto;margin-right:auto}
+}
